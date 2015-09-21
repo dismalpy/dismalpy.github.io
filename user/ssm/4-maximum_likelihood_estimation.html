@@ -1,0 +1,684 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Maximum Likelihood Estimation &mdash; DismalPy 0.1.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="author" title="About these documents"
+              href="../../about.html"/>
+    <link rel="top" title="DismalPy 0.1.0 documentation" href="../../index.html"/>
+        <link rel="up" title="State Space Models" href="../ssm.html"/>
+        <link rel="next" title="Posterior Simulation" href="5-posterior_simulation.html"/>
+        <link rel="prev" title="Representation in Python" href="3-python_representation.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="../../contents.html" class="icon icon-home"> DismalPy
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">DismalPy User Guide</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../ssm.html">State Space Models</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../ssm.html#topics">Topics</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="2-state_space_models.html">State space models</a></li>
+<li class="toctree-l4"><a class="reference internal" href="3-python_representation.html">Representation in Python</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="">Maximum Likelihood Estimation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="5-posterior_simulation.html">Posterior Simulation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="6-out-of-the-box_models.html">Out-of-the-box models</a></li>
+<li class="toctree-l4"><a class="reference internal" href="9-references.html">References</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ssm.html#examples">Examples</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../_notebooks/sarimax_internet.ipynb.html">Durbin and Koopman: Box-Jenkins Examples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_notebooks/sarimax_stata.ipynb.html">SARIMAX: Introduction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_notebooks/local_linear_trend.ipynb.html">State space modeling: Local Linear Trends</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_notebooks/structural_harvey_jaeger.ipynb.html">Detrending, Stylized Facts and the Business Cycle</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_notebooks/dfm_coincident.ipynb.html">Dynamic factors and coincident indices</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_notebooks/varmax.ipynb.html">VARMAX models</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/index.html">DismalPy Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/ssm.html">State Space Models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/ssm.html#built-in-models">Built-in models</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/ssm/sarimax.html">SARIMAX</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/ssm/structural.html">Unobserved Components</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/ssm/varmax.html">VARMAX</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/ssm/dynamic_factor.html">Dynamic Factors</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/ssm.html#extension-starting-point">Extension starting point</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/ssm/mlemodel.html">MLEModel</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/ssm.html#base-classes">Base classes</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/ssm/representation.html">Representation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/ssm/kalman_filter.html">Kalman filter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/ssm/kalman_smoother.html">Kalman smoother</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/ssm/simulation_smoother.html">Simulation Smoother</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/ssm/model.html">Model</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/ssm/tools.html">Tools</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../release.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../release.html#dismalpy-0-1-0-release-notes">DismalPy 0.1.0 Release Notes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#highlights">Highlights</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#dropped-support">Dropped Support</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#future-changes">Future Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#compatibility-notes">Compatibility notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#new-features">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#improvements">Improvements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#changes">Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#deprecations">Deprecations</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">About DismalPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html#about-this-documentation">About this documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../about.html#conventions">Conventions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../bugs.html">Reporting bugs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">DismalPy License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary.html">Glossary</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../glossary.html#module-dismalpy.doc.jargon">Jargon</a></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../contents.html">DismalPy</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../contents.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../index.html">DismalPy User Guide</a> &raquo;</li>
+      
+          <li><a href="../ssm.html">State Space Models</a> &raquo;</li>
+      
+    <li>Maximum Likelihood Estimation</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../_sources/user/ssm/4-maximum_likelihood_estimation.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="maximum-likelihood-estimation">
+<h1>Maximum Likelihood Estimation<a class="headerlink" href="#maximum-likelihood-estimation" title="Permalink to this headline">¶</a></h1>
+<p>Classical estimation of parameters in state space models is facilitated by the
+availability of the likelihood as a byproduct of the filtering recursions.
+Given a set of initial parameters, numerical maximization techniques,
+often quasi-Newton methods, can be applied to find the set of parameters
+that maximize (locally) the likelihood function,
+<span class="math">\(\mathcal{L}(Y_n \mid \psi)\)</span>. In this section we describe how to apply
+maximum likelihood estimation (MLE) to state space models in Python. First we
+describe a direct approach using the classes defined in the previous section.
+Second, we show how integration with the Python package Statsmodels
+(<a class="reference internal" href="9-references.html#seabold-statsmodels-2010" id="id1">[27]</a>) can be used to great effect to streamline
+estimation.</p>
+<p>Statsmodels is a library for statistical and econometric modeling using
+classical techniques. Its goals are comparable in many ways to those of the
+commercial econometric software like Stata in that it provides a range of
+out-of-the-box models that require little technical knowledge to apply to data.
+It includes least squares regression models, generalized linear models (GLM),
+robust linear models, discrete choice models, contrast analysis, and time-series
+analysis. Recent and forthcoming additions include mixed generalized linear
+models (mixed GLM) and general estimating equations (GEE). In addition, a
+version of the state space implementation described in this paper specialized
+to the classical estimation setting is forthcoming in Statsmodels.</p>
+<p>We introduce a new parent class <code class="docutils literal"><span class="pre">dp.ssm.MLEModel</span></code> (hereafter simply
+<code class="docutils literal"><span class="pre">MLEModel</span></code>) that transparently handles the integration. Models extending from
+the <code class="docutils literal"><span class="pre">MLEModel</span></code> class can painlessly perform maximum likelihood estimation via
+a new <code class="docutils literal"><span class="pre">fit</span></code> method. In addition, summary tables, postestimation results, and
+model diagnostics are available.</p>
+<div class="section" id="direct-approach">
+<h2>Direct approach<a class="headerlink" href="#direct-approach" title="Permalink to this headline">¶</a></h2>
+<p>Numerical optimziation routines in Python are available through the Python
+package SciPy (<a class="reference internal" href="9-references.html#jones-scipy-2001" id="id2">[13]</a>). Generically, these are in the
+form of minimizers that accept a function and a set of starting parameters and
+return the set of parameters that (locally) minimize the function. There are a
+number of available algorithms, including the popular BFGS
+(Broyden–Fletcher–Goldfarb–Shannon) method. As is usual when minimization
+routines are available, in order to maximize the (log) likelihood, we minimize
+its negative.</p>
+<p>The code below demonstrates how to apply maximum likelihood estimation to the
+<code class="docutils literal"><span class="pre">LocalLevel</span></code> class defined in the previous section for the Nile dataset. In
+this case, because we have not bothered to define good starting parameters, we
+use the Nelder-Mead algorithm which can be more robust than BFGS, although it
+may converge more slowly.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Import the generic minimization function from scipy</span>
+<span class="kn">from</span> <span class="nn">scipy.optimize</span> <span class="kn">import</span> <span class="n">minimize</span>
+
+<span class="c"># Create a new function to return the negative of the loglikelihood</span>
+<span class="n">nile_model_4</span> <span class="o">=</span> <span class="n">LocalLevel</span><span class="p">(</span><span class="n">nile</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">params</span><span class="p">):</span>
+    <span class="n">nile_model_4</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+    <span class="k">return</span> <span class="o">-</span><span class="n">nile_model_4</span><span class="o">.</span><span class="n">loglike</span><span class="p">()</span>
+
+<span class="c"># Perform numerical optimization</span>
+<span class="n">output</span> <span class="o">=</span> <span class="n">minimize</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">nile_model_4</span><span class="o">.</span><span class="n">start_params</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s">&#39;Nelder-Mead&#39;</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">output</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>  <span class="c"># [ 15108.31   1463.55]</span>
+<span class="n">nile_model_4</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">output</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">nile_model_4</span><span class="o">.</span><span class="n">loglike</span><span class="p">())</span>  <span class="c"># -632.537685587</span>
+</pre></div>
+</div>
+<p>The maximizing parameters are very close to those reported by
+<a class="reference internal" href="9-references.html#durbin-time-2012" id="id3">[10]</a> and achieve a negligibly higher loglikelihood
+(-632.53769 versus -632.53770).</p>
+</div>
+<div class="section" id="integration-with-statsmodels">
+<h2>Integration with Statsmodels<a class="headerlink" href="#integration-with-statsmodels" title="Permalink to this headline">¶</a></h2>
+<p>While likelihood maximization itself can be performed relatively easily, in
+practice there are often many other desired quantities, for example measures
+of parameter uncertainty (standard errors and confidence intervals). Another
+issue that arises in practice is that it is most convenient to allow the
+numerical optimizer to choose parameters across the entire real line. This
+means that some combinations of parameters chosen by the optimizer may lead to
+an invalid model specification. It is possible in some cases to use an
+optimization procedure with constraints or bounds, but it is almost always
+easier to allow the optimizer to choose in an unconstrained way and then to
+transform the parameters to fit the model. The implementation of parameter
+transformations will be discussed at greater length below.</p>
+<p>While there is no barrier to calculating those quantities or implementing these
+transformations, the calculations are standard and there is no reason for each
+user to implement them separately. Again we turn to the principle of separation
+of concerns made possible through the object oriented programming approach,
+this time by making use of the tools available in the Python package
+Statsmodels.</p>
+<p>Creating a model that features integration with the Statsmodels code base is as
+simple as using <code class="docutils literal"><span class="pre">dp.ssm.MLEModel</span></code> as the parent class instead of
+<code class="docutils literal"><span class="pre">dp.ssm.Model</span></code>. As the name suggests, it contains additional features
+specific to maximum likelihood estimation while at the same time retaining all
+of the features described above. <a class="footnote-reference" href="#id6" id="id4">[1]</a> In particular, a new method, <code class="docutils literal"><span class="pre">fit</span></code>, is
+available which automatically performs maximum likelihood estimation using the
+starting parameters defined in the <code class="docutils literal"><span class="pre">start_params</span></code> attribute (see above) and
+returns a results object.</p>
+<p>Because the emphasis has shifted to evaluating the model in terms of
+parameters, it is important to note that the <code class="docutils literal"><span class="pre">loglike</span></code>, <code class="docutils literal"><span class="pre">filter</span></code>,
+<code class="docutils literal"><span class="pre">smooth</span></code>, and <code class="docutils literal"><span class="pre">simulation_smoother</span></code> methods now require as their first
+argument the parameter vector at which to perform the operation.</p>
+<p>The following code redefines the local level model to
+use the <code class="docutils literal"><span class="pre">MLEModel</span></code> base class; it is identical to the previous definition
+except for three changes: (1) references to <code class="docutils literal"><span class="pre">Model</span></code> have been replaced by
+references to <code class="docutils literal"><span class="pre">MLEModel</span></code>, (2) the <code class="docutils literal"><span class="pre">update</span></code> method has been augmented
+to allow for parameter transformations, and (3) a new attribute <code class="docutils literal"><span class="pre">param_names</span></code>
+has been added which augments output with descriptive parameter names. A brief
+explanation about the changes to the <code class="docutils literal"><span class="pre">update</span></code> method follows.</p>
+<p>First, a new argument has been added, describing whether or not the values in
+the <code class="docutils literal"><span class="pre">params</span></code> vector are considered to be <em>transformed</em> (i.e. in the space of
+parameters valid for the model) or not (i.e. in the unconstrained space of
+parameters used by the optimizer). Second, a new line replaces the <code class="docutils literal"><span class="pre">params</span></code>
+vector with the output from the <code class="docutils literal"><span class="pre">update</span></code> method of the parent class
+(<code class="docutils literal"><span class="pre">MLEModel</span></code>). If the parameters were <em>not</em> transformed, the parent <code class="docutils literal"><span class="pre">update</span></code>
+method calls the appropriate transformation functions (see below for details)
+and returns the transformed parameters.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">BaseMLELocalLevel</span><span class="p">(</span><span class="n">dp</span><span class="o">.</span><span class="n">ssm</span><span class="o">.</span><span class="n">MLEModel</span><span class="p">):</span>
+    <span class="n">start_params</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]</span>
+    <span class="n">param_names</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;obs.var&#39;</span><span class="p">,</span> <span class="s">&#39;level.var&#39;</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">endog</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">BaseMLELocalLevel</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">endog</span><span class="p">,</span> <span class="n">k_states</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="p">[</span><span class="s">&#39;design&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
+        <span class="bp">self</span><span class="p">[</span><span class="s">&#39;transition&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
+        <span class="bp">self</span><span class="p">[</span><span class="s">&#39;selection&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">initialize_approximate_diffuse</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">loglikelihood_burn</span> <span class="o">=</span> <span class="mi">1</span>
+
+    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">transformed</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+        <span class="c"># Transform the parameters if they are not yet transformed</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">BaseMLELocalLevel</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">transformed</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="p">[</span><span class="s">&#39;obs_cov&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="p">[</span><span class="s">&#39;state_cov&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>With this new definition, we can instantiate our model and perform maximum
+likelihood estimation. As one feature of the integration with Statsmodels, the
+result object has a <code class="docutils literal"><span class="pre">summary</span></code> method that prints a table of results:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">nile_mlemodel_1</span> <span class="o">=</span> <span class="n">BaseMLELocalLevel</span><span class="p">(</span><span class="n">nile</span><span class="p">)</span>
+
+<span class="c"># Notice that to call loglike, we now need to specify parameters, but we</span>
+<span class="c"># no longer need to call `update` beforehand.</span>
+<span class="k">print</span><span class="p">(</span><span class="n">nile_mlemodel_1</span><span class="o">.</span><span class="n">loglike</span><span class="p">([</span><span class="mf">15099.0</span><span class="p">,</span> <span class="mf">1469.1</span><span class="p">]))</span>  <span class="c"># -632.537695048</span>
+
+<span class="c"># Again we use Nelder-Mead; now specified as method=&#39;nm&#39;</span>
+<span class="n">nile_mleresults_1</span> <span class="o">=</span> <span class="n">nile_mlemodel_1</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s">&#39;nm&#39;</span><span class="p">,</span> <span class="n">maxiter</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">nile_mleresults_1</span><span class="o">.</span><span class="n">summary</span><span class="p">())</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre>==============================================================================
+Dep. Variable:                 volume   No. Observations:                  100
+Model:                  MLELocalLevel   Log Likelihood                -632.538
+Date:                Sat, 12 Sep 2015   AIC                           1269.075
+Time:                        16:07:24   BIC                           1274.286
+Sample:                    01-01-1871   HQIC                          1271.184
+                         - 01-01-1970
+Covariance Type:                  opg
+==============================================================================
+                 coef    std err          z      P&gt;|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+obs.var     1.511e+04   2586.966      5.840      0.000       1e+04    2.02e+04
+level.var   1463.5474    843.718      1.735      0.083    -190.109    3117.203
+===================================================================================
+Ljung-Box (Q):                       36.00   Jarque-Bera (JB):                 0.05
+Prob(Q):                              0.65   Prob(JB):                         0.98
+Heteroskedasticity (H):               0.61   Skew:                            -0.03
+Prob(H) (two-sided):                  0.16   Kurtosis:                         3.08
+===================================================================================
+
+Warnings:
+[1] Covariance matrix calculated using the outer product of gradients.
+</pre></div>
+</div>
+<p>A second feature is the availability of model diagnostics. Test statistics for
+tests of the standardized residuals for normality, heteroskedasticity, and
+serial correlation are reported at the bottom of the summary output. Diagnostic
+plots can also be produced using the <code class="docutils literal"><span class="pre">plot_diagnostics</span></code> method, illustrated
+in <a class="reference internal" href="#figure-4-diag-nile"><span>Fig. 6</span></a>. <a class="footnote-reference" href="#id7" id="id5">[2]</a> Notice that Statsmodels is aware of the
+date index of the Nile dataset and uses that information in the summary table
+and diagnostic plots.</p>
+<div class="figure" id="id18">
+<span id="figure-4-diag-nile"></span><img alt="../../_images/fig_4-diag-nile.png" src="../../_images/fig_4-diag-nile.png" />
+<p class="caption"><span class="caption-number">Fig. 6 </span><span class="caption-text">Diagnostic plots for standardised residuals after maximum likelihood
+estimation on Nile data.</span></p>
+</div>
+<p>A third feature is the availability of forecasting (through the
+<code class="docutils literal"><span class="pre">get_forecasts</span></code> method) and impulse response functions (through the
+<code class="docutils literal"><span class="pre">impulse_responses</span></code> method). Due to the nature of the local level model these
+are uninteresting here, but will be exhibited in the ARMA(1,1) and real
+business cycle examples below.</p>
+<table class="docutils footnote" frame="void" id="id6" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id4">[1]</a></td><td>An alternative is to use <code class="docutils literal"><span class="pre">statsmodels.tsa.statespace.MLEModel</span></code> as the
+parent class. This has the benefit that state space models can be
+estimated using the Statsmodels package alone but has the downside that
+some advanced features described in this paper are not yet available
+in that package. However, if all one wants to do is perform maximum
+likelihood estimation it is perfectly sufficient, and all of the code
+provided in this section will work equally well with this parent class.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id7" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id5">[2]</a></td><td>See sections 2.12 and 7.5 of <a class="reference internal" href="9-references.html#durbin-time-2012" id="id8">[10]</a> for a description
+of the standardized residuals and the definitions of the provided
+diagnostic tests.</td></tr>
+</tbody>
+</table>
+<div class="section" id="parameter-transformations">
+<h3>Parameter transformations<a class="headerlink" href="#parameter-transformations" title="Permalink to this headline">¶</a></h3>
+<p>As mentioned above, parameter transformations are an important component of
+maximum likelihood estimation in a wide variety of cases. For example, in the
+local level model above the two estimated parameters are variances, which
+cannot theoretically be negative. Although the optimizer avoided the
+problematic regions in the above example, that will not always be the case. As
+another example, ARMA models are typically assumed to be stationary. This
+requires coefficients that permit inversion of the associated lag polynomial.
+Parameter transformations can be used to enforce these and other
+restrictions.</p>
+<p>If an unconstrained variance parameter is squared the transformed
+variance parameter will always be positive. <a class="reference internal" href="9-references.html#monahan-note-1984" id="id9">[23]</a> and
+<a class="reference internal" href="9-references.html#ansley-note-1986" id="id10">[2]</a> describe transformations sufficient to induce
+stationarity in the univariate and multivariate cases, respectively, by taking
+advantage of the one-to-one correspondence between lag polynomial coefficients
+and partial autocorrelations. <a class="footnote-reference" href="#id13" id="id11">[3]</a></p>
+<p>For practical reasons, it is strongly preferred that the transformation
+function have a well-defined inverse so that starting parameters can
+be specified in terms of the model space and then &#8220;untransformed&#8221; to the
+appropriate values in the unconstrained space.</p>
+<p>Implementing parameter transformations when using <code class="docutils literal"><span class="pre">MLEModel</span></code> as the base
+class is as simple as adding two new methods: <code class="docutils literal"><span class="pre">transform_params</span></code> and
+<code class="docutils literal"><span class="pre">untransform_params</span></code> (if no parameter transformations as required, these
+methods can simply be omitted from the class definition). The following code
+redefines the local level model again, this time to include parameter
+transformations to ensure positive variance parameters. <a class="footnote-reference" href="#id14" id="id12">[4]</a></p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">MLELocalLevel</span><span class="p">(</span><span class="n">dp</span><span class="o">.</span><span class="n">ssm</span><span class="o">.</span><span class="n">MLEModel</span><span class="p">):</span>
+    <span class="n">start_params</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]</span>
+    <span class="n">param_names</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;obs.var&#39;</span><span class="p">,</span> <span class="s">&#39;level.var&#39;</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">endog</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">MLELocalLevel</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">endog</span><span class="p">,</span> <span class="n">k_states</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="p">[</span><span class="s">&#39;design&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
+        <span class="bp">self</span><span class="p">[</span><span class="s">&#39;transition&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
+        <span class="bp">self</span><span class="p">[</span><span class="s">&#39;selection&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">initialize_approximate_diffuse</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">loglikelihood_burn</span> <span class="o">=</span> <span class="mi">1</span>
+
+    <span class="k">def</span> <span class="nf">transform_params</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">params</span><span class="o">**</span><span class="mi">2</span>
+
+    <span class="k">def</span> <span class="nf">untransform_params</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">params</span><span class="o">**</span><span class="mf">0.5</span>
+
+    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">transformed</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+        <span class="c"># Transform the parameters if they are not yet transformed</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">MLELocalLevel</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">transformed</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="p">[</span><span class="s">&#39;obs_cov&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="p">[</span><span class="s">&#39;state_cov&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>All of the code given above then applies equally to this new model, except that
+this class is robust to the optimizer selecting negative parameters.</p>
+<table class="docutils footnote" frame="void" id="id13" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id11">[3]</a></td><td>The transformations to induce stationarity are made available in this
+package as the functions
+<code class="docutils literal"><span class="pre">dp.ssm.tools.constrain_stationary_univariate</span></code> and
+<code class="docutils literal"><span class="pre">dp.ssm.tools.constrain_stationary_multivariate</span></code>. Their inverses are
+also available, with the obvious name changes.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id14" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id12">[4]</a></td><td>Note that in Python, the exponentiation operator is <code class="docutils literal"><span class="pre">**</span></code>.</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="example-models">
+<h2>Example models<a class="headerlink" href="#example-models" title="Permalink to this headline">¶</a></h2>
+<p>In this section, we extend the code from <a class="reference internal" href="3-python_representation.html#representation-in-python"><span>Representation in Python</span></a> to
+allow for maximum likelihood estimation through Statsmodels integration.</p>
+<div class="section" id="arma-1-1-model">
+<h3>ARMA(1, 1) model<a class="headerlink" href="#arma-1-1-model" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">dismalpy.ssm.tools</span> <span class="kn">import</span> <span class="p">(</span><span class="n">constrain_stationary_univariate</span><span class="p">,</span> <span class="n">unconstrain_stationary_univariate</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">ARMA11</span><span class="p">(</span><span class="n">dp</span><span class="o">.</span><span class="n">ssm</span><span class="o">.</span><span class="n">MLEModel</span><span class="p">):</span>
+    <span class="n">start_params</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="n">param_names</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;phi&#39;</span><span class="p">,</span> <span class="s">&#39;theta&#39;</span><span class="p">,</span> <span class="s">&#39;sigma2&#39;</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">endog</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">ARMA11</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span>
+            <span class="n">endog</span><span class="p">,</span> <span class="n">k_states</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">k_posdef</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">initialization</span><span class="o">=</span><span class="s">&#39;stationary&#39;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="p">[</span><span class="s">&#39;design&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.</span>
+        <span class="bp">self</span><span class="p">[</span><span class="s">&#39;transition&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.</span>
+        <span class="bp">self</span><span class="p">[</span><span class="s">&#39;selection&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.</span>
+
+    <span class="k">def</span> <span class="nf">transform_params</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+        <span class="n">phi</span> <span class="o">=</span> <span class="n">constrain_stationary_univariate</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">theta</span> <span class="o">=</span> <span class="n">constrain_stationary_univariate</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">2</span><span class="p">])</span>
+        <span class="n">sigma2</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="n">phi</span><span class="p">,</span> <span class="n">theta</span><span class="p">,</span> <span class="n">sigma2</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">untransform_params</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+        <span class="n">phi</span> <span class="o">=</span> <span class="n">unconstrain_stationary_univariate</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">theta</span> <span class="o">=</span> <span class="n">unconstrain_stationary_univariate</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">2</span><span class="p">])</span>
+        <span class="n">sigma2</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">**</span><span class="mf">0.5</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="n">phi</span><span class="p">,</span> <span class="n">theta</span><span class="p">,</span> <span class="n">sigma2</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">transformed</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+        <span class="c"># Transform the parameters if they are not yet transformed</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">ARMA11</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">transformed</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="p">[</span><span class="s">&#39;design&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="bp">self</span><span class="p">[</span><span class="s">&#39;transition&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="p">[</span><span class="s">&#39;state_cov&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>The parameters can now be easily estimated via maximum likelihood as above.
+This model also allows us to demonstrate the prediction and forecasting
+features provided by the Statsmodels integration. In particular, we use the
+<code class="docutils literal"><span class="pre">get_prediction</span></code> method to retrieve a prediction object that gives in-sample
+one-step-ahead predictions and out-of-sample forecasts, as well as confidence
+intervals. <a class="reference internal" href="#figure-4-forecast-inf"><span>Fig. 7</span></a> shows a graph of the output.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">inf_model</span> <span class="o">=</span> <span class="n">ARMA21</span><span class="p">(</span><span class="n">inf</span><span class="p">)</span>
+<span class="n">inf_results</span> <span class="o">=</span> <span class="n">inf_model</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+
+<span class="n">inf_forecast</span> <span class="o">=</span> <span class="n">inf_results</span><span class="o">.</span><span class="n">get_prediction</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="s">&#39;2010-01-01&#39;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s">&#39;2017-01-01&#39;</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">inf_forecast</span><span class="o">.</span><span class="n">predicted_mean</span><span class="p">)</span>  <span class="c"># [2010-01-01   -0.000747 ...</span>
+<span class="k">print</span><span class="p">(</span><span class="n">inf_forecast</span><span class="o">.</span><span class="n">conf_int</span><span class="p">())</span>      <span class="c"># [2010-01-01   -0.006891  0.005398 ...</span>
+</pre></div>
+</div>
+<div class="figure" id="id19">
+<span id="figure-4-forecast-inf"></span><img alt="../../_images/fig_4-forecast-inf.png" src="../../_images/fig_4-forecast-inf.png" />
+<p class="caption"><span class="caption-number">Fig. 7 </span><span class="caption-text">In-sample one-step-ahead predictions and out-of-sample forecasts for
+ARMA(1,1) model on US CPI inflation data.</span></p>
+</div>
+<p>If only out-of-sample forecasts had been desired, the <code class="docutils literal"><span class="pre">get_forecasts</span></code>
+method could have been used instead, and if only the forecasted values had
+been desired (and not additional results like confidence intervals), the
+methods <code class="docutils literal"><span class="pre">predict</span></code> or <code class="docutils literal"><span class="pre">forecast</span></code> could have been used.</p>
+</div>
+<div class="section" id="local-level-model">
+<h3>Local level model<a class="headerlink" href="#local-level-model" title="Permalink to this headline">¶</a></h3>
+<p>See the previous sections for the Python implementation of the local level
+model.</p>
+</div>
+<div class="section" id="real-business-cycle-model">
+<h3>Real business cycle model<a class="headerlink" href="#real-business-cycle-model" title="Permalink to this headline">¶</a></h3>
+<p>Due to the the complexity of the model, the full code for the model is too
+long to display inline, but it is provided in the appendices. This code
+implements the real business cycle model in a class named <code class="docutils literal"><span class="pre">SimpleRBC</span></code>, and
+allows some of the structural parameters to be estimated and some to be
+calibrated (set to specific values).</p>
+<p>Often in structural models one of the outcomes of interest is the time paths of
+the observed variables following a hypothetical structural shock; these time
+paths are called impulse response functions, and they can be generated for any
+state space model.</p>
+<p>In the first application, we will calibrate all of the structural parameters to
+the values suggested in <a class="reference internal" href="9-references.html#ruge-murcia-methods-2007" id="id15">[26]</a> and simply estimate
+the measurement error variances (these do not affect the model dynamics or the
+impulse responses). Once the model has been estimated, the
+<code class="docutils literal"><span class="pre">impulse_responses</span></code> method can be used to generate the time paths.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Calibrate everything except measurement variances</span>
+<span class="n">calibrated</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">&#39;discount_rate&#39;</span><span class="p">:</span> <span class="mf">0.95</span><span class="p">,</span>
+    <span class="s">&#39;disutility_labor&#39;</span><span class="p">:</span> <span class="mf">3.0</span><span class="p">,</span>
+    <span class="s">&#39;capital_share&#39;</span><span class="p">:</span> <span class="mf">0.36</span><span class="p">,</span>
+    <span class="s">&#39;depreciation_rate&#39;</span><span class="p">:</span> <span class="mf">0.025</span><span class="p">,</span>
+    <span class="s">&#39;technology_shock_persistence&#39;</span><span class="p">:</span> <span class="mf">0.85</span><span class="p">,</span>
+    <span class="s">&#39;technology_shock_var&#39;</span><span class="p">:</span> <span class="mf">0.04</span><span class="o">**</span><span class="mi">2</span>
+<span class="p">}</span>
+<span class="n">calibrated_mod</span> <span class="o">=</span> <span class="n">SimpleRBC</span><span class="p">(</span><span class="n">rbc_data</span><span class="p">,</span> <span class="n">calibrated</span><span class="o">=</span><span class="n">calibrated</span><span class="p">)</span>
+<span class="n">calibrated_res</span> <span class="o">=</span> <span class="n">calibrated_mod</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+
+<span class="n">calibrated_irfs</span> <span class="o">=</span> <span class="n">calibrated_res</span><span class="o">.</span><span class="n">impulse_responses</span><span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="n">orthogonalized</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The calculated impulse responses are displayed in
+<a class="reference internal" href="#figure-4-calibrated-irf"><span>Fig. 8</span></a>. By calibrating fewer parameters we can
+expand estimation to include some of the structural parameters. For example,
+we may consider also estimating the two parameters describing the technology
+shock. Implementing this requires only the obvious changes to the above code.
+The impulse responses corresponding to this second exercise are displayed
+in <a class="reference internal" href="#figure-4-estimated-irf"><span>Fig. 9</span></a>. <a class="footnote-reference" href="#id17" id="id16">[5]</a></p>
+<div class="figure" id="id20">
+<span id="figure-4-calibrated-irf"></span><img alt="../../_images/fig_4-calibrated-irf.png" src="../../_images/fig_4-calibrated-irf.png" />
+<p class="caption"><span class="caption-number">Fig. 8 </span><span class="caption-text">Impulse response functions corresponding to a fully calibrated RBC model.</span></p>
+</div>
+<div class="figure" id="id21">
+<span id="figure-4-estimated-irf"></span><img alt="../../_images/fig_4-estimated-irf.png" src="../../_images/fig_4-estimated-irf.png" />
+<p class="caption"><span class="caption-number">Fig. 9 </span><span class="caption-text">Impulse response functions corresponding to a partially estimated RBC model.</span></p>
+</div>
+<p>Recall that the RBC model has three observables, output, labor, and
+consumption, and two unobserved states, capital and the technology process. The
+Kalman filter provides optimal estimates of these unobserved series at time
+<span class="math">\(t\)</span> based on on all data up to time <span class="math">\(t\)</span>, and the state smoother
+provides optimal estimates based on the full dataset. These can be retrieved
+from the results object. <a class="reference internal" href="#figure-4-estimated-states"><span>Fig. 10</span></a> displays the
+smoothed state values and confidence intervals for the partially estimated
+case.</p>
+<div class="figure" id="id22">
+<span id="figure-4-estimated-states"></span><img alt="../../_images/fig_4-estimated-states.png" src="../../_images/fig_4-estimated-states.png" />
+<p class="caption"><span class="caption-number">Fig. 10 </span><span class="caption-text">Smoothed estimates of capital and the technology process from the partially
+estimated RBC model.</span></p>
+</div>
+<table class="docutils footnote" frame="void" id="id17" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id16">[5]</a></td><td>We note again that this example is merely by way of illustration; it
+does not represent best-practices for careful RBC estimation.</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="5-posterior_simulation.html" class="btn btn-neutral float-right" title="Posterior Simulation" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="3-python_representation.html" class="btn btn-neutral" title="Representation in Python" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Chad Fulton.
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'0.1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

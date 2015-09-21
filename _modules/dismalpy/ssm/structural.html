@@ -1,0 +1,624 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>dismalpy.ssm.structural &mdash; DismalPy 0.1.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="author" title="About these documents"
+              href="../../../about.html"/>
+    <link rel="top" title="DismalPy 0.1.0 documentation" href="../../../index.html"/>
+        <link rel="up" title="Module code" href="../../index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="../../../contents.html" class="icon icon-home"> DismalPy
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../user/index.html">DismalPy User Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/ssm.html">State Space Models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/ssm.html#topics">Topics</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/ssm/2-state_space_models.html">State space models</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/ssm/3-python_representation.html">Representation in Python</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/ssm/4-maximum_likelihood_estimation.html">Maximum Likelihood Estimation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/ssm/5-posterior_simulation.html">Posterior Simulation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/ssm/6-out-of-the-box_models.html">Out-of-the-box models</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/ssm/9-references.html">References</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/ssm.html#examples">Examples</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/_notebooks/sarimax_internet.ipynb.html">Durbin and Koopman: Box-Jenkins Examples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/_notebooks/sarimax_stata.ipynb.html">SARIMAX: Introduction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/_notebooks/local_linear_trend.ipynb.html">State space modeling: Local Linear Trends</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/_notebooks/structural_harvey_jaeger.ipynb.html">Detrending, Stylized Facts and the Business Cycle</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/_notebooks/dfm_coincident.ipynb.html">Dynamic factors and coincident indices</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/_notebooks/varmax.ipynb.html">VARMAX models</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../reference/index.html">DismalPy Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/ssm.html">State Space Models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/ssm.html#built-in-models">Built-in models</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../reference/ssm/sarimax.html">SARIMAX</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../reference/ssm/structural.html">Unobserved Components</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../reference/ssm/varmax.html">VARMAX</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../reference/ssm/dynamic_factor.html">Dynamic Factors</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/ssm.html#extension-starting-point">Extension starting point</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../reference/ssm/mlemodel.html">MLEModel</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/ssm.html#base-classes">Base classes</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../reference/ssm/representation.html">Representation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../reference/ssm/kalman_filter.html">Kalman filter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../reference/ssm/kalman_smoother.html">Kalman smoother</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../reference/ssm/simulation_smoother.html">Simulation Smoother</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../reference/ssm/model.html">Model</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../reference/ssm/tools.html">Tools</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../release.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#dismalpy-0-2-0-release-notes">DismalPy 0.2.0 Release Notes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#highlights">Highlights</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#dismalpy-0-1-0-release-notes">DismalPy 0.1.0 Release Notes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id1">Highlights</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#dropped-support">Dropped Support</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#future-changes">Future Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#compatibility-notes">Compatibility notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#new-features">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#improvements">Improvements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#changes">Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#deprecations">Deprecations</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../about.html">About DismalPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../about.html#about-this-documentation">About this documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../about.html#conventions">Conventions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../bugs.html">Reporting bugs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../license.html">DismalPy License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../glossary.html">Glossary</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../glossary.html#module-dismalpy.doc.jargon">Jargon</a></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../contents.html">DismalPy</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../contents.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      
+    <li>dismalpy.ssm.structural</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <h1>Source code for dismalpy.ssm.structural</h1><div class="highlight"><pre>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">SARIMAX Model</span>
+
+<span class="sd">Author: Chad Fulton</span>
+<span class="sd">License: Simplified-BSD</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">division</span><span class="p">,</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">print_function</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">.mlemodel</span> <span class="kn">import</span> <span class="n">MLEMixin</span><span class="p">,</span> <span class="n">MLEResultsMixin</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">statsmodels.tsa.statespace</span> <span class="kn">import</span> <span class="n">varmax</span>
+    <span class="kn">from</span> <span class="nn">statsmodels.tsa.statespace</span> <span class="kn">import</span> <span class="n">mlemodel</span><span class="p">,</span> <span class="n">structural</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">.compat</span> <span class="kn">import</span> <span class="n">mlemodel</span><span class="p">,</span> <span class="n">structural</span>
+
+<span class="kn">import</span> <span class="nn">statsmodels.base.wrapper</span> <span class="kn">as</span> <span class="nn">wrap</span>
+
+<div class="viewcode-block" id="UnobservedComponents"><a class="viewcode-back" href="../../../reference/ssm/structural.html#dismalpy.ssm.structural.UnobservedComponents">[docs]</a><span class="k">class</span> <span class="nc">UnobservedComponents</span><span class="p">(</span><span class="n">MLEMixin</span><span class="p">,</span> <span class="n">structural</span><span class="o">.</span><span class="n">UnobservedComponents</span><span class="p">):</span>
+    <span class="sd">r&quot;&quot;&quot;</span>
+<span class="sd">    Univariate unobserved components time series model</span>
+
+<span class="sd">    These are also known as structural time series models, and decompose a</span>
+<span class="sd">    (univariate) time series into trend, seasonal, cyclical, and irregular</span>
+<span class="sd">    components.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+
+<span class="sd">    level : bool or string, optional</span>
+<span class="sd">        Whether or not to include a level component. Default is False. Can also</span>
+<span class="sd">        be a string specification of the level / trend component; see Notes</span>
+<span class="sd">        for available model specification strings.</span>
+<span class="sd">    trend : bool, optional</span>
+<span class="sd">        Whether or not to include a trend component. Default is False. If True,</span>
+<span class="sd">        `level` must also be True.</span>
+<span class="sd">    seasonal_period : int or None, optional</span>
+<span class="sd">        The period of the seasonal component. Default is None.</span>
+<span class="sd">    cycle : bool, optional</span>
+<span class="sd">        Whether or not to include a cycle component. Default is False.</span>
+<span class="sd">    ar : int or None, optional</span>
+<span class="sd">        The order of the autoregressive component. Default is None.</span>
+<span class="sd">    exog : array_like or None, optional</span>
+<span class="sd">        Exoenous variables.</span>
+<span class="sd">    irregular : bool, optional</span>
+<span class="sd">        Whether or not to include an irregular component. Default is False.</span>
+<span class="sd">    stochastic_level : bool, optional</span>
+<span class="sd">        Whether or not any level component is stochastic. Default is False.</span>
+<span class="sd">    stochastic_trend : bool, optional</span>
+<span class="sd">        Whether or not any trend component is stochastic. Default is False.</span>
+<span class="sd">    stochastic_seasonal : bool, optional</span>
+<span class="sd">        Whether or not any seasonal component is stochastic. Default is False.</span>
+<span class="sd">    stochastic_cycle : bool, optional</span>
+<span class="sd">        Whether or not any cycle component is stochastic. Default is False.</span>
+<span class="sd">    damped_cycle : bool, optional</span>
+<span class="sd">        Whether or not the cycle component is damped. Default is False.</span>
+<span class="sd">    cycle_period_bounds : tuple, optional</span>
+<span class="sd">        A tuple with lower and upper allowed bounds for the period of the</span>
+<span class="sd">        cycle. If not provided, the following default bounds are used:</span>
+<span class="sd">        (1) if no date / time information is provided, the frequency is</span>
+<span class="sd">        constrained to be between zero and :math:`\pi`, so the period is</span>
+<span class="sd">        constrained to be in [0.5, infinity].</span>
+<span class="sd">        (2) If the date / time information is provided, the default bounds</span>
+<span class="sd">        allow the cyclical component to be between 1.5 and 12 years; depending</span>
+<span class="sd">        on the frequency of the endogenous variable, this will imply different</span>
+<span class="sd">        specific bounds.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+
+<span class="sd">    Thse models take the general form (see [1]_ Chapter 3.2 for all details)</span>
+
+<span class="sd">    .. math::</span>
+
+<span class="sd">        y_t = \mu_t + \gamma_t + c_t + \varepsilon_t</span>
+
+<span class="sd">    where :math:`y_t` refers to the observation vector at time :math:`t`,</span>
+<span class="sd">    :math:`\mu_t` refers to the trend component, :math:`\gamma_t` refers to the</span>
+<span class="sd">    seasonal component, :math:`c_t` refers to the cycle, and</span>
+<span class="sd">    :math:`\varepsilon_t` is the irregular. The modeling details of these</span>
+<span class="sd">    components are given below.</span>
+
+<span class="sd">    **Trend**</span>
+
+<span class="sd">    The trend component is a dynamic extension of a regression model that</span>
+<span class="sd">    includes an intercept and linear time-trend. It can be written:</span>
+
+<span class="sd">    .. math::</span>
+
+<span class="sd">        \mu_t = \mu_{t-1} + \beta_{t-1} + \eta_{t-1} \\</span>
+<span class="sd">        \beta_t = \beta_{t-1} + \zeta_{t-1}</span>
+
+<span class="sd">    where the level is a generalization of the intercept term that can</span>
+<span class="sd">    dynamically vary across time, and the trend is a generalization of the</span>
+<span class="sd">    time-trend such that the slope can dynamically vary across time.</span>
+
+<span class="sd">    Here :math:`\eta_t \sim N(0, \sigma_\eta^2)` and</span>
+<span class="sd">    :math:`\zeta_t \sim N(0, \sigma_\zeta^2)`.</span>
+
+<span class="sd">    For both elements (level and trend), we can consider models in which:</span>
+
+<span class="sd">    - The element is included vs excluded (if the trend is included, there must</span>
+<span class="sd">      also be a level included).</span>
+<span class="sd">    - The element is deterministic vs stochastic (i.e. whether or not the</span>
+<span class="sd">      variance on the error term is confined to be zero or not)</span>
+<span class="sd">    </span>
+<span class="sd">    The only additional parameters to be estimated via MLE are the variances of</span>
+<span class="sd">    any included stochastic components.</span>
+
+<span class="sd">    The level/trend components can be specified using the boolean keyword</span>
+<span class="sd">    arguments `level`, `stochastic_level`, `trend`, etc., or all at once as a</span>
+<span class="sd">    string argument to `level`. The following table shows the available</span>
+<span class="sd">    model specifications:</span>
+
+<span class="sd">    +----------------------------------+--------------------------------------+--------------------+--------------------------------------------------+</span>
+<span class="sd">    | Model name                       | Full string syntax                   | Abbreviated syntax | Model                                            |</span>
+<span class="sd">    +==================================+======================================+====================+==================================================+</span>
+<span class="sd">    | No trend                         | `&#39;irregular&#39;`                        | `&#39;ntrend&#39;`         | .. math:: y_t &amp;= \varepsilon_t                   |</span>
+<span class="sd">    +----------------------------------+--------------------------------------+--------------------+--------------------------------------------------+</span>
+<span class="sd">    | Fixed intercept                  | `&#39;fixed intercept&#39;`                  |                    | .. math:: y_t &amp;= \mu                             |</span>
+<span class="sd">    +----------------------------------+--------------------------------------+--------------------+--------------------------------------------------+</span>
+<span class="sd">    | Deterministic constant           | `&#39;deterministic constant&#39;`           | `&#39;dconstant&#39;`      | .. math:: y_t &amp;= \mu + \varepsilon_t             |</span>
+<span class="sd">    +----------------------------------+--------------------------------------+--------------------+--------------------------------------------------+</span>
+<span class="sd">    | Local level                      | `&#39;local level&#39;`                      | `&#39;llevel&#39;`         | .. math:: y_t &amp;= \mu_t + \varepsilon_t \\        |</span>
+<span class="sd">    |                                  |                                      |                    |     \mu_t &amp;= \mu_{t-1} + \eta_t                  |</span>
+<span class="sd">    +----------------------------------+--------------------------------------+--------------------+--------------------------------------------------+</span>
+<span class="sd">    | Random walk                      | `&#39;random walk&#39;`                      | `&#39;rwalk&#39;`          | .. math:: y_t &amp;= \mu_t \\                        |</span>
+<span class="sd">    |                                  |                                      |                    |     \mu_t &amp;= \mu_{t-1} + \eta_t                  |</span>
+<span class="sd">    +----------------------------------+--------------------------------------+--------------------+--------------------------------------------------+</span>
+<span class="sd">    | Fixed slope                      | `&#39;fixed slope&#39;`                      |                    | .. math:: y_t &amp;= \mu_t \\                        |</span>
+<span class="sd">    |                                  |                                      |                    |     \mu_t &amp;= \mu_{t-1} + \beta                   |</span>
+<span class="sd">    +----------------------------------+--------------------------------------+--------------------+--------------------------------------------------+</span>
+<span class="sd">    | Deterministic trend              | `&#39;deterministic trend&#39;`              | `&#39;dtrend&#39;`         | .. math:: y_t &amp;= \mu_t + \varepsilon_t \\        |</span>
+<span class="sd">    |                                  |                                      |                    |     \mu_t &amp;= \mu_{t-1} + \beta                   |</span>
+<span class="sd">    +----------------------------------+--------------------------------------+--------------------+--------------------------------------------------+</span>
+<span class="sd">    | Local linear deterministic trend | `&#39;local linear deterministic trend&#39;` | `&#39;lldtrend&#39;`       | .. math:: y_t &amp;= \mu_t + \varepsilon_t \\        |</span>
+<span class="sd">    |                                  |                                      |                    |     \mu_t &amp;= \mu_{t-1} + \beta + \eta_t          |</span>
+<span class="sd">    +----------------------------------+--------------------------------------+--------------------+--------------------------------------------------+</span>
+<span class="sd">    | Random walk with drift           | `&#39;random walk with drift&#39;`           | `&#39;rwdrift&#39;`        | .. math:: y_t &amp;= \mu_t \\                        |</span>
+<span class="sd">    |                                  |                                      |                    |     \mu_t &amp;= \mu_{t-1} + \beta + \eta_t          |</span>
+<span class="sd">    +----------------------------------+--------------------------------------+--------------------+--------------------------------------------------+</span>
+<span class="sd">    | Local linear trend               | `&#39;local linear trend&#39;`               | `&#39;lltrend&#39;`        | .. math:: y_t &amp;= \mu_t + \varepsilon_t \\        |</span>
+<span class="sd">    |                                  |                                      |                    |     \mu_t &amp;= \mu_{t-1} + \beta_{t-1} + \eta_t \\ |</span>
+<span class="sd">    |                                  |                                      |                    |     \beta_t &amp;= \beta_{t-1} + \zeta_t             |</span>
+<span class="sd">    +----------------------------------+--------------------------------------+--------------------+--------------------------------------------------+</span>
+<span class="sd">    | Smooth trend                     | `&#39;smooth trend&#39;`                     | `&#39;strend&#39;`         | .. math:: y_t &amp;= \mu_t + \varepsilon_t \\        |</span>
+<span class="sd">    |                                  |                                      |                    |     \mu_t &amp;= \mu_{t-1} + \beta_{t-1} \\          |</span>
+<span class="sd">    |                                  |                                      |                    |     \beta_t &amp;= \beta_{t-1} + \zeta_t             |</span>
+<span class="sd">    +----------------------------------+--------------------------------------+--------------------+--------------------------------------------------+</span>
+<span class="sd">    | Random trend                     | `&#39;random trend&#39;`                     | `&#39;rtrend&#39;`         | .. math:: y_t &amp;= \mu_t \\                        |</span>
+<span class="sd">    |                                  |                                      |                    |     \mu_t &amp;= \mu_{t-1} + \beta_{t-1} \\          |</span>
+<span class="sd">    |                                  |                                      |                    |     \beta_t &amp;= \beta_{t-1} + \zeta_t             |</span>
+<span class="sd">    +----------------------------------+--------------------------------------+--------------------+--------------------------------------------------+</span>
+
+<span class="sd">    Following the fitting of the model, the unobserved level and trend</span>
+<span class="sd">    component time series are available in the results class in the</span>
+<span class="sd">    `level` and `trend` attributes, respectively.</span>
+
+<span class="sd">    **Seasonal**</span>
+
+<span class="sd">    The seasonal component is modeled as:</span>
+
+<span class="sd">    .. math::</span>
+
+<span class="sd">        \gamma_t = - \sum_{j=1}^{s-1} \gamma_{t+1-j} + \omega_t \\</span>
+<span class="sd">        \omega_t \sim N(0, \sigma_\omega^2)</span>
+
+<span class="sd">    The periodicity (number of seasons) is s, and the defining character is</span>
+<span class="sd">    that (without the error term), the seasonal components sum to zero across</span>
+<span class="sd">    one complete cycle. The inclusion of an error term allows the seasonal</span>
+<span class="sd">    effects to vary over time (if this is not desired, :math:`\sigma_\omega^2`</span>
+<span class="sd">    can be set to zero using the `stochastic_seasonal=False` keyword argument).</span>
+
+<span class="sd">    This component results in one parameter to be selected via maximum</span>
+<span class="sd">    likelihood: :math:`\sigma_\omega^2`, and one parameter to be chosen, the</span>
+<span class="sd">    number of seasons `s`.</span>
+
+<span class="sd">    Following the fitting of the model, the unobserved seasonal component</span>
+<span class="sd">    time series is available in the results class in the `seasonal`</span>
+<span class="sd">    attribute.</span>
+
+<span class="sd">    **Cycle**</span>
+
+<span class="sd">    The cyclical component is intended to capture cyclical effects at time</span>
+<span class="sd">    frames much longer than captured by the seasonal component. For example,</span>
+<span class="sd">    in economics the cyclical term is often intended to capture the business</span>
+<span class="sd">    cycle, and is then expected to have a period between &quot;1.5 and 12 years&quot;</span>
+<span class="sd">    (see Durbin and Koopman).</span>
+
+<span class="sd">    .. math::</span>
+
+<span class="sd">        c_{t+1} &amp; = \rho_c (\tilde c_t \cos \lambda_c t</span>
+<span class="sd">                + \tilde c_t^* \sin \lambda_c) +</span>
+<span class="sd">                \tilde \omega_t \\</span>
+<span class="sd">        c_{t+1}^* &amp; = \rho_c (- \tilde c_t \sin \lambda_c  t +</span>
+<span class="sd">                \tilde c_t^* \cos \lambda_c) +</span>
+<span class="sd">                \tilde \omega_t^* \\</span>
+
+<span class="sd">    where :math:`\omega_t, \tilde \omega_t iid N(0, \sigma_{\tilde \omega}^2)`</span>
+
+<span class="sd">    The parameter :math:`\lambda_c` (the frequency of the cycle) is an</span>
+<span class="sd">    additional parameter to be estimated by MLE.</span>
+
+<span class="sd">    If the cyclical effect is stochastic (`stochastic_cycle=True`), then there</span>
+<span class="sd">    is another parameter to estimate (the variance of the error term - note</span>
+<span class="sd">    that both of the error terms here share the same variance, but are assumed</span>
+<span class="sd">    to have independent draws).</span>
+
+<span class="sd">    If the cycle is damped (`damped_cycle=True`), then there is a third</span>
+<span class="sd">    parameter to estimate, :math:`\rho_c`.</span>
+
+<span class="sd">    In order to achieve cycles with the appropriate frequencies, bounds are</span>
+<span class="sd">    imposed on the parameter :math:`\lambda_c` in estimation. These can be</span>
+<span class="sd">    controlled via the keyword argument `cycle_period_bounds`, which, if</span>
+<span class="sd">    specified, must be a tuple of bounds on the **period** `(lower, upper)`.</span>
+<span class="sd">    The bounds on the frequency are then calculated from those bounds.</span>
+
+<span class="sd">    The default bounds, if none are provided, are selected in the following</span>
+<span class="sd">    way:</span>
+
+<span class="sd">    1. If no date / time information is provided, the frequency is</span>
+<span class="sd">       constrained to be between zero and :math:`\pi`, so the period is</span>
+<span class="sd">       constrained to be in :math:`[0.5, \infty]`.</span>
+<span class="sd">    2. If the date / time information is provided, the default bounds</span>
+<span class="sd">       allow the cyclical component to be between 1.5 and 12 years; depending</span>
+<span class="sd">       on the frequency of the endogenous variable, this will imply different</span>
+<span class="sd">       specific bounds.</span>
+
+<span class="sd">    Following the fitting of the model, the unobserved cyclical component</span>
+<span class="sd">    time series is available in the results class in the `cycle`</span>
+<span class="sd">    attribute.</span>
+
+<span class="sd">    **Irregular**</span>
+
+<span class="sd">    The irregular components are independent and identically distributed (iid):</span>
+
+<span class="sd">    .. math::</span>
+
+<span class="sd">        \varepsilon_t \sim N(0, \sigma_\varepsilon^2)</span>
+
+<span class="sd">    **Autoregressive Irregular**</span>
+
+<span class="sd">    An autoregressive component (often used as a replacement for the white</span>
+<span class="sd">    noise irregular term) can be specified as:</span>
+
+<span class="sd">    .. math::</span>
+
+<span class="sd">        \varepsilon_t = \rho(L) \varepsilon_{t-1} + \epsilon_t \\</span>
+<span class="sd">        \epsilon_t \sim N(0, \sigma_\epsilon^2)</span>
+
+<span class="sd">    In this case, the AR order is specified via the `autoregressive` keyword,</span>
+<span class="sd">    and the autoregressive coefficients are estimated.</span>
+
+<span class="sd">    Following the fitting of the model, the unobserved autoregressive component</span>
+<span class="sd">    time series is available in the results class in the `autoregressive`</span>
+<span class="sd">    attribute.</span>
+
+<span class="sd">    **Regression effects**</span>
+
+<span class="sd">    Exogenous regressors can be pass to the `exog` argument. The regression</span>
+<span class="sd">    coefficients will be estimated by maximum likelihood unless</span>
+<span class="sd">    `mle_regression=False`, in which case the regression coefficients will be</span>
+<span class="sd">    included in the state vector where they are essentially estimated via</span>
+<span class="sd">    recursive OLS.</span>
+
+<span class="sd">    If the regression_coefficients are included in the state vector, the</span>
+<span class="sd">    recursive estimates are available in the results class in the</span>
+<span class="sd">    `regression_coefficients` attribute.</span>
+
+<span class="sd">    See Also</span>
+<span class="sd">    --------</span>
+<span class="sd">    dismalpy.ssm.mlemodel.MLEModel</span>
+<span class="sd">    dismalpy.ssm.kalman_smoother.KalmanSmoother</span>
+<span class="sd">    dismalpy.ssm.kalman_filter.KalmanFilter</span>
+<span class="sd">    dismalpy.ssm.representation.Representation</span>
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+
+<span class="sd">    .. [1] Durbin, James, and Siem Jan Koopman. 2012.</span>
+<span class="sd">       Time Series Analysis by State Space Methods: Second Edition.</span>
+<span class="sd">       Oxford University Press.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">filter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">transformed</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">cov_type</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">return_ssm</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+               <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">ndmin</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="c"># Transform parameters if necessary</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">transformed</span><span class="p">:</span>
+            <span class="n">params</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">transform_params</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+            <span class="n">transformed</span> <span class="o">=</span> <span class="bp">True</span>
+
+        <span class="c"># Get the state space output</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">UnobservedComponents</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span>
+            <span class="n">params</span><span class="p">,</span> <span class="n">transformed</span><span class="p">,</span> <span class="n">cov_type</span><span class="p">,</span> <span class="n">return_ssm</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="c"># Wrap in a results object</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">return_ssm</span><span class="p">:</span>
+            <span class="n">result_kwargs</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="k">if</span> <span class="n">cov_type</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="n">result_kwargs</span><span class="p">[</span><span class="s">&#39;cov_type&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cov_type</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">UnobservedComponentsResultsWrapper</span><span class="p">(</span>
+                <span class="n">UnobservedComponentsResults</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">result</span><span class="p">,</span>
+                                            <span class="o">**</span><span class="n">result_kwargs</span><span class="p">)</span>
+            <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">result</span>
+    <span class="nb">filter</span><span class="o">.</span><span class="n">__doc__</span> <span class="o">=</span> <span class="n">MLEMixin</span><span class="o">.</span><span class="n">filter</span><span class="o">.</span><span class="n">__doc__</span>
+
+    <span class="k">def</span> <span class="nf">smooth</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">transformed</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">cov_type</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">return_ssm</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+               <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">ndmin</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">transformed</span><span class="p">:</span>
+            <span class="n">params</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">transform_params</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+            <span class="n">transformed</span> <span class="o">=</span> <span class="bp">True</span>
+
+        <span class="c"># Get the state space output</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">UnobservedComponents</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">smooth</span><span class="p">(</span>
+            <span class="n">params</span><span class="p">,</span> <span class="n">transformed</span><span class="p">,</span> <span class="n">cov_type</span><span class="p">,</span> <span class="n">return_ssm</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="c"># Wrap in a results object</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">return_ssm</span><span class="p">:</span>
+            <span class="n">result_kwargs</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="k">if</span> <span class="n">cov_type</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="n">result_kwargs</span><span class="p">[</span><span class="s">&#39;cov_type&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cov_type</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">UnobservedComponentsResultsWrapper</span><span class="p">(</span>
+                <span class="n">UnobservedComponentsResults</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">result</span><span class="p">,</span>
+                                            <span class="o">**</span><span class="n">result_kwargs</span><span class="p">)</span>
+            <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">result</span>
+    <span class="n">smooth</span><span class="o">.</span><span class="n">__doc__</span> <span class="o">=</span> <span class="n">MLEMixin</span><span class="o">.</span><span class="n">smooth</span><span class="o">.</span><span class="n">__doc__</span>
+
+</div>
+<div class="viewcode-block" id="UnobservedComponentsResults"><a class="viewcode-back" href="../../../reference/ssm/structural.html#dismalpy.ssm.structural.UnobservedComponentsResults">[docs]</a><span class="k">class</span> <span class="nc">UnobservedComponentsResults</span><span class="p">(</span><span class="n">MLEResultsMixin</span><span class="p">,</span>
+                                  <span class="n">structural</span><span class="o">.</span><span class="n">UnobservedComponentsResults</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Class to hold results from fitting an unobserved components model.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    model : UnobservedComponents instance</span>
+<span class="sd">        The fitted model instance</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    specification : dictionary</span>
+<span class="sd">        Dictionary including all attributes from the unobserved components</span>
+<span class="sd">        model instance.</span>
+
+<span class="sd">    See Also</span>
+<span class="sd">    --------</span>
+<span class="sd">    dismalpy.ssm.mlemodel.MLEResults</span>
+<span class="sd">    dismalpy.ssm.kalman_smoother.SmootherResults</span>
+<span class="sd">    dismalpy.ssm.kalman_filter.FilterResults</span>
+<span class="sd">    dismalpy.ssm.representation.FrozenRepresentation</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span>
+
+</div>
+<span class="k">class</span> <span class="nc">UnobservedComponentsResultsWrapper</span><span class="p">(</span>
+        <span class="n">mlemodel</span><span class="o">.</span><span class="n">MLEResultsWrapper</span><span class="p">):</span>
+    <span class="n">_attrs</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">_wrap_attrs</span> <span class="o">=</span> <span class="n">wrap</span><span class="o">.</span><span class="n">union_dicts</span><span class="p">(</span>
+        <span class="n">mlemodel</span><span class="o">.</span><span class="n">MLEResultsWrapper</span><span class="o">.</span><span class="n">_wrap_attrs</span><span class="p">,</span> <span class="n">_attrs</span><span class="p">)</span>
+    <span class="n">_methods</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">_wrap_methods</span> <span class="o">=</span> <span class="n">wrap</span><span class="o">.</span><span class="n">union_dicts</span><span class="p">(</span>
+        <span class="n">mlemodel</span><span class="o">.</span><span class="n">MLEResultsWrapper</span><span class="o">.</span><span class="n">_wrap_methods</span><span class="p">,</span> <span class="n">_methods</span><span class="p">)</span>
+<span class="n">wrap</span><span class="o">.</span><span class="n">populate_wrapper</span><span class="p">(</span><span class="n">UnobservedComponentsResultsWrapper</span><span class="p">,</span>
+                      <span class="n">UnobservedComponentsResults</span><span class="p">)</span>
+</pre></div>
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Chad Fulton.
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'0.1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

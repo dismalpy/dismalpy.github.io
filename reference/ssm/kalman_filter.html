@@ -1,0 +1,1366 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Kalman filter &mdash; DismalPy 0.1.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="author" title="About these documents"
+              href="../../about.html"/>
+    <link rel="top" title="DismalPy 0.1.0 documentation" href="../../index.html"/>
+        <link rel="up" title="State Space Models" href="../ssm.html"/>
+        <link rel="next" title="Kalman smoother" href="kalman_smoother.html"/>
+        <link rel="prev" title="Representation" href="representation.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="../../contents.html" class="icon icon-home"> DismalPy
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../user/index.html">DismalPy User Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../user/ssm.html">State Space Models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../user/ssm.html#topics">Topics</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../user/ssm/2-state_space_models.html">State space models</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/ssm/3-python_representation.html">Representation in Python</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/ssm/4-maximum_likelihood_estimation.html">Maximum Likelihood Estimation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/ssm/5-posterior_simulation.html">Posterior Simulation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/ssm/6-out-of-the-box_models.html">Out-of-the-box models</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/ssm/9-references.html">References</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/ssm.html#examples">Examples</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../user/_notebooks/sarimax_internet.ipynb.html">Durbin and Koopman: Box-Jenkins Examples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/_notebooks/sarimax_stata.ipynb.html">SARIMAX: Introduction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/_notebooks/local_linear_trend.ipynb.html">State space modeling: Local Linear Trends</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/_notebooks/structural_harvey_jaeger.ipynb.html">Detrending, Stylized Facts and the Business Cycle</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/_notebooks/dfm_coincident.ipynb.html">Dynamic factors and coincident indices</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/_notebooks/varmax.ipynb.html">VARMAX models</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">DismalPy Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../ssm.html">State Space Models</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../ssm.html#built-in-models">Built-in models</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sarimax.html">SARIMAX</a></li>
+<li class="toctree-l4"><a class="reference internal" href="structural.html">Unobserved Components</a></li>
+<li class="toctree-l4"><a class="reference internal" href="varmax.html">VARMAX</a></li>
+<li class="toctree-l4"><a class="reference internal" href="dynamic_factor.html">Dynamic Factors</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ssm.html#extension-starting-point">Extension starting point</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mlemodel.html">MLEModel</a></li>
+</ul>
+</li>
+<li class="toctree-l3 current"><a class="reference internal" href="../ssm.html#base-classes">Base classes</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="representation.html">Representation</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="">Kalman filter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kalman_smoother.html">Kalman smoother</a></li>
+<li class="toctree-l4"><a class="reference internal" href="simulation_smoother.html">Simulation Smoother</a></li>
+<li class="toctree-l4"><a class="reference internal" href="model.html">Model</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tools.html">Tools</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../release.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../release.html#dismalpy-0-1-0-release-notes">DismalPy 0.1.0 Release Notes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#highlights">Highlights</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#dropped-support">Dropped Support</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#future-changes">Future Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#compatibility-notes">Compatibility notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#new-features">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#improvements">Improvements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#changes">Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#deprecations">Deprecations</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">About DismalPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html#about-this-documentation">About this documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../about.html#conventions">Conventions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../bugs.html">Reporting bugs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">DismalPy License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary.html">Glossary</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../glossary.html#module-dismalpy.doc.jargon">Jargon</a></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../contents.html">DismalPy</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../contents.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../index.html">DismalPy Reference</a> &raquo;</li>
+      
+          <li><a href="../ssm.html">State Space Models</a> &raquo;</li>
+      
+    <li>Kalman filter</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../_sources/reference/ssm/kalman_filter.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="kalman-filter">
+<span id="ref-kalman-filter"></span><h1>Kalman filter<a class="headerlink" href="#kalman-filter" title="Permalink to this headline">¶</a></h1>
+<p>Note that this class inherits from <a class="reference internal" href="representation.html#ref-representation"><span>Representation</span></a>; its
+documentation should be consulted for additional methods available in
+<code class="docutils literal"><span class="pre">KalmanFilter</span></code> objects.</p>
+<dl class="class">
+<dt id="dismalpy.ssm.kalman_filter.KalmanFilter">
+<em class="property">class </em><code class="descclassname">dismalpy.ssm.kalman_filter.</code><code class="descname">KalmanFilter</code><span class="sig-paren">(</span><em>k_endog</em>, <em>k_states</em>, <em>k_posdef=None</em>, <em>loglikelihood_burn=0</em>, <em>tolerance=1e-19</em>, <em>results_class=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/dismalpy/ssm/kalman_filter.html#KalmanFilter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dismalpy.ssm.kalman_filter.KalmanFilter" title="Permalink to this definition">¶</a></dt>
+<dd><p>State space representation of a time series process, with Kalman filter</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>k_endog</strong> : array_like or integer</p>
+<blockquote>
+<div><p>The observed time-series process <span class="math">\(y\)</span> if array like or the
+number of variables in the process if an integer.</p>
+</div></blockquote>
+<p><strong>k_states</strong> : int</p>
+<blockquote>
+<div><p>The dimension of the unobserved state process.</p>
+</div></blockquote>
+<p><strong>k_posdef</strong> : int, optional</p>
+<blockquote>
+<div><p>The dimension of a guaranteed positive definite covariance matrix
+describing the shocks in the measurement equation. Must be less than
+or equal to <em class="xref py py-obj">k_states</em>. Default is <em class="xref py py-obj">k_states</em>.</p>
+</div></blockquote>
+<p><strong>loglikelihood_burn</strong> : int, optional</p>
+<blockquote>
+<div><p>The number of initial periods during which the loglikelihood is not
+recorded. Default is 0.</p>
+</div></blockquote>
+<p><strong>tolerance</strong> : float, optional</p>
+<blockquote>
+<div><p>The tolerance at which the Kalman filter determines convergence to
+steady-state. Default is 1e-19.</p>
+</div></blockquote>
+<p><strong>results_class</strong> : class, optional</p>
+<blockquote>
+<div><p>Default results class to use to save filtering output. Default is
+<a class="reference internal" href="#dismalpy.ssm.kalman_filter.FilterResults" title="dismalpy.ssm.kalman_filter.FilterResults"><code class="xref py py-obj docutils literal"><span class="pre">FilterResults</span></code></a>. If specified, class must extend from <a class="reference internal" href="#dismalpy.ssm.kalman_filter.FilterResults" title="dismalpy.ssm.kalman_filter.FilterResults"><code class="xref py py-obj docutils literal"><span class="pre">FilterResults</span></code></a>.</p>
+</div></blockquote>
+<p><strong>**kwargs</strong></p>
+<blockquote class="last">
+<div><p>Keyword arguments may be used to provide values for the filter,
+inversion, and stability methods. See <a class="reference internal" href="#dismalpy.ssm.kalman_filter.KalmanFilter.set_filter_method" title="dismalpy.ssm.kalman_filter.KalmanFilter.set_filter_method"><code class="xref py py-obj docutils literal"><span class="pre">set_filter_method</span></code></a>,
+<a class="reference internal" href="#dismalpy.ssm.kalman_filter.KalmanFilter.set_inversion_method" title="dismalpy.ssm.kalman_filter.KalmanFilter.set_inversion_method"><code class="xref py py-obj docutils literal"><span class="pre">set_inversion_method</span></code></a>, and <a class="reference internal" href="#dismalpy.ssm.kalman_filter.KalmanFilter.set_stability_method" title="dismalpy.ssm.kalman_filter.KalmanFilter.set_stability_method"><code class="xref py py-obj docutils literal"><span class="pre">set_stability_method</span></code></a>.
+Keyword arguments may be used to provide default values for state space
+matrices. See <code class="xref py py-obj docutils literal"><span class="pre">Representation</span></code> for more details.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#dismalpy.ssm.kalman_filter.FilterResults" title="dismalpy.ssm.kalman_filter.FilterResults"><code class="xref py py-obj docutils literal"><span class="pre">FilterResults</span></code></a>, <a class="reference internal" href="representation.html#dismalpy.ssm.representation.Representation" title="dismalpy.ssm.representation.Representation"><code class="xref py py-obj docutils literal"><span class="pre">dismalpy.ssm.representation.Representation</span></code></a></p>
+</div>
+<p class="rubric">Notes</p>
+<p>There are several types of options available for controlling the Kalman
+filter operation. All options are internally held as bitmasks, but can be
+manipulated by setting class attributes, which act like boolean flags. For
+more information, see the <em class="xref py py-obj">set_*</em> class method documentation. The options
+are:</p>
+<dl class="docutils">
+<dt>filter_method</dt>
+<dd>The filtering method controls aspects of which
+Kalman filtering approach will be used.</dd>
+<dt>inversion_method</dt>
+<dd>The Kalman filter may contain one matrix inversion: that of the
+forecast error covariance matrix. The inversion method controls how and
+if that inverse is performed.</dd>
+<dt>stability_method</dt>
+<dd>The Kalman filter is a recursive algorithm that may in some cases
+suffer issues with numerical stability. The stability method controls
+what, if any, measures are taken to promote stability.</dd>
+<dt>conserve_memory</dt>
+<dd>By default, the Kalman filter computes a number of intermediate
+matrices at each iteration. The memory conservation options control
+which of those matrices are stored.</dd>
+<dt>filter_timing</dt>
+<dd>By default, the Kalman filter follows Durbin and Koopman, 2012, in
+initializing the filter with predicted values. Kim and Nelson, 1999,
+instead initialize the filter with filtered values, which is
+essentially just a different timing convention.</dd>
+</dl>
+<p>The <a class="reference internal" href="#dismalpy.ssm.kalman_filter.KalmanFilter.filter_method" title="dismalpy.ssm.kalman_filter.KalmanFilter.filter_method"><code class="xref py py-obj docutils literal"><span class="pre">filter_method</span></code></a> and <a class="reference internal" href="#dismalpy.ssm.kalman_filter.KalmanFilter.inversion_method" title="dismalpy.ssm.kalman_filter.KalmanFilter.inversion_method"><code class="xref py py-obj docutils literal"><span class="pre">inversion_method</span></code></a> options intentionally allow
+the possibility that multiple methods will be indicated. In the case that
+multiple methods are selected, the underlying Kalman filter will attempt to
+select the optional method given the input data.</p>
+<p>For example, it may be that INVERT_UNIVARIATE and SOLVE_CHOLESKY are
+indicated (this is in fact the default case). In this case, if the
+endogenous vector is 1-dimensional (<em class="xref py py-obj">k_endog</em> = 1), then INVERT_UNIVARIATE
+is used and inversion reduces to simple division, and if it has a larger
+dimension, the Cholesky decomposition along with linear solving (rather
+than explicit matrix inversion) is used. If only SOLVE_CHOLESKY had been
+set, then the Cholesky decomposition method would <em>always</em> be used, even in
+the case of 1-dimensional data.</p>
+<dl class="attribute">
+<dt id="dismalpy.ssm.kalman_filter.KalmanFilter.conserve_memory">
+<code class="descname">conserve_memory</code><em class="property"> = 0</em><a class="headerlink" href="#dismalpy.ssm.kalman_filter.KalmanFilter.conserve_memory" title="Permalink to this definition">¶</a></dt>
+<dd><p>(int) Memory conservation bitmask.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dismalpy.ssm.kalman_filter.KalmanFilter.filter">
+<code class="descname">filter</code><span class="sig-paren">(</span><em>filter_method=None</em>, <em>inversion_method=None</em>, <em>stability_method=None</em>, <em>conserve_memory=None</em>, <em>filter_timing=None</em>, <em>tolerance=None</em>, <em>loglikelihood_burn=None</em>, <em>results=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/dismalpy/ssm/kalman_filter.html#KalmanFilter.filter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dismalpy.ssm.kalman_filter.KalmanFilter.filter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply the Kalman filter to the statespace model.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>filter_method</strong> : int, optional</p>
+<blockquote>
+<div><p>Determines which Kalman filter to use. Default is conventional.</p>
+</div></blockquote>
+<p><strong>inversion_method</strong> : int, optional</p>
+<blockquote>
+<div><p>Determines which inversion technique to use. Default is by Cholesky
+decomposition.</p>
+</div></blockquote>
+<p><strong>stability_method</strong> : int, optional</p>
+<blockquote>
+<div><p>Determines which numerical stability techniques to use. Default is
+to enforce symmetry of the predicted state covariance matrix.</p>
+</div></blockquote>
+<p><strong>conserve_memory</strong> : int, optional</p>
+<blockquote>
+<div><p>Determines what output from the filter to store. Default is to
+store everything.</p>
+</div></blockquote>
+<p><strong>filter_timing</strong> : int, optional</p>
+<blockquote>
+<div><p>Determines the timing convention of the filter. Default is that
+from Durbin and Koopman (2012), in which the filter is initialized
+with predicted values.</p>
+</div></blockquote>
+<p><strong>tolerance</strong> : float, optional</p>
+<blockquote>
+<div><p>The tolerance at which the Kalman filter determines convergence to
+steady-state. Default is 1e-19.</p>
+</div></blockquote>
+<p><strong>loglikelihood_burn</strong> : int, optional</p>
+<blockquote>
+<div><p>The number of initial periods during which the loglikelihood is not
+recorded. Default is 0.</p>
+</div></blockquote>
+<p><strong>results</strong> : class, object, or {&#8216;loglikelihood&#8217;}, optional</p>
+<blockquote class="last">
+<div><p>If a class which is a subclass of FilterResults, then that class is
+instantiated and returned with the result of filtering. Classes
+must subclass FilterResults.
+If an object, then that object is updated with the new filtering
+results.
+If the string &#8216;loglikelihood&#8217;, then only the loglikelihood is
+returned as an ndarray.
+If None, then the default results object is updated with the
+result of filtering.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="dismalpy.ssm.kalman_filter.KalmanFilter.filter_augmented">
+<code class="descname">filter_augmented</code><em class="property"> = False</em><a class="headerlink" href="#dismalpy.ssm.kalman_filter.KalmanFilter.filter_augmented" title="Permalink to this definition">¶</a></dt>
+<dd><p>(bool) Flag for augmented Kalman filtering. Not implemented.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="dismalpy.ssm.kalman_filter.KalmanFilter.filter_collapsed">
+<code class="descname">filter_collapsed</code><em class="property"> = False</em><a class="headerlink" href="#dismalpy.ssm.kalman_filter.KalmanFilter.filter_collapsed" title="Permalink to this definition">¶</a></dt>
+<dd><p>(bool) Flag for Kalman filtering with collapsed observation vector.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="dismalpy.ssm.kalman_filter.KalmanFilter.filter_conventional">
+<code class="descname">filter_conventional</code><em class="property"> = False</em><a class="headerlink" href="#dismalpy.ssm.kalman_filter.KalmanFilter.filter_conventional" title="Permalink to this definition">¶</a></dt>
+<dd><p>(bool) Flag for conventional Kalman filtering.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="dismalpy.ssm.kalman_filter.KalmanFilter.filter_exact_initial">
+<code class="descname">filter_exact_initial</code><em class="property"> = False</em><a class="headerlink" href="#dismalpy.ssm.kalman_filter.KalmanFilter.filter_exact_initial" title="Permalink to this definition">¶</a></dt>
+<dd><p>(bool) Flag for exact initial Kalman filtering. Not implemented.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="dismalpy.ssm.kalman_filter.KalmanFilter.filter_extended">
+<code class="descname">filter_extended</code><em class="property"> = False</em><a class="headerlink" href="#dismalpy.ssm.kalman_filter.KalmanFilter.filter_extended" title="Permalink to this definition">¶</a></dt>
+<dd><p>(bool) Flag for extended Kalman filtering. Not implemented.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="dismalpy.ssm.kalman_filter.KalmanFilter.filter_method">
+<code class="descname">filter_method</code><em class="property"> = 1</em><a class="headerlink" href="#dismalpy.ssm.kalman_filter.KalmanFilter.filter_method" title="Permalink to this definition">¶</a></dt>
+<dd><p>(int) Filtering method bitmask.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="dismalpy.ssm.kalman_filter.KalmanFilter.filter_square_root">
+<code class="descname">filter_square_root</code><em class="property"> = False</em><a class="headerlink" href="#dismalpy.ssm.kalman_filter.KalmanFilter.filter_square_root" title="Permalink to this definition">¶</a></dt>
+<dd><p>(bool) Flag for square-root Kalman filtering. Not implemented.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="dismalpy.ssm.kalman_filter.KalmanFilter.filter_timing">
+<code class="descname">filter_timing</code><em class="property"> = 0</em><a class="headerlink" href="#dismalpy.ssm.kalman_filter.KalmanFilter.filter_timing" title="Permalink to this definition">¶</a></dt>
+<dd><p>(int) Filter timing.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="dismalpy.ssm.kalman_filter.KalmanFilter.filter_univariate">
+<code class="descname">filter_univariate</code><em class="property"> = False</em><a class="headerlink" href="#dismalpy.ssm.kalman_filter.KalmanFilter.filter_univariate" title="Permalink to this definition">¶</a></dt>
+<dd><p>(bool) Flag for univariate filtering of multivariate observation vector.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="dismalpy.ssm.kalman_filter.KalmanFilter.filter_unscented">
+<code class="descname">filter_unscented</code><em class="property"> = False</em><a class="headerlink" href="#dismalpy.ssm.kalman_filter.KalmanFilter.filter_unscented" title="Permalink to this definition">¶</a></dt>
+<dd><p>(bool) Flag for unscented Kalman filtering. Not implemented.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dismalpy.ssm.kalman_filter.KalmanFilter.impulse_responses">
+<code class="descname">impulse_responses</code><span class="sig-paren">(</span><em>steps=1</em>, <em>impulse=0</em>, <em>orthogonalized=False</em>, <em>cumulative=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/dismalpy/ssm/kalman_filter.html#KalmanFilter.impulse_responses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dismalpy.ssm.kalman_filter.KalmanFilter.impulse_responses" title="Permalink to this definition">¶</a></dt>
+<dd><p>Impulse response function</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>steps</strong> : int, optional</p>
+<blockquote>
+<div><p>The number of steps for which impulse responses are calculated.
+Default is 1. Note that the initial impulse is not counted as a
+step, so if <em class="xref py py-obj">steps=1</em>, the output will have 2 entries.</p>
+</div></blockquote>
+<p><strong>impulse</strong> : int or array_like</p>
+<blockquote>
+<div><p>If an integer, the state innovation to pulse; must be between 0
+and <em class="xref py py-obj">k_posdef-1</em>. Alternatively, a custom impulse vector may be
+provided; must be shaped <em class="xref py py-obj">k_posdef x 1</em>.</p>
+</div></blockquote>
+<p><strong>orthogonalized</strong> : boolean, optional</p>
+<blockquote>
+<div><p>Whether or not to perform impulse using orthogonalized innovations.
+Note that this will also affect custum <em class="xref py py-obj">impulse</em> vectors. Default
+is False.</p>
+</div></blockquote>
+<p><strong>cumulative</strong> : boolean, optional</p>
+<blockquote>
+<div><p>Whether or not to return cumulative impulse responses. Default is
+False.</p>
+</div></blockquote>
+<p><strong>**kwargs</strong></p>
+<blockquote>
+<div><p>If the model is time-varying and <em class="xref py py-obj">steps</em> is greater than the number
+of observations, any of the state space representation matrices
+that are time-varying must have updated values provided for the
+out-of-sample steps.
+For example, if <code class="xref py py-obj docutils literal"><span class="pre">design</span></code> is a time-varying component, <em class="xref py py-obj">nobs</em> is 10,
+and <em class="xref py py-obj">steps</em> is 15, a (<em class="xref py py-obj">k_endog</em> x <em class="xref py py-obj">k_states</em> x 5) matrix must be
+provided with the new design matrix values.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>impulse_responses</strong> : array</p>
+<blockquote class="last">
+<div><p>Responses for each endogenous variable due to the impulse
+given by the <em class="xref py py-obj">impulse</em> argument. A (steps + 1 x k_endog) array.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>Intercepts in the measurement and state equation are ignored when
+calculating impulse responses.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="dismalpy.ssm.kalman_filter.KalmanFilter.inversion_method">
+<code class="descname">inversion_method</code><em class="property"> = 9</em><a class="headerlink" href="#dismalpy.ssm.kalman_filter.KalmanFilter.inversion_method" title="Permalink to this definition">¶</a></dt>
+<dd><p>(int) Inversion method bitmask.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="dismalpy.ssm.kalman_filter.KalmanFilter.invert_cholesky">
+<code class="descname">invert_cholesky</code><em class="property"> = False</em><a class="headerlink" href="#dismalpy.ssm.kalman_filter.KalmanFilter.invert_cholesky" title="Permalink to this definition">¶</a></dt>
+<dd><p>(bool) Flag for Cholesky inversion method.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="dismalpy.ssm.kalman_filter.KalmanFilter.invert_lu">
+<code class="descname">invert_lu</code><em class="property"> = False</em><a class="headerlink" href="#dismalpy.ssm.kalman_filter.KalmanFilter.invert_lu" title="Permalink to this definition">¶</a></dt>
+<dd><p>(bool) Flag for LU inversion method.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="dismalpy.ssm.kalman_filter.KalmanFilter.invert_numpy">
+<code class="descname">invert_numpy</code><em class="property"> = False</em><a class="headerlink" href="#dismalpy.ssm.kalman_filter.KalmanFilter.invert_numpy" title="Permalink to this definition">¶</a></dt>
+<dd><p>(bool) Flag for inversion using numpy (not recommended).</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="dismalpy.ssm.kalman_filter.KalmanFilter.invert_univariate">
+<code class="descname">invert_univariate</code><em class="property"> = False</em><a class="headerlink" href="#dismalpy.ssm.kalman_filter.KalmanFilter.invert_univariate" title="Permalink to this definition">¶</a></dt>
+<dd><p>(bool) Flag for univariate inversion method (recommended).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dismalpy.ssm.kalman_filter.KalmanFilter.loglike">
+<code class="descname">loglike</code><span class="sig-paren">(</span><em>loglikelihood_burn=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/dismalpy/ssm/kalman_filter.html#KalmanFilter.loglike"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dismalpy.ssm.kalman_filter.KalmanFilter.loglike" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the loglikelihood associated with the statespace model.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>loglikelihood_burn</strong> : int, optional</p>
+<blockquote>
+<div><p>The number of initial periods during which the loglikelihood is not
+recorded. Default is 0.</p>
+</div></blockquote>
+<p><strong>**kwargs</strong></p>
+<blockquote>
+<div><p>Additional keyword arguments to pass to the Kalman filter. See
+<a class="reference internal" href="#dismalpy.ssm.kalman_filter.KalmanFilter.filter" title="dismalpy.ssm.kalman_filter.KalmanFilter.filter"><code class="xref py py-obj docutils literal"><span class="pre">KalmanFilter.filter</span></code></a> for more details.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>loglike</strong> : float</p>
+<blockquote class="last">
+<div><p>The joint loglikelihood.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="dismalpy.ssm.kalman_filter.KalmanFilter.loglikeobs">
+<code class="descname">loglikeobs</code><span class="sig-paren">(</span><em>loglikelihood_burn=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/dismalpy/ssm/kalman_filter.html#KalmanFilter.loglikeobs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dismalpy.ssm.kalman_filter.KalmanFilter.loglikeobs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the loglikelihood for each observation associated with the
+statespace model.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>loglikelihood_burn</strong> : int, optional</p>
+<blockquote>
+<div><p>The number of initial periods during which the loglikelihood is not
+recorded. Default is 0.</p>
+</div></blockquote>
+<p><strong>**kwargs</strong></p>
+<blockquote>
+<div><p>Additional keyword arguments to pass to the Kalman filter. See
+<a class="reference internal" href="#dismalpy.ssm.kalman_filter.KalmanFilter.filter" title="dismalpy.ssm.kalman_filter.KalmanFilter.filter"><code class="xref py py-obj docutils literal"><span class="pre">KalmanFilter.filter</span></code></a> for more details.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>loglike</strong> : array of float</p>
+<blockquote class="last">
+<div><p>Array of loglikelihood values for each observation.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>If <em class="xref py py-obj">loglikelihood_burn</em> is positive, then the entries in the returned
+loglikelihood vector are set to be zero for those initial time periods.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="dismalpy.ssm.kalman_filter.KalmanFilter.memory_conserve">
+<code class="descname">memory_conserve</code><em class="property"> = False</em><a class="headerlink" href="#dismalpy.ssm.kalman_filter.KalmanFilter.memory_conserve" title="Permalink to this definition">¶</a></dt>
+<dd><p>(bool) Flag to conserve the maximum amount of memory.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="dismalpy.ssm.kalman_filter.KalmanFilter.memory_no_filtered">
+<code class="descname">memory_no_filtered</code><em class="property"> = False</em><a class="headerlink" href="#dismalpy.ssm.kalman_filter.KalmanFilter.memory_no_filtered" title="Permalink to this definition">¶</a></dt>
+<dd><p>(bool) Flag to prevent storing filtered state and covariance matrices.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="dismalpy.ssm.kalman_filter.KalmanFilter.memory_no_forecast">
+<code class="descname">memory_no_forecast</code><em class="property"> = False</em><a class="headerlink" href="#dismalpy.ssm.kalman_filter.KalmanFilter.memory_no_forecast" title="Permalink to this definition">¶</a></dt>
+<dd><p>(bool) Flag to prevent storing forecasts.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="dismalpy.ssm.kalman_filter.KalmanFilter.memory_no_gain">
+<code class="descname">memory_no_gain</code><em class="property"> = False</em><a class="headerlink" href="#dismalpy.ssm.kalman_filter.KalmanFilter.memory_no_gain" title="Permalink to this definition">¶</a></dt>
+<dd><p>(bool) Flag to prevent storing the Kalman gain matrices.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="dismalpy.ssm.kalman_filter.KalmanFilter.memory_no_likelihood">
+<code class="descname">memory_no_likelihood</code><em class="property"> = False</em><a class="headerlink" href="#dismalpy.ssm.kalman_filter.KalmanFilter.memory_no_likelihood" title="Permalink to this definition">¶</a></dt>
+<dd><p>(bool) Flag to prevent storing likelihood values for each observation.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="dismalpy.ssm.kalman_filter.KalmanFilter.memory_no_predicted">
+<code class="descname">memory_no_predicted</code><em class="property"> = False</em><a class="headerlink" href="#dismalpy.ssm.kalman_filter.KalmanFilter.memory_no_predicted" title="Permalink to this definition">¶</a></dt>
+<dd><p>(bool) Flag to prevent storing predicted state and covariance matrices.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="dismalpy.ssm.kalman_filter.KalmanFilter.memory_no_smoothing">
+<code class="descname">memory_no_smoothing</code><em class="property"> = False</em><a class="headerlink" href="#dismalpy.ssm.kalman_filter.KalmanFilter.memory_no_smoothing" title="Permalink to this definition">¶</a></dt>
+<dd><p>(bool) Flag to prevent storing temporary values used in smoothing.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="dismalpy.ssm.kalman_filter.KalmanFilter.memory_store_all">
+<code class="descname">memory_store_all</code><em class="property"> = False</em><a class="headerlink" href="#dismalpy.ssm.kalman_filter.KalmanFilter.memory_store_all" title="Permalink to this definition">¶</a></dt>
+<dd><p>(bool) Flag for storing all intermediate results in memory (default).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dismalpy.ssm.kalman_filter.KalmanFilter.set_conserve_memory">
+<code class="descname">set_conserve_memory</code><span class="sig-paren">(</span><em>conserve_memory=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/dismalpy/ssm/kalman_filter.html#KalmanFilter.set_conserve_memory"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dismalpy.ssm.kalman_filter.KalmanFilter.set_conserve_memory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the memory conservation method</p>
+<p>By default, the Kalman filter computes a number of intermediate
+matrices at each iteration. The memory conservation options control
+which of those matrices are stored.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>conserve_memory</strong> : integer, optional</p>
+<blockquote>
+<div><p>Bitmask value to set the memory conservation method to. See notes
+for details.</p>
+</div></blockquote>
+<p><strong>**kwargs</strong></p>
+<blockquote class="last">
+<div><p>Keyword arguments may be used to influence the memory conservation
+method by setting individual boolean flags. See notes for details.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>The memory conservation method is defined by a collection of boolean
+flags, and is internally stored as a bitmask. The methods available
+are:</p>
+<dl class="docutils">
+<dt>MEMORY_STORE_ALL = 0</dt>
+<dd>Store all intermediate matrices. This is the default value.</dd>
+<dt>MEMORY_NO_FORECAST = 0x01</dt>
+<dd>Do not store the forecast, forecast error, or forecast error
+covariance matrices. If this option is used, the <em class="xref py py-obj">predict</em> method
+from the results class is unavailable.</dd>
+<dt>MEMORY_NO_PREDICTED = 0x02</dt>
+<dd>Do not store the predicted state or predicted state covariance
+matrices.</dd>
+<dt>MEMORY_NO_FILTERED = 0x04</dt>
+<dd>Do not store the filtered state or filtered state covariance
+matrices.</dd>
+<dt>MEMORY_NO_LIKELIHOOD = 0x08</dt>
+<dd>Do not store the vector of loglikelihood values for each
+observation. Only the sum of the loglikelihood values is stored.</dd>
+<dt>MEMORY_NO_GAIN = 0x10</dt>
+<dd>Do not store the Kalman gain matrices.</dd>
+<dt>MEMORY_NO_SMOOTHING = 0x20</dt>
+<dd>Do not store temporary variables related to Klaman smoothing. If
+this option is used, smoothing is unavailable.</dd>
+<dt>MEMORY_CONSERVE</dt>
+<dd>Do not store any intermediate matrices.</dd>
+</dl>
+<p>If the bitmask is set directly via the <a class="reference internal" href="#dismalpy.ssm.kalman_filter.KalmanFilter.conserve_memory" title="dismalpy.ssm.kalman_filter.KalmanFilter.conserve_memory"><code class="xref py py-obj docutils literal"><span class="pre">conserve_memory</span></code></a> argument,
+then the full method must be provided.</p>
+<p>If keyword arguments are used to set individual boolean flags, then
+the lowercase of the method must be used as an argument name, and the
+value is the desired value of the boolean flag (True or False).</p>
+<p>Note that the memory conservation method may also be specified by
+directly modifying the class attributes which are defined similarly to
+the keyword arguments.</p>
+<p>The default memory conservation method is <code class="xref py py-obj docutils literal"><span class="pre">MEMORY_STORE_ALL</span></code>, so that
+all intermediate matrices are stored.</p>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">mod</span> <span class="o">=</span> <span class="n">dp</span><span class="o">.</span><span class="n">ssm</span><span class="o">.</span><span class="n">KalmanFilter</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mod</span><span class="o">.</span><span class="n">conserve_memory</span>
+<span class="go">0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mod</span><span class="o">.</span><span class="n">memory_no_predicted</span>
+<span class="go">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mod</span><span class="o">.</span><span class="n">memory_no_predicted</span> <span class="o">=</span> <span class="bp">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mod</span><span class="o">.</span><span class="n">conserve_memory</span>
+<span class="go">2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mod</span><span class="o">.</span><span class="n">set_conserve_memory</span><span class="p">(</span><span class="n">memory_no_filtered</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+<span class="go">                            memory_no_forecast=True)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mod</span><span class="o">.</span><span class="n">conserve_memory</span>
+<span class="go">7</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="dismalpy.ssm.kalman_filter.KalmanFilter.set_filter_method">
+<code class="descname">set_filter_method</code><span class="sig-paren">(</span><em>filter_method=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/dismalpy/ssm/kalman_filter.html#KalmanFilter.set_filter_method"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dismalpy.ssm.kalman_filter.KalmanFilter.set_filter_method" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the filtering method</p>
+<p>The filtering method controls aspects of which Kalman filtering
+approach will be used.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>filter_method</strong> : integer, optional</p>
+<blockquote>
+<div><p>Bitmask value to set the filter method to. See notes for details.</p>
+</div></blockquote>
+<p><strong>**kwargs</strong></p>
+<blockquote class="last">
+<div><p>Keyword arguments may be used to influence the filter method by
+setting individual boolean flags. See notes for details.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>The filtering method is defined by a collection of boolean flags, and
+is internally stored as a bitmask. The methods available are:</p>
+<dl class="docutils">
+<dt>FILTER_CONVENTIONAL = 0x01</dt>
+<dd>Conventional Kalman filter.</dd>
+<dt>FILTER_UNIVARIATE = 0x10</dt>
+<dd>Univariate approach to Kalman filtering. Overrides conventional
+method if both are specified.</dd>
+<dt>FILTER_COLLAPSED = 0x20</dt>
+<dd>Collapsed approach to Kalman filtering. Will be used <em>in addition</em>
+to conventional or univariate filtering.</dd>
+</dl>
+<p>If the bitmask is set directly via the <a class="reference internal" href="#dismalpy.ssm.kalman_filter.KalmanFilter.filter_method" title="dismalpy.ssm.kalman_filter.KalmanFilter.filter_method"><code class="xref py py-obj docutils literal"><span class="pre">filter_method</span></code></a> argument, then
+the full method must be provided.</p>
+<p>If keyword arguments are used to set individual boolean flags, then
+the lowercase of the method must be used as an argument name, and the
+value is the desired value of the boolean flag (True or False).</p>
+<p>Note that the filter method may also be specified by directly modifying
+the class attributes which are defined similarly to the keyword
+arguments.</p>
+<p>The default filtering method is FILTER_CONVENTIONAL.</p>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">mod</span> <span class="o">=</span> <span class="n">dp</span><span class="o">.</span><span class="n">ssm</span><span class="o">.</span><span class="n">KalmanFilter</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mod</span><span class="o">.</span><span class="n">filter_method</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mod</span><span class="o">.</span><span class="n">filter_conventional</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mod</span><span class="o">.</span><span class="n">filter_univariate</span> <span class="o">=</span> <span class="bp">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mod</span><span class="o">.</span><span class="n">filter_method</span>
+<span class="go">17</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mod</span><span class="o">.</span><span class="n">set_filter_method</span><span class="p">(</span><span class="n">filter_univariate</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+<span class="go">                          filter_collapsed=True)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mod</span><span class="o">.</span><span class="n">filter_method</span>
+<span class="go">33</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mod</span><span class="o">.</span><span class="n">set_filter_method</span><span class="p">(</span><span class="n">filter_method</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mod</span><span class="o">.</span><span class="n">filter_conventional</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mod</span><span class="o">.</span><span class="n">filter_univariate</span>
+<span class="go">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mod</span><span class="o">.</span><span class="n">filter_collapsed</span>
+<span class="go">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mod</span><span class="o">.</span><span class="n">filter_univariate</span> <span class="o">=</span> <span class="bp">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mod</span><span class="o">.</span><span class="n">filter_method</span>
+<span class="go">17</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="dismalpy.ssm.kalman_filter.KalmanFilter.set_filter_timing">
+<code class="descname">set_filter_timing</code><span class="sig-paren">(</span><em>alternate_timing=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/dismalpy/ssm/kalman_filter.html#KalmanFilter.set_filter_timing"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dismalpy.ssm.kalman_filter.KalmanFilter.set_filter_timing" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the filter timing convention</p>
+<p>By default, the Kalman filter follows Durbin and Koopman, 2012, in
+initializing the filter with predicted values. Kim and Nelson, 1999,
+instead initialize the filter with filtered values, which is
+essentially just a different timing convention.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>alternate_timing</strong> : integer, optional</p>
+<blockquote>
+<div><p>Whether or not to use the alternate timing convention. Default is
+unspecified.</p>
+</div></blockquote>
+<p><strong>**kwargs</strong></p>
+<blockquote class="last">
+<div><p>Keyword arguments may be used to influence the memory conservation
+method by setting individual boolean flags. See notes for details.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="dismalpy.ssm.kalman_filter.KalmanFilter.set_inversion_method">
+<code class="descname">set_inversion_method</code><span class="sig-paren">(</span><em>inversion_method=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/dismalpy/ssm/kalman_filter.html#KalmanFilter.set_inversion_method"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dismalpy.ssm.kalman_filter.KalmanFilter.set_inversion_method" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the inversion method</p>
+<p>The Kalman filter may contain one matrix inversion: that of the
+forecast error covariance matrix. The inversion method controls how and
+if that inverse is performed.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>inversion_method</strong> : integer, optional</p>
+<blockquote>
+<div><p>Bitmask value to set the inversion method to. See notes for
+details.</p>
+</div></blockquote>
+<p><strong>**kwargs</strong></p>
+<blockquote class="last">
+<div><p>Keyword arguments may be used to influence the inversion method by
+setting individual boolean flags. See notes for details.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>The inversion method is defined by a collection of boolean flags, and
+is internally stored as a bitmask. The methods available are:</p>
+<dl class="docutils">
+<dt>INVERT_UNIVARIATE = 0x01</dt>
+<dd>If the endogenous time series is univariate, then inversion can be
+performed by simple division. If this flag is set and the time
+series is univariate, then division will always be used even if
+other flags are also set.</dd>
+<dt>SOLVE_LU = 0x02</dt>
+<dd>Use an LU decomposition along with a linear solver (rather than
+ever actually inverting the matrix).</dd>
+<dt>INVERT_LU = 0x04</dt>
+<dd>Use an LU decomposition along with typical matrix inversion.</dd>
+<dt>SOLVE_CHOLESKY = 0x08</dt>
+<dd>Use a Cholesky decomposition along with a linear solver.</dd>
+<dt>INVERT_CHOLESKY = 0x10</dt>
+<dd>Use an Cholesky decomposition along with typical matrix inversion.</dd>
+<dt>INVERT_NUMPY = 0x20</dt>
+<dd>Use the numpy inversion function. This is not recommended except
+for testing as it will be substantially slower than the other
+methods.</dd>
+</dl>
+<p>If the bitmask is set directly via the <a class="reference internal" href="#dismalpy.ssm.kalman_filter.KalmanFilter.inversion_method" title="dismalpy.ssm.kalman_filter.KalmanFilter.inversion_method"><code class="xref py py-obj docutils literal"><span class="pre">inversion_method</span></code></a> argument,
+then the full method must be provided.</p>
+<p>If keyword arguments are used to set individual boolean flags, then
+the lowercase of the method must be used as an argument name, and the
+value is the desired value of the boolean flag (True or False).</p>
+<p>Note that the inversion method may also be specified by directly
+modifying the class attributes which are defined similarly to the
+keyword arguments.</p>
+<p>The default inversion method is <em class="xref py py-obj">INVERT_UNIVARIATE | SOLVE_CHOLESKY</em></p>
+<p>Several things to keep in mind are:</p>
+<ul class="simple">
+<li>If the filtering method is specified to be univariate, then simple
+division is always used regardless of the dimension of the endogenous
+time series.</li>
+<li>Cholesky decomposition is about twice as fast as LU decomposition,
+but it requires that the matrix be positive definite. While this
+should generally be true, it may not be in every case.</li>
+<li>Using a linear solver rather than true matrix inversion is generally
+faster and is numerically more stable.</li>
+</ul>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">mod</span> <span class="o">=</span> <span class="n">dp</span><span class="o">.</span><span class="n">ssm</span><span class="o">.</span><span class="n">KalmanFilter</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mod</span><span class="o">.</span><span class="n">inversion_method</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mod</span><span class="o">.</span><span class="n">solve_cholesky</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mod</span><span class="o">.</span><span class="n">invert_univariate</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mod</span><span class="o">.</span><span class="n">invert_lu</span>
+<span class="go">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mod</span><span class="o">.</span><span class="n">invert_univariate</span> <span class="o">=</span> <span class="bp">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mod</span><span class="o">.</span><span class="n">inversion_method</span>
+<span class="go">8</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mod</span><span class="o">.</span><span class="n">set_inversion_method</span><span class="p">(</span><span class="n">solve_cholesky</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+<span class="go">                             invert_cholesky=True)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mod</span><span class="o">.</span><span class="n">inversion_method</span>
+<span class="go">16</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="dismalpy.ssm.kalman_filter.KalmanFilter.set_stability_method">
+<code class="descname">set_stability_method</code><span class="sig-paren">(</span><em>stability_method=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/dismalpy/ssm/kalman_filter.html#KalmanFilter.set_stability_method"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dismalpy.ssm.kalman_filter.KalmanFilter.set_stability_method" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the numerical stability method</p>
+<p>The Kalman filter is a recursive algorithm that may in some cases
+suffer issues with numerical stability. The stability method controls
+what, if any, measures are taken to promote stability.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>stability_method</strong> : integer, optional</p>
+<blockquote>
+<div><p>Bitmask value to set the stability method to. See notes for
+details.</p>
+</div></blockquote>
+<p><strong>**kwargs</strong></p>
+<blockquote class="last">
+<div><p>Keyword arguments may be used to influence the stability method by
+setting individual boolean flags. See notes for details.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>The stability method is defined by a collection of boolean flags, and
+is internally stored as a bitmask. The methods available are:</p>
+<dl class="docutils">
+<dt>STABILITY_FORCE_SYMMETRY = 0x01</dt>
+<dd>If this flag is set, symmetry of the predicted state covariance
+matrix is enforced at each iteration of the filter, where each
+element is set to the average of the corresponding elements in the
+upper and lower triangle.</dd>
+</dl>
+<p>If the bitmask is set directly via the <a class="reference internal" href="#dismalpy.ssm.kalman_filter.KalmanFilter.stability_method" title="dismalpy.ssm.kalman_filter.KalmanFilter.stability_method"><code class="xref py py-obj docutils literal"><span class="pre">stability_method</span></code></a> argument,
+then the full method must be provided.</p>
+<p>If keyword arguments are used to set individual boolean flags, then
+the lowercase of the method must be used as an argument name, and the
+value is the desired value of the boolean flag (True or False).</p>
+<p>Note that the stability method may also be specified by directly
+modifying the class attributes which are defined similarly to the
+keyword arguments.</p>
+<p>The default stability method is <code class="xref py py-obj docutils literal"><span class="pre">STABILITY_FORCE_SYMMETRY</span></code></p>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">mod</span> <span class="o">=</span> <span class="n">dp</span><span class="o">.</span><span class="n">ssm</span><span class="o">.</span><span class="n">KalmanFilter</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mod</span><span class="o">.</span><span class="n">stability_method</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mod</span><span class="o">.</span><span class="n">stability_force_symmetry</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mod</span><span class="o">.</span><span class="n">stability_force_symmetry</span> <span class="o">=</span> <span class="bp">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mod</span><span class="o">.</span><span class="n">stability_method</span>
+<span class="go">0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="dismalpy.ssm.kalman_filter.KalmanFilter.simulate">
+<code class="descname">simulate</code><span class="sig-paren">(</span><em>nsimulations</em>, <em>measurement_shocks=None</em>, <em>state_shocks=None</em>, <em>initial_state=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/dismalpy/ssm/kalman_filter.html#KalmanFilter.simulate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dismalpy.ssm.kalman_filter.KalmanFilter.simulate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Simulate a new time series following the state space model</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>nsimulations</strong> : int</p>
+<blockquote>
+<div><p>The number of observations to simulate. If the model is
+time-invariant this can be any number. If the model is
+time-varying, then this number must be less than or equal to the
+number</p>
+</div></blockquote>
+<p><strong>measurement_shocks</strong> : array_like, optional</p>
+<blockquote>
+<div><p>If specified, these are the shocks to the measurement equation,
+<span class="math">\(\varepsilon_t\)</span>. If unspecified, these are automatically
+generated using a pseudo-random number generator. If specified,
+must be shaped <em class="xref py py-obj">nsimulations</em> x <em class="xref py py-obj">k_endog</em>, where <em class="xref py py-obj">k_endog</em> is the
+same as in the state space model.</p>
+</div></blockquote>
+<p><strong>state_shocks</strong> : array_like, optional</p>
+<blockquote>
+<div><p>If specified, these are the shocks to the state equation,
+<span class="math">\(\eta_t\)</span>. If unspecified, these are automatically
+generated using a pseudo-random number generator. If specified,
+must be shaped <em class="xref py py-obj">nsimulations</em> x <em class="xref py py-obj">k_posdef</em> where <em class="xref py py-obj">k_posdef</em> is the
+same as in the state space model.</p>
+</div></blockquote>
+<p><strong>initial_state</strong> : array_like, optional</p>
+<blockquote>
+<div><p>If specified, this is the state vector at time zero, which should
+be shaped (<em class="xref py py-obj">k_states</em> x 1), where <em class="xref py py-obj">k_states</em> is the same as in the
+state space model. If unspecified, but the model has been
+initialized, then that initialization is used. If unspecified and
+the model has not been initialized, then a vector of zeros is used.
+Note that this is not included in the returned <em class="xref py py-obj">simulated_states</em>
+array.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>simulated_obs</strong> : array</p>
+<blockquote>
+<div><p>An (nsimulations x k_endog) array of simulated observations.</p>
+</div></blockquote>
+<p><strong>simulated_states</strong> : array</p>
+<blockquote class="last">
+<div><p>An (nsimulations x k_states) array of simulated states.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="dismalpy.ssm.kalman_filter.KalmanFilter.solve_cholesky">
+<code class="descname">solve_cholesky</code><em class="property"> = False</em><a class="headerlink" href="#dismalpy.ssm.kalman_filter.KalmanFilter.solve_cholesky" title="Permalink to this definition">¶</a></dt>
+<dd><p>(bool) Flag for Cholesky and linear solver inversion method (recommended).</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="dismalpy.ssm.kalman_filter.KalmanFilter.solve_lu">
+<code class="descname">solve_lu</code><em class="property"> = False</em><a class="headerlink" href="#dismalpy.ssm.kalman_filter.KalmanFilter.solve_lu" title="Permalink to this definition">¶</a></dt>
+<dd><p>(bool) Flag for LU and linear solver inversion method.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="dismalpy.ssm.kalman_filter.KalmanFilter.stability_force_symmetry">
+<code class="descname">stability_force_symmetry</code><em class="property"> = False</em><a class="headerlink" href="#dismalpy.ssm.kalman_filter.KalmanFilter.stability_force_symmetry" title="Permalink to this definition">¶</a></dt>
+<dd><p>(bool) Flag for enforcing covariance matrix symmetry</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="dismalpy.ssm.kalman_filter.KalmanFilter.stability_method">
+<code class="descname">stability_method</code><em class="property"> = 1</em><a class="headerlink" href="#dismalpy.ssm.kalman_filter.KalmanFilter.stability_method" title="Permalink to this definition">¶</a></dt>
+<dd><p>(int) Stability method bitmask.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="dismalpy.ssm.kalman_filter.KalmanFilter.timing_init_filtered">
+<code class="descname">timing_init_filtered</code><em class="property"> = False</em><a class="headerlink" href="#dismalpy.ssm.kalman_filter.KalmanFilter.timing_init_filtered" title="Permalink to this definition">¶</a></dt>
+<dd><p>(bool) Flag for the alternate timing convention (Kim and Nelson, 2012).</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="dismalpy.ssm.kalman_filter.KalmanFilter.timing_init_predicted">
+<code class="descname">timing_init_predicted</code><em class="property"> = False</em><a class="headerlink" href="#dismalpy.ssm.kalman_filter.KalmanFilter.timing_init_predicted" title="Permalink to this definition">¶</a></dt>
+<dd><p>(bool) Flag for the default timing convention (Durbin and Koopman, 2012).</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="dismalpy.ssm.kalman_filter.FilterResults">
+<em class="property">class </em><code class="descclassname">dismalpy.ssm.kalman_filter.</code><code class="descname">FilterResults</code><span class="sig-paren">(</span><em>model</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/dismalpy/ssm/kalman_filter.html#FilterResults"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dismalpy.ssm.kalman_filter.FilterResults" title="Permalink to this definition">¶</a></dt>
+<dd><p>Results from applying the Kalman filter to a state space model.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>model</strong> : Representation</p>
+<blockquote class="last">
+<div><p>A Statespace representation</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Attributes</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="15%" />
+<col width="85%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>nobs</td>
+<td>(int) Number of observations.</td>
+</tr>
+<tr class="row-even"><td>k_endog</td>
+<td>(int) The dimension of the observation series.</td>
+</tr>
+<tr class="row-odd"><td>k_states</td>
+<td>(int) The dimension of the unobserved state process.</td>
+</tr>
+<tr class="row-even"><td>k_posdef</td>
+<td>(int) The dimension of a guaranteed positive definite covariance matrix describing the shocks in the measurement equation.</td>
+</tr>
+<tr class="row-odd"><td>dtype</td>
+<td>(dtype) Datatype of representation matrices</td>
+</tr>
+<tr class="row-even"><td>prefix</td>
+<td>(str) BLAS prefix of representation matrices</td>
+</tr>
+<tr class="row-odd"><td>shapes</td>
+<td>(dictionary of name,tuple) A dictionary recording the shapes of each of the representation matrices as tuples.</td>
+</tr>
+<tr class="row-even"><td>endog</td>
+<td>(array) The observation vector.</td>
+</tr>
+<tr class="row-odd"><td>design</td>
+<td>(array) The design matrix, <span class="math">\(Z\)</span>.</td>
+</tr>
+<tr class="row-even"><td>obs_intercept</td>
+<td>(array) The intercept for the observation equation, <span class="math">\(d\)</span>.</td>
+</tr>
+<tr class="row-odd"><td>obs_cov</td>
+<td>(array) The covariance matrix for the observation equation <span class="math">\(H\)</span>.</td>
+</tr>
+<tr class="row-even"><td>transition</td>
+<td>(array) The transition matrix, <span class="math">\(T\)</span>.</td>
+</tr>
+<tr class="row-odd"><td>state_intercept</td>
+<td>(array) The intercept for the transition equation, <span class="math">\(c\)</span>.</td>
+</tr>
+<tr class="row-even"><td>selection</td>
+<td>(array) The selection matrix, <span class="math">\(R\)</span>.</td>
+</tr>
+<tr class="row-odd"><td>state_cov</td>
+<td>(array) The covariance matrix for the state equation <span class="math">\(Q\)</span>.</td>
+</tr>
+<tr class="row-even"><td>missing</td>
+<td>(array of bool) An array of the same size as <em class="xref py py-obj">endog</em>, filled with boolean values that are True if the corresponding entry in <em class="xref py py-obj">endog</em> is NaN and False otherwise.</td>
+</tr>
+<tr class="row-odd"><td>nmissing</td>
+<td>(array of int) An array of size <em class="xref py py-obj">nobs</em>, where the ith entry is the number (between 0 and <em class="xref py py-obj">k_endog</em>) of NaNs in the ith row of the <em class="xref py py-obj">endog</em> array.</td>
+</tr>
+<tr class="row-even"><td>time_invariant</td>
+<td>(bool) Whether or not the representation matrices are time-invariant</td>
+</tr>
+<tr class="row-odd"><td>initialization</td>
+<td>(str) Kalman filter initialization method.</td>
+</tr>
+<tr class="row-even"><td>initial_state</td>
+<td>(array_like) The state vector used to initialize the Kalamn filter.</td>
+</tr>
+<tr class="row-odd"><td>initial_state_cov</td>
+<td>(array_like) The state covariance matrix used to initialize the Kalamn filter.</td>
+</tr>
+<tr class="row-even"><td>filter_method</td>
+<td>(int) Bitmask representing the Kalman filtering method</td>
+</tr>
+<tr class="row-odd"><td>inversion_method</td>
+<td>(int) Bitmask representing the method used to invert the forecast error covariance matrix.</td>
+</tr>
+<tr class="row-even"><td>stability_method</td>
+<td>(int) Bitmask representing the methods used to promote numerical stability in the Kalman filter recursions.</td>
+</tr>
+<tr class="row-odd"><td>conserve_memory</td>
+<td>(int) Bitmask representing the selected memory conservation method.</td>
+</tr>
+<tr class="row-even"><td>filter_timing</td>
+<td>(int) Whether or not to use the alternate timing convention.</td>
+</tr>
+<tr class="row-odd"><td>tolerance</td>
+<td>(float) The tolerance at which the Kalman filter determines convergence to steady-state.</td>
+</tr>
+<tr class="row-even"><td>loglikelihood_burn</td>
+<td>(int) The number of initial periods during which the loglikelihood is not recorded.</td>
+</tr>
+<tr class="row-odd"><td>converged</td>
+<td>(bool) Whether or not the Kalman filter converged.</td>
+</tr>
+<tr class="row-even"><td>period_converged</td>
+<td>(int) The time period in which the Kalman filter converged.</td>
+</tr>
+<tr class="row-odd"><td>filtered_state</td>
+<td>(array) The filtered state vector at each time period.</td>
+</tr>
+<tr class="row-even"><td>filtered_state_cov</td>
+<td>(array) The filtered state covariance matrix at each time period.</td>
+</tr>
+<tr class="row-odd"><td>predicted_state</td>
+<td>(array) The predicted state vector at each time period.</td>
+</tr>
+<tr class="row-even"><td>predicted_state_cov</td>
+<td>(array) The predicted state covariance matrix at each time period.</td>
+</tr>
+<tr class="row-odd"><td>kalman_gain</td>
+<td>(array) The Kalman gain at each time period.</td>
+</tr>
+<tr class="row-even"><td>forecasts</td>
+<td>(array) The one-step-ahead forecasts of observations at each time period.</td>
+</tr>
+<tr class="row-odd"><td>forecasts_error</td>
+<td>(array) The forecast errors at each time period.</td>
+</tr>
+<tr class="row-even"><td>forecasts_error_cov</td>
+<td>(array) The forecast error covariance matrices at each time period.</td>
+</tr>
+<tr class="row-odd"><td>llf_obs</td>
+<td>(array) The loglikelihood values at each time period.</td>
+</tr>
+<tr class="row-even"><td>collapsed_forecasts</td>
+<td>(array) If filtering using collapsed observations, stores the one-step-ahead forecasts of collapsed observations at each time period.</td>
+</tr>
+<tr class="row-odd"><td>collapsed_forecasts_error</td>
+<td>(array) If filtering using collapsed observations, stores the one-step-ahead forecast errors of collapsed observations at each time period.</td>
+</tr>
+<tr class="row-even"><td>collapsed_forecasts_error_cov</td>
+<td>(array) If filtering using collapsed observations, stores the one-step-ahead forecast error covariance matrices of collapsed observations at each time period.</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="dismalpy.ssm.kalman_filter.FilterResults.predict">
+<code class="descname">predict</code><span class="sig-paren">(</span><em>start=None</em>, <em>end=None</em>, <em>dynamic=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/dismalpy/ssm/kalman_filter.html#FilterResults.predict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dismalpy.ssm.kalman_filter.FilterResults.predict" title="Permalink to this definition">¶</a></dt>
+<dd><p>In-sample and out-of-sample prediction for state space models generally</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>start</strong> : int, optional</p>
+<blockquote>
+<div><p>Zero-indexed observation number at which to start forecasting,
+i.e., the first forecast will be at start.</p>
+</div></blockquote>
+<p><strong>end</strong> : int, optional</p>
+<blockquote>
+<div><p>Zero-indexed observation number at which to end forecasting, i.e.,
+the last forecast will be at end.</p>
+</div></blockquote>
+<p><strong>dynamic</strong> : int, optional</p>
+<blockquote>
+<div><p>Offset relative to <em class="xref py py-obj">start</em> at which to begin dynamic prediction.
+Prior to this observation, true endogenous values will be used for
+prediction; starting with this observation and continuing through
+the end of prediction, forecasted endogenous values will be used
+instead.</p>
+</div></blockquote>
+<p><strong>**kwargs</strong></p>
+<blockquote>
+<div><p>If the prediction range is outside of the sample range, any
+of the state space representation matrices that are time-varying
+must have updated values provided for the out-of-sample range.
+For example, of <em class="xref py py-obj">obs_intercept</em> is a time-varying component and
+the prediction range extends 10 periods beyond the end of the
+sample, a (<em class="xref py py-obj">k_endog</em> x 10) matrix must be provided with the new
+intercept values.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>results</strong> : PredictionResults</p>
+<blockquote class="last">
+<div><p>A PredictionResults object.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>All prediction is performed by applying the deterministic part of the
+measurement equation using the predicted state variables.</p>
+<p>Out-of-sample prediction first applies the Kalman filter to missing
+data for the number of periods desired to obtain the predicted states.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="dismalpy.ssm.kalman_filter.FilterResults.standardized_forecasts_error">
+<code class="descname">standardized_forecasts_error</code><a class="headerlink" href="#dismalpy.ssm.kalman_filter.FilterResults.standardized_forecasts_error" title="Permalink to this definition">¶</a></dt>
+<dd><p>Standardized forecast errors</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dismalpy.ssm.kalman_filter.FilterResults.update_filter">
+<code class="descname">update_filter</code><span class="sig-paren">(</span><em>kalman_filter</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/dismalpy/ssm/kalman_filter.html#FilterResults.update_filter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dismalpy.ssm.kalman_filter.FilterResults.update_filter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update the filter results</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>kalman_filter</strong> : KalmanFilter</p>
+<blockquote class="last">
+<div><p>The model object from which to take the updated values.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>This method is rarely required except for internal usage.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dismalpy.ssm.kalman_filter.FilterResults.update_representation">
+<code class="descname">update_representation</code><span class="sig-paren">(</span><em>model</em>, <em>only_options=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/dismalpy/ssm/kalman_filter.html#FilterResults.update_representation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dismalpy.ssm.kalman_filter.FilterResults.update_representation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update the results to match a given model</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>model</strong> : Representation</p>
+<blockquote>
+<div><p>The model object from which to take the updated values.</p>
+</div></blockquote>
+<p><strong>only_options</strong> : boolean, optional</p>
+<blockquote class="last">
+<div><p>If set to true, only the filter options are updated, and the state
+space representation is not updated. Default is False.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>This method is rarely required except for internal usage.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="kalman_smoother.html" class="btn btn-neutral float-right" title="Kalman smoother" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="representation.html" class="btn btn-neutral" title="Representation" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Chad Fulton.
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'0.1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

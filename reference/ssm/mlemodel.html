@@ -1,0 +1,2530 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>MLEModel &mdash; DismalPy 0.1.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="author" title="About these documents"
+              href="../../about.html"/>
+    <link rel="top" title="DismalPy 0.1.0 documentation" href="../../index.html"/>
+        <link rel="up" title="State Space Models" href="../ssm.html"/>
+        <link rel="next" title="Representation" href="representation.html"/>
+        <link rel="prev" title="Dynamic Factors" href="dynamic_factor.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="../../contents.html" class="icon icon-home"> DismalPy
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../user/index.html">DismalPy User Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../user/ssm.html">State Space Models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../user/ssm.html#topics">Topics</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../user/ssm/2-state_space_models.html">State space models</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/ssm/3-python_representation.html">Representation in Python</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/ssm/4-maximum_likelihood_estimation.html">Maximum Likelihood Estimation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/ssm/5-posterior_simulation.html">Posterior Simulation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/ssm/6-out-of-the-box_models.html">Out-of-the-box models</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/ssm/9-references.html">References</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/ssm.html#examples">Examples</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../user/_notebooks/sarimax_internet.ipynb.html">Durbin and Koopman: Box-Jenkins Examples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/_notebooks/sarimax_stata.ipynb.html">SARIMAX: Introduction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/_notebooks/local_linear_trend.ipynb.html">State space modeling: Local Linear Trends</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/_notebooks/structural_harvey_jaeger.ipynb.html">Detrending, Stylized Facts and the Business Cycle</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/_notebooks/dfm_coincident.ipynb.html">Dynamic factors and coincident indices</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/_notebooks/varmax.ipynb.html">VARMAX models</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">DismalPy Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../ssm.html">State Space Models</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../ssm.html#built-in-models">Built-in models</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sarimax.html">SARIMAX</a></li>
+<li class="toctree-l4"><a class="reference internal" href="structural.html">Unobserved Components</a></li>
+<li class="toctree-l4"><a class="reference internal" href="varmax.html">VARMAX</a></li>
+<li class="toctree-l4"><a class="reference internal" href="dynamic_factor.html">Dynamic Factors</a></li>
+</ul>
+</li>
+<li class="toctree-l3 current"><a class="reference internal" href="../ssm.html#extension-starting-point">Extension starting point</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="">MLEModel</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ssm.html#base-classes">Base classes</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="representation.html">Representation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kalman_filter.html">Kalman filter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kalman_smoother.html">Kalman smoother</a></li>
+<li class="toctree-l4"><a class="reference internal" href="simulation_smoother.html">Simulation Smoother</a></li>
+<li class="toctree-l4"><a class="reference internal" href="model.html">Model</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tools.html">Tools</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../release.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../release.html#dismalpy-0-1-0-release-notes">DismalPy 0.1.0 Release Notes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#highlights">Highlights</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#dropped-support">Dropped Support</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#future-changes">Future Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#compatibility-notes">Compatibility notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#new-features">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#improvements">Improvements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#changes">Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#deprecations">Deprecations</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">About DismalPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html#about-this-documentation">About this documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../about.html#conventions">Conventions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../bugs.html">Reporting bugs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">DismalPy License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary.html">Glossary</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../glossary.html#module-dismalpy.doc.jargon">Jargon</a></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../contents.html">DismalPy</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../contents.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../index.html">DismalPy Reference</a> &raquo;</li>
+      
+          <li><a href="../ssm.html">State Space Models</a> &raquo;</li>
+      
+    <li>MLEModel</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../_sources/reference/ssm/mlemodel.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="mlemodel">
+<span id="ref-mlemodel"></span><h1>MLEModel<a class="headerlink" href="#mlemodel" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="dismalpy.ssm.mlemodel.MLEModel">
+<em class="property">class </em><code class="descclassname">dismalpy.ssm.mlemodel.</code><code class="descname">MLEModel</code><span class="sig-paren">(</span><em>endog</em>, <em>k_states</em>, <em>exog=None</em>, <em>dates=None</em>, <em>freq=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/dismalpy/ssm/mlemodel.html#MLEModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dismalpy.ssm.mlemodel.MLEModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>State space model for maximum likelihood estimation</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>endog</strong> : array_like</p>
+<blockquote>
+<div><p>The observed time-series process <span class="math">\(y\)</span></p>
+</div></blockquote>
+<p><strong>k_states</strong> : int</p>
+<blockquote>
+<div><p>The dimension of the unobserved state process.</p>
+</div></blockquote>
+<p><strong>exog</strong> : array_like, optional</p>
+<blockquote>
+<div><p>Array of exogenous regressors, shaped nobs x k. Default is no
+exogenous regressors.</p>
+</div></blockquote>
+<p><strong>dates</strong> : array-like of datetime, optional</p>
+<blockquote>
+<div><p>An array-like object of datetime objects. If a Pandas object is given
+for endog, it is assumed to have a DateIndex.</p>
+</div></blockquote>
+<p><strong>freq</strong> : str, optional</p>
+<blockquote>
+<div><p>The frequency of the time-series. A Pandas offset or &#8216;B&#8217;, &#8216;D&#8217;, &#8216;W&#8217;,
+&#8216;M&#8217;, &#8216;A&#8217;, or &#8216;Q&#8217;. This is optional if dates are given.</p>
+</div></blockquote>
+<p><strong>**kwargs</strong></p>
+<blockquote class="last">
+<div><p>Keyword arguments may be used to provide default values for state space
+matrices or for Kalman filtering options. See <em class="xref py py-obj">Representation</em>, and
+<em class="xref py py-obj">KalmanFilter</em> for more details.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#dismalpy.ssm.mlemodel.MLEResults" title="dismalpy.ssm.mlemodel.MLEResults"><code class="xref py py-obj docutils literal"><span class="pre">MLEResults</span></code></a>, <a class="reference internal" href="simulation_smoother.html#dismalpy.ssm.simulation_smoother.SimulationSmoother" title="dismalpy.ssm.simulation_smoother.SimulationSmoother"><code class="xref py py-obj docutils literal"><span class="pre">dismalpy.ssm.simulation_smoother.SimulationSmoother</span></code></a>, <a class="reference internal" href="kalman_smoother.html#dismalpy.ssm.kalman_smoother.KalmanSmoother" title="dismalpy.ssm.kalman_smoother.KalmanSmoother"><code class="xref py py-obj docutils literal"><span class="pre">dismalpy.ssm.kalman_smoother.KalmanSmoother</span></code></a>, <a class="reference internal" href="kalman_filter.html#dismalpy.ssm.kalman_filter.KalmanFilter" title="dismalpy.ssm.kalman_filter.KalmanFilter"><code class="xref py py-obj docutils literal"><span class="pre">dismalpy.ssm.kalman_filter.KalmanFilter</span></code></a>, <a class="reference internal" href="representation.html#dismalpy.ssm.representation.Representation" title="dismalpy.ssm.representation.Representation"><code class="xref py py-obj docutils literal"><span class="pre">dismalpy.ssm.representation.Representation</span></code></a></p>
+</div>
+<p class="rubric">Notes</p>
+<p>This class wraps the state space model with Kalman filtering to add in
+functionality for maximum likelihood estimation. In particular, it adds
+the concept of updating the state space representation based on a defined
+set of parameters, through the <a class="reference internal" href="#dismalpy.ssm.mlemodel.MLEModel.update" title="dismalpy.ssm.mlemodel.MLEModel.update"><code class="xref py py-obj docutils literal"><span class="pre">update</span></code></a> method or <em class="xref py py-obj">updater</em> attribute (see
+below for more details on which to use when), and it adds a <a class="reference internal" href="#dismalpy.ssm.mlemodel.MLEModel.fit" title="dismalpy.ssm.mlemodel.MLEModel.fit"><code class="xref py py-obj docutils literal"><span class="pre">fit</span></code></a> method
+which uses a numerical optimizer to select the parameters that maximize
+the likelihood of the model.</p>
+<p>The <a class="reference internal" href="#dismalpy.ssm.mlemodel.MLEModel.start_params" title="dismalpy.ssm.mlemodel.MLEModel.start_params"><code class="xref py py-obj docutils literal"><span class="pre">start_params</span></code></a> <a class="reference internal" href="#dismalpy.ssm.mlemodel.MLEModel.update" title="dismalpy.ssm.mlemodel.MLEModel.update"><code class="xref py py-obj docutils literal"><span class="pre">update</span></code></a> method must be overridden in the
+child class (and the <em class="xref py py-obj">transform</em> and <em class="xref py py-obj">untransform</em> methods, if needed).</p>
+<p class="rubric">Attributes</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="5%" />
+<col width="95%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>ssm</td>
+<td>(KalmanFilter) Underlying state space representation.</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="dismalpy.ssm.mlemodel.MLEModel.filter">
+<code class="descname">filter</code><span class="sig-paren">(</span><em>params</em>, <em>transformed=True</em>, <em>cov_type=None</em>, <em>cov_kwds=None</em>, <em>return_ssm=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#dismalpy.ssm.mlemodel.MLEModel.filter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Kalman filtering</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>params</strong> : array_like</p>
+<blockquote>
+<div><p>Array of parameters at which to evaluate the loglikelihood
+function.</p>
+</div></blockquote>
+<p><strong>transformed</strong> : boolean, optional</p>
+<blockquote>
+<div><p>Whether or not <em class="xref py py-obj">params</em> is already transformed. Default is True.</p>
+</div></blockquote>
+<p><strong>return_ssm</strong> : boolean,optional</p>
+<blockquote>
+<div><p>Whether or not to return only the state space output or a full
+results object. Default is to return a full results object.</p>
+</div></blockquote>
+<p><strong>cov_type</strong> : str, optional</p>
+<blockquote>
+<div><p>See <em class="xref py py-obj">MLEResults.fit</em> for a description of covariance matrix types
+for results object.</p>
+</div></blockquote>
+<p><strong>cov_kwds</strong> : dict or None, optional</p>
+<blockquote>
+<div><p>See <em class="xref py py-obj">MLEResults.get_robustcov_results</em> for a description required
+keywords for alternative covariance estimators</p>
+</div></blockquote>
+<p><strong>**kwargs</strong></p>
+<blockquote class="last">
+<div><p>Additional keyword arguments to pass to the Kalman filter. See
+<em class="xref py py-obj">KalmanFilter.filter</em> for more details.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="dismalpy.ssm.mlemodel.MLEModel.fit">
+<code class="descname">fit</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#dismalpy.ssm.mlemodel.MLEModel.fit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fits the model by maximum likelihood via Kalman filter.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>start_params</strong> : array_like, optional</p>
+<blockquote>
+<div><p>Initial guess of the solution for the loglikelihood maximization.
+If None, the default is given by Model.start_params.</p>
+</div></blockquote>
+<p><strong>transformed</strong> : boolean, optional</p>
+<blockquote>
+<div><p>Whether or not <a class="reference internal" href="#dismalpy.ssm.mlemodel.MLEModel.start_params" title="dismalpy.ssm.mlemodel.MLEModel.start_params"><code class="xref py py-obj docutils literal"><span class="pre">start_params</span></code></a> is already transformed. Default is
+True.</p>
+</div></blockquote>
+<p><strong>method</strong> : str, optional</p>
+<blockquote>
+<div><p>The <em class="xref py py-obj">method</em> determines which solver from <code class="xref py py-obj docutils literal"><span class="pre">scipy.optimize</span></code>
+is used, and it can be chosen from among the following strings:</p>
+<ul class="simple">
+<li>&#8216;newton&#8217; for Newton-Raphson, &#8216;nm&#8217; for Nelder-Mead</li>
+<li>&#8216;bfgs&#8217; for Broyden-Fletcher-Goldfarb-Shanno (BFGS)</li>
+<li>&#8216;lbfgs&#8217; for limited-memory BFGS with optional box constraints</li>
+<li>&#8216;powell&#8217; for modified Powell&#8217;s method</li>
+<li>&#8216;cg&#8217; for conjugate gradient</li>
+<li>&#8216;ncg&#8217; for Newton-conjugate gradient</li>
+<li>&#8216;basinhopping&#8217; for global basin-hopping solver</li>
+</ul>
+<p>The explicit arguments in <a class="reference internal" href="#dismalpy.ssm.mlemodel.MLEModel.fit" title="dismalpy.ssm.mlemodel.MLEModel.fit"><code class="xref py py-obj docutils literal"><span class="pre">fit</span></code></a> are passed to the solver,
+with the exception of the basin-hopping solver. Each
+solver has several optional arguments that are not the same across
+solvers. See the notes section below (or scipy.optimize) for the
+available arguments and for the list of explicit arguments that the
+basin-hopping solver supports.</p>
+</div></blockquote>
+<p><strong>cov_type</strong> : str, optional</p>
+<blockquote>
+<div><p>The <em class="xref py py-obj">cov_type</em> keyword governs the method for calculating the
+covariance matrix of parameter estimates. Can be one of:</p>
+<ul class="simple">
+<li>&#8216;opg&#8217; for the outer product of gradient estimator</li>
+<li>&#8216;oim&#8217; for the observed information matrix estimator, calculated
+using the method of Harvey (1989)</li>
+<li>&#8216;cs&#8217; for the observed information matrix estimator, calculated
+using a numerical (complex step) approximation of the Hessian
+matrix.</li>
+<li>&#8216;delta&#8217; for the observed information matrix estimator, calculated
+using a numerical (complex step) approximation of the Hessian
+along with the delta method (method of propagation of errors)
+applied to the parameter transformation function
+<a class="reference internal" href="#dismalpy.ssm.mlemodel.MLEModel.transform_params" title="dismalpy.ssm.mlemodel.MLEModel.transform_params"><code class="xref py py-obj docutils literal"><span class="pre">transform_params</span></code></a>.</li>
+<li>&#8216;robust&#8217; for an approximate (quasi-maximum likelihood) covariance
+matrix that may be valid even in the presense of some
+misspecifications. Intermediate calculations use the &#8216;oim&#8217;
+method.</li>
+<li>&#8216;robust_cs&#8217; is the same as &#8216;robust&#8217; except that the intermediate
+calculations use the &#8216;cs&#8217; method.</li>
+</ul>
+</div></blockquote>
+<p><strong>cov_kwds</strong> : dict or None, optional</p>
+<blockquote>
+<div><p>See <em class="xref py py-obj">MLEResults.get_robustcov_results</em> for a description required
+keywords for alternative covariance estimators</p>
+</div></blockquote>
+<p><strong>maxiter</strong> : int, optional</p>
+<blockquote>
+<div><p>The maximum number of iterations to perform.</p>
+</div></blockquote>
+<p><strong>full_output</strong> : boolean, optional</p>
+<blockquote>
+<div><p>Set to True to have all available output in the Results object&#8217;s
+mle_retvals attribute. The output is dependent on the solver.
+See LikelihoodModelResults notes section for more information.</p>
+</div></blockquote>
+<p><strong>disp</strong> : boolean, optional</p>
+<blockquote>
+<div><p>Set to True to print convergence messages.</p>
+</div></blockquote>
+<p><strong>callback</strong> : callable callback(xk), optional</p>
+<blockquote>
+<div><p>Called after each iteration, as callback(xk), where xk is the
+current parameter vector.</p>
+</div></blockquote>
+<p><strong>return_params</strong> : boolean, optional</p>
+<blockquote>
+<div><p>Whether or not to return only the array of maximizing parameters.
+Default is False.</p>
+</div></blockquote>
+<p><strong>optim_hessian</strong> : {&#8216;opg&#8217;,&#8217;oim&#8217;,&#8217;cs&#8217;}, optional</p>
+<blockquote>
+<div><p>The method by which the Hessian is numerically approximated. &#8216;opg&#8217;
+uses outer product of gradients, &#8216;oim&#8217; uses the information
+matrix formula from Harvey (1989), and &#8216;cs&#8217; uses second-order
+complex step differentiation. This keyword is only relevant if the
+optimization method uses the Hessian matrix.</p>
+</div></blockquote>
+<p><strong>**kwargs</strong></p>
+<blockquote>
+<div><p>Additional keyword arguments to pass to the optimizer.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">MLEResults</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><code class="xref py py-obj docutils literal"><span class="pre">statsmodels.base.model.LikelihoodModel.fit</span></code>, <a class="reference internal" href="#dismalpy.ssm.mlemodel.MLEResults" title="dismalpy.ssm.mlemodel.MLEResults"><code class="xref py py-obj docutils literal"><span class="pre">MLEResults</span></code></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="dismalpy.ssm.mlemodel.MLEModel.from_formula">
+<code class="descname">from_formula</code><span class="sig-paren">(</span><em>formula</em>, <em>data</em>, <em>subset=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/statsmodels/tsa/statespace/mlemodel.html#MLEModel.from_formula"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dismalpy.ssm.mlemodel.MLEModel.from_formula" title="Permalink to this definition">¶</a></dt>
+<dd><p>Not implemented for state space models</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dismalpy.ssm.mlemodel.MLEModel.hessian">
+<code class="descname">hessian</code><span class="sig-paren">(</span><em>params</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/statsmodels/tsa/statespace/mlemodel.html#MLEModel.hessian"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dismalpy.ssm.mlemodel.MLEModel.hessian" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hessian matrix of the likelihood function, evaluated at the given
+parameters</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>params</strong> : array_like</p>
+<blockquote>
+<div><p>Array of parameters at which to evaluate the hessian.</p>
+</div></blockquote>
+<p><strong>*args, **kwargs</strong></p>
+<blockquote>
+<div><p>Additional arguments to the <a class="reference internal" href="#dismalpy.ssm.mlemodel.MLEModel.loglike" title="dismalpy.ssm.mlemodel.MLEModel.loglike"><code class="xref py py-obj docutils literal"><span class="pre">loglike</span></code></a> method.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>hessian</strong> : array</p>
+<blockquote class="last">
+<div><p>Hessian matrix evaluated at <em class="xref py py-obj">params</em></p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>This is a numerical approximation.</p>
+<p>Both *args and **kwargs are necessary because the optimizer from
+<a class="reference internal" href="#dismalpy.ssm.mlemodel.MLEModel.fit" title="dismalpy.ssm.mlemodel.MLEModel.fit"><code class="xref py py-obj docutils literal"><span class="pre">fit</span></code></a> must call this function and only supports passing arguments via
+*args (for example <em class="xref py py-obj">scipy.optimize.fmin_l_bfgs</em>).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dismalpy.ssm.mlemodel.MLEModel.impulse_responses">
+<code class="descname">impulse_responses</code><span class="sig-paren">(</span><em>params</em>, <em>steps=1</em>, <em>impulse=0</em>, <em>orthogonalized=False</em>, <em>cumulative=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/statsmodels/tsa/statespace/mlemodel.html#MLEModel.impulse_responses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dismalpy.ssm.mlemodel.MLEModel.impulse_responses" title="Permalink to this definition">¶</a></dt>
+<dd><p>Impulse response function</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>params</strong> : array_like</p>
+<blockquote>
+<div><p>Array of model parameters.</p>
+</div></blockquote>
+<p><strong>steps</strong> : int, optional</p>
+<blockquote>
+<div><p>The number of steps for which impulse responses are calculated.
+Default is 1. Note that the initial impulse is not counted as a
+step, so if <em class="xref py py-obj">steps=1</em>, the output will have 2 entries.</p>
+</div></blockquote>
+<p><strong>impulse</strong> : int or array_like</p>
+<blockquote>
+<div><p>If an integer, the state innovation to pulse; must be between 0
+and <em class="xref py py-obj">k_posdef-1</em>. Alternatively, a custom impulse vector may be
+provided; must be shaped <em class="xref py py-obj">k_posdef x 1</em>.</p>
+</div></blockquote>
+<p><strong>orthogonalized</strong> : boolean, optional</p>
+<blockquote>
+<div><p>Whether or not to perform impulse using orthogonalized innovations.
+Note that this will also affect custum <em class="xref py py-obj">impulse</em> vectors. Default
+is False.</p>
+</div></blockquote>
+<p><strong>cumulative</strong> : boolean, optional</p>
+<blockquote>
+<div><p>Whether or not to return cumulative impulse responses. Default is
+False.</p>
+</div></blockquote>
+<p><strong>**kwargs</strong></p>
+<blockquote>
+<div><p>If the model is time-varying and <em class="xref py py-obj">steps</em> is greater than the number
+of observations, any of the state space representation matrices
+that are time-varying must have updated values provided for the
+out-of-sample steps.
+For example, if <em class="xref py py-obj">design</em> is a time-varying component, <em class="xref py py-obj">nobs</em> is 10,
+and <em class="xref py py-obj">steps</em> is 15, a (<em class="xref py py-obj">k_endog</em> x <em class="xref py py-obj">k_states</em> x 5) matrix must be
+provided with the new design matrix values.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>impulse_responses</strong> : array</p>
+<blockquote class="last">
+<div><p>Responses for each endogenous variable due to the impulse
+given by the <em class="xref py py-obj">impulse</em> argument. A (steps + 1 x k_endog) array.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>Intercepts in the measurement and state equation are ignored when
+calculating impulse responses.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dismalpy.ssm.mlemodel.MLEModel.information">
+<code class="descname">information</code><span class="sig-paren">(</span><em>params</em><span class="sig-paren">)</span><a class="headerlink" href="#dismalpy.ssm.mlemodel.MLEModel.information" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fisher information matrix of model</p>
+<p>Returns -Hessian of loglike evaluated at params.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dismalpy.ssm.mlemodel.MLEModel.initialize">
+<code class="descname">initialize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#dismalpy.ssm.mlemodel.MLEModel.initialize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize (possibly re-initialize) a Model instance. For
+instance, the design matrix of a linear model may change
+and some things must be recomputed.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dismalpy.ssm.mlemodel.MLEModel.initialize_statespace">
+<code class="descname">initialize_statespace</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#dismalpy.ssm.mlemodel.MLEModel.initialize_statespace" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize the state space representation</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>**kwargs</strong></p>
+<blockquote class="last">
+<div><p>Additional keyword arguments to pass to the state space class
+constructor.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="dismalpy.ssm.mlemodel.MLEModel.loglike">
+<code class="descname">loglike</code><span class="sig-paren">(</span><em>params</em>, <em>transformed=True</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/statsmodels/tsa/statespace/mlemodel.html#MLEModel.loglike"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dismalpy.ssm.mlemodel.MLEModel.loglike" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loglikelihood evaluation</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>params</strong> : array_like</p>
+<blockquote>
+<div><p>Array of parameters at which to evaluate the loglikelihood
+function.</p>
+</div></blockquote>
+<p><strong>transformed</strong> : boolean, optional</p>
+<blockquote>
+<div><p>Whether or not <em class="xref py py-obj">params</em> is already transformed. Default is True.</p>
+</div></blockquote>
+<p><strong>**kwargs</strong></p>
+<blockquote class="last">
+<div><p>Additional keyword arguments to pass to the Kalman filter. See
+<em class="xref py py-obj">KalmanFilter.filter</em> for more details.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<dl class="last docutils">
+<dt><a class="reference internal" href="#dismalpy.ssm.mlemodel.MLEModel.update" title="dismalpy.ssm.mlemodel.MLEModel.update"><code class="xref py py-obj docutils literal"><span class="pre">update</span></code></a></dt>
+<dd>modifies the internal state of the model to reflect new params</dd>
+</dl>
+</div>
+<p class="rubric">Notes</p>
+<p><a class="reference internal" href="#r2" id="id1">[R2]</a> recommend maximizing the average likelihood to avoid scale issues;
+this is done automatically by the base Model fit method.</p>
+<p class="rubric">References</p>
+<table class="docutils citation" frame="void" id="r2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[R2]</td><td><em>(<a class="fn-backref" href="#id1">1</a>, <a class="fn-backref" href="#id2">2</a>)</em> Koopman, Siem Jan, Neil Shephard, and Jurgen A. Doornik. 1999.
+Statistical Algorithms for Models in State Space Using SsfPack 2.2.
+Econometrics Journal 2 (1): 107-60. doi:10.1111/1368-423X.00023.</td></tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="dismalpy.ssm.mlemodel.MLEModel.loglikeobs">
+<code class="descname">loglikeobs</code><span class="sig-paren">(</span><em>params</em>, <em>transformed=True</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/statsmodels/tsa/statespace/mlemodel.html#MLEModel.loglikeobs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dismalpy.ssm.mlemodel.MLEModel.loglikeobs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loglikelihood evaluation</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>params</strong> : array_like</p>
+<blockquote>
+<div><p>Array of parameters at which to evaluate the loglikelihood
+function.</p>
+</div></blockquote>
+<p><strong>transformed</strong> : boolean, optional</p>
+<blockquote>
+<div><p>Whether or not <em class="xref py py-obj">params</em> is already transformed. Default is True.</p>
+</div></blockquote>
+<p><strong>**kwargs</strong></p>
+<blockquote class="last">
+<div><p>Additional keyword arguments to pass to the Kalman filter. See
+<em class="xref py py-obj">KalmanFilter.filter</em> for more details.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<dl class="last docutils">
+<dt><a class="reference internal" href="#dismalpy.ssm.mlemodel.MLEModel.update" title="dismalpy.ssm.mlemodel.MLEModel.update"><code class="xref py py-obj docutils literal"><span class="pre">update</span></code></a></dt>
+<dd>modifies the internal state of the Model to reflect new params</dd>
+</dl>
+</div>
+<p class="rubric">Notes</p>
+<p><a class="reference internal" href="#r3" id="id3">[R3]</a> recommend maximizing the average likelihood to avoid scale issues;
+this is done automatically by the base Model fit method.</p>
+<p class="rubric">References</p>
+<table class="docutils citation" frame="void" id="r3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[R3]</td><td><em>(<a class="fn-backref" href="#id3">1</a>, <a class="fn-backref" href="#id4">2</a>)</em> Koopman, Siem Jan, Neil Shephard, and Jurgen A. Doornik. 1999.
+Statistical Algorithms for Models in State Space Using SsfPack 2.2.
+Econometrics Journal 2 (1): 107-60. doi:10.1111/1368-423X.00023.</td></tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="dismalpy.ssm.mlemodel.MLEModel.observed_information_matrix">
+<code class="descname">observed_information_matrix</code><span class="sig-paren">(</span><em>params</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/statsmodels/tsa/statespace/mlemodel.html#MLEModel.observed_information_matrix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dismalpy.ssm.mlemodel.MLEModel.observed_information_matrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Observed information matrix</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>params</strong> : array_like, optional</p>
+<blockquote>
+<div><p>Array of parameters at which to evaluate the loglikelihood
+function.</p>
+</div></blockquote>
+<p><strong>**kwargs</strong></p>
+<blockquote class="last">
+<div><p>Additional keyword arguments to pass to the Kalman filter. See
+<em class="xref py py-obj">KalmanFilter.filter</em> for more details.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>This method is from Harvey (1989), which shows that the information
+matrix only depends on terms from the gradient. This implementation is
+partially analytic and partially numeric approximation, therefore,
+because it uses the analytic formula for the information matrix, with
+numerically computed elements of the gradient.</p>
+<p class="rubric">References</p>
+<p>Harvey, Andrew C. 1990.
+Forecasting, Structural Time Series Models and the Kalman Filter.
+Cambridge University Press.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dismalpy.ssm.mlemodel.MLEModel.opg_information_matrix">
+<code class="descname">opg_information_matrix</code><span class="sig-paren">(</span><em>params</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/statsmodels/tsa/statespace/mlemodel.html#MLEModel.opg_information_matrix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dismalpy.ssm.mlemodel.MLEModel.opg_information_matrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Outer product of gradients information matrix</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>params</strong> : array_like, optional</p>
+<blockquote>
+<div><p>Array of parameters at which to evaluate the loglikelihood
+function.</p>
+</div></blockquote>
+<p><strong>**kwargs</strong></p>
+<blockquote class="last">
+<div><p>Additional arguments to the <a class="reference internal" href="#dismalpy.ssm.mlemodel.MLEModel.loglikeobs" title="dismalpy.ssm.mlemodel.MLEModel.loglikeobs"><code class="xref py py-obj docutils literal"><span class="pre">loglikeobs</span></code></a> method.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">References</p>
+<p>Berndt, Ernst R., Bronwyn Hall, Robert Hall, and Jerry Hausman. 1974.
+Estimation and Inference in Nonlinear Structural Models.
+NBER Chapters. National Bureau of Economic Research, Inc.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="dismalpy.ssm.mlemodel.MLEModel.param_names">
+<code class="descname">param_names</code><a class="headerlink" href="#dismalpy.ssm.mlemodel.MLEModel.param_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>(list of str) List of human readable parameter names (for parameters
+actually included in the model).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dismalpy.ssm.mlemodel.MLEModel.predict">
+<code class="descname">predict</code><span class="sig-paren">(</span><em>params</em>, <em>exog=None</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#dismalpy.ssm.mlemodel.MLEModel.predict" title="Permalink to this definition">¶</a></dt>
+<dd><p>After a model has been fit predict returns the fitted values.</p>
+<p>This is a placeholder intended to be overwritten by individual models.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dismalpy.ssm.mlemodel.MLEModel.prepare_data">
+<code class="descname">prepare_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/statsmodels/tsa/statespace/mlemodel.html#MLEModel.prepare_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dismalpy.ssm.mlemodel.MLEModel.prepare_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prepare data for use in the state space representation</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dismalpy.ssm.mlemodel.MLEModel.score">
+<code class="descname">score</code><span class="sig-paren">(</span><em>params</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/statsmodels/tsa/statespace/mlemodel.html#MLEModel.score"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dismalpy.ssm.mlemodel.MLEModel.score" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the score function at params.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>params</strong> : array_like</p>
+<blockquote>
+<div><p>Array of parameters at which to evaluate the score.</p>
+</div></blockquote>
+<p><strong>*args, **kwargs</strong></p>
+<blockquote>
+<div><p>Additional arguments to the <a class="reference internal" href="#dismalpy.ssm.mlemodel.MLEModel.loglike" title="dismalpy.ssm.mlemodel.MLEModel.loglike"><code class="xref py py-obj docutils literal"><span class="pre">loglike</span></code></a> method.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>score</strong> : array</p>
+<blockquote class="last">
+<div><p>Score, evaluated at <em class="xref py py-obj">params</em>.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>This is a numerical approximation, calculated using first-order complex
+step differentiation on the <a class="reference internal" href="#dismalpy.ssm.mlemodel.MLEModel.loglike" title="dismalpy.ssm.mlemodel.MLEModel.loglike"><code class="xref py py-obj docutils literal"><span class="pre">loglike</span></code></a> method.</p>
+<p>Both *args and **kwargs are necessary because the optimizer from
+<a class="reference internal" href="#dismalpy.ssm.mlemodel.MLEModel.fit" title="dismalpy.ssm.mlemodel.MLEModel.fit"><code class="xref py py-obj docutils literal"><span class="pre">fit</span></code></a> must call this function and only supports passing arguments via
+*args (for example <em class="xref py py-obj">scipy.optimize.fmin_l_bfgs</em>).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dismalpy.ssm.mlemodel.MLEModel.score_obs">
+<code class="descname">score_obs</code><span class="sig-paren">(</span><em>params</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/statsmodels/tsa/statespace/mlemodel.html#MLEModel.score_obs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dismalpy.ssm.mlemodel.MLEModel.score_obs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the score per observation, evaluated at params</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>params</strong> : array_like</p>
+<blockquote>
+<div><p>Array of parameters at which to evaluate the score.</p>
+</div></blockquote>
+<p><strong>*args, **kwargs</strong></p>
+<blockquote>
+<div><p>Additional arguments to the <a class="reference internal" href="#dismalpy.ssm.mlemodel.MLEModel.loglike" title="dismalpy.ssm.mlemodel.MLEModel.loglike"><code class="xref py py-obj docutils literal"><span class="pre">loglike</span></code></a> method.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>score</strong> : array (nobs, k_vars)</p>
+<blockquote class="last">
+<div><p>Score per observation, evaluated at <em class="xref py py-obj">params</em>.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>This is a numerical approximation, calculated using first-order complex
+step differentiation on the <a class="reference internal" href="#dismalpy.ssm.mlemodel.MLEModel.loglikeobs" title="dismalpy.ssm.mlemodel.MLEModel.loglikeobs"><code class="xref py py-obj docutils literal"><span class="pre">loglikeobs</span></code></a> method.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dismalpy.ssm.mlemodel.MLEModel.set_conserve_memory">
+<code class="descname">set_conserve_memory</code><span class="sig-paren">(</span><em>conserve_memory=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/statsmodels/tsa/statespace/mlemodel.html#MLEModel.set_conserve_memory"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dismalpy.ssm.mlemodel.MLEModel.set_conserve_memory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the memory conservation method</p>
+<p>By default, the Kalman filter computes a number of intermediate
+matrices at each iteration. The memory conservation options control
+which of those matrices are stored.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>conserve_memory</strong> : integer, optional</p>
+<blockquote>
+<div><p>Bitmask value to set the memory conservation method to. See notes
+for details.</p>
+</div></blockquote>
+<p><strong>**kwargs</strong></p>
+<blockquote class="last">
+<div><p>Keyword arguments may be used to influence the memory conservation
+method by setting individual boolean flags.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>This method is rarely used. See the corresponding function in the
+<em class="xref py py-obj">KalmanFilter</em> class for details.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dismalpy.ssm.mlemodel.MLEModel.set_filter_method">
+<code class="descname">set_filter_method</code><span class="sig-paren">(</span><em>filter_method=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/statsmodels/tsa/statespace/mlemodel.html#MLEModel.set_filter_method"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dismalpy.ssm.mlemodel.MLEModel.set_filter_method" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the filtering method</p>
+<p>The filtering method controls aspects of which Kalman filtering
+approach will be used.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>filter_method</strong> : integer, optional</p>
+<blockquote>
+<div><p>Bitmask value to set the filter method to. See notes for details.</p>
+</div></blockquote>
+<p><strong>**kwargs</strong></p>
+<blockquote class="last">
+<div><p>Keyword arguments may be used to influence the filter method by
+setting individual boolean flags. See notes for details.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>This method is rarely used. See the corresponding function in the
+<em class="xref py py-obj">KalmanFilter</em> class for details.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dismalpy.ssm.mlemodel.MLEModel.set_inversion_method">
+<code class="descname">set_inversion_method</code><span class="sig-paren">(</span><em>inversion_method=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/statsmodels/tsa/statespace/mlemodel.html#MLEModel.set_inversion_method"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dismalpy.ssm.mlemodel.MLEModel.set_inversion_method" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the inversion method</p>
+<p>The Kalman filter may contain one matrix inversion: that of the
+forecast error covariance matrix. The inversion method controls how and
+if that inverse is performed.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>inversion_method</strong> : integer, optional</p>
+<blockquote>
+<div><p>Bitmask value to set the inversion method to. See notes for
+details.</p>
+</div></blockquote>
+<p><strong>**kwargs</strong></p>
+<blockquote class="last">
+<div><p>Keyword arguments may be used to influence the inversion method by
+setting individual boolean flags. See notes for details.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>This method is rarely used. See the corresponding function in the
+<em class="xref py py-obj">KalmanFilter</em> class for details.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dismalpy.ssm.mlemodel.MLEModel.set_smoother_output">
+<code class="descname">set_smoother_output</code><span class="sig-paren">(</span><em>smoother_output=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/statsmodels/tsa/statespace/mlemodel.html#MLEModel.set_smoother_output"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dismalpy.ssm.mlemodel.MLEModel.set_smoother_output" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the smoother output</p>
+<p>The smoother can produce several types of results. The smoother output
+variable controls which are calculated and returned.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>smoother_output</strong> : integer, optional</p>
+<blockquote>
+<div><p>Bitmask value to set the smoother output to. See notes for details.</p>
+</div></blockquote>
+<p><strong>**kwargs</strong></p>
+<blockquote class="last">
+<div><p>Keyword arguments may be used to influence the smoother output by
+setting individual boolean flags.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>This method is rarely used. See the corresponding function in the
+<em class="xref py py-obj">KalmanSmoother</em> class for details.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dismalpy.ssm.mlemodel.MLEModel.set_stability_method">
+<code class="descname">set_stability_method</code><span class="sig-paren">(</span><em>stability_method=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/statsmodels/tsa/statespace/mlemodel.html#MLEModel.set_stability_method"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dismalpy.ssm.mlemodel.MLEModel.set_stability_method" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the numerical stability method</p>
+<p>The Kalman filter is a recursive algorithm that may in some cases
+suffer issues with numerical stability. The stability method controls
+what, if any, measures are taken to promote stability.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>stability_method</strong> : integer, optional</p>
+<blockquote>
+<div><p>Bitmask value to set the stability method to. See notes for
+details.</p>
+</div></blockquote>
+<p><strong>**kwargs</strong></p>
+<blockquote class="last">
+<div><p>Keyword arguments may be used to influence the stability method by
+setting individual boolean flags. See notes for details.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>This method is rarely used. See the corresponding function in the
+<em class="xref py py-obj">KalmanFilter</em> class for details.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dismalpy.ssm.mlemodel.MLEModel.simulate">
+<code class="descname">simulate</code><span class="sig-paren">(</span><em>params</em>, <em>nsimulations</em>, <em>measurement_shocks=None</em>, <em>state_shocks=None</em>, <em>initial_state=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/statsmodels/tsa/statespace/mlemodel.html#MLEModel.simulate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dismalpy.ssm.mlemodel.MLEModel.simulate" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div>Simulate a new time series following the state space model</div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>params</strong> : array_like</p>
+<blockquote>
+<div><blockquote>
+<div><p>Array of model parameters.</p>
+</div></blockquote>
+<dl class="docutils">
+<dt>nsimulations <span class="classifier-delimiter">:</span> <span class="classifier">int</span></dt>
+<dd><p class="first last">The number of observations to simulate. If the model is
+time-invariant this can be any number. If the model is
+time-varying, then this number must be less than or equal to the
+number</p>
+</dd>
+<dt>measurement_shocks <span class="classifier-delimiter">:</span> <span class="classifier">array_like, optional</span></dt>
+<dd><p class="first last">If specified, these are the shocks to the measurement equation,
+:math:<a href="#id5"><span class="problematic" id="id6">`</span></a></p>
+</dd>
+</dl>
+</div></blockquote>
+<p><strong>arepsilon_t`. If unspecified, these are automatically</strong></p>
+<blockquote>
+<div><blockquote>
+<div><p>generated using a pseudo-random number generator. If specified,
+must be shaped <em class="xref py py-obj">nsimulations</em> x <em class="xref py py-obj">k_endog</em>, where <em class="xref py py-obj">k_endog</em> is the
+same as in the state space model.</p>
+</div></blockquote>
+<dl class="docutils">
+<dt>state_shocks <span class="classifier-delimiter">:</span> <span class="classifier">array_like, optional</span></dt>
+<dd><p class="first last">If specified, these are the shocks to the state equation,
+<span class="math">\(\eta_t\)</span>. If unspecified, these are automatically
+generated using a pseudo-random number generator. If specified,
+must be shaped <em class="xref py py-obj">nsimulations</em> x <em class="xref py py-obj">k_posdef</em> where <em class="xref py py-obj">k_posdef</em> is the
+same as in the state space model.</p>
+</dd>
+<dt>initial_state <span class="classifier-delimiter">:</span> <span class="classifier">array_like, optional</span></dt>
+<dd><p class="first last">If specified, this is the state vector at time zero, which should
+be shaped (<em class="xref py py-obj">k_states</em> x 1), where <em class="xref py py-obj">k_states</em> is the same as in the
+state space model. If unspecified, but the model has been
+initialized, then that initialization is used. If unspecified and
+the model has not been initialized, then a vector of zeros is used.
+Note that this is not included in the returned <em class="xref py py-obj">simulated_states</em>
+array.</p>
+</dd>
+</dl>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>simulated_obs</strong> : array</p>
+<blockquote class="last">
+<div><p>An (nsimulations x k_endog) array of simulated observations.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="dismalpy.ssm.mlemodel.MLEModel.simulation_smoother">
+<code class="descname">simulation_smoother</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#dismalpy.ssm.mlemodel.MLEModel.simulation_smoother" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve a simulation smoother for the statespace model.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>simulation_output</strong> : int, optional</p>
+<blockquote>
+<div><p>Determines which simulation smoother output is calculated.
+Default is all (including state and disturbances).</p>
+</div></blockquote>
+<p><strong>simulation_smooth_results_class</strong> : class, optional</p>
+<blockquote>
+<div><p>Default results class to use to save output of simulation
+smoothing. Default is <code class="xref py py-obj docutils literal"><span class="pre">SimulationSmoothResults</span></code>. If specified,
+class must extend from <code class="xref py py-obj docutils literal"><span class="pre">SimulationSmoothResults</span></code>.</p>
+</div></blockquote>
+<p><strong>prefix</strong> : string</p>
+<blockquote>
+<div><p>The prefix of the datatype. Usually only used internally.</p>
+</div></blockquote>
+<p><strong>**kwargs</strong></p>
+<blockquote>
+<div><p>Additional keyword arguments, used to set the simulation output.
+See <em class="xref py py-obj">set_simulation_output</em> for more details.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">SimulationSmoothResults</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="dismalpy.ssm.mlemodel.MLEModel.smooth">
+<code class="descname">smooth</code><span class="sig-paren">(</span><em>params</em>, <em>transformed=True</em>, <em>cov_type=None</em>, <em>cov_kwds=None</em>, <em>return_ssm=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#dismalpy.ssm.mlemodel.MLEModel.smooth" title="Permalink to this definition">¶</a></dt>
+<dd><p>Kalman smoothing</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>params</strong> : array_like</p>
+<blockquote>
+<div><p>Array of parameters at which to evaluate the loglikelihood
+function.</p>
+</div></blockquote>
+<p><strong>transformed</strong> : boolean, optional</p>
+<blockquote>
+<div><p>Whether or not <em class="xref py py-obj">params</em> is already transformed. Default is True.</p>
+</div></blockquote>
+<p><strong>return_ssm</strong> : boolean,optional</p>
+<blockquote>
+<div><p>Whether or not to return only the state space output or a full
+results object. Default is to return a full results object.</p>
+</div></blockquote>
+<p><strong>cov_type</strong> : str, optional</p>
+<blockquote>
+<div><p>See <em class="xref py py-obj">MLEResults.fit</em> for a description of covariance matrix types
+for results object.</p>
+</div></blockquote>
+<p><strong>cov_kwds</strong> : dict or None, optional</p>
+<blockquote>
+<div><p>See <em class="xref py py-obj">MLEResults.get_robustcov_results</em> for a description required
+keywords for alternative covariance estimators</p>
+</div></blockquote>
+<p><strong>**kwargs</strong></p>
+<blockquote class="last">
+<div><p>Additional keyword arguments to pass to the Kalman filter. See
+<em class="xref py py-obj">KalmanFilter.filter</em> for more details.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="dismalpy.ssm.mlemodel.MLEModel.start_params">
+<code class="descname">start_params</code><a class="headerlink" href="#dismalpy.ssm.mlemodel.MLEModel.start_params" title="Permalink to this definition">¶</a></dt>
+<dd><p>(array) Starting parameters for maximum likelihood estimation.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dismalpy.ssm.mlemodel.MLEModel.transform_jacobian">
+<code class="descname">transform_jacobian</code><span class="sig-paren">(</span><em>unconstrained</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/statsmodels/tsa/statespace/mlemodel.html#MLEModel.transform_jacobian"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dismalpy.ssm.mlemodel.MLEModel.transform_jacobian" title="Permalink to this definition">¶</a></dt>
+<dd><p>Jacobian matrix for the parameter transformation function</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>unconstrained</strong> : array_like</p>
+<blockquote>
+<div><p>Array of unconstrained parameters used by the optimizer.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>jacobian</strong> : array</p>
+<blockquote class="last">
+<div><p>Jacobian matrix of the transformation, evaluated at <em class="xref py py-obj">unconstrained</em></p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#dismalpy.ssm.mlemodel.MLEModel.transform_params" title="dismalpy.ssm.mlemodel.MLEModel.transform_params"><code class="xref py py-obj docutils literal"><span class="pre">transform_params</span></code></a></p>
+</div>
+<p class="rubric">Notes</p>
+<p>This is a numerical approximation.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dismalpy.ssm.mlemodel.MLEModel.transform_params">
+<code class="descname">transform_params</code><span class="sig-paren">(</span><em>unconstrained</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/statsmodels/tsa/statespace/mlemodel.html#MLEModel.transform_params"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dismalpy.ssm.mlemodel.MLEModel.transform_params" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transform unconstrained parameters used by the optimizer to constrained
+parameters used in likelihood evaluation</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>unconstrained</strong> : array_like</p>
+<blockquote>
+<div><p>Array of unconstrained parameters used by the optimizer, to be
+transformed.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>constrained</strong> : array_like</p>
+<blockquote class="last">
+<div><p>Array of constrained parameters which may be used in likelihood
+evalation.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>This is a noop in the base class, subclasses should override where
+appropriate.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dismalpy.ssm.mlemodel.MLEModel.untransform_params">
+<code class="descname">untransform_params</code><span class="sig-paren">(</span><em>constrained</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/statsmodels/tsa/statespace/mlemodel.html#MLEModel.untransform_params"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dismalpy.ssm.mlemodel.MLEModel.untransform_params" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transform constrained parameters used in likelihood evaluation
+to unconstrained parameters used by the optimizer</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>constrained</strong> : array_like</p>
+<blockquote>
+<div><p>Array of constrained parameters used in likelihood evalution, to be
+transformed.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>unconstrained</strong> : array_like</p>
+<blockquote class="last">
+<div><p>Array of unconstrained parameters used by the optimizer.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>This is a noop in the base class, subclasses should override where
+appropriate.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dismalpy.ssm.mlemodel.MLEModel.update">
+<code class="descname">update</code><span class="sig-paren">(</span><em>params</em>, <em>transformed=True</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/statsmodels/tsa/statespace/mlemodel.html#MLEModel.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dismalpy.ssm.mlemodel.MLEModel.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update the parameters of the model</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>params</strong> : array_like</p>
+<blockquote>
+<div><p>Array of new parameters.</p>
+</div></blockquote>
+<p><strong>transformed</strong> : boolean, optional</p>
+<blockquote>
+<div><p>Whether or not <em class="xref py py-obj">params</em> is already transformed. If set to False,
+<a class="reference internal" href="#dismalpy.ssm.mlemodel.MLEModel.transform_params" title="dismalpy.ssm.mlemodel.MLEModel.transform_params"><code class="xref py py-obj docutils literal"><span class="pre">transform_params</span></code></a> is called. Default is True.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>params</strong> : array_like</p>
+<blockquote class="last">
+<div><p>Array of parameters.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>Since Model is a base class, this method should be overridden by
+subclasses to perform actual updating steps.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="dismalpy.ssm.mlemodel.MLEResults">
+<em class="property">class </em><code class="descclassname">dismalpy.ssm.mlemodel.</code><code class="descname">MLEResults</code><span class="sig-paren">(</span><em>model</em>, <em>params</em>, <em>smoother_results</em>, <em>cov_type='opg'</em>, <em>cov_kwds=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/dismalpy/ssm/mlemodel.html#MLEResults"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dismalpy.ssm.mlemodel.MLEResults" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class to hold results from fitting a state space model.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>model</strong> : MLEModel instance</p>
+<blockquote>
+<div><p>The fitted model instance</p>
+</div></blockquote>
+<p><strong>params</strong> : array</p>
+<blockquote>
+<div><p>Fitted parameters</p>
+</div></blockquote>
+<p><strong>filter_results</strong> : KalmanFilter instance</p>
+<blockquote class="last">
+<div><p>The underlying state space model and Kalman filter output</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#dismalpy.ssm.mlemodel.MLEModel" title="dismalpy.ssm.mlemodel.MLEModel"><code class="xref py py-obj docutils literal"><span class="pre">MLEModel</span></code></a>, <a class="reference internal" href="kalman_smoother.html#dismalpy.ssm.kalman_smoother.SmootherResults" title="dismalpy.ssm.kalman_smoother.SmootherResults"><code class="xref py py-obj docutils literal"><span class="pre">dismalpy.ssm.kalman_smoother.SmootherResults</span></code></a>, <a class="reference internal" href="kalman_filter.html#dismalpy.ssm.kalman_filter.FilterResults" title="dismalpy.ssm.kalman_filter.FilterResults"><code class="xref py py-obj docutils literal"><span class="pre">dismalpy.ssm.kalman_filter.FilterResults</span></code></a>, <a class="reference internal" href="representation.html#dismalpy.ssm.representation.FrozenRepresentation" title="dismalpy.ssm.representation.FrozenRepresentation"><code class="xref py py-obj docutils literal"><span class="pre">dismalpy.ssm.representation.FrozenRepresentation</span></code></a></p>
+</div>
+<p class="rubric">Attributes</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="15%" />
+<col width="85%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>model</td>
+<td>(Model instance) A reference to the model that was fit.</td>
+</tr>
+<tr class="row-even"><td>filter_results</td>
+<td>(KalmanFilter instance) The underlying state space model and Kalman filter output</td>
+</tr>
+<tr class="row-odd"><td>nobs</td>
+<td>(float) The number of observations used to fit the model.</td>
+</tr>
+<tr class="row-even"><td>params</td>
+<td>(array) The parameters of the model.</td>
+</tr>
+<tr class="row-odd"><td>scale</td>
+<td>(float) This is currently set to 1.0 and not used by the model or its results.</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="dismalpy.ssm.mlemodel.MLEResults.aic">
+<code class="descname">aic</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/statsmodels/tsa/statespace/mlemodel.html#MLEResults.aic"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dismalpy.ssm.mlemodel.MLEResults.aic" title="Permalink to this definition">¶</a></dt>
+<dd><p>(float) Akaike Information Criterion</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dismalpy.ssm.mlemodel.MLEResults.bic">
+<code class="descname">bic</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/statsmodels/tsa/statespace/mlemodel.html#MLEResults.bic"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dismalpy.ssm.mlemodel.MLEResults.bic" title="Permalink to this definition">¶</a></dt>
+<dd><p>(float) Bayes Information Criterion</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dismalpy.ssm.mlemodel.MLEResults.conf_int">
+<code class="descname">conf_int</code><span class="sig-paren">(</span><em>alpha=0.05</em>, <em>cols=None</em>, <em>method='default'</em><span class="sig-paren">)</span><a class="headerlink" href="#dismalpy.ssm.mlemodel.MLEResults.conf_int" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the confidence interval of the fitted parameters.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>alpha</strong> : float, optional</p>
+<blockquote>
+<div><p>The significance level for the confidence interval.
+ie., The default <em class="xref py py-obj">alpha</em> = .05 returns a 95% confidence interval.</p>
+</div></blockquote>
+<p><strong>cols</strong> : array-like, optional</p>
+<blockquote>
+<div><p><em class="xref py py-obj">cols</em> specifies which confidence intervals to return</p>
+</div></blockquote>
+<p><strong>method</strong> : string</p>
+<blockquote>
+<div><p>Not Implemented Yet
+Method to estimate the confidence_interval.
+&#8220;Default&#8221; : uses self.bse which is based on inverse Hessian for MLE
+&#8220;hjjh&#8221; :
+&#8220;jac&#8221; :
+&#8220;boot-bse&#8221;
+&#8220;boot_quant&#8221;
+&#8220;profile&#8221;</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>conf_int</strong> : array</p>
+<blockquote class="last">
+<div><p>Each row contains [lower, upper] limits of the confidence interval
+for the corresponding parameter. The first column contains all
+lower, the second column contains all upper limits.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>The confidence interval is based on the standard normal distribution.
+Models wish to use a different distribution should overwrite this
+method.</p>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="kn">as</span> <span class="nn">sm</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">longley</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="o">.</span><span class="n">exog</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">exog</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">results</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">OLS</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">endog</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">exog</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">results</span><span class="o">.</span><span class="n">conf_int</span><span class="p">()</span>
+<span class="go">array([[-5496529.48322745, -1467987.78596704],</span>
+<span class="go">       [    -177.02903529,      207.15277984],</span>
+<span class="go">       [      -0.1115811 ,        0.03994274],</span>
+<span class="go">       [      -3.12506664,       -0.91539297],</span>
+<span class="go">       [      -1.5179487 ,       -0.54850503],</span>
+<span class="go">       [      -0.56251721,        0.460309  ],</span>
+<span class="go">       [     798.7875153 ,     2859.51541392]])</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">results</span><span class="o">.</span><span class="n">conf_int</span><span class="p">(</span><span class="n">cols</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+<span class="go">array([[-0.1115811 ,  0.03994274],</span>
+<span class="go">       [-3.12506664, -0.91539297]])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="dismalpy.ssm.mlemodel.MLEResults.cov_params">
+<code class="descname">cov_params</code><span class="sig-paren">(</span><em>r_matrix=None</em>, <em>column=None</em>, <em>scale=None</em>, <em>cov_p=None</em>, <em>other=None</em><span class="sig-paren">)</span><a class="headerlink" href="#dismalpy.ssm.mlemodel.MLEResults.cov_params" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the variance/covariance matrix.</p>
+<p>The variance/covariance matrix can be of a linear contrast
+of the estimates of params or all params multiplied by scale which
+will usually be an estimate of sigma^2.  Scale is assumed to be
+a scalar.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>r_matrix</strong> : array-like</p>
+<blockquote>
+<div><p>Can be 1d, or 2d.  Can be used alone or with other.</p>
+</div></blockquote>
+<p><strong>column</strong> :  array-like, optional</p>
+<blockquote>
+<div><p>Must be used on its own.  Can be 0d or 1d see below.</p>
+</div></blockquote>
+<p><strong>scale</strong> : float, optional</p>
+<blockquote>
+<div><p>Can be specified or not.  Default is None, which means that
+the scale argument is taken from the model.</p>
+</div></blockquote>
+<p><strong>other</strong> : array-like, optional</p>
+<blockquote>
+<div><p>Can be used when r_matrix is specified.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>cov</strong> : ndarray</p>
+<blockquote class="last">
+<div><p>covariance matrix of the parameter estimates or of linear
+combination of parameter estimates. See Notes.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>(The below are assumed to be in matrix notation.)</p>
+<p>If no argument is specified returns the covariance matrix of a model
+<code class="docutils literal"><span class="pre">(scale)*(X.T</span> <span class="pre">X)^(-1)</span></code></p>
+<p>If contrast is specified it pre and post-multiplies as follows
+<code class="docutils literal"><span class="pre">(scale)</span> <span class="pre">*</span> <span class="pre">r_matrix</span> <span class="pre">(X.T</span> <span class="pre">X)^(-1)</span> <span class="pre">r_matrix.T</span></code></p>
+<p>If contrast and other are specified returns
+<code class="docutils literal"><span class="pre">(scale)</span> <span class="pre">*</span> <span class="pre">r_matrix</span> <span class="pre">(X.T</span> <span class="pre">X)^(-1)</span> <span class="pre">other.T</span></code></p>
+<p>If column is specified returns
+<code class="docutils literal"><span class="pre">(scale)</span> <span class="pre">*</span> <span class="pre">(X.T</span> <span class="pre">X)^(-1)[column,column]</span></code> if column is 0d</p>
+<p>OR</p>
+<p><code class="docutils literal"><span class="pre">(scale)</span> <span class="pre">*</span> <span class="pre">(X.T</span> <span class="pre">X)^(-1)[column][:,column]</span></code> if column is 1d</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dismalpy.ssm.mlemodel.MLEResults.cov_params_cs">
+<code class="descname">cov_params_cs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/statsmodels/tsa/statespace/mlemodel.html#MLEResults.cov_params_cs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dismalpy.ssm.mlemodel.MLEResults.cov_params_cs" title="Permalink to this definition">¶</a></dt>
+<dd><p>(array) The variance / covariance matrix. Computed using the numerical
+Hessian computed without using parameter transformations.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dismalpy.ssm.mlemodel.MLEResults.cov_params_delta">
+<code class="descname">cov_params_delta</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/statsmodels/tsa/statespace/mlemodel.html#MLEResults.cov_params_delta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dismalpy.ssm.mlemodel.MLEResults.cov_params_delta" title="Permalink to this definition">¶</a></dt>
+<dd><p>(array) The variance / covariance matrix. Computed using the numerical
+Hessian computed using parameter transformations and the Delta method
+(method of propagation of errors).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dismalpy.ssm.mlemodel.MLEResults.cov_params_oim">
+<code class="descname">cov_params_oim</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/statsmodels/tsa/statespace/mlemodel.html#MLEResults.cov_params_oim"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dismalpy.ssm.mlemodel.MLEResults.cov_params_oim" title="Permalink to this definition">¶</a></dt>
+<dd><p>(array) The variance / covariance matrix. Computed using the method
+from Harvey (1989).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dismalpy.ssm.mlemodel.MLEResults.cov_params_opg">
+<code class="descname">cov_params_opg</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/statsmodels/tsa/statespace/mlemodel.html#MLEResults.cov_params_opg"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dismalpy.ssm.mlemodel.MLEResults.cov_params_opg" title="Permalink to this definition">¶</a></dt>
+<dd><p>(array) The variance / covariance matrix. Computed using the outer
+product of gradients method.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dismalpy.ssm.mlemodel.MLEResults.cov_params_robust">
+<code class="descname">cov_params_robust</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/statsmodels/tsa/statespace/mlemodel.html#MLEResults.cov_params_robust"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dismalpy.ssm.mlemodel.MLEResults.cov_params_robust" title="Permalink to this definition">¶</a></dt>
+<dd><p>(array) The QMLE variance / covariance matrix. Alias for
+<a class="reference internal" href="#dismalpy.ssm.mlemodel.MLEResults.cov_params_robust_oim" title="dismalpy.ssm.mlemodel.MLEResults.cov_params_robust_oim"><code class="xref py py-obj docutils literal"><span class="pre">cov_params_robust_oim</span></code></a></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dismalpy.ssm.mlemodel.MLEResults.cov_params_robust_cs">
+<code class="descname">cov_params_robust_cs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/statsmodels/tsa/statespace/mlemodel.html#MLEResults.cov_params_robust_cs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dismalpy.ssm.mlemodel.MLEResults.cov_params_robust_cs" title="Permalink to this definition">¶</a></dt>
+<dd><p>(array) The QMLE variance / covariance matrix. Computed using the
+numerical Hessian computed without using parameter transformations as
+the evaluated hessian.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dismalpy.ssm.mlemodel.MLEResults.cov_params_robust_oim">
+<code class="descname">cov_params_robust_oim</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/statsmodels/tsa/statespace/mlemodel.html#MLEResults.cov_params_robust_oim"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dismalpy.ssm.mlemodel.MLEResults.cov_params_robust_oim" title="Permalink to this definition">¶</a></dt>
+<dd><p>(array) The QMLE variance / covariance matrix. Computed using the
+method from Harvey (1989) as the evaluated hessian.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dismalpy.ssm.mlemodel.MLEResults.f_test">
+<code class="descname">f_test</code><span class="sig-paren">(</span><em>r_matrix</em>, <em>cov_p=None</em>, <em>scale=1.0</em>, <em>invcov=None</em><span class="sig-paren">)</span><a class="headerlink" href="#dismalpy.ssm.mlemodel.MLEResults.f_test" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the F-test for a joint linear hypothesis.</p>
+<p>This is a special case of <a class="reference internal" href="#dismalpy.ssm.mlemodel.MLEResults.wald_test" title="dismalpy.ssm.mlemodel.MLEResults.wald_test"><code class="xref py py-obj docutils literal"><span class="pre">wald_test</span></code></a> that always uses the F
+distribution.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>r_matrix</strong> : array-like, str, or tuple</p>
+<blockquote>
+<div><ul class="simple">
+<li>array : An r x k array where r is the number of restrictions to
+test and k is the number of regressors. It is assumed
+that the linear combination is equal to zero.</li>
+<li>str : The full hypotheses to test can be given as a string.
+See the examples.</li>
+<li>tuple : A tuple of arrays in the form (R, q), <code class="docutils literal"><span class="pre">q</span></code> can be
+either a scalar or a length k row vector.</li>
+</ul>
+</div></blockquote>
+<p><strong>cov_p</strong> : array-like, optional</p>
+<blockquote>
+<div><p>An alternative estimate for the parameter covariance matrix.
+If None is given, self.normalized_cov_params is used.</p>
+</div></blockquote>
+<p><strong>scale</strong> : float, optional</p>
+<blockquote>
+<div><p>Default is 1.0 for no scaling.</p>
+</div></blockquote>
+<p><strong>invcov</strong> : array-like, optional</p>
+<blockquote>
+<div><p>A q x q array to specify an inverse covariance matrix based on a
+restrictions matrix.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>res</strong> : ContrastResults instance</p>
+<blockquote class="last">
+<div><p>The results for the test are attributes of this results instance.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><code class="xref py py-obj docutils literal"><span class="pre">statsmodels.stats.contrast.ContrastResults</span></code>, <a class="reference internal" href="#dismalpy.ssm.mlemodel.MLEResults.wald_test" title="dismalpy.ssm.mlemodel.MLEResults.wald_test"><code class="xref py py-obj docutils literal"><span class="pre">wald_test</span></code></a>, <a class="reference internal" href="#dismalpy.ssm.mlemodel.MLEResults.t_test" title="dismalpy.ssm.mlemodel.MLEResults.t_test"><code class="xref py py-obj docutils literal"><span class="pre">t_test</span></code></a>, <code class="xref py py-obj docutils literal"><span class="pre">patsy.DesignInfo.linear_constraint</span></code></p>
+</div>
+<p class="rubric">Notes</p>
+<p>The matrix <em class="xref py py-obj">r_matrix</em> is assumed to be non-singular. More precisely,</p>
+<p>r_matrix (pX pX.T) r_matrix.T</p>
+<p>is assumed invertible. Here, pX is the generalized inverse of the
+design matrix of the model. There can be problems in non-OLS models
+where the rank of the covariance of the noise is not full.</p>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="kn">as</span> <span class="nn">sm</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">longley</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="o">.</span><span class="n">exog</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">exog</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">results</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">OLS</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">endog</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">exog</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="o">.</span><span class="n">params</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">A</span><span class="p">[</span><span class="mi">1</span><span class="p">:,:]</span>
+</pre></div>
+</div>
+<p>This tests that each coefficient is jointly statistically
+significantly different from zero.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">results</span><span class="o">.</span><span class="n">f_test</span><span class="p">(</span><span class="n">A</span><span class="p">))</span>
+<span class="go">&lt;F contrast: F=330.28533923463488, p=4.98403052872e-10,</span>
+<span class="go"> df_denom=9, df_num=6&gt;</span>
+</pre></div>
+</div>
+<p>Compare this to</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">results</span><span class="o">.</span><span class="n">fvalue</span>
+<span class="go">330.2853392346658</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">results</span><span class="o">.</span><span class="n">f_pvalue</span>
+<span class="go">4.98403096572e-10</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">B</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(([</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span>
+</pre></div>
+</div>
+<p>This tests that the coefficient on the 2nd and 3rd regressors are
+equal and jointly that the coefficient on the 5th and 6th regressors
+are equal.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">results</span><span class="o">.</span><span class="n">f_test</span><span class="p">(</span><span class="n">B</span><span class="p">))</span>
+<span class="go">&lt;F contrast: F=9.740461873303655, p=0.00560528853174, df_denom=9,</span>
+<span class="go"> df_num=2&gt;</span>
+</pre></div>
+</div>
+<p>Alternatively, you can specify the hypothesis tests using a string</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">statsmodels.datasets</span> <span class="kn">import</span> <span class="n">longley</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">statsmodels.formula.api</span> <span class="kn">import</span> <span class="n">ols</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dta</span> <span class="o">=</span> <span class="n">longley</span><span class="o">.</span><span class="n">load_pandas</span><span class="p">()</span><span class="o">.</span><span class="n">data</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">formula</span> <span class="o">=</span> <span class="s">&#39;TOTEMP ~ GNPDEFL + GNP + UNEMP + ARMED + POP + YEAR&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">results</span> <span class="o">=</span> <span class="n">ols</span><span class="p">(</span><span class="n">formula</span><span class="p">,</span> <span class="n">dta</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">hypotheses</span> <span class="o">=</span> <span class="s">&#39;(GNPDEFL = GNP), (UNEMP = 2), (YEAR/1829 = 1)&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f_test</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">f_test</span><span class="p">(</span><span class="n">hypotheses</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">f_test</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="dismalpy.ssm.mlemodel.MLEResults.fittedvalues">
+<code class="descname">fittedvalues</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/statsmodels/tsa/statespace/mlemodel.html#MLEResults.fittedvalues"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dismalpy.ssm.mlemodel.MLEResults.fittedvalues" title="Permalink to this definition">¶</a></dt>
+<dd><p>(array) The predicted values of the model. An (nobs x k_endog) array.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dismalpy.ssm.mlemodel.MLEResults.forecast">
+<code class="descname">forecast</code><span class="sig-paren">(</span><em>steps=1</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/statsmodels/tsa/statespace/mlemodel.html#MLEResults.forecast"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dismalpy.ssm.mlemodel.MLEResults.forecast" title="Permalink to this definition">¶</a></dt>
+<dd><p>Out-of-sample forecasts</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>steps</strong> : int, str, or datetime, optional</p>
+<blockquote>
+<div><p>If an integer, the number of steps to forecast from the end of the
+sample. Can also be a date string to parse or a datetime type.
+However, if the dates index does not have a fixed frequency, steps
+must be an integer. Default</p>
+</div></blockquote>
+<p><strong>**kwargs</strong></p>
+<blockquote>
+<div><p>Additional arguments may required for forecasting beyond the end
+of the sample. See <em class="xref py py-obj">FilterResults.predict</em> for more details.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>forecast</strong> : array</p>
+<blockquote class="last">
+<div><p>Array of out of sample forecasts. A (steps x k_endog) array.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="dismalpy.ssm.mlemodel.MLEResults.get_forecast">
+<code class="descname">get_forecast</code><span class="sig-paren">(</span><em>steps=1</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/statsmodels/tsa/statespace/mlemodel.html#MLEResults.get_forecast"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dismalpy.ssm.mlemodel.MLEResults.get_forecast" title="Permalink to this definition">¶</a></dt>
+<dd><p>Out-of-sample forecasts</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>steps</strong> : int, str, or datetime, optional</p>
+<blockquote>
+<div><p>If an integer, the number of steps to forecast from the end of the
+sample. Can also be a date string to parse or a datetime type.
+However, if the dates index does not have a fixed frequency, steps
+must be an integer. Default</p>
+</div></blockquote>
+<p><strong>**kwargs</strong></p>
+<blockquote>
+<div><p>Additional arguments may required for forecasting beyond the end
+of the sample. See <em class="xref py py-obj">FilterResults.predict</em> for more details.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>forecast</strong> : array</p>
+<blockquote class="last">
+<div><p>Array of out of sample forecasts. A (steps x k_endog) array.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="dismalpy.ssm.mlemodel.MLEResults.get_prediction">
+<code class="descname">get_prediction</code><span class="sig-paren">(</span><em>start=None</em>, <em>end=None</em>, <em>dynamic=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/statsmodels/tsa/statespace/mlemodel.html#MLEResults.get_prediction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dismalpy.ssm.mlemodel.MLEResults.get_prediction" title="Permalink to this definition">¶</a></dt>
+<dd><p>In-sample prediction and out-of-sample forecasting</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>start</strong> : int, str, or datetime, optional</p>
+<blockquote>
+<div><p>Zero-indexed observation number at which to start forecasting,
+i.e., the first forecast is start. Can also be a date string to
+parse or a datetime type. Default is the the zeroth observation.</p>
+</div></blockquote>
+<p><strong>end</strong> : int, str, or datetime, optional</p>
+<blockquote>
+<div><p>Zero-indexed observation number at which to end forecasting, i.e.,
+the last forecast is end. Can also be a date string to
+parse or a datetime type. However, if the dates index does not
+have a fixed frequency, end must be an integer index if you
+want out of sample prediction. Default is the last observation in
+the sample.</p>
+</div></blockquote>
+<p><strong>dynamic</strong> : boolean, int, str, or datetime, optional</p>
+<blockquote>
+<div><p>Integer offset relative to <em class="xref py py-obj">start</em> at which to begin dynamic
+prediction. Can also be an absolute date string to parse or a
+datetime type (these are not interpreted as offsets).
+Prior to this observation, true endogenous values will be used for
+prediction; starting with this observation and continuing through
+the end of prediction, forecasted endogenous values will be used
+instead.</p>
+</div></blockquote>
+<p><strong>**kwargs</strong></p>
+<blockquote>
+<div><p>Additional arguments may required for forecasting beyond the end
+of the sample. See <em class="xref py py-obj">FilterResults.predict</em> for more details.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>forecast</strong> : array</p>
+<blockquote class="last">
+<div><p>Array of out of in-sample predictions and / or out-of-sample
+forecasts. An (npredict x k_endog) array.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="dismalpy.ssm.mlemodel.MLEResults.hqic">
+<code class="descname">hqic</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/statsmodels/tsa/statespace/mlemodel.html#MLEResults.hqic"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dismalpy.ssm.mlemodel.MLEResults.hqic" title="Permalink to this definition">¶</a></dt>
+<dd><p>(float) Hannan-Quinn Information Criterion</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dismalpy.ssm.mlemodel.MLEResults.impulse_responses">
+<code class="descname">impulse_responses</code><span class="sig-paren">(</span><em>steps=1</em>, <em>impulse=0</em>, <em>orthogonalized=False</em>, <em>cumulative=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/statsmodels/tsa/statespace/mlemodel.html#MLEResults.impulse_responses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dismalpy.ssm.mlemodel.MLEResults.impulse_responses" title="Permalink to this definition">¶</a></dt>
+<dd><p>Impulse response function</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>steps</strong> : int, optional</p>
+<blockquote>
+<div><p>The number of steps for which impulse responses are calculated.
+Default is 1. Note that the initial impulse is not counted as a
+step, so if <em class="xref py py-obj">steps=1</em>, the output will have 2 entries.</p>
+</div></blockquote>
+<p><strong>impulse</strong> : int or array_like</p>
+<blockquote>
+<div><p>If an integer, the state innovation to pulse; must be between 0
+and <em class="xref py py-obj">k_posdef-1</em>. Alternatively, a custom impulse vector may be
+provided; must be shaped <em class="xref py py-obj">k_posdef x 1</em>.</p>
+</div></blockquote>
+<p><strong>orthogonalized</strong> : boolean, optional</p>
+<blockquote>
+<div><p>Whether or not to perform impulse using orthogonalized innovations.
+Note that this will also affect custum <em class="xref py py-obj">impulse</em> vectors. Default
+is False.</p>
+</div></blockquote>
+<p><strong>cumulative</strong> : boolean, optional</p>
+<blockquote>
+<div><p>Whether or not to return cumulative impulse responses. Default is
+False.</p>
+</div></blockquote>
+<p><strong>**kwargs</strong></p>
+<blockquote>
+<div><p>If the model is time-varying and <em class="xref py py-obj">steps</em> is greater than the number
+of observations, any of the state space representation matrices
+that are time-varying must have updated values provided for the
+out-of-sample steps.
+For example, if <em class="xref py py-obj">design</em> is a time-varying component, <em class="xref py py-obj">nobs</em> is 10,
+and <em class="xref py py-obj">steps</em> is 15, a (<em class="xref py py-obj">k_endog</em> x <em class="xref py py-obj">k_states</em> x 5) matrix must be
+provided with the new design matrix values.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>impulse_responses</strong> : array</p>
+<blockquote class="last">
+<div><p>Responses for each endogenous variable due to the impulse
+given by the <em class="xref py py-obj">impulse</em> argument. A (steps + 1 x k_endog) array.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>Intercepts in the measurement and state equation are ignored when
+calculating impulse responses.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="dismalpy.ssm.mlemodel.MLEResults.kalman_gain">
+<code class="descname">kalman_gain</code><a class="headerlink" href="#dismalpy.ssm.mlemodel.MLEResults.kalman_gain" title="Permalink to this definition">¶</a></dt>
+<dd><p>Kalman gain matrices</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dismalpy.ssm.mlemodel.MLEResults.llf">
+<code class="descname">llf</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/statsmodels/tsa/statespace/mlemodel.html#MLEResults.llf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dismalpy.ssm.mlemodel.MLEResults.llf" title="Permalink to this definition">¶</a></dt>
+<dd><p>(float) The value of the log-likelihood function evaluated at <em class="xref py py-obj">params</em>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dismalpy.ssm.mlemodel.MLEResults.llf_obs">
+<code class="descname">llf_obs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/statsmodels/tsa/statespace/mlemodel.html#MLEResults.llf_obs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dismalpy.ssm.mlemodel.MLEResults.llf_obs" title="Permalink to this definition">¶</a></dt>
+<dd><p>(float) The value of the log-likelihood function evaluated at <em class="xref py py-obj">params</em>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dismalpy.ssm.mlemodel.MLEResults.load">
+<code class="descname">load</code><span class="sig-paren">(</span><em>fname</em><span class="sig-paren">)</span><a class="headerlink" href="#dismalpy.ssm.mlemodel.MLEResults.load" title="Permalink to this definition">¶</a></dt>
+<dd><p>load a pickle, (class method)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>fname</strong> : string or filehandle</p>
+<blockquote>
+<div><p>fname can be a string to a file path or filename, or a filehandle.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">unpickled instance</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="dismalpy.ssm.mlemodel.MLEResults.loglikelihood_burn">
+<code class="descname">loglikelihood_burn</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/statsmodels/tsa/statespace/mlemodel.html#MLEResults.loglikelihood_burn"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dismalpy.ssm.mlemodel.MLEResults.loglikelihood_burn" title="Permalink to this definition">¶</a></dt>
+<dd><p>(float) The number of observations during which the likelihood is not
+evaluated.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dismalpy.ssm.mlemodel.MLEResults.plot_diagnostics">
+<code class="descname">plot_diagnostics</code><span class="sig-paren">(</span><em>variable=0</em>, <em>lags=10</em>, <em>fig=None</em>, <em>figsize=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/statsmodels/tsa/statespace/mlemodel.html#MLEResults.plot_diagnostics"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dismalpy.ssm.mlemodel.MLEResults.plot_diagnostics" title="Permalink to this definition">¶</a></dt>
+<dd><p>Diagnostic plots for standardized residuals of one endogenous variable</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>variable</strong> : integer, optional</p>
+<blockquote>
+<div><p>Index of the endogenous variable for which the diagnostic plots
+should be created. Default is 0.</p>
+</div></blockquote>
+<p><strong>lags</strong> : integer, optional</p>
+<blockquote>
+<div><p>Number of lags to include in the correlogram. Default is 10.</p>
+</div></blockquote>
+<p><strong>fig</strong> : Matplotlib Figure instance, optional</p>
+<blockquote>
+<div><p>If given, subplots are created in this figure instead of in a new
+figure. Note that the 2x2 grid will be created in the provided
+figure using <em class="xref py py-obj">fig.add_subplot()</em>.</p>
+</div></blockquote>
+<p><strong>figsize</strong> : tuple, optional</p>
+<blockquote class="last">
+<div><p>If a figure is created, this argument allows specifying a size.
+The tuple is (width, height).</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><code class="xref py py-obj docutils literal"><span class="pre">statsmodels.graphics.gofplots.qqplot</span></code>, <code class="xref py py-obj docutils literal"><span class="pre">statsmodels.graphics.tsaplots.plot_acf</span></code></p>
+</div>
+<p class="rubric">Notes</p>
+<p>Produces a 2x2 plot grid with the following plots (ordered clockwise
+from top left):</p>
+<ol class="arabic simple">
+<li>Standardized residuals over time</li>
+<li>Histogram plus estimated density of standardized residulas, along
+with a Normal(0,1) density plotted for reference.</li>
+<li>Normal Q-Q plot, with Normal reference line.</li>
+<li>Correlogram</li>
+</ol>
+</dd></dl>
+
+<dl class="method">
+<dt id="dismalpy.ssm.mlemodel.MLEResults.predict">
+<code class="descname">predict</code><span class="sig-paren">(</span><em>start=None</em>, <em>end=None</em>, <em>dynamic=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/statsmodels/tsa/statespace/mlemodel.html#MLEResults.predict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dismalpy.ssm.mlemodel.MLEResults.predict" title="Permalink to this definition">¶</a></dt>
+<dd><p>In-sample prediction and out-of-sample forecasting</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>start</strong> : int, str, or datetime, optional</p>
+<blockquote>
+<div><p>Zero-indexed observation number at which to start forecasting,
+i.e., the first forecast is start. Can also be a date string to
+parse or a datetime type. Default is the the zeroth observation.</p>
+</div></blockquote>
+<p><strong>end</strong> : int, str, or datetime, optional</p>
+<blockquote>
+<div><p>Zero-indexed observation number at which to end forecasting, i.e.,
+the last forecast is end. Can also be a date string to
+parse or a datetime type. However, if the dates index does not
+have a fixed frequency, end must be an integer index if you
+want out of sample prediction. Default is the last observation in
+the sample.</p>
+</div></blockquote>
+<p><strong>dynamic</strong> : boolean, int, str, or datetime, optional</p>
+<blockquote>
+<div><p>Integer offset relative to <em class="xref py py-obj">start</em> at which to begin dynamic
+prediction. Can also be an absolute date string to parse or a
+datetime type (these are not interpreted as offsets).
+Prior to this observation, true endogenous values will be used for
+prediction; starting with this observation and continuing through
+the end of prediction, forecasted endogenous values will be used
+instead.</p>
+</div></blockquote>
+<p><strong>**kwargs</strong></p>
+<blockquote>
+<div><p>Additional arguments may required for forecasting beyond the end
+of the sample. See <em class="xref py py-obj">FilterResults.predict</em> for more details.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>forecast</strong> : array</p>
+<blockquote class="last">
+<div><p>Array of out of in-sample predictions and / or out-of-sample
+forecasts. An (npredict x k_endog) array.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="dismalpy.ssm.mlemodel.MLEResults.pvalues">
+<code class="descname">pvalues</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/statsmodels/tsa/statespace/mlemodel.html#MLEResults.pvalues"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dismalpy.ssm.mlemodel.MLEResults.pvalues" title="Permalink to this definition">¶</a></dt>
+<dd><p>(array) The p-values associated with the z-statistics of the
+coefficients. Note that the coefficients are assumed to have a Normal
+distribution.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dismalpy.ssm.mlemodel.MLEResults.remove_data">
+<code class="descname">remove_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#dismalpy.ssm.mlemodel.MLEResults.remove_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>remove data arrays, all nobs arrays from result and model</p>
+<p>This reduces the size of the instance, so it can be pickled with less
+memory. Currently tested for use with predict from an unpickled
+results and model instance.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Since data and some intermediate results have been removed
+calculating new statistics that require them will raise exceptions.
+The exception will occur the first time an attribute is accessed
+that has been set to None.</p>
+</div>
+<p>Not fully tested for time series models, tsa, and might delete too much
+for prediction or not all that would be possible.</p>
+<p>The list of arrays to delete is maintained as an attribute of the
+result and model instance, except for cached values. These lists could
+be changed before calling remove_data.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dismalpy.ssm.mlemodel.MLEResults.resid">
+<code class="descname">resid</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/statsmodels/tsa/statespace/mlemodel.html#MLEResults.resid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dismalpy.ssm.mlemodel.MLEResults.resid" title="Permalink to this definition">¶</a></dt>
+<dd><p>(array) The model residuals. An (nobs x k_endog) array.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dismalpy.ssm.mlemodel.MLEResults.save">
+<code class="descname">save</code><span class="sig-paren">(</span><em>fname</em>, <em>remove_data=False</em><span class="sig-paren">)</span><a class="headerlink" href="#dismalpy.ssm.mlemodel.MLEResults.save" title="Permalink to this definition">¶</a></dt>
+<dd><p>save a pickle of this instance</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>fname</strong> : string or filehandle</p>
+<blockquote>
+<div><p>fname can be a string to a file path or filename, or a filehandle.</p>
+</div></blockquote>
+<p><strong>remove_data</strong> : bool</p>
+<blockquote class="last">
+<div><p>If False (default), then the instance is pickled without changes.
+If True, then all arrays with length nobs are set to None before
+pickling. See the remove_data method.
+In some cases not all arrays will be set to None.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>If remove_data is true and the model result does not implement a
+remove_data method then this will raise an exception.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dismalpy.ssm.mlemodel.MLEResults.simulate">
+<code class="descname">simulate</code><span class="sig-paren">(</span><em>nsimulations</em>, <em>measurement_shocks=None</em>, <em>state_shocks=None</em>, <em>initial_state=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/statsmodels/tsa/statespace/mlemodel.html#MLEResults.simulate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dismalpy.ssm.mlemodel.MLEResults.simulate" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div>Simulate a new time series following the state space model</div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>nsimulations</strong> : int</p>
+<blockquote>
+<div><blockquote>
+<div><p>The number of observations to simulate. If the model is
+time-invariant this can be any number. If the model is
+time-varying, then this number must be less than or equal to the
+number</p>
+</div></blockquote>
+<dl class="docutils">
+<dt>measurement_shocks <span class="classifier-delimiter">:</span> <span class="classifier">array_like, optional</span></dt>
+<dd><p class="first last">If specified, these are the shocks to the measurement equation,
+:math:<a href="#id7"><span class="problematic" id="id8">`</span></a></p>
+</dd>
+</dl>
+</div></blockquote>
+<p><strong>arepsilon_t`. If unspecified, these are automatically</strong></p>
+<blockquote>
+<div><blockquote>
+<div><p>generated using a pseudo-random number generator. If specified,
+must be shaped <em class="xref py py-obj">nsimulations</em> x <em class="xref py py-obj">k_endog</em>, where <em class="xref py py-obj">k_endog</em> is the
+same as in the state space model.</p>
+</div></blockquote>
+<dl class="docutils">
+<dt>state_shocks <span class="classifier-delimiter">:</span> <span class="classifier">array_like, optional</span></dt>
+<dd><p class="first last">If specified, these are the shocks to the state equation,
+<span class="math">\(\eta_t\)</span>. If unspecified, these are automatically
+generated using a pseudo-random number generator. If specified,
+must be shaped <em class="xref py py-obj">nsimulations</em> x <em class="xref py py-obj">k_posdef</em> where <em class="xref py py-obj">k_posdef</em> is the
+same as in the state space model.</p>
+</dd>
+<dt>initial_state <span class="classifier-delimiter">:</span> <span class="classifier">array_like, optional</span></dt>
+<dd><p class="first last">If specified, this is the state vector at time zero, which should
+be shaped (<em class="xref py py-obj">k_states</em> x 1), where <em class="xref py py-obj">k_states</em> is the same as in the
+state space model. If unspecified, but the model has been
+initialized, then that initialization is used. If unspecified and
+the model has not been initialized, then a vector of zeros is used.
+Note that this is not included in the returned <em class="xref py py-obj">simulated_states</em>
+array.</p>
+</dd>
+</dl>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>simulated_obs</strong> : array</p>
+<blockquote class="last">
+<div><p>An (nsimulations x k_endog) array of simulated observations.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="dismalpy.ssm.mlemodel.MLEResults.summary">
+<code class="descname">summary</code><span class="sig-paren">(</span><em>alpha=0.05</em>, <em>start=None</em>, <em>title=None</em>, <em>model_name=None</em>, <em>display_params=True</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/statsmodels/tsa/statespace/mlemodel.html#MLEResults.summary"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dismalpy.ssm.mlemodel.MLEResults.summary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Summarize the Model</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>alpha</strong> : float, optional</p>
+<blockquote>
+<div><p>Significance level for the confidence intervals. Default is 0.05.</p>
+</div></blockquote>
+<p><strong>start</strong> : int, optional</p>
+<blockquote>
+<div><p>Integer of the start observation. Default is 0.</p>
+</div></blockquote>
+<p><strong>model_name</strong> : string</p>
+<blockquote>
+<div><p>The name of the model used. Default is to use model class name.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>summary</strong> : Summary instance</p>
+<blockquote class="last">
+<div><p>This holds the summary table and text, which can be printed or
+converted to various output formats.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><code class="xref py py-obj docutils literal"><span class="pre">statsmodels.iolib.summary.Summary</span></code></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="dismalpy.ssm.mlemodel.MLEResults.t_test">
+<code class="descname">t_test</code><span class="sig-paren">(</span><em>r_matrix</em>, <em>cov_p=None</em>, <em>scale=None</em>, <em>use_t=None</em><span class="sig-paren">)</span><a class="headerlink" href="#dismalpy.ssm.mlemodel.MLEResults.t_test" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute a t-test for a each linear hypothesis of the form Rb = q</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>r_matrix</strong> : array-like, str, tuple</p>
+<blockquote>
+<div><ul class="simple">
+<li>array : If an array is given, a p x k 2d array or length k 1d
+array specifying the linear restrictions. It is assumed
+that the linear combination is equal to zero.</li>
+<li>str : The full hypotheses to test can be given as a string.
+See the examples.</li>
+<li>tuple : A tuple of arrays in the form (R, q). If q is given,
+can be either a scalar or a length p row vector.</li>
+</ul>
+</div></blockquote>
+<p><strong>cov_p</strong> : array-like, optional</p>
+<blockquote>
+<div><p>An alternative estimate for the parameter covariance matrix.
+If None is given, self.normalized_cov_params is used.</p>
+</div></blockquote>
+<p><strong>scale</strong> : float, optional</p>
+<blockquote>
+<div><p>An optional <em class="xref py py-obj">scale</em> to use.  Default is the scale specified
+by the model fit.</p>
+</div></blockquote>
+<p><strong>use_t</strong> : bool, optional</p>
+<blockquote>
+<div><p>If use_t is None, then the default of the model is used.
+If use_t is True, then the p-values are based on the t
+distribution.
+If use_t is False, then the p-values are based on the normal
+distribution.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>res</strong> : ContrastResults instance</p>
+<blockquote class="last">
+<div><p>The results for the test are attributes of this results instance.
+The available results have the same elements as the parameter table
+in <em class="xref py py-obj">summary()</em>.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<dl class="docutils">
+<dt><a class="reference internal" href="#dismalpy.ssm.mlemodel.MLEResults.tvalues" title="dismalpy.ssm.mlemodel.MLEResults.tvalues"><code class="xref py py-obj docutils literal"><span class="pre">tvalues</span></code></a></dt>
+<dd>individual t statistics</dd>
+<dt><a class="reference internal" href="#dismalpy.ssm.mlemodel.MLEResults.f_test" title="dismalpy.ssm.mlemodel.MLEResults.f_test"><code class="xref py py-obj docutils literal"><span class="pre">f_test</span></code></a></dt>
+<dd>for F tests</dd>
+</dl>
+<p class="last"><code class="xref py py-obj docutils literal"><span class="pre">patsy.DesignInfo.linear_constraint</span></code></p>
+</div>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="kn">as</span> <span class="nn">sm</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">longley</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="o">.</span><span class="n">exog</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">exog</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">results</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">OLS</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">endog</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">exog</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">results</span><span class="o">.</span><span class="n">params</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="p">[</span><span class="mi">5</span><span class="p">:]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+<span class="go">[ 0.  0.  0.  0.  0.  1. -1.]</span>
+</pre></div>
+</div>
+<p>r tests that the coefficients on the 5th and 6th independent
+variable are the same.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">T_test</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">t_test</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">T_test</span><span class="p">)</span>
+<span class="go">&lt;T contrast: effect=-1829.2025687192481, sd=455.39079425193762,</span>
+<span class="go">t=-4.0167754636411717, p=0.0015163772380899498, df_denom=9&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">T_test</span><span class="o">.</span><span class="n">effect</span>
+<span class="go">-1829.2025687192481</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">T_test</span><span class="o">.</span><span class="n">sd</span>
+<span class="go">455.39079425193762</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">T_test</span><span class="o">.</span><span class="n">tvalue</span>
+<span class="go">-4.0167754636411717</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">T_test</span><span class="o">.</span><span class="n">pvalue</span>
+<span class="go">0.0015163772380899498</span>
+</pre></div>
+</div>
+<p>Alternatively, you can specify the hypothesis tests using a string</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">statsmodels.formula.api</span> <span class="kn">import</span> <span class="n">ols</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dta</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">longley</span><span class="o">.</span><span class="n">load_pandas</span><span class="p">()</span><span class="o">.</span><span class="n">data</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">formula</span> <span class="o">=</span> <span class="s">&#39;TOTEMP ~ GNPDEFL + GNP + UNEMP + ARMED + POP + YEAR&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">results</span> <span class="o">=</span> <span class="n">ols</span><span class="p">(</span><span class="n">formula</span><span class="p">,</span> <span class="n">dta</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">hypotheses</span> <span class="o">=</span> <span class="s">&#39;GNPDEFL = GNP, UNEMP = 2, YEAR/1829 = 1&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t_test</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">t_test</span><span class="p">(</span><span class="n">hypotheses</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">t_test</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="dismalpy.ssm.mlemodel.MLEResults.test_heteroskedasticity">
+<code class="descname">test_heteroskedasticity</code><span class="sig-paren">(</span><em>method</em>, <em>alternative='two-sided'</em>, <em>use_f=True</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/statsmodels/tsa/statespace/mlemodel.html#MLEResults.test_heteroskedasticity"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dismalpy.ssm.mlemodel.MLEResults.test_heteroskedasticity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test for heteroskedasticity of standardized residuals</p>
+<p>Tests whether the sum-of-squares in the first third of the sample is
+significantly different than the sum-of-squares in the last third
+of the sample. Analogous to a Goldfeld-Quandt test.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>method</strong> : string {&#8216;breakvar&#8217;} or None</p>
+<blockquote>
+<div><p>The statistical test for heteroskedasticity. Must be &#8216;breakvar&#8217;
+for test of a break in the variance. If None, an attempt is
+made to select an appropriate test.</p>
+</div></blockquote>
+<p><strong>alternative</strong> : string, &#8216;increasing&#8217;, &#8216;decreasing&#8217; or &#8216;two-sided&#8217;</p>
+<blockquote>
+<div><p>This specifies the alternative for the p-value calculation. Default
+is two-sided.</p>
+</div></blockquote>
+<p><strong>use_f</strong> : boolean, optional</p>
+<blockquote>
+<div><p>Whether or not to compare against the asymptotic distribution
+(chi-squared) or the approximate small-sample distribution (F).
+Default is True (i.e. default is to compare against an F
+distribution).</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>output</strong> : array</p>
+<blockquote class="last">
+<div><p>An array with <em class="xref py py-obj">(test_statistic, pvalue)</em> for each endogenous
+variable. The array is then sized <em class="xref py py-obj">(k_endog, 2)</em>. If the method is
+called as <em class="xref py py-obj">het = res.test_heteroskedasticity()</em>, then <em class="xref py py-obj">het[0]</em> is
+an array of size 2 corresponding to the first endogenous variable,
+where <em class="xref py py-obj">het[0][0]</em> is the test statistic, and <em class="xref py py-obj">het[0][1]</em> is the
+p-value.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>The null hypothesis is of no heteroskedasticity. That means different
+things depending on which alternative is selected:</p>
+<ul class="simple">
+<li>Increasing: Null hypothesis is that the variance is not increasing
+throughout the sample; that the sum-of-squares in the later
+subsample is <em>not</em> greater than the sum-of-squares in the earlier
+subsample.</li>
+<li>Decreasing: Null hypothesis is that the variance is not decreasing
+throughout the sample; that the sum-of-squares in the earlier
+subsample is <em>not</em> greater than the sum-of-squares in the later
+subsample.</li>
+<li>Two-sided: Null hypothesis is that the variance is not changing
+throughout the sample. Both that the sum-of-squares in the earlier
+subsample is not greater than the sum-of-squares in the later
+subsample <em>and</em> that the sum-of-squares in the later subsample is
+not greater than the sum-of-squares in the earlier subsample.</li>
+</ul>
+<p>For <span class="math">\(h = [T/3]\)</span>, the test statistic is:</p>
+<div class="math">
+\[H(h) = \sum_{t=T-h+1}^T  \tilde v_t^2
+\left / \sum_{t=d+1}^{d+1+h} \tilde v_t^2 \right .\]</div>
+<p>where <span class="math">\(d\)</span> is the number of periods in which the loglikelihood was
+burned in the parent model (usually corresponding to diffuse
+initialization).</p>
+<p>This statistic can be tested against an <span class="math">\(F(h,h)\)</span> distribution.
+Alternatively, <span class="math">\(h H(h)\)</span> is asymptotically distributed according
+to <span class="math">\(\chi_h^2\)</span>; this second test can be applied by passing
+<em class="xref py py-obj">asymptotic=True</em> as an argument.</p>
+<p>See section 5.4 of <a class="reference internal" href="#r4" id="id9">[R4]</a> for the above formula and discussion, as well
+as additional details.</p>
+<p>TODO</p>
+<ul class="simple">
+<li>Allow specification of <span class="math">\(h\)</span></li>
+</ul>
+<p class="rubric">References</p>
+<table class="docutils citation" frame="void" id="r4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[R4]</td><td><em>(<a class="fn-backref" href="#id9">1</a>, <a class="fn-backref" href="#id10">2</a>)</em> Harvey, Andrew C. 1990.
+Forecasting, Structural Time Series Models and the Kalman Filter.
+Cambridge University Press.</td></tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="dismalpy.ssm.mlemodel.MLEResults.test_normality">
+<code class="descname">test_normality</code><span class="sig-paren">(</span><em>method</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/statsmodels/tsa/statespace/mlemodel.html#MLEResults.test_normality"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dismalpy.ssm.mlemodel.MLEResults.test_normality" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test for normality of standardized residuals.</p>
+<p>Null hypothesis is normality.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>method</strong> : string {&#8216;jarquebera&#8217;} or None</p>
+<blockquote class="last">
+<div><p>The statistical test for normality. Must be &#8216;jarquebera&#8217; for
+Jarque-Bera normality test. If None, an attempt is made to select
+an appropriate test.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><code class="xref py py-obj docutils literal"><span class="pre">statsmodels.stats.stattools.jarque_bera</span></code></p>
+</div>
+<p class="rubric">Notes</p>
+<p>If the first <em class="xref py py-obj">d</em> loglikelihood values were burned (i.e. in the
+specified model, <em class="xref py py-obj">loglikelihood_burn=d</em>), then this test is calculated
+ignoring the first <em class="xref py py-obj">d</em> residuals.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dismalpy.ssm.mlemodel.MLEResults.test_serial_correlation">
+<code class="descname">test_serial_correlation</code><span class="sig-paren">(</span><em>method</em>, <em>lags=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/statsmodels/tsa/statespace/mlemodel.html#MLEResults.test_serial_correlation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dismalpy.ssm.mlemodel.MLEResults.test_serial_correlation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ljung-box test for no serial correlation of standardized residuals</p>
+<p>Null hypothesis is no serial correlation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>method</strong> : string {&#8216;ljungbox&#8217;,&#8217;boxpierece&#8217;} or None</p>
+<blockquote>
+<div><p>The statistical test for serial correlation. If None, an attempt is
+made to select an appropriate test.</p>
+</div></blockquote>
+<p><strong>lags</strong> : None, int or array_like</p>
+<blockquote>
+<div><p>If lags is an integer then this is taken to be the largest lag
+that is included, the test result is reported for all smaller lag
+length.
+If lags is a list or array, then all lags are included up to the
+largest lag in the list, however only the tests for the lags in the
+list are reported.
+If lags is None, then the default maxlag is 12*(nobs/100)^{1/4}</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>output</strong> : array</p>
+<blockquote class="last">
+<div><p>An array with <em class="xref py py-obj">(test_statistic, pvalue)</em> for each endogenous
+variable and each lag. The array is then sized
+<em class="xref py py-obj">(k_endog, 2, lags)</em>. If the method is called as
+<em class="xref py py-obj">ljungbox = res.test_serial_correlation()</em>, then <em class="xref py py-obj">ljungbox[i]</em>
+holds the results of the Ljung-Box test (as would be returned by
+<code class="xref py py-obj docutils literal"><span class="pre">statsmodels.stats.diagnostic.acorr_ljungbox</span></code>) for the <a href="#id11"><span class="problematic" id="id12">`</span></a>i`th
+endogenous variable.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><code class="xref py py-obj docutils literal"><span class="pre">statsmodels.stats.diagnostic.acorr_ljungbox</span></code></p>
+</div>
+<p class="rubric">Notes</p>
+<p>If the first <em class="xref py py-obj">d</em> loglikelihood values were burned (i.e. in the
+specified model, <em class="xref py py-obj">loglikelihood_burn=d</em>), then this test is calculated
+ignoring the first <em class="xref py py-obj">d</em> residuals.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dismalpy.ssm.mlemodel.MLEResults.tvalues">
+<code class="descname">tvalues</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#dismalpy.ssm.mlemodel.MLEResults.tvalues" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the t-statistic for a given parameter estimate.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dismalpy.ssm.mlemodel.MLEResults.wald_test">
+<code class="descname">wald_test</code><span class="sig-paren">(</span><em>r_matrix</em>, <em>cov_p=None</em>, <em>scale=1.0</em>, <em>invcov=None</em>, <em>use_f=None</em><span class="sig-paren">)</span><a class="headerlink" href="#dismalpy.ssm.mlemodel.MLEResults.wald_test" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute a Wald-test for a joint linear hypothesis.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>r_matrix</strong> : array-like, str, or tuple</p>
+<blockquote>
+<div><ul class="simple">
+<li>array : An r x k array where r is the number of restrictions to
+test and k is the number of regressors. It is assumed that the
+linear combination is equal to zero.</li>
+<li>str : The full hypotheses to test can be given as a string.
+See the examples.</li>
+<li>tuple : A tuple of arrays in the form (R, q), <code class="docutils literal"><span class="pre">q</span></code> can be
+either a scalar or a length p row vector.</li>
+</ul>
+</div></blockquote>
+<p><strong>cov_p</strong> : array-like, optional</p>
+<blockquote>
+<div><p>An alternative estimate for the parameter covariance matrix.
+If None is given, self.normalized_cov_params is used.</p>
+</div></blockquote>
+<p><strong>scale</strong> : float, optional</p>
+<blockquote>
+<div><p>Default is 1.0 for no scaling.</p>
+</div></blockquote>
+<p><strong>invcov</strong> : array-like, optional</p>
+<blockquote>
+<div><p>A q x q array to specify an inverse covariance matrix based on a
+restrictions matrix.</p>
+</div></blockquote>
+<p><strong>use_f</strong> : bool</p>
+<blockquote>
+<div><p>If True, then the F-distribution is used. If False, then the
+asymptotic distribution, chisquare is used. If use_f is None, then
+the F distribution is used if the model specifies that use_t is True.
+The test statistic is proportionally adjusted for the distribution
+by the number of constraints in the hypothesis.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>res</strong> : ContrastResults instance</p>
+<blockquote class="last">
+<div><p>The results for the test are attributes of this results instance.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><code class="xref py py-obj docutils literal"><span class="pre">statsmodels.stats.contrast.ContrastResults</span></code>, <a class="reference internal" href="#dismalpy.ssm.mlemodel.MLEResults.f_test" title="dismalpy.ssm.mlemodel.MLEResults.f_test"><code class="xref py py-obj docutils literal"><span class="pre">f_test</span></code></a>, <a class="reference internal" href="#dismalpy.ssm.mlemodel.MLEResults.t_test" title="dismalpy.ssm.mlemodel.MLEResults.t_test"><code class="xref py py-obj docutils literal"><span class="pre">t_test</span></code></a>, <code class="xref py py-obj docutils literal"><span class="pre">patsy.DesignInfo.linear_constraint</span></code></p>
+</div>
+<p class="rubric">Notes</p>
+<p>The matrix <em class="xref py py-obj">r_matrix</em> is assumed to be non-singular. More precisely,</p>
+<p>r_matrix (pX pX.T) r_matrix.T</p>
+<p>is assumed invertible. Here, pX is the generalized inverse of the
+design matrix of the model. There can be problems in non-OLS models
+where the rank of the covariance of the noise is not full.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dismalpy.ssm.mlemodel.MLEResults.wald_test_terms">
+<code class="descname">wald_test_terms</code><span class="sig-paren">(</span><em>skip_single=False</em>, <em>extra_constraints=None</em>, <em>combine_terms=None</em><span class="sig-paren">)</span><a class="headerlink" href="#dismalpy.ssm.mlemodel.MLEResults.wald_test_terms" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute a sequence of Wald tests for terms over multiple columns</p>
+<p>This computes joined Wald tests for the hypothesis that all
+coefficients corresponding to a <em class="xref py py-obj">term</em> are zero.</p>
+<p><em class="xref py py-obj">Terms</em> are defined by the underlying formula or by string matching.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>skip_single</strong> : boolean</p>
+<blockquote>
+<div><p>If true, then terms that consist only of a single column and,
+therefore, refers only to a single parameter is skipped.
+If false, then all terms are included.</p>
+</div></blockquote>
+<p><strong>extra_constraints</strong> : ndarray</p>
+<blockquote>
+<div><p>not tested yet</p>
+</div></blockquote>
+<p><strong>combine_terms</strong> : None or list of strings</p>
+<blockquote>
+<div><p>Each string in this list is matched to the name of the terms or
+the name of the exogenous variables. All columns whose name
+includes that string are combined in one joint test.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>test_result</strong> : result instance</p>
+<blockquote class="last">
+<div><p>The result instance contains <em class="xref py py-obj">table</em> which is a pandas DataFrame
+with the test results: test statistic, degrees of freedom and
+pvalues.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">res_ols</span> <span class="o">=</span> <span class="n">ols</span><span class="p">(</span><span class="s">&quot;np.log(Days+1) ~ C(Duration, Sum)*C(Weight, Sum)&quot;</span><span class="p">,</span>
+<span class="go">                  data).fit()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">res_ols</span><span class="o">.</span><span class="n">wald_test_terms</span><span class="p">()</span>
+<span class="go">&lt;class &#39;statsmodels.stats.contrast.WaldTestResults&#39;&gt;</span>
+<span class="go">                                          F                P&gt;F  df constraint  df denom</span>
+<span class="go">Intercept                        279.754525  2.37985521351e-22              1        51</span>
+<span class="go">C(Duration, Sum)                   5.367071    0.0245738436636              1        51</span>
+<span class="go">C(Weight, Sum)                    12.432445  3.99943118767e-05              2        51</span>
+<span class="go">C(Duration, Sum):C(Weight, Sum)    0.176002      0.83912310946              2        51</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">res_poi</span> <span class="o">=</span> <span class="n">Poisson</span><span class="o">.</span><span class="n">from_formula</span><span class="p">(</span><span class="s">&quot;Days ~ C(Weight) * C(Duration)&quot;</span><span class="p">,</span>
+<span class="go">                                   data).fit(cov_type=&#39;HC0&#39;)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">wt</span> <span class="o">=</span> <span class="n">res_poi</span><span class="o">.</span><span class="n">wald_test_terms</span><span class="p">(</span><span class="n">skip_single</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+<span class="go">                                 combine_terms=[&#39;Duration&#39;, &#39;Weight&#39;])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">wt</span><span class="p">)</span>
+<span class="go">                            chi2             P&gt;chi2  df constraint</span>
+<span class="go">Intercept              15.695625  7.43960374424e-05              1</span>
+<span class="go">C(Weight)              16.132616  0.000313940174705              2</span>
+<span class="go">C(Duration)             1.009147     0.315107378931              1</span>
+<span class="go">C(Weight):C(Duration)   0.216694     0.897315972824              2</span>
+<span class="go">Duration               11.187849     0.010752286833              3</span>
+<span class="go">Weight                 30.263368  4.32586407145e-06              4</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="dismalpy.ssm.mlemodel.MLEResults.zvalues">
+<code class="descname">zvalues</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/statsmodels/tsa/statespace/mlemodel.html#MLEResults.zvalues"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dismalpy.ssm.mlemodel.MLEResults.zvalues" title="Permalink to this definition">¶</a></dt>
+<dd><p>(array) The z-statistics for the coefficients.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="representation.html" class="btn btn-neutral float-right" title="Representation" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="dynamic_factor.html" class="btn btn-neutral" title="Dynamic Factors" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Chad Fulton.
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'0.1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -1,0 +1,490 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Simulation Smoother &mdash; DismalPy 0.1.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="author" title="About these documents"
+              href="../../about.html"/>
+    <link rel="top" title="DismalPy 0.1.0 documentation" href="../../index.html"/>
+        <link rel="up" title="State Space Models" href="../ssm.html"/>
+        <link rel="next" title="Model" href="model.html"/>
+        <link rel="prev" title="Kalman smoother" href="kalman_smoother.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="../../contents.html" class="icon icon-home"> DismalPy
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../user/index.html">DismalPy User Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../user/ssm.html">State Space Models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../user/ssm.html#topics">Topics</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../user/ssm/2-state_space_models.html">State space models</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/ssm/3-python_representation.html">Representation in Python</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/ssm/4-maximum_likelihood_estimation.html">Maximum Likelihood Estimation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/ssm/5-posterior_simulation.html">Posterior Simulation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/ssm/6-out-of-the-box_models.html">Out-of-the-box models</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/ssm/9-references.html">References</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/ssm.html#examples">Examples</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../user/_notebooks/sarimax_internet.ipynb.html">Durbin and Koopman: Box-Jenkins Examples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/_notebooks/sarimax_stata.ipynb.html">SARIMAX: Introduction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/_notebooks/local_linear_trend.ipynb.html">State space modeling: Local Linear Trends</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/_notebooks/structural_harvey_jaeger.ipynb.html">Detrending, Stylized Facts and the Business Cycle</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/_notebooks/dfm_coincident.ipynb.html">Dynamic factors and coincident indices</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/_notebooks/varmax.ipynb.html">VARMAX models</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">DismalPy Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../ssm.html">State Space Models</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../ssm.html#built-in-models">Built-in models</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sarimax.html">SARIMAX</a></li>
+<li class="toctree-l4"><a class="reference internal" href="structural.html">Unobserved Components</a></li>
+<li class="toctree-l4"><a class="reference internal" href="varmax.html">VARMAX</a></li>
+<li class="toctree-l4"><a class="reference internal" href="dynamic_factor.html">Dynamic Factors</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ssm.html#extension-starting-point">Extension starting point</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mlemodel.html">MLEModel</a></li>
+</ul>
+</li>
+<li class="toctree-l3 current"><a class="reference internal" href="../ssm.html#base-classes">Base classes</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="representation.html">Representation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kalman_filter.html">Kalman filter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kalman_smoother.html">Kalman smoother</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="">Simulation Smoother</a></li>
+<li class="toctree-l4"><a class="reference internal" href="model.html">Model</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tools.html">Tools</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../release.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../release.html#dismalpy-0-1-0-release-notes">DismalPy 0.1.0 Release Notes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#highlights">Highlights</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#dropped-support">Dropped Support</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#future-changes">Future Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#compatibility-notes">Compatibility notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#new-features">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#improvements">Improvements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#changes">Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#deprecations">Deprecations</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">About DismalPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html#about-this-documentation">About this documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../about.html#conventions">Conventions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../bugs.html">Reporting bugs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">DismalPy License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary.html">Glossary</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../glossary.html#module-dismalpy.doc.jargon">Jargon</a></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../contents.html">DismalPy</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../contents.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../index.html">DismalPy Reference</a> &raquo;</li>
+      
+          <li><a href="../ssm.html">State Space Models</a> &raquo;</li>
+      
+    <li>Simulation Smoother</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../_sources/reference/ssm/simulation_smoother.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="simulation-smoother">
+<span id="ref-simulation-smoother"></span><h1>Simulation Smoother<a class="headerlink" href="#simulation-smoother" title="Permalink to this headline">¶</a></h1>
+<p>Note that this class inherits from <a class="reference internal" href="kalman_smoother.html#ref-kalman-smoother"><span>Kalman smoother</span></a>; its
+documentation should be consulted for additional methods available in
+<code class="docutils literal"><span class="pre">SimulationSmoother</span></code> objects.</p>
+<dl class="class">
+<dt id="dismalpy.ssm.simulation_smoother.SimulationSmoother">
+<em class="property">class </em><code class="descclassname">dismalpy.ssm.simulation_smoother.</code><code class="descname">SimulationSmoother</code><span class="sig-paren">(</span><em>k_endog</em>, <em>k_states</em>, <em>k_posdef=None</em>, <em>simulation_smooth_results_class=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/dismalpy/ssm/simulation_smoother.html#SimulationSmoother"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dismalpy.ssm.simulation_smoother.SimulationSmoother" title="Permalink to this definition">¶</a></dt>
+<dd><p>State space representation of a time series process, with Kalman filter
+and smoother, and with simulation smoother.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>k_endog</strong> : array_like or integer</p>
+<blockquote>
+<div><p>The observed time-series process <span class="math">\(y\)</span> if array like or the
+number of variables in the process if an integer.</p>
+</div></blockquote>
+<p><strong>k_states</strong> : int</p>
+<blockquote>
+<div><p>The dimension of the unobserved state process.</p>
+</div></blockquote>
+<p><strong>k_posdef</strong> : int, optional</p>
+<blockquote>
+<div><p>The dimension of a guaranteed positive definite covariance matrix
+describing the shocks in the measurement equation. Must be less than
+or equal to <em class="xref py py-obj">k_states</em>. Default is <em class="xref py py-obj">k_states</em>.</p>
+</div></blockquote>
+<p><strong>simulation_smooth_results_class</strong> : class, optional</p>
+<blockquote>
+<div><p>Default results class to use to save output of simulation smoothing.
+Default is <a class="reference internal" href="#dismalpy.ssm.simulation_smoother.SimulationSmoothResults" title="dismalpy.ssm.simulation_smoother.SimulationSmoothResults"><code class="xref py py-obj docutils literal"><span class="pre">SimulationSmoothResults</span></code></a>. If specified, class must extend
+from <a class="reference internal" href="#dismalpy.ssm.simulation_smoother.SimulationSmoothResults" title="dismalpy.ssm.simulation_smoother.SimulationSmoothResults"><code class="xref py py-obj docutils literal"><span class="pre">SimulationSmoothResults</span></code></a>.</p>
+</div></blockquote>
+<p><strong>**kwargs</strong></p>
+<blockquote class="last">
+<div><p>Keyword arguments may be used to provide default values for state space
+matrices, for Kalman filtering options, for Kalman smoothing
+options, or for Simulation smoothing options.
+See <em class="xref py py-obj">Representation</em>, <em class="xref py py-obj">KalmanFilter</em>, and <code class="xref py py-obj docutils literal"><span class="pre">KalmanSmoother</span></code> for more
+details.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="dismalpy.ssm.simulation_smoother.SimulationSmoother.get_simulation_output">
+<code class="descname">get_simulation_output</code><span class="sig-paren">(</span><em>simulation_output=None</em>, <em>simulate_state=None</em>, <em>simulate_disturbance=None</em>, <em>simulate_all=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/dismalpy/ssm/simulation_smoother.html#SimulationSmoother.get_simulation_output"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dismalpy.ssm.simulation_smoother.SimulationSmoother.get_simulation_output" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get simulation output bitmask</p>
+<p>Helper method to get final simulation output bitmask from a set of
+optional arguments including the bitmask itself and possibly boolean
+flags.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>simulation_output</strong> : integer, optional</p>
+<blockquote>
+<div><p>Simulation output bitmask. If this is specified, it is simply
+returned and the other arguments are ignored.</p>
+</div></blockquote>
+<p><strong>simulate_state</strong> : boolean, optional</p>
+<blockquote>
+<div><p>Whether or not to include the state in the simulation output.</p>
+</div></blockquote>
+<p><strong>simulate_disturbance</strong> : boolean, optional</p>
+<blockquote>
+<div><p>Whether or not to include the state and observation disturbances
+in the simulation output.</p>
+</div></blockquote>
+<p><strong>simulate_all</strong> : boolean, optional</p>
+<blockquote>
+<div><p>Whether or not to include all simulation output.</p>
+</div></blockquote>
+<p><strong>**kwargs</strong></p>
+<blockquote class="last">
+<div><p>Additional keyword arguments. Present so that calls to this method
+can use **kwargs without clearing out additional arguments.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="dismalpy.ssm.simulation_smoother.SimulationSmoother.simulation_smoother">
+<code class="descname">simulation_smoother</code><span class="sig-paren">(</span><em>simulation_output=None</em>, <em>results_class=None</em>, <em>prefix=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/dismalpy/ssm/simulation_smoother.html#SimulationSmoother.simulation_smoother"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dismalpy.ssm.simulation_smoother.SimulationSmoother.simulation_smoother" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve a simulation smoother for the statespace model.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>simulation_output</strong> : int, optional</p>
+<blockquote>
+<div><p>Determines which simulation smoother output is calculated.
+Default is all (including state and disturbances).</p>
+</div></blockquote>
+<p><strong>simulation_smooth_results_class</strong> : class, optional</p>
+<blockquote>
+<div><p>Default results class to use to save output of simulation
+smoothing. Default is <a class="reference internal" href="#dismalpy.ssm.simulation_smoother.SimulationSmoothResults" title="dismalpy.ssm.simulation_smoother.SimulationSmoothResults"><code class="xref py py-obj docutils literal"><span class="pre">SimulationSmoothResults</span></code></a>. If specified,
+class must extend from <a class="reference internal" href="#dismalpy.ssm.simulation_smoother.SimulationSmoothResults" title="dismalpy.ssm.simulation_smoother.SimulationSmoothResults"><code class="xref py py-obj docutils literal"><span class="pre">SimulationSmoothResults</span></code></a>.</p>
+</div></blockquote>
+<p><strong>prefix</strong> : string</p>
+<blockquote>
+<div><p>The prefix of the datatype. Usually only used internally.</p>
+</div></blockquote>
+<p><strong>**kwargs</strong></p>
+<blockquote>
+<div><p>Additional keyword arguments, used to set the simulation output.
+See <em class="xref py py-obj">set_simulation_output</em> for more details.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">SimulationSmoothResults</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="dismalpy.ssm.simulation_smoother.SimulationSmoothResults">
+<em class="property">class </em><code class="descclassname">dismalpy.ssm.simulation_smoother.</code><code class="descname">SimulationSmoothResults</code><span class="sig-paren">(</span><em>model</em>, <em>simulation_smoother</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/dismalpy/ssm/simulation_smoother.html#SimulationSmoothResults"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dismalpy.ssm.simulation_smoother.SimulationSmoothResults" title="Permalink to this definition">¶</a></dt>
+<dd><p>Results from applying the Kalman smoother and/or filter to a state space
+model.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>model</strong> : Representation</p>
+<blockquote>
+<div><p>A Statespace representation</p>
+</div></blockquote>
+<p><strong>simulation_smoother</strong> : {{prefix}}SimulationSmoother object</p>
+<blockquote class="last">
+<div><p>The Cython simulation smoother object with which to simulation smooth.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Attributes</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="26%" />
+<col width="74%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>model</td>
+<td>(Representation) A Statespace representation</td>
+</tr>
+<tr class="row-even"><td>dtype</td>
+<td>(dtype) Datatype of representation matrices</td>
+</tr>
+<tr class="row-odd"><td>prefix</td>
+<td>(str) BLAS prefix of representation matrices</td>
+</tr>
+<tr class="row-even"><td>simulation_output</td>
+<td>(integer) Bitmask controlling simulation output.</td>
+</tr>
+<tr class="row-odd"><td>simulate_state</td>
+<td>(boolean) Flag for if the state is included in simulation output.</td>
+</tr>
+<tr class="row-even"><td>simulate_disturbance</td>
+<td>(boolean) Flag for if the state and observation disturbances are included in simulation output.</td>
+</tr>
+<tr class="row-odd"><td>simulate_all</td>
+<td>(boolean) Flag for if simulation output should include everything.</td>
+</tr>
+<tr class="row-even"><td>generated_obs</td>
+<td>(array) Generated observation vector produced as a byproduct of simulation smoothing.</td>
+</tr>
+<tr class="row-odd"><td>generated_state</td>
+<td>(array) Generated state vector produced as a byproduct of simulation smoothing.</td>
+</tr>
+<tr class="row-even"><td>simulated_state</td>
+<td>(array) Simulated state.</td>
+</tr>
+<tr class="row-odd"><td>simulated_measurement_disturbance</td>
+<td>(array) Simulated measurement disturbance.</td>
+</tr>
+<tr class="row-even"><td>simulated_state_disturbance</td>
+<td>(array) Simulated state disturbance.</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="dismalpy.ssm.simulation_smoother.SimulationSmoothResults.simulate">
+<code class="descname">simulate</code><span class="sig-paren">(</span><em>simulation_output=-1</em>, <em>disturbance_variates=None</em>, <em>initial_state_variates=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/dismalpy/ssm/simulation_smoother.html#SimulationSmoothResults.simulate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dismalpy.ssm.simulation_smoother.SimulationSmoothResults.simulate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Perform simulation smoothing</p>
+<p>Does not return anything, but populates the object&#8217;s <em class="xref py py-obj">simulated_*</em>
+attributes, as specified by simulation output.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>simulation_output</strong> : integer, optional</p>
+<blockquote>
+<div><p>Bitmask controlling simulation output. Default is to use the
+simulation output defined in object initialization.</p>
+</div></blockquote>
+<p><strong>disturbance_variates</strong> : array_likes, optional</p>
+<blockquote>
+<div><p>Random values to use as disturbance variates. Usually only
+specified if results are to be replicated (e.g. to enforce a seed)
+or for testing. If not specified, random variates are drawn.</p>
+</div></blockquote>
+<p><strong>initial_state_variates</strong> : array_likes, optional</p>
+<blockquote class="last">
+<div><p>Random values to use as initial state variates. Usually only
+specified if results are to be replicated (e.g. to enforce a seed)
+or for testing. If not specified, random variates are drawn.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="model.html" class="btn btn-neutral float-right" title="Model" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="kalman_smoother.html" class="btn btn-neutral" title="Kalman smoother" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Chad Fulton.
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'0.1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -1,0 +1,996 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Unobserved Components &mdash; DismalPy 0.1.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="author" title="About these documents"
+              href="../../about.html"/>
+    <link rel="top" title="DismalPy 0.1.0 documentation" href="../../index.html"/>
+        <link rel="up" title="State Space Models" href="../ssm.html"/>
+        <link rel="next" title="VARMAX" href="varmax.html"/>
+        <link rel="prev" title="SARIMAX" href="sarimax.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="../../contents.html" class="icon icon-home"> DismalPy
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../user/index.html">DismalPy User Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../user/ssm.html">State Space Models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../user/ssm.html#topics">Topics</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../user/ssm/2-state_space_models.html">State space models</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/ssm/3-python_representation.html">Representation in Python</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/ssm/4-maximum_likelihood_estimation.html">Maximum Likelihood Estimation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/ssm/5-posterior_simulation.html">Posterior Simulation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/ssm/6-out-of-the-box_models.html">Out-of-the-box models</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/ssm/9-references.html">References</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/ssm.html#examples">Examples</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../user/_notebooks/sarimax_internet.ipynb.html">Durbin and Koopman: Box-Jenkins Examples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/_notebooks/sarimax_stata.ipynb.html">SARIMAX: Introduction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/_notebooks/local_linear_trend.ipynb.html">State space modeling: Local Linear Trends</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/_notebooks/structural_harvey_jaeger.ipynb.html">Detrending, Stylized Facts and the Business Cycle</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/_notebooks/dfm_coincident.ipynb.html">Dynamic factors and coincident indices</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/_notebooks/varmax.ipynb.html">VARMAX models</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">DismalPy Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../ssm.html">State Space Models</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../ssm.html#built-in-models">Built-in models</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="sarimax.html">SARIMAX</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="">Unobserved Components</a></li>
+<li class="toctree-l4"><a class="reference internal" href="varmax.html">VARMAX</a></li>
+<li class="toctree-l4"><a class="reference internal" href="dynamic_factor.html">Dynamic Factors</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ssm.html#extension-starting-point">Extension starting point</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mlemodel.html">MLEModel</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ssm.html#base-classes">Base classes</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="representation.html">Representation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kalman_filter.html">Kalman filter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kalman_smoother.html">Kalman smoother</a></li>
+<li class="toctree-l4"><a class="reference internal" href="simulation_smoother.html">Simulation Smoother</a></li>
+<li class="toctree-l4"><a class="reference internal" href="model.html">Model</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tools.html">Tools</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../release.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../release.html#dismalpy-0-1-0-release-notes">DismalPy 0.1.0 Release Notes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#highlights">Highlights</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#dropped-support">Dropped Support</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#future-changes">Future Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#compatibility-notes">Compatibility notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#new-features">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#improvements">Improvements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#changes">Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#deprecations">Deprecations</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">About DismalPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html#about-this-documentation">About this documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../about.html#conventions">Conventions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../bugs.html">Reporting bugs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">DismalPy License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary.html">Glossary</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../glossary.html#module-dismalpy.doc.jargon">Jargon</a></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../contents.html">DismalPy</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../contents.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../index.html">DismalPy Reference</a> &raquo;</li>
+      
+          <li><a href="../ssm.html">State Space Models</a> &raquo;</li>
+      
+    <li>Unobserved Components</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../_sources/reference/ssm/structural.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="unobserved-components">
+<h1>Unobserved Components<a class="headerlink" href="#unobserved-components" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="dismalpy.ssm.structural.UnobservedComponents">
+<em class="property">class </em><code class="descclassname">dismalpy.ssm.structural.</code><code class="descname">UnobservedComponents</code><span class="sig-paren">(</span><em>endog</em>, <em>level=False</em>, <em>trend=False</em>, <em>seasonal=None</em>, <em>cycle=False</em>, <em>autoregressive=None</em>, <em>exog=None</em>, <em>irregular=False</em>, <em>stochastic_level=False</em>, <em>stochastic_trend=False</em>, <em>stochastic_seasonal=True</em>, <em>stochastic_cycle=False</em>, <em>damped_cycle=False</em>, <em>cycle_period_bounds=None</em>, <em>mle_regression=True</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/dismalpy/ssm/structural.html#UnobservedComponents"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dismalpy.ssm.structural.UnobservedComponents" title="Permalink to this definition">¶</a></dt>
+<dd><p>Univariate unobserved components time series model</p>
+<p>These are also known as structural time series models, and decompose a
+(univariate) time series into trend, seasonal, cyclical, and irregular
+components.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>level</strong> : bool or string, optional</p>
+<blockquote>
+<div><p>Whether or not to include a level component. Default is False. Can also
+be a string specification of the level / trend component; see Notes
+for available model specification strings.</p>
+</div></blockquote>
+<p><strong>trend</strong> : bool, optional</p>
+<blockquote>
+<div><p>Whether or not to include a trend component. Default is False. If True,
+<em class="xref py py-obj">level</em> must also be True.</p>
+</div></blockquote>
+<p><strong>seasonal_period</strong> : int or None, optional</p>
+<blockquote>
+<div><p>The period of the seasonal component. Default is None.</p>
+</div></blockquote>
+<p><strong>cycle</strong> : bool, optional</p>
+<blockquote>
+<div><p>Whether or not to include a cycle component. Default is False.</p>
+</div></blockquote>
+<p><strong>ar</strong> : int or None, optional</p>
+<blockquote>
+<div><p>The order of the autoregressive component. Default is None.</p>
+</div></blockquote>
+<p><strong>exog</strong> : array_like or None, optional</p>
+<blockquote>
+<div><p>Exoenous variables.</p>
+</div></blockquote>
+<p><strong>irregular</strong> : bool, optional</p>
+<blockquote>
+<div><p>Whether or not to include an irregular component. Default is False.</p>
+</div></blockquote>
+<p><strong>stochastic_level</strong> : bool, optional</p>
+<blockquote>
+<div><p>Whether or not any level component is stochastic. Default is False.</p>
+</div></blockquote>
+<p><strong>stochastic_trend</strong> : bool, optional</p>
+<blockquote>
+<div><p>Whether or not any trend component is stochastic. Default is False.</p>
+</div></blockquote>
+<p><strong>stochastic_seasonal</strong> : bool, optional</p>
+<blockquote>
+<div><p>Whether or not any seasonal component is stochastic. Default is False.</p>
+</div></blockquote>
+<p><strong>stochastic_cycle</strong> : bool, optional</p>
+<blockquote>
+<div><p>Whether or not any cycle component is stochastic. Default is False.</p>
+</div></blockquote>
+<p><strong>damped_cycle</strong> : bool, optional</p>
+<blockquote>
+<div><p>Whether or not the cycle component is damped. Default is False.</p>
+</div></blockquote>
+<p><strong>cycle_period_bounds</strong> : tuple, optional</p>
+<blockquote class="last">
+<div><p>A tuple with lower and upper allowed bounds for the period of the
+cycle. If not provided, the following default bounds are used:
+(1) if no date / time information is provided, the frequency is
+constrained to be between zero and <span class="math">\(\pi\)</span>, so the period is
+constrained to be in [0.5, infinity].
+(2) If the date / time information is provided, the default bounds
+allow the cyclical component to be between 1.5 and 12 years; depending
+on the frequency of the endogenous variable, this will imply different
+specific bounds.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="mlemodel.html#dismalpy.ssm.mlemodel.MLEModel" title="dismalpy.ssm.mlemodel.MLEModel"><code class="xref py py-obj docutils literal"><span class="pre">dismalpy.ssm.mlemodel.MLEModel</span></code></a>, <a class="reference internal" href="kalman_smoother.html#dismalpy.ssm.kalman_smoother.KalmanSmoother" title="dismalpy.ssm.kalman_smoother.KalmanSmoother"><code class="xref py py-obj docutils literal"><span class="pre">dismalpy.ssm.kalman_smoother.KalmanSmoother</span></code></a>, <a class="reference internal" href="kalman_filter.html#dismalpy.ssm.kalman_filter.KalmanFilter" title="dismalpy.ssm.kalman_filter.KalmanFilter"><code class="xref py py-obj docutils literal"><span class="pre">dismalpy.ssm.kalman_filter.KalmanFilter</span></code></a>, <a class="reference internal" href="representation.html#dismalpy.ssm.representation.Representation" title="dismalpy.ssm.representation.Representation"><code class="xref py py-obj docutils literal"><span class="pre">dismalpy.ssm.representation.Representation</span></code></a></p>
+</div>
+<p class="rubric">Notes</p>
+<p>Thse models take the general form (see <a class="reference internal" href="#r7" id="id1">[R7]</a> Chapter 3.2 for all details)</p>
+<div class="math">
+\[y_t = \mu_t + \gamma_t + c_t + \varepsilon_t\]</div>
+<p>where <span class="math">\(y_t\)</span> refers to the observation vector at time <span class="math">\(t\)</span>,
+<span class="math">\(\mu_t\)</span> refers to the trend component, <span class="math">\(\gamma_t\)</span> refers to the
+seasonal component, <span class="math">\(c_t\)</span> refers to the cycle, and
+<span class="math">\(\varepsilon_t\)</span> is the irregular. The modeling details of these
+components are given below.</p>
+<p><strong>Trend</strong></p>
+<p>The trend component is a dynamic extension of a regression model that
+includes an intercept and linear time-trend. It can be written:</p>
+<div class="math">
+\[\begin{split}\mu_t = \mu_{t-1} + \beta_{t-1} + \eta_{t-1} \\
+\beta_t = \beta_{t-1} + \zeta_{t-1}\end{split}\]</div>
+<p>where the level is a generalization of the intercept term that can
+dynamically vary across time, and the trend is a generalization of the
+time-trend such that the slope can dynamically vary across time.</p>
+<p>Here <span class="math">\(\eta_t \sim N(0, \sigma_\eta^2)\)</span> and
+<span class="math">\(\zeta_t \sim N(0, \sigma_\zeta^2)\)</span>.</p>
+<p>For both elements (level and trend), we can consider models in which:</p>
+<ul class="simple">
+<li>The element is included vs excluded (if the trend is included, there must
+also be a level included).</li>
+<li>The element is deterministic vs stochastic (i.e. whether or not the
+variance on the error term is confined to be zero or not)</li>
+</ul>
+<p>The only additional parameters to be estimated via MLE are the variances of
+any included stochastic components.</p>
+<p>The level/trend components can be specified using the boolean keyword
+arguments <em class="xref py py-obj">level</em>, <em class="xref py py-obj">stochastic_level</em>, <em class="xref py py-obj">trend</em>, etc., or all at once as a
+string argument to <em class="xref py py-obj">level</em>. The following table shows the available
+model specifications:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="24%" />
+<col width="27%" />
+<col width="14%" />
+<col width="35%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Model name</th>
+<th class="head">Full string syntax</th>
+<th class="head">Abbreviated syntax</th>
+<th class="head">Model</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>No trend</td>
+<td><em class="xref py py-obj">&#8216;irregular&#8217;</em></td>
+<td><em class="xref py py-obj">&#8216;ntrend&#8217;</em></td>
+<td><div class="first last math">
+\[\begin{split}y_t &amp;= \varepsilon_t\end{split}\]</div>
+</td>
+</tr>
+<tr class="row-odd"><td>Fixed intercept</td>
+<td><em class="xref py py-obj">&#8216;fixed intercept&#8217;</em></td>
+<td>&nbsp;</td>
+<td><div class="first last math">
+\[\begin{split}y_t &amp;= \mu\end{split}\]</div>
+</td>
+</tr>
+<tr class="row-even"><td>Deterministic constant</td>
+<td><em class="xref py py-obj">&#8216;deterministic constant&#8217;</em></td>
+<td><em class="xref py py-obj">&#8216;dconstant&#8217;</em></td>
+<td><div class="first last math">
+\[\begin{split}y_t &amp;= \mu + \varepsilon_t\end{split}\]</div>
+</td>
+</tr>
+<tr class="row-odd"><td>Local level</td>
+<td><em class="xref py py-obj">&#8216;local level&#8217;</em></td>
+<td><em class="xref py py-obj">&#8216;llevel&#8217;</em></td>
+<td><div class="first last math">
+\[\begin{split}y_t &amp;= \mu_t + \varepsilon_t \\
+\mu_t &amp;= \mu_{t-1} + \eta_t\end{split}\]</div>
+</td>
+</tr>
+<tr class="row-even"><td>Random walk</td>
+<td><em class="xref py py-obj">&#8216;random walk&#8217;</em></td>
+<td><em class="xref py py-obj">&#8216;rwalk&#8217;</em></td>
+<td><div class="first last math">
+\[\begin{split}y_t &amp;= \mu_t \\
+\mu_t &amp;= \mu_{t-1} + \eta_t\end{split}\]</div>
+</td>
+</tr>
+<tr class="row-odd"><td>Fixed slope</td>
+<td><em class="xref py py-obj">&#8216;fixed slope&#8217;</em></td>
+<td>&nbsp;</td>
+<td><div class="first last math">
+\[\begin{split}y_t &amp;= \mu_t \\
+\mu_t &amp;= \mu_{t-1} + \beta\end{split}\]</div>
+</td>
+</tr>
+<tr class="row-even"><td>Deterministic trend</td>
+<td><em class="xref py py-obj">&#8216;deterministic trend&#8217;</em></td>
+<td><em class="xref py py-obj">&#8216;dtrend&#8217;</em></td>
+<td><div class="first last math">
+\[\begin{split}y_t &amp;= \mu_t + \varepsilon_t \\
+\mu_t &amp;= \mu_{t-1} + \beta\end{split}\]</div>
+</td>
+</tr>
+<tr class="row-odd"><td>Local linear deterministic trend</td>
+<td><em class="xref py py-obj">&#8216;local linear deterministic trend&#8217;</em></td>
+<td><em class="xref py py-obj">&#8216;lldtrend&#8217;</em></td>
+<td><div class="first last math">
+\[\begin{split}y_t &amp;= \mu_t + \varepsilon_t \\
+\mu_t &amp;= \mu_{t-1} + \beta + \eta_t\end{split}\]</div>
+</td>
+</tr>
+<tr class="row-even"><td>Random walk with drift</td>
+<td><em class="xref py py-obj">&#8216;random walk with drift&#8217;</em></td>
+<td><em class="xref py py-obj">&#8216;rwdrift&#8217;</em></td>
+<td><div class="first last math">
+\[\begin{split}y_t &amp;= \mu_t \\
+\mu_t &amp;= \mu_{t-1} + \beta + \eta_t\end{split}\]</div>
+</td>
+</tr>
+<tr class="row-odd"><td>Local linear trend</td>
+<td><em class="xref py py-obj">&#8216;local linear trend&#8217;</em></td>
+<td><em class="xref py py-obj">&#8216;lltrend&#8217;</em></td>
+<td><div class="first last math">
+\[\begin{split}y_t &amp;= \mu_t + \varepsilon_t \\
+\mu_t &amp;= \mu_{t-1} + \beta_{t-1} + \eta_t \\
+\beta_t &amp;= \beta_{t-1} + \zeta_t\end{split}\]</div>
+</td>
+</tr>
+<tr class="row-even"><td>Smooth trend</td>
+<td><em class="xref py py-obj">&#8216;smooth trend&#8217;</em></td>
+<td><em class="xref py py-obj">&#8216;strend&#8217;</em></td>
+<td><div class="first last math">
+\[\begin{split}y_t &amp;= \mu_t + \varepsilon_t \\
+\mu_t &amp;= \mu_{t-1} + \beta_{t-1} \\
+\beta_t &amp;= \beta_{t-1} + \zeta_t\end{split}\]</div>
+</td>
+</tr>
+<tr class="row-odd"><td>Random trend</td>
+<td><em class="xref py py-obj">&#8216;random trend&#8217;</em></td>
+<td><em class="xref py py-obj">&#8216;rtrend&#8217;</em></td>
+<td><div class="first last math">
+\[\begin{split}y_t &amp;= \mu_t \\
+\mu_t &amp;= \mu_{t-1} + \beta_{t-1} \\
+\beta_t &amp;= \beta_{t-1} + \zeta_t\end{split}\]</div>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Following the fitting of the model, the unobserved level and trend
+component time series are available in the results class in the
+<em class="xref py py-obj">level</em> and <em class="xref py py-obj">trend</em> attributes, respectively.</p>
+<p><strong>Seasonal</strong></p>
+<p>The seasonal component is modeled as:</p>
+<div class="math">
+\[\begin{split}\gamma_t = - \sum_{j=1}^{s-1} \gamma_{t+1-j} + \omega_t \\
+\omega_t \sim N(0, \sigma_\omega^2)\end{split}\]</div>
+<p>The periodicity (number of seasons) is s, and the defining character is
+that (without the error term), the seasonal components sum to zero across
+one complete cycle. The inclusion of an error term allows the seasonal
+effects to vary over time (if this is not desired, <span class="math">\(\sigma_\omega^2\)</span>
+can be set to zero using the <em class="xref py py-obj">stochastic_seasonal=False</em> keyword argument).</p>
+<p>This component results in one parameter to be selected via maximum
+likelihood: <span class="math">\(\sigma_\omega^2\)</span>, and one parameter to be chosen, the
+number of seasons <em class="xref py py-obj">s</em>.</p>
+<p>Following the fitting of the model, the unobserved seasonal component
+time series is available in the results class in the <em class="xref py py-obj">seasonal</em>
+attribute.</p>
+<p><strong>Cycle</strong></p>
+<p>The cyclical component is intended to capture cyclical effects at time
+frames much longer than captured by the seasonal component. For example,
+in economics the cyclical term is often intended to capture the business
+cycle, and is then expected to have a period between &#8220;1.5 and 12 years&#8221;
+(see Durbin and Koopman).</p>
+<div class="math">
+\[\begin{split}c_{t+1} &amp; = \rho_c (\tilde c_t \cos \lambda_c t
+        + \tilde c_t^* \sin \lambda_c) +
+        \tilde \omega_t \\
+c_{t+1}^* &amp; = \rho_c (- \tilde c_t \sin \lambda_c  t +
+        \tilde c_t^* \cos \lambda_c) +
+        \tilde \omega_t^* \\\end{split}\]</div>
+<p>where <span class="math">\(\omega_t, \tilde \omega_t iid N(0, \sigma_{\tilde \omega}^2)\)</span></p>
+<p>The parameter <span class="math">\(\lambda_c\)</span> (the frequency of the cycle) is an
+additional parameter to be estimated by MLE.</p>
+<p>If the cyclical effect is stochastic (<em class="xref py py-obj">stochastic_cycle=True</em>), then there
+is another parameter to estimate (the variance of the error term - note
+that both of the error terms here share the same variance, but are assumed
+to have independent draws).</p>
+<p>If the cycle is damped (<em class="xref py py-obj">damped_cycle=True</em>), then there is a third
+parameter to estimate, <span class="math">\(\rho_c\)</span>.</p>
+<p>In order to achieve cycles with the appropriate frequencies, bounds are
+imposed on the parameter <span class="math">\(\lambda_c\)</span> in estimation. These can be
+controlled via the keyword argument <em class="xref py py-obj">cycle_period_bounds</em>, which, if
+specified, must be a tuple of bounds on the <strong>period</strong> <em class="xref py py-obj">(lower, upper)</em>.
+The bounds on the frequency are then calculated from those bounds.</p>
+<p>The default bounds, if none are provided, are selected in the following
+way:</p>
+<ol class="arabic simple">
+<li>If no date / time information is provided, the frequency is
+constrained to be between zero and <span class="math">\(\pi\)</span>, so the period is
+constrained to be in <span class="math">\([0.5, \infty]\)</span>.</li>
+<li>If the date / time information is provided, the default bounds
+allow the cyclical component to be between 1.5 and 12 years; depending
+on the frequency of the endogenous variable, this will imply different
+specific bounds.</li>
+</ol>
+<p>Following the fitting of the model, the unobserved cyclical component
+time series is available in the results class in the <em class="xref py py-obj">cycle</em>
+attribute.</p>
+<p><strong>Irregular</strong></p>
+<p>The irregular components are independent and identically distributed (iid):</p>
+<div class="math">
+\[\varepsilon_t \sim N(0, \sigma_\varepsilon^2)\]</div>
+<p><strong>Autoregressive Irregular</strong></p>
+<p>An autoregressive component (often used as a replacement for the white
+noise irregular term) can be specified as:</p>
+<div class="math">
+\[\begin{split}\varepsilon_t = \rho(L) \varepsilon_{t-1} + \epsilon_t \\
+\epsilon_t \sim N(0, \sigma_\epsilon^2)\end{split}\]</div>
+<p>In this case, the AR order is specified via the <em class="xref py py-obj">autoregressive</em> keyword,
+and the autoregressive coefficients are estimated.</p>
+<p>Following the fitting of the model, the unobserved autoregressive component
+time series is available in the results class in the <em class="xref py py-obj">autoregressive</em>
+attribute.</p>
+<p><strong>Regression effects</strong></p>
+<p>Exogenous regressors can be pass to the <em class="xref py py-obj">exog</em> argument. The regression
+coefficients will be estimated by maximum likelihood unless
+<em class="xref py py-obj">mle_regression=False</em>, in which case the regression coefficients will be
+included in the state vector where they are essentially estimated via
+recursive OLS.</p>
+<p>If the regression_coefficients are included in the state vector, the
+recursive estimates are available in the results class in the
+<em class="xref py py-obj">regression_coefficients</em> attribute.</p>
+<p class="rubric">References</p>
+<table class="docutils citation" frame="void" id="r7" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[R7]</td><td><em>(<a class="fn-backref" href="#id1">1</a>, <a class="fn-backref" href="#id2">2</a>)</em> Durbin, James, and Siem Jan Koopman. 2012.
+Time Series Analysis by State Space Methods: Second Edition.
+Oxford University Press.</td></tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="class">
+<dt id="dismalpy.ssm.structural.UnobservedComponentsResults">
+<em class="property">class </em><code class="descclassname">dismalpy.ssm.structural.</code><code class="descname">UnobservedComponentsResults</code><span class="sig-paren">(</span><em>model</em>, <em>params</em>, <em>smoother_results</em>, <em>cov_type='opg'</em>, <em>cov_kwds=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/dismalpy/ssm/structural.html#UnobservedComponentsResults"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dismalpy.ssm.structural.UnobservedComponentsResults" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class to hold results from fitting an unobserved components model.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>model</strong> : UnobservedComponents instance</p>
+<blockquote class="last">
+<div><p>The fitted model instance</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="mlemodel.html#dismalpy.ssm.mlemodel.MLEResults" title="dismalpy.ssm.mlemodel.MLEResults"><code class="xref py py-obj docutils literal"><span class="pre">dismalpy.ssm.mlemodel.MLEResults</span></code></a>, <a class="reference internal" href="kalman_smoother.html#dismalpy.ssm.kalman_smoother.SmootherResults" title="dismalpy.ssm.kalman_smoother.SmootherResults"><code class="xref py py-obj docutils literal"><span class="pre">dismalpy.ssm.kalman_smoother.SmootherResults</span></code></a>, <a class="reference internal" href="kalman_filter.html#dismalpy.ssm.kalman_filter.FilterResults" title="dismalpy.ssm.kalman_filter.FilterResults"><code class="xref py py-obj docutils literal"><span class="pre">dismalpy.ssm.kalman_filter.FilterResults</span></code></a>, <a class="reference internal" href="representation.html#dismalpy.ssm.representation.FrozenRepresentation" title="dismalpy.ssm.representation.FrozenRepresentation"><code class="xref py py-obj docutils literal"><span class="pre">dismalpy.ssm.representation.FrozenRepresentation</span></code></a></p>
+</div>
+<p class="rubric">Attributes</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="12%" />
+<col width="88%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>specification</td>
+<td>(dictionary) Dictionary including all attributes from the unobserved components model instance.</td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="dismalpy.ssm.structural.UnobservedComponentsResults.autoregressive">
+<code class="descname">autoregressive</code><a class="headerlink" href="#dismalpy.ssm.structural.UnobservedComponentsResults.autoregressive" title="Permalink to this definition">¶</a></dt>
+<dd><p>Estimates of unobserved autoregressive component</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">out: Bunch</p>
+<blockquote class="last">
+<div><p>Has the following attributes:</p>
+<ul>
+<li><dl class="first docutils">
+<dt><em class="xref py py-obj">filtered</em>: a time series array with the filtered estimate of</dt>
+<dd><p class="first last">the component</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><em class="xref py py-obj">filtered_cov</em>: a time series array with the filtered estimate of</dt>
+<dd><p class="first last">the variance/covariance of the component</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><em class="xref py py-obj">smoothed</em>: a time series array with the smoothed estimate of</dt>
+<dd><p class="first last">the component</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><em class="xref py py-obj">smoothed_cov</em>: a time series array with the smoothed estimate of</dt>
+<dd><p class="first last">the variance/covariance of the component</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><em class="xref py py-obj">offset</em>: an integer giving the offset in the state vector where</dt>
+<dd><p class="first last">this component begins</p>
+</dd>
+</dl>
+</li>
+</ul>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="dismalpy.ssm.structural.UnobservedComponentsResults.cycle">
+<code class="descname">cycle</code><a class="headerlink" href="#dismalpy.ssm.structural.UnobservedComponentsResults.cycle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Estimates of unobserved cycle component</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">out: Bunch</p>
+<blockquote class="last">
+<div><p>Has the following attributes:</p>
+<ul>
+<li><dl class="first docutils">
+<dt><em class="xref py py-obj">filtered</em>: a time series array with the filtered estimate of</dt>
+<dd><p class="first last">the component</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><em class="xref py py-obj">filtered_cov</em>: a time series array with the filtered estimate of</dt>
+<dd><p class="first last">the variance/covariance of the component</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><em class="xref py py-obj">smoothed</em>: a time series array with the smoothed estimate of</dt>
+<dd><p class="first last">the component</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><em class="xref py py-obj">smoothed_cov</em>: a time series array with the smoothed estimate of</dt>
+<dd><p class="first last">the variance/covariance of the component</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><em class="xref py py-obj">offset</em>: an integer giving the offset in the state vector where</dt>
+<dd><p class="first last">this component begins</p>
+</dd>
+</dl>
+</li>
+</ul>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="dismalpy.ssm.structural.UnobservedComponentsResults.level">
+<code class="descname">level</code><a class="headerlink" href="#dismalpy.ssm.structural.UnobservedComponentsResults.level" title="Permalink to this definition">¶</a></dt>
+<dd><p>Estimates of unobserved level component</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">out: Bunch</p>
+<blockquote class="last">
+<div><p>Has the following attributes:</p>
+<ul>
+<li><dl class="first docutils">
+<dt><em class="xref py py-obj">filtered</em>: a time series array with the filtered estimate of</dt>
+<dd><p class="first last">the component</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><em class="xref py py-obj">filtered_cov</em>: a time series array with the filtered estimate of</dt>
+<dd><p class="first last">the variance/covariance of the component</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><em class="xref py py-obj">smoothed</em>: a time series array with the smoothed estimate of</dt>
+<dd><p class="first last">the component</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><em class="xref py py-obj">smoothed_cov</em>: a time series array with the smoothed estimate of</dt>
+<dd><p class="first last">the variance/covariance of the component</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><em class="xref py py-obj">offset</em>: an integer giving the offset in the state vector where</dt>
+<dd><p class="first last">this component begins</p>
+</dd>
+</dl>
+</li>
+</ul>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="dismalpy.ssm.structural.UnobservedComponentsResults.plot_components">
+<code class="descname">plot_components</code><span class="sig-paren">(</span><em>which=None</em>, <em>alpha=0.05</em>, <em>observed=True</em>, <em>level=True</em>, <em>trend=True</em>, <em>seasonal=True</em>, <em>cycle=True</em>, <em>autoregressive=True</em>, <em>legend_loc='upper right'</em>, <em>fig=None</em>, <em>figsize=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/statsmodels/tsa/statespace/structural.html#UnobservedComponentsResults.plot_components"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dismalpy.ssm.structural.UnobservedComponentsResults.plot_components" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot the estimated components of the model.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>which</strong> : {&#8216;filtered&#8217;, &#8216;smoothed&#8217;}, or None, optional</p>
+<blockquote>
+<div><p>Type of state estimate to plot. Default is &#8216;smoothed&#8217; if smoothed
+results are available otherwise &#8216;filtered&#8217;.</p>
+</div></blockquote>
+<p><strong>alpha</strong> : float, optional</p>
+<blockquote>
+<div><p>The confidence intervals for the components are (1 - alpha) %</p>
+</div></blockquote>
+<p><strong>level</strong> : boolean, optional</p>
+<blockquote>
+<div><p>Whether or not to plot the level component, if applicable.
+Default is True.</p>
+</div></blockquote>
+<p><strong>trend</strong> : boolean, optional</p>
+<blockquote>
+<div><p>Whether or not to plot the trend component, if applicable.
+Default is True.</p>
+</div></blockquote>
+<p><strong>seasonal</strong> : boolean, optional</p>
+<blockquote>
+<div><p>Whether or not to plot the seasonal component, if applicable.
+Default is True.</p>
+</div></blockquote>
+<p><strong>cycle</strong> : boolean, optional</p>
+<blockquote>
+<div><p>Whether or not to plot the cyclical component, if applicable.
+Default is True.</p>
+</div></blockquote>
+<p><strong>autoregressive</strong> : boolean, optional</p>
+<blockquote>
+<div><p>Whether or not to plot the autoregressive state, if applicable.
+Default is True.</p>
+</div></blockquote>
+<p><strong>fig</strong> : Matplotlib Figure instance, optional</p>
+<blockquote>
+<div><p>If given, subplots are created in this figure instead of in a new
+figure. Note that the grid will be created in the provided
+figure using <em class="xref py py-obj">fig.add_subplot()</em>.</p>
+</div></blockquote>
+<p><strong>figsize</strong> : tuple, optional</p>
+<blockquote class="last">
+<div><p>If a figure is created, this argument allows specifying a size.
+The tuple is (width, height).</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>If all options are included in the model and selected, this produces
+a 6x1 plot grid with the following plots (ordered top-to-bottom):</p>
+<ol class="arabic simple" start="0">
+<li>Observed series against predicted series</li>
+<li>Level</li>
+<li>Trend</li>
+<li>Seasonal</li>
+<li>Cycle</li>
+<li>Autoregressive</li>
+</ol>
+<p>Specific subplots will be removed if the component is not present in
+the estimated model or if the corresponding keywork argument is set to
+False.</p>
+<p>All plots contain (1 - <em class="xref py py-obj">alpha</em>) %  confidence intervals.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="dismalpy.ssm.structural.UnobservedComponentsResults.regression_coefficients">
+<code class="descname">regression_coefficients</code><a class="headerlink" href="#dismalpy.ssm.structural.UnobservedComponentsResults.regression_coefficients" title="Permalink to this definition">¶</a></dt>
+<dd><p>Estimates of unobserved regression coefficients</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">out: Bunch</p>
+<blockquote class="last">
+<div><p>Has the following attributes:</p>
+<ul>
+<li><dl class="first docutils">
+<dt><em class="xref py py-obj">filtered</em>: a time series array with the filtered estimate of</dt>
+<dd><p class="first last">the component</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><em class="xref py py-obj">filtered_cov</em>: a time series array with the filtered estimate of</dt>
+<dd><p class="first last">the variance/covariance of the component</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><em class="xref py py-obj">smoothed</em>: a time series array with the smoothed estimate of</dt>
+<dd><p class="first last">the component</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><em class="xref py py-obj">smoothed_cov</em>: a time series array with the smoothed estimate of</dt>
+<dd><p class="first last">the variance/covariance of the component</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><em class="xref py py-obj">offset</em>: an integer giving the offset in the state vector where</dt>
+<dd><p class="first last">this component begins</p>
+</dd>
+</dl>
+</li>
+</ul>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="dismalpy.ssm.structural.UnobservedComponentsResults.seasonal">
+<code class="descname">seasonal</code><a class="headerlink" href="#dismalpy.ssm.structural.UnobservedComponentsResults.seasonal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Estimates of unobserved seasonal component</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">out: Bunch</p>
+<blockquote class="last">
+<div><p>Has the following attributes:</p>
+<ul>
+<li><dl class="first docutils">
+<dt><em class="xref py py-obj">filtered</em>: a time series array with the filtered estimate of</dt>
+<dd><p class="first last">the component</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><em class="xref py py-obj">filtered_cov</em>: a time series array with the filtered estimate of</dt>
+<dd><p class="first last">the variance/covariance of the component</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><em class="xref py py-obj">smoothed</em>: a time series array with the smoothed estimate of</dt>
+<dd><p class="first last">the component</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><em class="xref py py-obj">smoothed_cov</em>: a time series array with the smoothed estimate of</dt>
+<dd><p class="first last">the variance/covariance of the component</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><em class="xref py py-obj">offset</em>: an integer giving the offset in the state vector where</dt>
+<dd><p class="first last">this component begins</p>
+</dd>
+</dl>
+</li>
+</ul>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="dismalpy.ssm.structural.UnobservedComponentsResults.trend">
+<code class="descname">trend</code><a class="headerlink" href="#dismalpy.ssm.structural.UnobservedComponentsResults.trend" title="Permalink to this definition">¶</a></dt>
+<dd><p>Estimates of of unobserved trend component</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">out: Bunch</p>
+<blockquote class="last">
+<div><p>Has the following attributes:</p>
+<ul>
+<li><dl class="first docutils">
+<dt><em class="xref py py-obj">filtered</em>: a time series array with the filtered estimate of</dt>
+<dd><p class="first last">the component</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><em class="xref py py-obj">filtered_cov</em>: a time series array with the filtered estimate of</dt>
+<dd><p class="first last">the variance/covariance of the component</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><em class="xref py py-obj">smoothed</em>: a time series array with the smoothed estimate of</dt>
+<dd><p class="first last">the component</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><em class="xref py py-obj">smoothed_cov</em>: a time series array with the smoothed estimate of</dt>
+<dd><p class="first last">the variance/covariance of the component</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><em class="xref py py-obj">offset</em>: an integer giving the offset in the state vector where</dt>
+<dd><p class="first last">this component begins</p>
+</dd>
+</dl>
+</li>
+</ul>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="varmax.html" class="btn btn-neutral float-right" title="VARMAX" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="sarimax.html" class="btn btn-neutral" title="SARIMAX" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Chad Fulton.
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'0.1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

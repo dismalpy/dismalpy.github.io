@@ -1,0 +1,234 @@
+
+VARMAX models
+=============
+
+This is a notebook stub for VARMAX models. Full development will be done
+after impulse response functions are available.
+
+.. code:: python
+
+    %matplotlib inline
+    
+    import numpy as np
+    import pandas as pd
+    import statsmodels.api as sm
+    import dismalpy as dp
+    import matplotlib.pyplot as plt
+
+.. code:: python
+
+    dta = pd.read_stata('data/lutkepohl2.dta')
+    dta.index = dta.qtr
+    endog = dta.ix['1960-04-01':'1978-10-01', ['dln_inv', 'dln_inc', 'dln_consump']]
+
+Model specification
+-------------------
+
+The ``VARMAX`` class in Statsmodels allows estimation of VAR, VMA, and
+VARMA models (through the ``order`` argument), optionally with a
+constant term (via the ``trend`` argument). Exogenous regressors may
+also be included (as usual in Statsmodels, by the ``exog`` argument),
+and in this way a time trend may be added. Finally, the class allows
+measurement error (via the ``measurement_error`` argument) and allows
+specifying either a diagonal or unstructured innovation covariance
+matrix (via the ``error_cov_type`` argument).
+
+Example 1: VAR
+--------------
+
+Below is a simple VARX(2) model in two endogenous variables and an
+exogenous series, but no constant term. Notice that we needed to allow
+for more iterations than the default (which is ``maxiter=50``) in order
+for the likelihood estimation to converge. This is not unusual in VAR
+models which have to estimate a large number of parameters, often on a
+relatively small number of time series: this model, for example,
+estimates 27 parameters off of 75 observations of 3 variables.
+
+.. code:: python
+
+    exog = pd.Series(np.arange(len(endog)), index=endog.index, name='trend')
+    exog = endog['dln_consump']
+    mod = dp.ssm.VARMAX(endog[['dln_inv', 'dln_inc']], order=(2,0), trend='nc', exog=exog)
+    res = mod.fit(maxiter=1000)
+    print(res.summary())
+
+
+.. parsed-literal::
+
+                                 Statespace Model Results                             
+    ==================================================================================
+    Dep. Variable:     ['dln_inv', 'dln_inc']   No. Observations:                   75
+    Model:                            VARX(2)   Log Likelihood                 346.346
+    Date:                    Mon, 21 Sep 2015   AIC                           -666.692
+    Time:                            14:50:07   BIC                           -636.565
+    Sample:                        04-01-1960   HQIC                          -654.663
+                                 - 10-01-1978                                         
+    Covariance Type:                      opg                                         
+    ===================================================================================
+    Ljung-Box (Q):                58.19, 39.04   Jarque-Bera (JB):         16.69, 10.94
+    Prob(Q):                        0.03, 0.51   Prob(JB):                   0.00, 0.00
+    Heteroskedasticity (H):         0.46, 0.82   Skew:                      0.04, -0.53
+    Prob(H) (two-sided):            0.06, 0.62   Kurtosis:                   5.31, 4.54
+                                Results for equation dln_inv                            
+    ====================================================================================
+                           coef    std err          z      P>|z|      [0.025      0.975]
+    ------------------------------------------------------------------------------------
+    L1.dln_inv          -0.2726      0.081     -3.385      0.001      -0.430      -0.115
+    L1.dln_inc           0.3630      0.414      0.876      0.381      -0.449       1.175
+    L2.dln_inv          -0.1170      0.098     -1.190      0.234      -0.310       0.076
+    L2.dln_inc           0.4007      0.399      1.006      0.315      -0.380       1.182
+    beta.dln_consump     0.5061      0.609      0.831      0.406      -0.688       1.700
+                                Results for equation dln_inc                            
+    ====================================================================================
+                           coef    std err          z      P>|z|      [0.025      0.975]
+    ------------------------------------------------------------------------------------
+    L1.dln_inv           0.0385      0.040      0.966      0.334      -0.040       0.117
+    L1.dln_inc           0.1331      0.149      0.894      0.372      -0.159       0.425
+    L2.dln_inv           0.0493      0.054      0.916      0.360      -0.056       0.155
+    L2.dln_inc           0.2740      0.174      1.577      0.115      -0.066       0.614
+    beta.dln_consump     0.4301      0.199      2.160      0.031       0.040       0.820
+                                      Error covariance matrix                                   
+    ============================================================================================
+                                   coef    std err          z      P>|z|      [0.025      0.975]
+    --------------------------------------------------------------------------------------------
+    sqrt.var.dln_inv             0.0442      0.003     15.081      0.000       0.038       0.050
+    sqrt.cov.dln_inv.dln_inc     0.0014      0.003      0.544      0.587      -0.004       0.006
+    sqrt.var.dln_inc            -0.0131      0.001    -11.269      0.000      -0.015      -0.011
+    ============================================================================================
+    
+    Warnings:
+    [1] Covariance matrix calculated using the outer product of gradients.
+
+
+Example 2: VMA
+--------------
+
+A vector moving average model can also be formulated. Below we show a
+VMA(2) on the same data, but where the innovations to the process are
+uncorrelated. In this example we leave out the exogenous regressor but
+now include the constant term.
+
+.. code:: python
+
+    mod = dp.ssm.VARMAX(endog[['dln_inv', 'dln_inc']], order=(0,2), error_cov_type='diagonal')
+    res = mod.fit(maxiter=1000)
+    print(res.summary())
+
+
+.. parsed-literal::
+
+                                 Statespace Model Results                             
+    ==================================================================================
+    Dep. Variable:     ['dln_inv', 'dln_inc']   No. Observations:                   75
+    Model:                             VMA(2)   Log Likelihood                 351.146
+                                  + intercept   AIC                           -678.292
+    Date:                    Mon, 21 Sep 2015   BIC                           -650.482
+    Time:                            14:50:09   HQIC                          -667.187
+    Sample:                        04-01-1960                                         
+                                 - 10-01-1978                                         
+    Covariance Type:                      opg                                         
+    ===================================================================================
+    Ljung-Box (Q):                67.60, 38.60   Jarque-Bera (JB):         12.94, 11.08
+    Prob(Q):                        0.00, 0.53   Prob(JB):                   0.00, 0.00
+    Heteroskedasticity (H):         0.44, 0.63   Skew:                      0.04, -0.32
+    Prob(H) (two-sided):            0.04, 0.25   Kurtosis:                   5.03, 4.77
+                               Results for equation dln_inv                          
+    =================================================================================
+                        coef    std err          z      P>|z|      [0.025      0.975]
+    ---------------------------------------------------------------------------------
+    const             0.0182      0.005      3.736      0.000       0.009       0.028
+    L1.e(dln_inv)    -0.2548      0.105     -2.429      0.015      -0.460      -0.049
+    L1.e(dln_inc)     0.4805      0.598      0.803      0.422      -0.692       1.653
+    L2.e(dln_inv)     0.0331      0.148      0.224      0.823      -0.257       0.323
+    L2.e(dln_inc)     0.1609      0.448      0.359      0.720      -0.718       1.040
+                               Results for equation dln_inc                          
+    =================================================================================
+                        coef    std err          z      P>|z|      [0.025      0.975]
+    ---------------------------------------------------------------------------------
+    const             0.0206      0.002     11.876      0.000       0.017       0.024
+    L1.e(dln_inv)     0.0547      0.044      1.241      0.215      -0.032       0.141
+    L1.e(dln_inc)    -0.0374      0.128     -0.292      0.770      -0.288       0.213
+    L2.e(dln_inv)     0.0206      0.046      0.451      0.652      -0.069       0.110
+    L2.e(dln_inc)     0.0886      0.164      0.539      0.590      -0.234       0.411
+                                 Error covariance matrix                              
+    ==================================================================================
+                         coef    std err          z      P>|z|      [0.025      0.975]
+    ----------------------------------------------------------------------------------
+    sigma2.dln_inv     0.0020      0.000      7.348      0.000       0.001       0.003
+    sigma2.dln_inc     0.0001   2.37e-05      6.143      0.000    9.91e-05       0.000
+    ==================================================================================
+    
+    Warnings:
+    [1] Covariance matrix calculated using the outer product of gradients.
+
+
+Caution: VARMA(p,q) specifications
+----------------------------------
+
+Although the model allows estimating VARMA(p,q) specifications, these
+models are not identified without additional restrictions on the
+representation matrices, which are not built-in. For this reason, it is
+recommended that the user proceed with error (and indeed a warning is
+issued when these models are specified). Nonetheless, they may in some
+circumstances provide useful information.
+
+.. code:: python
+
+    mod = dp.ssm.VARMAX(endog[['dln_inv', 'dln_inc']], order=(1,1))
+    res = mod.fit(maxiter=1000)
+    print(res.summary())
+
+
+.. parsed-literal::
+
+                                 Statespace Model Results                             
+    ==================================================================================
+    Dep. Variable:     ['dln_inv', 'dln_inc']   No. Observations:                   75
+    Model:                         VARMA(1,1)   Log Likelihood                 353.141
+                                  + intercept   AIC                           -680.282
+    Date:                    Mon, 21 Sep 2015   BIC                           -650.154
+    Time:                            14:50:14   HQIC                          -668.252
+    Sample:                        04-01-1960                                         
+                                 - 10-01-1978                                         
+    Covariance Type:                      opg                                         
+    ===================================================================================
+    Ljung-Box (Q):                66.86, 40.07   Jarque-Bera (JB):         11.40, 12.19
+    Prob(Q):                        0.00, 0.47   Prob(JB):                   0.00, 0.00
+    Heteroskedasticity (H):         0.45, 0.70   Skew:                     -0.02, -0.35
+    Prob(H) (two-sided):            0.05, 0.38   Kurtosis:                   4.91, 4.85
+                               Results for equation dln_inv                          
+    =================================================================================
+                        coef    std err          z      P>|z|      [0.025      0.975]
+    ---------------------------------------------------------------------------------
+    const             0.0121      0.014      0.851      0.394      -0.016       0.040
+    L1.dln_inv       -0.0099      0.365     -0.027      0.978      -0.726       0.706
+    L1.dln_inc        0.3199      0.361      0.887      0.375      -0.387       1.027
+    L1.e(dln_inv)    -0.2411      0.418     -0.577      0.564      -1.060       0.578
+    L1.e(dln_inc)     0.0984      0.149      0.659      0.510      -0.195       0.391
+                               Results for equation dln_inc                          
+    =================================================================================
+                        coef    std err          z      P>|z|      [0.025      0.975]
+    ---------------------------------------------------------------------------------
+    const             0.0337      0.013      2.603      0.009       0.008       0.059
+    L1.dln_inv       -0.1902      0.142     -1.343      0.179      -0.468       0.087
+    L1.dln_inc       -0.4641      0.650     -0.714      0.475      -1.739       0.810
+    L1.e(dln_inv)     0.2507      0.161      1.560      0.119      -0.064       0.566
+    L1.e(dln_inc)     0.4376      0.654      0.669      0.503      -0.844       1.720
+                                      Error covariance matrix                                   
+    ============================================================================================
+                                   coef    std err          z      P>|z|      [0.025      0.975]
+    --------------------------------------------------------------------------------------------
+    sqrt.var.dln_inv             0.0450      0.003     14.774      0.000       0.039       0.051
+    sqrt.cov.dln_inv.dln_inc     0.0017      0.002      0.833      0.405      -0.002       0.006
+    sqrt.var.dln_inc             0.0117      0.001      9.674      0.000       0.009       0.014
+    ============================================================================================
+    
+    Warnings:
+    [1] Covariance matrix calculated using the outer product of gradients.
+
+
+.. parsed-literal::
+
+    /Users/fulton/projects/statsmodels/statsmodels/tsa/statespace/varmax.py:151: UserWarning: Estimation of VARMA(p,q) models is not generically robust, due especially to identification issues.
+      warn('Estimation of VARMA(p,q) models is not generically robust,'
+

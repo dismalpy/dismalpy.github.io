@@ -1,0 +1,458 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>References &mdash; DismalPy 0.1.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="author" title="About these documents"
+              href="../../about.html"/>
+    <link rel="top" title="DismalPy 0.1.0 documentation" href="../../index.html"/>
+        <link rel="up" title="State Space Models" href="../ssm.html"/>
+        <link rel="next" title="Durbin and Koopman: Box-Jenkins Examples" href="../_notebooks/sarimax_internet.ipynb.html"/>
+        <link rel="prev" title="Out-of-the-box models" href="6-out-of-the-box_models.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="../../contents.html" class="icon icon-home"> DismalPy
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">DismalPy User Guide</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../ssm.html">State Space Models</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../ssm.html#topics">Topics</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="2-state_space_models.html">State space models</a></li>
+<li class="toctree-l4"><a class="reference internal" href="3-python_representation.html">Representation in Python</a></li>
+<li class="toctree-l4"><a class="reference internal" href="4-maximum_likelihood_estimation.html">Maximum Likelihood Estimation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="5-posterior_simulation.html">Posterior Simulation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="6-out-of-the-box_models.html">Out-of-the-box models</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="">References</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ssm.html#examples">Examples</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../_notebooks/sarimax_internet.ipynb.html">Durbin and Koopman: Box-Jenkins Examples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_notebooks/sarimax_stata.ipynb.html">SARIMAX: Introduction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_notebooks/local_linear_trend.ipynb.html">State space modeling: Local Linear Trends</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_notebooks/structural_harvey_jaeger.ipynb.html">Detrending, Stylized Facts and the Business Cycle</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_notebooks/dfm_coincident.ipynb.html">Dynamic factors and coincident indices</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_notebooks/varmax.ipynb.html">VARMAX models</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/index.html">DismalPy Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/ssm.html">State Space Models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/ssm.html#built-in-models">Built-in models</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/ssm/sarimax.html">SARIMAX</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/ssm/structural.html">Unobserved Components</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/ssm/varmax.html">VARMAX</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/ssm/dynamic_factor.html">Dynamic Factors</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/ssm.html#extension-starting-point">Extension starting point</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/ssm/mlemodel.html">MLEModel</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/ssm.html#base-classes">Base classes</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/ssm/representation.html">Representation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/ssm/kalman_filter.html">Kalman filter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/ssm/kalman_smoother.html">Kalman smoother</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/ssm/simulation_smoother.html">Simulation Smoother</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/ssm/model.html">Model</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/ssm/tools.html">Tools</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../release.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../release.html#dismalpy-0-1-0-release-notes">DismalPy 0.1.0 Release Notes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#highlights">Highlights</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#dropped-support">Dropped Support</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#future-changes">Future Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#compatibility-notes">Compatibility notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#new-features">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#improvements">Improvements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#changes">Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#deprecations">Deprecations</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">About DismalPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html#about-this-documentation">About this documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../about.html#conventions">Conventions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../bugs.html">Reporting bugs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">DismalPy License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary.html">Glossary</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../glossary.html#module-dismalpy.doc.jargon">Jargon</a></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../contents.html">DismalPy</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../contents.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../index.html">DismalPy User Guide</a> &raquo;</li>
+      
+          <li><a href="../ssm.html">State Space Models</a> &raquo;</li>
+      
+    <li>References</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../_sources/user/ssm/9-references.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="references">
+<h1>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h1>
+<p id="bibtex-bibliography-user/ssm/9-references-0"><table class="docutils citation" frame="void" id="anderson-lapack-1999" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td>E.&nbsp;Anderson, Z.&nbsp;Bai, C.&nbsp;Bischof, S.&nbsp;Blackford, J.&nbsp;Demmel, J.&nbsp;Dongarra, J.&nbsp;Du&nbsp;Croz, A.&nbsp;Greenbaum, S.&nbsp;Hammarling, A.&nbsp;McKenney, and D.&nbsp;Sorensen. <em>LAPACK Users&#8217; Guide</em>. Society for Industrial and Applied Mathematics, Philadelphia, PA, third edition, 1999. 06283.</td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="ansley-note-1986" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[2]</td><td>Craig&nbsp;F. Ansley and Robert Kohn. A note on reparameterizing a vector autoregressive moving average model to enforce stationarity. <em>Journal of Statistical Computation and Simulation</em>, 24(2):99–106, June 1986. 00025. <a class="reference external" href="http://dx.doi.org/10.1080/00949658608810893">URL: http://dx.doi.org/10.1080/00949658608810893</a>, <a class="reference external" href="http://dx.doi.org/10.1080/00949658608810893">doi:10.1080/00949658608810893</a>.</td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="behnel-cython-2011" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[3]</td><td>Stefan Behnel, Robert Bradshaw, Craig Citro, Lisandro Dalcin, Dag&nbsp;Sverre Seljebotn, and Kurt Smith. Cython: The Best of Both Worlds. <em>Computing in Science &amp; Engineering</em>, 13(2):31–39, March 2011. 00161. <a class="reference external" href="http://scitation.aip.org/content/aip/journal/cise/13/2/10.1109/MCSE.2010.118">URL: http://scitation.aip.org/content/aip/journal/cise/13/2/10.1109/MCSE.2010.118</a>, <a class="reference external" href="http://dx.doi.org/10.1109/MCSE.2010.118">doi:10.1109/MCSE.2010.118</a>.</td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="blanchard-solution-1980" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[4]</td><td>Olivier&nbsp;Jean Blanchard and Charles&nbsp;M. Kahn. The Solution of Linear Difference Models under Rational Expectations. <em>Econometrica</em>, 48(5):1305–1311, July 1980. 02223. <a class="reference external" href="http://www.jstor.org/stable/1912186">URL: http://www.jstor.org/stable/1912186</a>, <a class="reference external" href="http://dx.doi.org/10.2307/1912186">doi:10.2307/1912186</a>.</td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="carter-gibbs-1994" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[5]</td><td>C.&nbsp;K. Carter and R.&nbsp;Kohn. On Gibbs sampling for state space models. <em>Biometrika</em>, 81(3):541–553, September 1994. <a class="reference external" href="http://biomet.oxfordjournals.org/content/81/3/541">URL: http://biomet.oxfordjournals.org/content/81/3/541</a>, <a class="reference external" href="http://dx.doi.org/10.1093/biomet/81.3.541">doi:10.1093/biomet/81.3.541</a>.</td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="chib-understanding-1995" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[6]</td><td>Siddhartha Chib and Edward Greenberg. Understanding the Metropolis-Hastings Algorithm. <em>The American Statistician</em>, 49(4):327–335, November 1995. ArticleType: research-article / Full publication date: Nov., 1995 / Copyright © 1995 American Statistical Association. <a class="reference external" href="http://www.jstor.org/stable/2684568">URL: http://www.jstor.org/stable/2684568</a>, <a class="reference external" href="http://dx.doi.org/10.2307/2684568">doi:10.2307/2684568</a>.</td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="commandeur-statistical-2011" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[7]</td><td>Jacques J.&nbsp;F. Commandeur, Siem&nbsp;Jan Koopman, and Marius Ooms. Statistical Software for State Space Methods. <em>Journal of Statistical Software</em>, 41(1):1–18, 2011. 00035. <a class="reference external" href="http://www.jstatsoft.org/v41/i01">URL: http://www.jstatsoft.org/v41/i01</a>.</td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="dejong-structural-2011" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[8]</td><td>David&nbsp;N. DeJong and Chetan Dave. <em>Structural Macroeconometrics: (Second Edition)</em>. Princeton University Press, October 2011.</td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="durbin-simple-2002" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[9]</td><td>J.&nbsp;Durbin and S.&nbsp;J. Koopman. A simple and efficient simulation smoother for state space time series analysis. <em>Biometrika</em>, 89(3):603–616, August 2002. <a class="reference external" href="http://biomet.oxfordjournals.org/content/89/3/603">URL: http://biomet.oxfordjournals.org/content/89/3/603</a>, <a class="reference external" href="http://dx.doi.org/10.1093/biomet/89.3.603">doi:10.1093/biomet/89.3.603</a>.</td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="durbin-time-2012" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[10]</td><td>James Durbin and Siem&nbsp;Jan Koopman. <em>Time Series Analysis by State Space Methods: Second Edition</em>. Oxford University Press, May 2012.</td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="grewal-kalman-2014" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[11]</td><td>Mohinder Grewal and Angus Andrews. <em>Kalman Filtering: Theory and Practice with MATLAB</em>. Wiley-IEEE Press, Hoboken, New Jersey, 4 edition edition, December 2014. 03436.</td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="hamilton-time-1994" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[12]</td><td>James&nbsp;Douglas Hamilton. <em>Time Series Analysis</em>. Princeton University Press, January 1994.</td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="jones-scipy-2001" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[13]</td><td>Eric Jones, Travis Oliphant, and Pearu Peterson. SciPy: Open source scientific tools for Python. 2001. 00028. <a class="reference external" href="http://www.scipy.org">URL: http://www.scipy.org</a>.</td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="jungbacker-likelihood-based-2014" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[14]</td><td>Borus Jungbacker and Siem&nbsp;Jan Koopman. Likelihood-based dynamic factor analysis for measurement and forecasting. <em>The Econometrics Journal</em>, pages n/a–n/a, June 2014. 00005. <a class="reference external" href="http://onlinelibrary.wiley.com/doi/10.1111/ectj.12029/abstract">URL: http://onlinelibrary.wiley.com/doi/10.1111/ectj.12029/abstract</a>, <a class="reference external" href="http://dx.doi.org/10.1111/ectj.12029">doi:10.1111/ectj.12029</a>.</td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="kim-state-space-1999" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[15]</td><td>Chang-Jin Kim and Charles&nbsp;R. Nelson. State-Space Models with Regime Switching: Classical and Gibbs-Sampling Approaches with Applications. MIT Press Books, The MIT Press, 1999. <a class="reference external" href="http://ideas.repec.org/b/mtp/titles/0262112388.html">URL: http://ideas.repec.org/b/mtp/titles/0262112388.html</a>.</td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="klein-using-2000" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[16]</td><td>Paul Klein. Using the generalized Schur form to solve a multivariate linear rational expectations model. <em>Journal of Economic Dynamics and Control</em>, 24(10):1405–1423, September 2000. 00746. <a class="reference external" href="http://www.sciencedirect.com/science/article/pii/S0165188999000457">URL: http://www.sciencedirect.com/science/article/pii/S0165188999000457</a>, <a class="reference external" href="http://dx.doi.org/10.1016/S0165-1889(99)00045-7">doi:10.1016/S0165-1889(99)00045-7</a>.</td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="koop-bayesian-2003" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[17]</td><td>Gary Koop. <em>Bayesian Econometrics</em>. Wiley-Interscience, Chichester ; Hoboken, N.J, 1 edition edition, July 2003. 00006.</td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="koopman-fast-2000" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[18]</td><td>S.&nbsp;J. Koopman and J.&nbsp;Durbin. Fast Filtering and Smoothing for Multivariate State Space Models. <em>Journal of Time Series Analysis</em>, 21(3):281–296, May 2000. 00101. <a class="reference external" href="http://onlinelibrary.wiley.com/doi/10.1111/1467-9892.00186/abstract">URL: http://onlinelibrary.wiley.com/doi/10.1111/1467-9892.00186/abstract</a>, <a class="reference external" href="http://dx.doi.org/10.1111/1467-9892.00186">doi:10.1111/1467-9892.00186</a>.</td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="koopman-filtering-2003" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[19]</td><td>S.j. Koopman and J.&nbsp;Durbin. Filtering and smoothing of state vector for diffuse state–space models. <em>Journal of Time Series Analysis</em>, 24(1):85–98, January 2003. 00089. <a class="reference external" href="http://search.ebscohost.com/login.aspx?direct=true&amp;db=aph&amp;AN=9184943&amp;site=ehost-live&amp;scope=site">URL: http://search.ebscohost.com/login.aspx?direct=true&amp;db=aph&amp;AN=9184943&amp;site=ehost-live&amp;scope=site</a>.</td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="koopman-disturbance-1993" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[20]</td><td>Siem&nbsp;Jan Koopman. Disturbance Smoother for State Space Models. <em>Biometrika</em>, 80(1):117–126, March 1993. 00205. <a class="reference external" href="http://www.jstor.org/stable/2336762">URL: http://www.jstor.org/stable/2336762</a>, <a class="reference external" href="http://dx.doi.org/10.2307/2336762">doi:10.2307/2336762</a>.</td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="mccullough-numerical-1999" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[21]</td><td>B.&nbsp;D. McCullough and H.&nbsp;D. Vinod. The Numerical Reliability of Econometric Software. <em>Journal of Economic Literature</em>, 37(2):633–665, June 1999. 00157. <a class="reference external" href="http://www.jstor.org/stable/2565215">URL: http://www.jstor.org/stable/2565215</a>.</td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="mendelssohn-stamp-2011" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[22]</td><td>Roy Mendelssohn. The STAMP Software for State Space Models. <em>Journal of Statistical Software</em>, 41(2):1–18, 2011. 00007. <a class="reference external" href="http://www.jstatsoft.org/v41/i02">URL: http://www.jstatsoft.org/v41/i02</a>.</td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="monahan-note-1984" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[23]</td><td>John&nbsp;F. Monahan. A note on enforcing stationarity in autoregressive-moving average models. <em>Biometrika</em>, 71(2):403–404, August 1984. <a class="reference external" href="http://biomet.oxfordjournals.org/content/71/2/403">URL: http://biomet.oxfordjournals.org/content/71/2/403</a>, <a class="reference external" href="http://dx.doi.org/10.1093/biomet/71.2.403">doi:10.1093/biomet/71.2.403</a>.</td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="morf-square-root-1975" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[24]</td><td>M.&nbsp;Morf and T.&nbsp;Kailath. Square-root algorithms for least-squares estimation. <em>IEEE Transactions on Automatic Control</em>, 20(4):487–497, August 1975. 00215. <a class="reference external" href="http://dx.doi.org/10.1109/TAC.1975.1100994">doi:10.1109/TAC.1975.1100994</a>.</td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="patil-pymc-2010" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[25]</td><td>Anand Patil, David Huard, and Christopher&nbsp;J. Fonnesbeck. PyMC: Bayesian Stochastic Modelling in Python. <em>Journal of Statistical Software</em>, 35(4):1–81, 2010. 00192. <a class="reference external" href="http://www.jstatsoft.org/v35/i04">URL: http://www.jstatsoft.org/v35/i04</a>.</td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="ruge-murcia-methods-2007" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[26]</td><td>Francisco&nbsp;J. Ruge-Murcia. Methods to estimate dynamic stochastic general equilibrium models. <em>Journal of Economic Dynamics and Control</em>, 31(8):2599–2636, August 2007. 00163. <a class="reference external" href="http://www.sciencedirect.com/science/article/pii/S0165188906001758">URL: http://www.sciencedirect.com/science/article/pii/S0165188906001758</a>, <a class="reference external" href="http://dx.doi.org/10.1016/j.jedc.2006.09.005">doi:10.1016/j.jedc.2006.09.005</a>.</td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="seabold-statsmodels-2010" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[27]</td><td>Skipper Seabold and Josef Perktold. Statsmodels: Econometric and Statistical Modeling with Python. In <em>Proceedings of the 9th Python in Science Conference</em>, 57–61. 2010. 00027. <a class="reference external" href="http://conference.scipy.org/proceedings/scipy2010/seabold.html">URL: http://conference.scipy.org/proceedings/scipy2010/seabold.html</a>.</td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="sims-solving-2002" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[28]</td><td>Christopher&nbsp;A. Sims. Solving Linear Rational Expectations Models. <em>Computational Economics</em>, 20(1-2):1–20, October 2002. 01041. <a class="reference external" href="http://link.springer.com/article/10.1023/A:1020517101123">URL: http://link.springer.com/article/10.1023/A:1020517101123</a>, <a class="reference external" href="http://dx.doi.org/10.1023/A:1020517101123">doi:10.1023/A:1020517101123</a>.</td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="smets-shocks-2007" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[29]</td><td>Frank Smets and Rafael Wouters. Shocks and Frictions in US Business Cycles: A Bayesian DSGE Approach. <em>The American Economic Review</em>, 97(3):586–606, June 2007. 02620. <a class="reference external" href="http://www.jstor.org/stable/30035013">URL: http://www.jstor.org/stable/30035013</a>.</td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="tierney-markov-1994" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[30]</td><td>Luke Tierney. Markov Chains for Exploring Posterior Distributions. <em>The Annals of Statistics</em>, 22(4):1701–1728, December 1994. 03496. <a class="reference external" href="http://www.jstor.org/stable/2242477">URL: http://www.jstor.org/stable/2242477</a>.</td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="wegner-concepts-1990" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[31]</td><td>Peter Wegner. Concepts and Paradigms of Object-oriented Programming. <em>SIGPLAN OOPS Mess.</em>, 1(1):7–87, August 1990. 00612. <a class="reference external" href="http://doi.acm.org/10.1145/382192.383004">URL: http://doi.acm.org/10.1145/382192.383004</a>, <a class="reference external" href="http://dx.doi.org/10.1145/382192.383004">doi:10.1145/382192.383004</a>.</td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="west-bayesian-1999" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[32]</td><td>Mike West and Jeff Harrison. <em>Bayesian Forecasting and Dynamic Models</em>. Springer, New York, 2nd edition edition, March 1999. 00000.</td></tr>
+</tbody>
+</table>
+</p>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../_notebooks/sarimax_internet.ipynb.html" class="btn btn-neutral float-right" title="Durbin and Koopman: Box-Jenkins Examples" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="6-out-of-the-box_models.html" class="btn btn-neutral" title="Out-of-the-box models" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Chad Fulton.
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'0.1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

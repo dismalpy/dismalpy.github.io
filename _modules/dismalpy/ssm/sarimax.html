@@ -1,0 +1,634 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>dismalpy.ssm.sarimax &mdash; DismalPy 0.1.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="author" title="About these documents"
+              href="../../../about.html"/>
+    <link rel="top" title="DismalPy 0.1.0 documentation" href="../../../index.html"/>
+        <link rel="up" title="Module code" href="../../index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="../../../contents.html" class="icon icon-home"> DismalPy
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../user/index.html">DismalPy User Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/ssm.html">State Space Models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/ssm.html#topics">Topics</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/ssm/2-state_space_models.html">State space models</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/ssm/3-python_representation.html">Representation in Python</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/ssm/4-maximum_likelihood_estimation.html">Maximum Likelihood Estimation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/ssm/5-posterior_simulation.html">Posterior Simulation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/ssm/6-out-of-the-box_models.html">Out-of-the-box models</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/ssm/9-references.html">References</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/ssm.html#examples">Examples</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/_notebooks/sarimax_internet.ipynb.html">Durbin and Koopman: Box-Jenkins Examples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/_notebooks/sarimax_stata.ipynb.html">SARIMAX: Introduction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/_notebooks/local_linear_trend.ipynb.html">State space modeling: Local Linear Trends</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/_notebooks/structural_harvey_jaeger.ipynb.html">Detrending, Stylized Facts and the Business Cycle</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/_notebooks/dfm_coincident.ipynb.html">Dynamic factors and coincident indices</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/_notebooks/varmax.ipynb.html">VARMAX models</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../reference/index.html">DismalPy Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/ssm.html">State Space Models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/ssm.html#built-in-models">Built-in models</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../reference/ssm/sarimax.html">SARIMAX</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../reference/ssm/structural.html">Unobserved Components</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../reference/ssm/varmax.html">VARMAX</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../reference/ssm/dynamic_factor.html">Dynamic Factors</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/ssm.html#extension-starting-point">Extension starting point</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../reference/ssm/mlemodel.html">MLEModel</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/ssm.html#base-classes">Base classes</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../reference/ssm/representation.html">Representation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../reference/ssm/kalman_filter.html">Kalman filter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../reference/ssm/kalman_smoother.html">Kalman smoother</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../reference/ssm/simulation_smoother.html">Simulation Smoother</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../reference/ssm/model.html">Model</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../reference/ssm/tools.html">Tools</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../release.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#dismalpy-0-2-0-release-notes">DismalPy 0.2.0 Release Notes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#highlights">Highlights</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#dismalpy-0-1-0-release-notes">DismalPy 0.1.0 Release Notes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id1">Highlights</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#dropped-support">Dropped Support</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#future-changes">Future Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#compatibility-notes">Compatibility notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#new-features">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#improvements">Improvements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#changes">Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#deprecations">Deprecations</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../about.html">About DismalPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../about.html#about-this-documentation">About this documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../about.html#conventions">Conventions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../bugs.html">Reporting bugs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../license.html">DismalPy License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../glossary.html">Glossary</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../glossary.html#module-dismalpy.doc.jargon">Jargon</a></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../contents.html">DismalPy</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../contents.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      
+    <li>dismalpy.ssm.sarimax</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <h1>Source code for dismalpy.ssm.sarimax</h1><div class="highlight"><pre>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">SARIMAX Model</span>
+
+<span class="sd">Author: Chad Fulton</span>
+<span class="sd">License: Simplified-BSD</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">division</span><span class="p">,</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">print_function</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">.mlemodel</span> <span class="kn">import</span> <span class="n">MLEMixin</span><span class="p">,</span> <span class="n">MLEResultsMixin</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">statsmodels.tsa.statespace</span> <span class="kn">import</span> <span class="n">varmax</span>
+    <span class="kn">from</span> <span class="nn">statsmodels.tsa.statespace</span> <span class="kn">import</span> <span class="n">mlemodel</span><span class="p">,</span> <span class="n">sarimax</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">.compat</span> <span class="kn">import</span> <span class="n">mlemodel</span><span class="p">,</span> <span class="n">sarimax</span>
+<span class="kn">import</span> <span class="nn">statsmodels.base.wrapper</span> <span class="kn">as</span> <span class="nn">wrap</span>
+
+<div class="viewcode-block" id="SARIMAX"><a class="viewcode-back" href="../../../reference/ssm/sarimax.html#dismalpy.ssm.sarimax.SARIMAX">[docs]</a><span class="k">class</span> <span class="nc">SARIMAX</span><span class="p">(</span><span class="n">MLEMixin</span><span class="p">,</span> <span class="n">sarimax</span><span class="o">.</span><span class="n">SARIMAX</span><span class="p">):</span>
+    <span class="sd">r&quot;&quot;&quot;</span>
+<span class="sd">    Seasonal AutoRegressive Integrated Moving Average with eXogenous regressors</span>
+<span class="sd">    model</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    endog : array_like</span>
+<span class="sd">        The observed time-series process :math:`y`</span>
+<span class="sd">    exog : array_like, optional</span>
+<span class="sd">        Array of exogenous regressors, shaped nobs x k.</span>
+<span class="sd">    order : iterable or iterable of iterables, optional</span>
+<span class="sd">        The (p,d,q) order of the model for the number of AR parameters,</span>
+<span class="sd">        differences, and MA parameters. `d` must be an integer</span>
+<span class="sd">        indicating the integration order of the process, while</span>
+<span class="sd">        `p` and `q` may either be an integers indicating the AR and MA</span>
+<span class="sd">        orders (so that all lags up to those orders are included) or else</span>
+<span class="sd">        iterables giving specific AR and / or MA lags to include. Default is</span>
+<span class="sd">        an AR(1) model: (1,0,0).</span>
+<span class="sd">    seasonal_order : iterable, optional</span>
+<span class="sd">        The (P,D,Q,s) order of the seasonal component of the model for the</span>
+<span class="sd">        AR parameters, differences, MA parameters, and periodicity.</span>
+<span class="sd">        `d` must be an integer indicating the integration order of the process,</span>
+<span class="sd">        while `p` and `q` may either be an integers indicating the AR and MA</span>
+<span class="sd">        orders (so that all lags up to those orders are included) or else</span>
+<span class="sd">        iterables giving specific AR and / or MA lags to include. `s` is an</span>
+<span class="sd">        integer giving the periodicity (number of periods in season), often it</span>
+<span class="sd">        is 4 for quarterly data or 12 for monthly data. Default is no seasonal</span>
+<span class="sd">        effect.</span>
+<span class="sd">    trend : str{&#39;n&#39;,&#39;c&#39;,&#39;t&#39;,&#39;ct&#39;} or iterable, optional</span>
+<span class="sd">        Parameter controlling the deterministic trend polynomial :math:`A(t)`.</span>
+<span class="sd">        Can be specified as a string where &#39;c&#39; indicates a constant (i.e. a</span>
+<span class="sd">        degree zero component of the trend polynomial), &#39;t&#39; indicates a</span>
+<span class="sd">        linear trend with time, and &#39;ct&#39; is both. Can also be specified as an</span>
+<span class="sd">        iterable defining the polynomial as in `numpy.poly1d`, where</span>
+<span class="sd">        `[1,1,0,1]` would denote :math:`a + bt + ct^3`. Default is to not</span>
+<span class="sd">        include a trend component.</span>
+<span class="sd">    measurement_error : boolean, optional</span>
+<span class="sd">        Whether or not to assume the endogenous observations `endog` were</span>
+<span class="sd">        measured with error. Default is False.</span>
+<span class="sd">    time_varying_regression : boolean, optional</span>
+<span class="sd">        Used when an explanatory variables, `exog`, are provided provided</span>
+<span class="sd">        to select whether or not coefficients on the exogenous regressors are</span>
+<span class="sd">        allowed to vary over time. Default is False.</span>
+<span class="sd">    mle_regression : boolean, optional</span>
+<span class="sd">        Whether or not to use estimate the regression coefficients for the</span>
+<span class="sd">        exogenous variables as part of maximum likelihood estimation or through</span>
+<span class="sd">        the Kalman filter (i.e. recursive least squares). If</span>
+<span class="sd">        `time_varying_regression` is True, this must be set to False. Default</span>
+<span class="sd">        is True.</span>
+<span class="sd">    simple_differencing : boolean, optional</span>
+<span class="sd">        Whether or not to use partially conditional maximum likelihood</span>
+<span class="sd">        estimation. If True, differencing is performed prior to estimation,</span>
+<span class="sd">        which discards the first :math:`s D + d` initial rows but reuslts in a</span>
+<span class="sd">        smaller state-space formulation. If False, the full SARIMAX model is</span>
+<span class="sd">        put in state-space form so that all datapoints can be used in</span>
+<span class="sd">        estimation. Default is False.</span>
+<span class="sd">    enforce_stationarity : boolean, optional</span>
+<span class="sd">        Whether or not to transform the AR parameters to enforce stationarity</span>
+<span class="sd">        in the autoregressive component of the model. Default is True.</span>
+<span class="sd">    enforce_invertibility : boolean, optional</span>
+<span class="sd">        Whether or not to transform the MA parameters to enforce invertibility</span>
+<span class="sd">        in the moving average component of the model. Default is True.</span>
+<span class="sd">    hamilton_representation : boolean, optional</span>
+<span class="sd">        Whether or not to use the Hamilton representation of an ARMA process</span>
+<span class="sd">        (if True) or the Harvey representation (if False). Default is False.</span>
+<span class="sd">    \*\*kwargs</span>
+<span class="sd">        Keyword arguments may be used to provide default values for state space</span>
+<span class="sd">        matrices or for Kalman filtering options. See `Representation`, and</span>
+<span class="sd">        `KalmanFilter` for more details.</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    measurement_error : boolean</span>
+<span class="sd">        Whether or not to assume the endogenous</span>
+<span class="sd">        observations `endog` were measured with error.</span>
+<span class="sd">    state_error : boolean</span>
+<span class="sd">        Whether or not the transition equation has an error component.</span>
+<span class="sd">    mle_regression : boolean</span>
+<span class="sd">        Whether or not the regression coefficients for</span>
+<span class="sd">        the exogenous variables were estimated via maximum</span>
+<span class="sd">        likelihood estimation.</span>
+<span class="sd">    state_regression : boolean</span>
+<span class="sd">        Whether or not the regression coefficients for</span>
+<span class="sd">        the exogenous variables are included as elements</span>
+<span class="sd">        of the state space and estimated via the Kalman</span>
+<span class="sd">        filter.</span>
+<span class="sd">    time_varying_regression : boolean</span>
+<span class="sd">        Whether or not coefficients on the exogenous</span>
+<span class="sd">        regressors are allowed to vary over time.</span>
+<span class="sd">    simple_differencing : boolean</span>
+<span class="sd">        Whether or not to use partially conditional maximum likelihood</span>
+<span class="sd">        estimation.</span>
+<span class="sd">    enforce_stationarity : boolean</span>
+<span class="sd">        Whether or not to transform the AR parameters</span>
+<span class="sd">        to enforce stationarity in the autoregressive</span>
+<span class="sd">        component of the model.</span>
+<span class="sd">    enforce_invertibility : boolean</span>
+<span class="sd">        Whether or not to transform the MA parameters</span>
+<span class="sd">        to enforce invertibility in the moving average</span>
+<span class="sd">        component of the model.</span>
+<span class="sd">    hamilton_representation : boolean</span>
+<span class="sd">        Whether or not to use the Hamilton representation of an ARMA process.</span>
+<span class="sd">    trend : str{&#39;n&#39;,&#39;c&#39;,&#39;t&#39;,&#39;ct&#39;} or iterable</span>
+<span class="sd">        Parameter controlling the deterministic</span>
+<span class="sd">        trend polynomial :math:`A(t)`. See the class</span>
+<span class="sd">        parameter documentation for more information.</span>
+<span class="sd">    polynomial_ar : array</span>
+<span class="sd">        Array containing autoregressive lag polynomial</span>
+<span class="sd">        coefficients, ordered from lowest degree to highest.</span>
+<span class="sd">        Initialized with ones, unless a coefficient is</span>
+<span class="sd">        constrained to be zero (in which case it is zero).</span>
+<span class="sd">    polynomial_ma : array</span>
+<span class="sd">        Array containing moving average lag polynomial</span>
+<span class="sd">        coefficients, ordered from lowest degree to highest.</span>
+<span class="sd">        Initialized with ones, unless a coefficient is</span>
+<span class="sd">        constrained to be zero (in which case it is zero).</span>
+<span class="sd">    polynomial_seasonal_ar : array</span>
+<span class="sd">        Array containing seasonal moving average lag</span>
+<span class="sd">        polynomial coefficients, ordered from lowest degree</span>
+<span class="sd">        to highest. Initialized with ones, unless a</span>
+<span class="sd">        coefficient is constrained to be zero (in which</span>
+<span class="sd">        case it is zero).</span>
+<span class="sd">    polynomial_seasonal_ma : array</span>
+<span class="sd">        Array containing seasonal moving average lag</span>
+<span class="sd">        polynomial coefficients, ordered from lowest degree</span>
+<span class="sd">        to highest. Initialized with ones, unless a</span>
+<span class="sd">        coefficient is constrained to be zero (in which</span>
+<span class="sd">        case it is zero).</span>
+<span class="sd">    polynomial_trend : array</span>
+<span class="sd">        Array containing trend polynomial coefficients,</span>
+<span class="sd">        ordered from lowest degree to highest. Initialized</span>
+<span class="sd">        with ones, unless a coefficient is constrained to be</span>
+<span class="sd">        zero (in which case it is zero).</span>
+<span class="sd">    k_ar : int</span>
+<span class="sd">        Highest autoregressive order in the model, zero-indexed.</span>
+<span class="sd">    k_ar_params : int</span>
+<span class="sd">        Number of autoregressive parameters to be estimated.</span>
+<span class="sd">    k_diff : int</span>
+<span class="sd">        Order of intergration.</span>
+<span class="sd">    k_ma : int</span>
+<span class="sd">        Highest moving average order in the model, zero-indexed.</span>
+<span class="sd">    k_ma_params : int</span>
+<span class="sd">        Number of moving average parameters to be estimated.</span>
+<span class="sd">    k_seasons : int</span>
+<span class="sd">        Number of periods in a season.</span>
+<span class="sd">    k_seasonal_ar : int</span>
+<span class="sd">        Highest seasonal autoregressive order in the model, zero-indexed.</span>
+<span class="sd">    k_seasonal_ar_params : int</span>
+<span class="sd">        Number of seasonal autoregressive parameters to be estimated.</span>
+<span class="sd">    k_seasonal_diff : int</span>
+<span class="sd">        Order of seasonal intergration.</span>
+<span class="sd">    k_seasonal_ma : int</span>
+<span class="sd">        Highest seasonal moving average order in the model, zero-indexed.</span>
+<span class="sd">    k_seasonal_ma_params : int</span>
+<span class="sd">        Number of seasonal moving average parameters to be estimated.</span>
+<span class="sd">    k_trend : int</span>
+<span class="sd">        Order of the trend polynomial plus one (i.e. the constant polynomial</span>
+<span class="sd">        would have `k_trend=1`).</span>
+<span class="sd">    k_exog : int</span>
+<span class="sd">        Number of exogenous regressors.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    The SARIMA model is specified :math:`(p, d, q) \times (P, D, Q)_s`.</span>
+
+<span class="sd">    .. math::</span>
+
+<span class="sd">        \phi_p (L) \tilde \phi_P (L^s) \Delta^d \Delta_s^D y_t = A(t) +</span>
+<span class="sd">            \theta_q (L) \tilde \theta_Q (L^s) \zeta_t</span>
+
+<span class="sd">    In terms of a univariate structural model, this can be represented as</span>
+
+<span class="sd">    .. math::</span>
+
+<span class="sd">        y_t &amp; = u_t + \eta_t \\</span>
+<span class="sd">        \phi_p (L) \tilde \phi_P (L^s) \Delta^d \Delta_s^D u_t &amp; = A(t) +</span>
+<span class="sd">            \theta_q (L) \tilde \theta_Q (L^s) \zeta_t</span>
+
+<span class="sd">    where :math:`\eta_t` is only applicable in the case of measurement error</span>
+<span class="sd">    (although it is also used in the case of a pure regression model, i.e. if</span>
+<span class="sd">    p=q=0).</span>
+
+<span class="sd">    In terms of this model, regression with SARIMA errors can be represented</span>
+<span class="sd">    easily as</span>
+
+<span class="sd">    .. math::</span>
+
+<span class="sd">        y_t &amp; = \beta_t x_t + u_t \\</span>
+<span class="sd">        \phi_p (L) \tilde \phi_P (L^s) \Delta^d \Delta_s^D u_t &amp; = A(t) +</span>
+<span class="sd">            \theta_q (L) \tilde \theta_Q (L^s) \zeta_t</span>
+
+<span class="sd">    this model is the one used when exogenous regressors are provided.</span>
+
+<span class="sd">    Note that the reduced form lag polynomials will be written as:</span>
+
+<span class="sd">    .. math::</span>
+
+<span class="sd">        \Phi (L) \equiv \phi_p (L) \tilde \phi_P (L^s) \\</span>
+<span class="sd">        \Theta (L) \equiv \theta_q (L) \tilde \theta_Q (L^s)</span>
+
+<span class="sd">    If `mle_regression` is True, regression coefficients are treated as</span>
+<span class="sd">    additional parameters to be estimated via maximum likelihood. Otherwise</span>
+<span class="sd">    they are included as part of the state with a diffuse initialization.</span>
+<span class="sd">    In this case, however, with approximate diffuse initialization, results</span>
+<span class="sd">    can be sensitive to the initial variance.</span>
+
+<span class="sd">    This class allows two different underlying representations of ARMA models</span>
+<span class="sd">    as state space models: that of Hamilton and that of Harvey. Both are</span>
+<span class="sd">    equivalent in the sense that they are analytical representations of the</span>
+<span class="sd">    ARMA model, but the state vectors of each have different meanings. For</span>
+<span class="sd">    this reason, maximum likelihood does not result in identical parameter</span>
+<span class="sd">    estimates and even the same set of parameters will result in different</span>
+<span class="sd">    loglikelihoods.</span>
+
+<span class="sd">    The Harvey representation is convenient because it allows integrating</span>
+<span class="sd">    differencing into the state vector to allow using all observations for</span>
+<span class="sd">    estimation.</span>
+
+<span class="sd">    In this implementation of differenced models, the Hamilton representation</span>
+<span class="sd">    is not able to accomodate differencing in the state vector, so</span>
+<span class="sd">    `simple_differencing` (which performs differencing prior to estimation so</span>
+<span class="sd">    that the first d + sD observations are lost) must be used.</span>
+
+<span class="sd">    Many other packages use the Hamilton representation, so that tests against</span>
+<span class="sd">    Stata and R require using it along with simple differencing (as Stata</span>
+<span class="sd">    does).</span>
+
+<span class="sd">    Detailed information about state space models can be found in [1]_. Some</span>
+<span class="sd">    specific references are:</span>
+
+<span class="sd">    - Chapter 3.4 describes ARMA and ARIMA models in state space form (using</span>
+<span class="sd">      the Harvey representation), and gives references for basic seasonal</span>
+<span class="sd">      models and models with a multiplicative form (for example the airline</span>
+<span class="sd">      model). It also shows a state space model for a full ARIMA process (this</span>
+<span class="sd">      is what is done here if `simple_differencing=False`).</span>
+<span class="sd">    - Chapter 3.6 describes estimating regression effects via the Kalman filter</span>
+<span class="sd">      (this is performed if `mle_regression` is False), regression with</span>
+<span class="sd">      time-varying coefficients, and regression with ARMA errors (recall from</span>
+<span class="sd">      above that if regression effects are present, the model estimated by this</span>
+<span class="sd">      class is regression with SARIMA errors).</span>
+<span class="sd">    - Chapter 8.4 describes the application of an ARMA model to an example</span>
+<span class="sd">      dataset. A replication of this section is available in an example</span>
+<span class="sd">      IPython notebook in the documentation.</span>
+
+<span class="sd">    See Also</span>
+<span class="sd">    --------</span>
+<span class="sd">    dismalpy.ssm.mlemodel.MLEModel</span>
+<span class="sd">    dismalpy.ssm.kalman_smoother.KalmanSmoother</span>
+<span class="sd">    dismalpy.ssm.kalman_filter.KalmanFilter</span>
+<span class="sd">    dismalpy.ssm.representation.Representation</span>
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    .. [1] Durbin, James, and Siem Jan Koopman. 2012.</span>
+<span class="sd">       Time Series Analysis by State Space Methods: Second Edition.</span>
+<span class="sd">       Oxford University Press.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">filter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">transformed</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">cov_type</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">return_ssm</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+               <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">ndmin</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="c"># Transform parameters if necessary</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">transformed</span><span class="p">:</span>
+            <span class="n">params</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">transform_params</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+            <span class="n">transformed</span> <span class="o">=</span> <span class="bp">True</span>
+
+        <span class="c"># Get the state space output</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">SARIMAX</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">transformed</span><span class="p">,</span> <span class="n">cov_type</span><span class="p">,</span>
+                                              <span class="n">return_ssm</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="c"># Wrap in a results object</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">return_ssm</span><span class="p">:</span>
+            <span class="n">result_kwargs</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="k">if</span> <span class="n">cov_type</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="n">result_kwargs</span><span class="p">[</span><span class="s">&#39;cov_type&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cov_type</span>
+            <span class="n">results</span> <span class="o">=</span> <span class="n">SARIMAXResultsWrapper</span><span class="p">(</span>
+                <span class="n">SARIMAXResults</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">results</span><span class="p">,</span> <span class="o">**</span><span class="n">result_kwargs</span><span class="p">)</span>
+            <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">results</span>
+    <span class="nb">filter</span><span class="o">.</span><span class="n">__doc__</span> <span class="o">=</span> <span class="n">MLEMixin</span><span class="o">.</span><span class="n">filter</span><span class="o">.</span><span class="n">__doc__</span>
+
+    <span class="k">def</span> <span class="nf">smooth</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">transformed</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">cov_type</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">return_ssm</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+               <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">ndmin</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">transformed</span><span class="p">:</span>
+            <span class="n">params</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">transform_params</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+            <span class="n">transformed</span> <span class="o">=</span> <span class="bp">True</span>
+
+        <span class="c"># Get the state space output</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">SARIMAX</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">smooth</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">transformed</span><span class="p">,</span> <span class="n">cov_type</span><span class="p">,</span>
+                                              <span class="n">return_ssm</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="c"># Wrap in a results object</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">return_ssm</span><span class="p">:</span>
+            <span class="n">result_kwargs</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="k">if</span> <span class="n">cov_type</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="n">result_kwargs</span><span class="p">[</span><span class="s">&#39;cov_type&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cov_type</span>
+            <span class="n">results</span> <span class="o">=</span> <span class="n">SARIMAXResultsWrapper</span><span class="p">(</span>
+                <span class="n">SARIMAXResults</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">results</span><span class="p">,</span> <span class="o">**</span><span class="n">result_kwargs</span><span class="p">)</span>
+            <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">results</span>
+    <span class="n">smooth</span><span class="o">.</span><span class="n">__doc__</span> <span class="o">=</span> <span class="n">MLEMixin</span><span class="o">.</span><span class="n">smooth</span><span class="o">.</span><span class="n">__doc__</span>
+
+</div>
+<div class="viewcode-block" id="SARIMAXResults"><a class="viewcode-back" href="../../../reference/ssm/sarimax.html#dismalpy.ssm.sarimax.SARIMAXResults">[docs]</a><span class="k">class</span> <span class="nc">SARIMAXResults</span><span class="p">(</span><span class="n">MLEResultsMixin</span><span class="p">,</span> <span class="n">sarimax</span><span class="o">.</span><span class="n">SARIMAXResults</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Class to hold results from fitting an SARIMAX model.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    model : SARIMAX instance</span>
+<span class="sd">        The fitted model instance</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    specification : dictionary</span>
+<span class="sd">        Dictionary including all attributes from the SARIMAX model instance.</span>
+<span class="sd">    polynomial_ar : array</span>
+<span class="sd">        Array containing autoregressive lag polynomial coefficients,</span>
+<span class="sd">        ordered from lowest degree to highest. Initialized with ones, unless</span>
+<span class="sd">        a coefficient is constrained to be zero (in which case it is zero).</span>
+<span class="sd">    polynomial_ma : array</span>
+<span class="sd">        Array containing moving average lag polynomial coefficients,</span>
+<span class="sd">        ordered from lowest degree to highest. Initialized with ones, unless</span>
+<span class="sd">        a coefficient is constrained to be zero (in which case it is zero).</span>
+<span class="sd">    polynomial_seasonal_ar : array</span>
+<span class="sd">        Array containing seasonal autoregressive lag polynomial coefficients,</span>
+<span class="sd">        ordered from lowest degree to highest. Initialized with ones, unless</span>
+<span class="sd">        a coefficient is constrained to be zero (in which case it is zero).</span>
+<span class="sd">    polynomial_seasonal_ma : array</span>
+<span class="sd">        Array containing seasonal moving average lag polynomial coefficients,</span>
+<span class="sd">        ordered from lowest degree to highest. Initialized with ones, unless</span>
+<span class="sd">        a coefficient is constrained to be zero (in which case it is zero).</span>
+<span class="sd">    polynomial_trend : array</span>
+<span class="sd">        Array containing trend polynomial coefficients, ordered from lowest</span>
+<span class="sd">        degree to highest. Initialized with ones, unless a coefficient is</span>
+<span class="sd">        constrained to be zero (in which case it is zero).</span>
+<span class="sd">    model_orders : list of int</span>
+<span class="sd">        The orders of each of the polynomials in the model.</span>
+<span class="sd">    param_terms : list of str</span>
+<span class="sd">        List of parameters actually included in the model, in sorted order.</span>
+
+<span class="sd">    See Also</span>
+<span class="sd">    --------</span>
+<span class="sd">    dismalpy.ssm.mlemodel.MLEResults</span>
+<span class="sd">    dismalpy.ssm.kalman_smoother.SmootherResults</span>
+<span class="sd">    dismalpy.ssm.kalman_filter.FilterResults</span>
+<span class="sd">    dismalpy.ssm.representation.FrozenRepresentation</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span>
+
+</div>
+<span class="k">class</span> <span class="nc">SARIMAXResultsWrapper</span><span class="p">(</span><span class="n">mlemodel</span><span class="o">.</span><span class="n">MLEResultsWrapper</span><span class="p">):</span>
+    <span class="n">_attrs</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">_wrap_attrs</span> <span class="o">=</span> <span class="n">wrap</span><span class="o">.</span><span class="n">union_dicts</span><span class="p">(</span><span class="n">mlemodel</span><span class="o">.</span><span class="n">MLEResultsWrapper</span><span class="o">.</span><span class="n">_wrap_attrs</span><span class="p">,</span>
+                                   <span class="n">_attrs</span><span class="p">)</span>
+    <span class="n">_methods</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">_wrap_methods</span> <span class="o">=</span> <span class="n">wrap</span><span class="o">.</span><span class="n">union_dicts</span><span class="p">(</span><span class="n">mlemodel</span><span class="o">.</span><span class="n">MLEResultsWrapper</span><span class="o">.</span><span class="n">_wrap_methods</span><span class="p">,</span>
+                                     <span class="n">_methods</span><span class="p">)</span>
+<span class="n">wrap</span><span class="o">.</span><span class="n">populate_wrapper</span><span class="p">(</span><span class="n">SARIMAXResultsWrapper</span><span class="p">,</span> <span class="n">SARIMAXResults</span><span class="p">)</span>
+</pre></div>
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Chad Fulton.
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'0.1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -1,0 +1,475 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>VARMAX models &mdash; DismalPy 0.1.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="author" title="About these documents"
+              href="../../about.html"/>
+    <link rel="top" title="DismalPy 0.1.0 documentation" href="../../index.html"/>
+        <link rel="up" title="State Space Models" href="../ssm.html"/>
+        <link rel="next" title="DismalPy Reference" href="../../reference/index.html"/>
+        <link rel="prev" title="Dynamic factors and coincident indices" href="dfm_coincident.ipynb.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="../../contents.html" class="icon icon-home"> DismalPy
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">DismalPy User Guide</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../ssm.html">State Space Models</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../ssm.html#topics">Topics</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ssm/2-state_space_models.html">State space models</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ssm/3-python_representation.html">Representation in Python</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ssm/4-maximum_likelihood_estimation.html">Maximum Likelihood Estimation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ssm/5-posterior_simulation.html">Posterior Simulation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ssm/6-out-of-the-box_models.html">Out-of-the-box models</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ssm/9-references.html">References</a></li>
+</ul>
+</li>
+<li class="toctree-l3 current"><a class="reference internal" href="../ssm.html#examples">Examples</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="sarimax_internet.ipynb.html">Durbin and Koopman: Box-Jenkins Examples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sarimax_stata.ipynb.html">SARIMAX: Introduction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="local_linear_trend.ipynb.html">State space modeling: Local Linear Trends</a></li>
+<li class="toctree-l4"><a class="reference internal" href="structural_harvey_jaeger.ipynb.html">Detrending, Stylized Facts and the Business Cycle</a></li>
+<li class="toctree-l4"><a class="reference internal" href="dfm_coincident.ipynb.html">Dynamic factors and coincident indices</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="">VARMAX models</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/index.html">DismalPy Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/ssm.html">State Space Models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/ssm.html#built-in-models">Built-in models</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/ssm/sarimax.html">SARIMAX</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/ssm/structural.html">Unobserved Components</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/ssm/varmax.html">VARMAX</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/ssm/dynamic_factor.html">Dynamic Factors</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/ssm.html#extension-starting-point">Extension starting point</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/ssm/mlemodel.html">MLEModel</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/ssm.html#base-classes">Base classes</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/ssm/representation.html">Representation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/ssm/kalman_filter.html">Kalman filter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/ssm/kalman_smoother.html">Kalman smoother</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/ssm/simulation_smoother.html">Simulation Smoother</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/ssm/model.html">Model</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/ssm/tools.html">Tools</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../release.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../release.html#dismalpy-0-1-0-release-notes">DismalPy 0.1.0 Release Notes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#highlights">Highlights</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#dropped-support">Dropped Support</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#future-changes">Future Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#compatibility-notes">Compatibility notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#new-features">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#improvements">Improvements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#changes">Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#deprecations">Deprecations</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">About DismalPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html#about-this-documentation">About this documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../about.html#conventions">Conventions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../bugs.html">Reporting bugs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">DismalPy License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary.html">Glossary</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../glossary.html#module-dismalpy.doc.jargon">Jargon</a></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../contents.html">DismalPy</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../contents.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../index.html">DismalPy User Guide</a> &raquo;</li>
+      
+          <li><a href="../ssm.html">State Space Models</a> &raquo;</li>
+      
+    <li>VARMAX models</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../_sources/user/_notebooks/varmax.ipynb.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="varmax-models">
+<h1>VARMAX models<a class="headerlink" href="#varmax-models" title="Permalink to this headline">¶</a></h1>
+<p>This is a notebook stub for VARMAX models. Full development will be done
+after impulse response functions are available.</p>
+<div class="code python highlight-python"><div class="highlight"><pre>%matplotlib inline
+
+import numpy as np
+import pandas as pd
+import statsmodels.api as sm
+import dismalpy as dp
+import matplotlib.pyplot as plt
+</pre></div>
+</div>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="n">dta</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_stata</span><span class="p">(</span><span class="s">&#39;data/lutkepohl2.dta&#39;</span><span class="p">)</span>
+<span class="n">dta</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">dta</span><span class="o">.</span><span class="n">qtr</span>
+<span class="n">endog</span> <span class="o">=</span> <span class="n">dta</span><span class="o">.</span><span class="n">ix</span><span class="p">[</span><span class="s">&#39;1960-04-01&#39;</span><span class="p">:</span><span class="s">&#39;1978-10-01&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s">&#39;dln_inv&#39;</span><span class="p">,</span> <span class="s">&#39;dln_inc&#39;</span><span class="p">,</span> <span class="s">&#39;dln_consump&#39;</span><span class="p">]]</span>
+</pre></div>
+</div>
+<div class="section" id="model-specification">
+<h2>Model specification<a class="headerlink" href="#model-specification" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal"><span class="pre">VARMAX</span></code> class in Statsmodels allows estimation of VAR, VMA, and
+VARMA models (through the <code class="docutils literal"><span class="pre">order</span></code> argument), optionally with a
+constant term (via the <code class="docutils literal"><span class="pre">trend</span></code> argument). Exogenous regressors may
+also be included (as usual in Statsmodels, by the <code class="docutils literal"><span class="pre">exog</span></code> argument),
+and in this way a time trend may be added. Finally, the class allows
+measurement error (via the <code class="docutils literal"><span class="pre">measurement_error</span></code> argument) and allows
+specifying either a diagonal or unstructured innovation covariance
+matrix (via the <code class="docutils literal"><span class="pre">error_cov_type</span></code> argument).</p>
+</div>
+<div class="section" id="example-1-var">
+<h2>Example 1: VAR<a class="headerlink" href="#example-1-var" title="Permalink to this headline">¶</a></h2>
+<p>Below is a simple VARX(2) model in two endogenous variables and an
+exogenous series, but no constant term. Notice that we needed to allow
+for more iterations than the default (which is <code class="docutils literal"><span class="pre">maxiter=50</span></code>) in order
+for the likelihood estimation to converge. This is not unusual in VAR
+models which have to estimate a large number of parameters, often on a
+relatively small number of time series: this model, for example,
+estimates 27 parameters off of 75 observations of 3 variables.</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="n">exog</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">endog</span><span class="p">)),</span> <span class="n">index</span><span class="o">=</span><span class="n">endog</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&#39;trend&#39;</span><span class="p">)</span>
+<span class="n">exog</span> <span class="o">=</span> <span class="n">endog</span><span class="p">[</span><span class="s">&#39;dln_consump&#39;</span><span class="p">]</span>
+<span class="n">mod</span> <span class="o">=</span> <span class="n">dp</span><span class="o">.</span><span class="n">ssm</span><span class="o">.</span><span class="n">VARMAX</span><span class="p">(</span><span class="n">endog</span><span class="p">[[</span><span class="s">&#39;dln_inv&#39;</span><span class="p">,</span> <span class="s">&#39;dln_inc&#39;</span><span class="p">]],</span> <span class="n">order</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="n">trend</span><span class="o">=</span><span class="s">&#39;nc&#39;</span><span class="p">,</span> <span class="n">exog</span><span class="o">=</span><span class="n">exog</span><span class="p">)</span>
+<span class="n">res</span> <span class="o">=</span> <span class="n">mod</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">maxiter</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">summary</span><span class="p">())</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre>                             Statespace Model Results
+==================================================================================
+Dep. Variable:     [&#39;dln_inv&#39;, &#39;dln_inc&#39;]   No. Observations:                   75
+Model:                            VARX(2)   Log Likelihood                 346.346
+Date:                    Mon, 21 Sep 2015   AIC                           -666.692
+Time:                            14:50:07   BIC                           -636.565
+Sample:                        04-01-1960   HQIC                          -654.663
+                             - 10-01-1978
+Covariance Type:                      opg
+===================================================================================
+Ljung-Box (Q):                58.19, 39.04   Jarque-Bera (JB):         16.69, 10.94
+Prob(Q):                        0.03, 0.51   Prob(JB):                   0.00, 0.00
+Heteroskedasticity (H):         0.46, 0.82   Skew:                      0.04, -0.53
+Prob(H) (two-sided):            0.06, 0.62   Kurtosis:                   5.31, 4.54
+                            Results for equation dln_inv
+====================================================================================
+                       coef    std err          z      P&gt;|z|      [0.025      0.975]
+------------------------------------------------------------------------------------
+L1.dln_inv          -0.2726      0.081     -3.385      0.001      -0.430      -0.115
+L1.dln_inc           0.3630      0.414      0.876      0.381      -0.449       1.175
+L2.dln_inv          -0.1170      0.098     -1.190      0.234      -0.310       0.076
+L2.dln_inc           0.4007      0.399      1.006      0.315      -0.380       1.182
+beta.dln_consump     0.5061      0.609      0.831      0.406      -0.688       1.700
+                            Results for equation dln_inc
+====================================================================================
+                       coef    std err          z      P&gt;|z|      [0.025      0.975]
+------------------------------------------------------------------------------------
+L1.dln_inv           0.0385      0.040      0.966      0.334      -0.040       0.117
+L1.dln_inc           0.1331      0.149      0.894      0.372      -0.159       0.425
+L2.dln_inv           0.0493      0.054      0.916      0.360      -0.056       0.155
+L2.dln_inc           0.2740      0.174      1.577      0.115      -0.066       0.614
+beta.dln_consump     0.4301      0.199      2.160      0.031       0.040       0.820
+                                  Error covariance matrix
+============================================================================================
+                               coef    std err          z      P&gt;|z|      [0.025      0.975]
+--------------------------------------------------------------------------------------------
+sqrt.var.dln_inv             0.0442      0.003     15.081      0.000       0.038       0.050
+sqrt.cov.dln_inv.dln_inc     0.0014      0.003      0.544      0.587      -0.004       0.006
+sqrt.var.dln_inc            -0.0131      0.001    -11.269      0.000      -0.015      -0.011
+============================================================================================
+
+Warnings:
+[1] Covariance matrix calculated using the outer product of gradients.
+</pre></div>
+</div>
+</div>
+<div class="section" id="example-2-vma">
+<h2>Example 2: VMA<a class="headerlink" href="#example-2-vma" title="Permalink to this headline">¶</a></h2>
+<p>A vector moving average model can also be formulated. Below we show a
+VMA(2) on the same data, but where the innovations to the process are
+uncorrelated. In this example we leave out the exogenous regressor but
+now include the constant term.</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="n">mod</span> <span class="o">=</span> <span class="n">dp</span><span class="o">.</span><span class="n">ssm</span><span class="o">.</span><span class="n">VARMAX</span><span class="p">(</span><span class="n">endog</span><span class="p">[[</span><span class="s">&#39;dln_inv&#39;</span><span class="p">,</span> <span class="s">&#39;dln_inc&#39;</span><span class="p">]],</span> <span class="n">order</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="n">error_cov_type</span><span class="o">=</span><span class="s">&#39;diagonal&#39;</span><span class="p">)</span>
+<span class="n">res</span> <span class="o">=</span> <span class="n">mod</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">maxiter</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">summary</span><span class="p">())</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre>                             Statespace Model Results
+==================================================================================
+Dep. Variable:     [&#39;dln_inv&#39;, &#39;dln_inc&#39;]   No. Observations:                   75
+Model:                             VMA(2)   Log Likelihood                 351.146
+                              + intercept   AIC                           -678.292
+Date:                    Mon, 21 Sep 2015   BIC                           -650.482
+Time:                            14:50:09   HQIC                          -667.187
+Sample:                        04-01-1960
+                             - 10-01-1978
+Covariance Type:                      opg
+===================================================================================
+Ljung-Box (Q):                67.60, 38.60   Jarque-Bera (JB):         12.94, 11.08
+Prob(Q):                        0.00, 0.53   Prob(JB):                   0.00, 0.00
+Heteroskedasticity (H):         0.44, 0.63   Skew:                      0.04, -0.32
+Prob(H) (two-sided):            0.04, 0.25   Kurtosis:                   5.03, 4.77
+                           Results for equation dln_inv
+=================================================================================
+                    coef    std err          z      P&gt;|z|      [0.025      0.975]
+---------------------------------------------------------------------------------
+const             0.0182      0.005      3.736      0.000       0.009       0.028
+L1.e(dln_inv)    -0.2548      0.105     -2.429      0.015      -0.460      -0.049
+L1.e(dln_inc)     0.4805      0.598      0.803      0.422      -0.692       1.653
+L2.e(dln_inv)     0.0331      0.148      0.224      0.823      -0.257       0.323
+L2.e(dln_inc)     0.1609      0.448      0.359      0.720      -0.718       1.040
+                           Results for equation dln_inc
+=================================================================================
+                    coef    std err          z      P&gt;|z|      [0.025      0.975]
+---------------------------------------------------------------------------------
+const             0.0206      0.002     11.876      0.000       0.017       0.024
+L1.e(dln_inv)     0.0547      0.044      1.241      0.215      -0.032       0.141
+L1.e(dln_inc)    -0.0374      0.128     -0.292      0.770      -0.288       0.213
+L2.e(dln_inv)     0.0206      0.046      0.451      0.652      -0.069       0.110
+L2.e(dln_inc)     0.0886      0.164      0.539      0.590      -0.234       0.411
+                             Error covariance matrix
+==================================================================================
+                     coef    std err          z      P&gt;|z|      [0.025      0.975]
+----------------------------------------------------------------------------------
+sigma2.dln_inv     0.0020      0.000      7.348      0.000       0.001       0.003
+sigma2.dln_inc     0.0001   2.37e-05      6.143      0.000    9.91e-05       0.000
+==================================================================================
+
+Warnings:
+[1] Covariance matrix calculated using the outer product of gradients.
+</pre></div>
+</div>
+</div>
+<div class="section" id="caution-varma-p-q-specifications">
+<h2>Caution: VARMA(p,q) specifications<a class="headerlink" href="#caution-varma-p-q-specifications" title="Permalink to this headline">¶</a></h2>
+<p>Although the model allows estimating VARMA(p,q) specifications, these
+models are not identified without additional restrictions on the
+representation matrices, which are not built-in. For this reason, it is
+recommended that the user proceed with error (and indeed a warning is
+issued when these models are specified). Nonetheless, they may in some
+circumstances provide useful information.</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="n">mod</span> <span class="o">=</span> <span class="n">dp</span><span class="o">.</span><span class="n">ssm</span><span class="o">.</span><span class="n">VARMAX</span><span class="p">(</span><span class="n">endog</span><span class="p">[[</span><span class="s">&#39;dln_inv&#39;</span><span class="p">,</span> <span class="s">&#39;dln_inc&#39;</span><span class="p">]],</span> <span class="n">order</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+<span class="n">res</span> <span class="o">=</span> <span class="n">mod</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">maxiter</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">summary</span><span class="p">())</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre>                             Statespace Model Results
+==================================================================================
+Dep. Variable:     [&#39;dln_inv&#39;, &#39;dln_inc&#39;]   No. Observations:                   75
+Model:                         VARMA(1,1)   Log Likelihood                 353.141
+                              + intercept   AIC                           -680.282
+Date:                    Mon, 21 Sep 2015   BIC                           -650.154
+Time:                            14:50:14   HQIC                          -668.252
+Sample:                        04-01-1960
+                             - 10-01-1978
+Covariance Type:                      opg
+===================================================================================
+Ljung-Box (Q):                66.86, 40.07   Jarque-Bera (JB):         11.40, 12.19
+Prob(Q):                        0.00, 0.47   Prob(JB):                   0.00, 0.00
+Heteroskedasticity (H):         0.45, 0.70   Skew:                     -0.02, -0.35
+Prob(H) (two-sided):            0.05, 0.38   Kurtosis:                   4.91, 4.85
+                           Results for equation dln_inv
+=================================================================================
+                    coef    std err          z      P&gt;|z|      [0.025      0.975]
+---------------------------------------------------------------------------------
+const             0.0121      0.014      0.851      0.394      -0.016       0.040
+L1.dln_inv       -0.0099      0.365     -0.027      0.978      -0.726       0.706
+L1.dln_inc        0.3199      0.361      0.887      0.375      -0.387       1.027
+L1.e(dln_inv)    -0.2411      0.418     -0.577      0.564      -1.060       0.578
+L1.e(dln_inc)     0.0984      0.149      0.659      0.510      -0.195       0.391
+                           Results for equation dln_inc
+=================================================================================
+                    coef    std err          z      P&gt;|z|      [0.025      0.975]
+---------------------------------------------------------------------------------
+const             0.0337      0.013      2.603      0.009       0.008       0.059
+L1.dln_inv       -0.1902      0.142     -1.343      0.179      -0.468       0.087
+L1.dln_inc       -0.4641      0.650     -0.714      0.475      -1.739       0.810
+L1.e(dln_inv)     0.2507      0.161      1.560      0.119      -0.064       0.566
+L1.e(dln_inc)     0.4376      0.654      0.669      0.503      -0.844       1.720
+                                  Error covariance matrix
+============================================================================================
+                               coef    std err          z      P&gt;|z|      [0.025      0.975]
+--------------------------------------------------------------------------------------------
+sqrt.var.dln_inv             0.0450      0.003     14.774      0.000       0.039       0.051
+sqrt.cov.dln_inv.dln_inc     0.0017      0.002      0.833      0.405      -0.002       0.006
+sqrt.var.dln_inc             0.0117      0.001      9.674      0.000       0.009       0.014
+============================================================================================
+
+Warnings:
+[1] Covariance matrix calculated using the outer product of gradients.
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre>/Users/fulton/projects/statsmodels/statsmodels/tsa/statespace/varmax.py:151: UserWarning: Estimation of VARMA(p,q) models is not generically robust, due especially to identification issues.
+  warn(&#39;Estimation of VARMA(p,q) models is not generically robust,&#39;
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../../reference/index.html" class="btn btn-neutral float-right" title="DismalPy Reference" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="dfm_coincident.ipynb.html" class="btn btn-neutral" title="Dynamic factors and coincident indices" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Chad Fulton.
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'0.1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

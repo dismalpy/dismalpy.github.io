@@ -1,0 +1,678 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Representation &mdash; DismalPy 0.1.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="author" title="About these documents"
+              href="../../about.html"/>
+    <link rel="top" title="DismalPy 0.1.0 documentation" href="../../index.html"/>
+        <link rel="up" title="State Space Models" href="../ssm.html"/>
+        <link rel="next" title="Kalman filter" href="kalman_filter.html"/>
+        <link rel="prev" title="MLEModel" href="mlemodel.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="../../contents.html" class="icon icon-home"> DismalPy
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../user/index.html">DismalPy User Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../user/ssm.html">State Space Models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../user/ssm.html#topics">Topics</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../user/ssm/2-state_space_models.html">State space models</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/ssm/3-python_representation.html">Representation in Python</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/ssm/4-maximum_likelihood_estimation.html">Maximum Likelihood Estimation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/ssm/5-posterior_simulation.html">Posterior Simulation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/ssm/6-out-of-the-box_models.html">Out-of-the-box models</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/ssm/9-references.html">References</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/ssm.html#examples">Examples</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../user/_notebooks/sarimax_internet.ipynb.html">Durbin and Koopman: Box-Jenkins Examples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/_notebooks/sarimax_stata.ipynb.html">SARIMAX: Introduction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/_notebooks/local_linear_trend.ipynb.html">State space modeling: Local Linear Trends</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/_notebooks/structural_harvey_jaeger.ipynb.html">Detrending, Stylized Facts and the Business Cycle</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/_notebooks/dfm_coincident.ipynb.html">Dynamic factors and coincident indices</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/_notebooks/varmax.ipynb.html">VARMAX models</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">DismalPy Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../ssm.html">State Space Models</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../ssm.html#built-in-models">Built-in models</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sarimax.html">SARIMAX</a></li>
+<li class="toctree-l4"><a class="reference internal" href="structural.html">Unobserved Components</a></li>
+<li class="toctree-l4"><a class="reference internal" href="varmax.html">VARMAX</a></li>
+<li class="toctree-l4"><a class="reference internal" href="dynamic_factor.html">Dynamic Factors</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ssm.html#extension-starting-point">Extension starting point</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mlemodel.html">MLEModel</a></li>
+</ul>
+</li>
+<li class="toctree-l3 current"><a class="reference internal" href="../ssm.html#base-classes">Base classes</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="">Representation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kalman_filter.html">Kalman filter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kalman_smoother.html">Kalman smoother</a></li>
+<li class="toctree-l4"><a class="reference internal" href="simulation_smoother.html">Simulation Smoother</a></li>
+<li class="toctree-l4"><a class="reference internal" href="model.html">Model</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tools.html">Tools</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../release.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../release.html#dismalpy-0-1-0-release-notes">DismalPy 0.1.0 Release Notes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#highlights">Highlights</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#dropped-support">Dropped Support</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#future-changes">Future Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#compatibility-notes">Compatibility notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#new-features">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#improvements">Improvements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#changes">Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#deprecations">Deprecations</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">About DismalPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html#about-this-documentation">About this documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../about.html#conventions">Conventions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../bugs.html">Reporting bugs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">DismalPy License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary.html">Glossary</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../glossary.html#module-dismalpy.doc.jargon">Jargon</a></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../contents.html">DismalPy</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../contents.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../index.html">DismalPy Reference</a> &raquo;</li>
+      
+          <li><a href="../ssm.html">State Space Models</a> &raquo;</li>
+      
+    <li>Representation</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../_sources/reference/ssm/representation.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="representation">
+<span id="ref-representation"></span><h1>Representation<a class="headerlink" href="#representation" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="dismalpy.ssm.representation.Representation">
+<em class="property">class </em><code class="descclassname">dismalpy.ssm.representation.</code><code class="descname">Representation</code><span class="sig-paren">(</span><em>k_endog</em>, <em>k_states</em>, <em>k_posdef=None</em>, <em>initial_variance=1000000.0</em>, <em>nobs=0</em>, <em>dtype=&lt;type 'numpy.float64'&gt;</em>, <em>design=None</em>, <em>obs_intercept=None</em>, <em>obs_cov=None</em>, <em>transition=None</em>, <em>state_intercept=None</em>, <em>selection=None</em>, <em>state_cov=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/dismalpy/ssm/representation.html#Representation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dismalpy.ssm.representation.Representation" title="Permalink to this definition">¶</a></dt>
+<dd><p>State space representation of a time series process</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>k_endog</strong> : array_like or integer</p>
+<blockquote>
+<div><p>The observed time-series process <span class="math">\(y\)</span> if array like or the
+number of variables in the process if an integer.</p>
+</div></blockquote>
+<p><strong>k_states</strong> : int</p>
+<blockquote>
+<div><p>The dimension of the unobserved state process.</p>
+</div></blockquote>
+<p><strong>k_posdef</strong> : int, optional</p>
+<blockquote>
+<div><p>The dimension of a guaranteed positive definite covariance matrix
+describing the shocks in the measurement equation. Must be less than
+or equal to <em class="xref py py-obj">k_states</em>. Default is <em class="xref py py-obj">k_states</em>.</p>
+</div></blockquote>
+<p><strong>initial_variance</strong> : float, optional</p>
+<blockquote>
+<div><p>Initial variance used when approximate diffuse initialization is
+specified. Default is 1e6.</p>
+</div></blockquote>
+<p><strong>initialization</strong> : {&#8216;approximate_diffuse&#8217;,&#8217;stationary&#8217;,&#8217;known&#8217;}, optional</p>
+<blockquote>
+<div><p>Initialization method for the initial state.</p>
+</div></blockquote>
+<p><strong>initial_state</strong> : array_like, optional</p>
+<blockquote>
+<div><p>If known initialization is used, the mean of the initial state&#8217;s
+distribution.</p>
+</div></blockquote>
+<p><strong>initial_state_cov</strong> : array_like, optional</p>
+<blockquote>
+<div><p>If known initialization is used, the covariance matrix of the initial
+state&#8217;s distribution.</p>
+</div></blockquote>
+<p><strong>nobs</strong> : integer, optional</p>
+<blockquote>
+<div><p>If an endogenous vector is not given (i.e. <em class="xref py py-obj">k_endog</em> is an integer),
+the number of observations can optionally be specified. If not
+specified, they will be set to zero until data is bound to the model.</p>
+</div></blockquote>
+<p><strong>dtype</strong> : dtype, optional</p>
+<blockquote>
+<div><p>If an endogenous vector is not given (i.e. <em class="xref py py-obj">k_endog</em> is an integer),
+the default datatype of the state space matrices can optionally be
+specified. Default is <code class="xref py py-obj docutils literal"><span class="pre">np.float64</span></code>.</p>
+</div></blockquote>
+<p><strong>design</strong> : array_like, optional</p>
+<blockquote>
+<div><p>The design matrix, <span class="math">\(Z\)</span>. Default is set to zeros.</p>
+</div></blockquote>
+<p><strong>obs_intercept</strong> : array_like, optional</p>
+<blockquote>
+<div><p>The intercept for the observation equation, <span class="math">\(d\)</span>. Default is set
+to zeros.</p>
+</div></blockquote>
+<p><strong>obs_cov</strong> : array_like, optional</p>
+<blockquote>
+<div><p>The covariance matrix for the observation equation <span class="math">\(H\)</span>. Default
+is set to zeros.</p>
+</div></blockquote>
+<p><strong>transition</strong> : array_like, optional</p>
+<blockquote>
+<div><p>The transition matrix, <span class="math">\(T\)</span>. Default is set to zeros.</p>
+</div></blockquote>
+<p><strong>state_intercept</strong> : array_like, optional</p>
+<blockquote>
+<div><p>The intercept for the transition equation, <span class="math">\(c\)</span>. Default is set to
+zeros.</p>
+</div></blockquote>
+<p><strong>selection</strong> : array_like, optional</p>
+<blockquote>
+<div><p>The selection matrix, <span class="math">\(R\)</span>. Default is set to zeros.</p>
+</div></blockquote>
+<p><strong>state_cov</strong> : array_like, optional</p>
+<blockquote>
+<div><p>The covariance matrix for the state equation <span class="math">\(Q\)</span>. Default is set
+to zeros.</p>
+</div></blockquote>
+<p><strong>**kwargs</strong></p>
+<blockquote class="last">
+<div><p>Additional keyword arguments. Not used directly. It is present to
+improve compatibility with subclasses, so that they can use <em class="xref py py-obj">**kwargs</em>
+to specify any default state space matrices (e.g. <a class="reference internal" href="#dismalpy.ssm.representation.Representation.design" title="dismalpy.ssm.representation.Representation.design"><code class="xref py py-obj docutils literal"><span class="pre">design</span></code></a>) without
+having to clean out any other keyword arguments they might have been
+passed.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>A general state space model is of the form</p>
+<div class="math">
+\[\begin{split}y_t &amp; = Z_t \alpha_t + d_t + \varepsilon_t \\
+\alpha_t &amp; = T_t \alpha_{t-1} + c_t + R_t \eta_t \\\end{split}\]</div>
+<p>where <span class="math">\(y_t\)</span> refers to the observation vector at time <span class="math">\(t\)</span>,
+<span class="math">\(\alpha_t\)</span> refers to the (unobserved) state vector at time
+<span class="math">\(t\)</span>, and where the irregular components are defined as</p>
+<div class="math">
+\[\begin{split}\varepsilon_t \sim N(0, H_t) \\
+\eta_t \sim N(0, Q_t) \\\end{split}\]</div>
+<p>The remaining variables (<span class="math">\(Z_t, d_t, H_t, T_t, c_t, R_t, Q_t\)</span>) in the
+equations are matrices describing the process. Their variable names and
+dimensions are as follows</p>
+<p>Z : <a class="reference internal" href="#dismalpy.ssm.representation.Representation.design" title="dismalpy.ssm.representation.Representation.design"><code class="xref py py-obj docutils literal"><span class="pre">design</span></code></a>          <span class="math">\((k\_endog \times k\_states \times nobs)\)</span></p>
+<p>d : <a class="reference internal" href="#dismalpy.ssm.representation.Representation.obs_intercept" title="dismalpy.ssm.representation.Representation.obs_intercept"><code class="xref py py-obj docutils literal"><span class="pre">obs_intercept</span></code></a>   <span class="math">\((k\_endog \times nobs)\)</span></p>
+<p>H : <a class="reference internal" href="#dismalpy.ssm.representation.Representation.obs_cov" title="dismalpy.ssm.representation.Representation.obs_cov"><code class="xref py py-obj docutils literal"><span class="pre">obs_cov</span></code></a>         <span class="math">\((k\_endog \times k\_endog \times nobs)\)</span></p>
+<p>T : <a class="reference internal" href="#dismalpy.ssm.representation.Representation.transition" title="dismalpy.ssm.representation.Representation.transition"><code class="xref py py-obj docutils literal"><span class="pre">transition</span></code></a>      <span class="math">\((k\_states \times k\_states \times nobs)\)</span></p>
+<p>c : <a class="reference internal" href="#dismalpy.ssm.representation.Representation.state_intercept" title="dismalpy.ssm.representation.Representation.state_intercept"><code class="xref py py-obj docutils literal"><span class="pre">state_intercept</span></code></a> <span class="math">\((k\_states \times nobs)\)</span></p>
+<p>R : <a class="reference internal" href="#dismalpy.ssm.representation.Representation.selection" title="dismalpy.ssm.representation.Representation.selection"><code class="xref py py-obj docutils literal"><span class="pre">selection</span></code></a>       <span class="math">\((k\_states \times k\_posdef \times nobs)\)</span></p>
+<p>Q : <a class="reference internal" href="#dismalpy.ssm.representation.Representation.state_cov" title="dismalpy.ssm.representation.Representation.state_cov"><code class="xref py py-obj docutils literal"><span class="pre">state_cov</span></code></a>       <span class="math">\((k\_posdef \times k\_posdef \times nobs)\)</span></p>
+<p>In the case that one of the matrices is time-invariant (so that, for
+example, <span class="math">\(Z_t = Z_{t+1} ~ \forall ~ t\)</span>), its last dimension may
+be of size <span class="math">\(1\)</span> rather than size <em class="xref py py-obj">nobs</em>.</p>
+<p class="rubric">References</p>
+<table class="docutils citation" frame="void" id="r5" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[R5]</a></td><td>Durbin, James, and Siem Jan Koopman. 2012.
+Time Series Analysis by State Space Methods: Second Edition.
+Oxford University Press.</td></tr>
+</tbody>
+</table>
+<p class="rubric">Attributes</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="12%" />
+<col width="88%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>nobs</td>
+<td>(int) The number of observations.</td>
+</tr>
+<tr class="row-even"><td>k_endog</td>
+<td>(int) The dimension of the observation series.</td>
+</tr>
+<tr class="row-odd"><td>k_states</td>
+<td>(int) The dimension of the unobserved state process.</td>
+</tr>
+<tr class="row-even"><td>k_posdef</td>
+<td>(int) The dimension of a guaranteed positive definite covariance matrix describing the shocks in the measurement equation.</td>
+</tr>
+<tr class="row-odd"><td>shapes</td>
+<td>(dictionary of name:tuple) A dictionary recording the initial shapes of each of the representation matrices as tuples.</td>
+</tr>
+<tr class="row-even"><td>initialization</td>
+<td>(str) Kalman filter initialization method. Default is unset.</td>
+</tr>
+<tr class="row-odd"><td>initial_variance</td>
+<td>(float) Initial variance for approximate diffuse initialization. Default is 1e6.</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="dismalpy.ssm.representation.Representation.bind">
+<code class="descname">bind</code><span class="sig-paren">(</span><em>endog</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/dismalpy/ssm/representation.html#Representation.bind"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dismalpy.ssm.representation.Representation.bind" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bind data to the statespace representation</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>endog</strong> : array</p>
+<blockquote class="last">
+<div><p>Endogenous data to bind to the model. Must be column-ordered
+ndarray with shape (<em class="xref py py-obj">k_endog</em>, <em class="xref py py-obj">nobs</em>) or row-ordered ndarray with
+shape (<em class="xref py py-obj">nobs</em>, <em class="xref py py-obj">k_endog</em>).</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>The strict requirements arise because the underlying statespace and
+Kalman filtering classes require Fortran-ordered arrays in the wide
+format (shaped (<em class="xref py py-obj">k_endog</em>, <em class="xref py py-obj">nobs</em>)), and this structure is setup to
+prevent copying arrays in memory.</p>
+<p>By default, numpy arrays are row (C)-ordered and most time series are
+represented in the long format (with time on the 0-th axis). In this
+case, no copying or re-ordering needs to be performed, instead the
+array can simply be transposed to get it in the right order and shape.</p>
+<p>Although this class (Representation) has stringent <a class="reference internal" href="#dismalpy.ssm.representation.Representation.bind" title="dismalpy.ssm.representation.Representation.bind"><code class="xref py py-obj docutils literal"><span class="pre">bind</span></code></a> requirements,
+it is assumed that it will rarely be used directly.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="dismalpy.ssm.representation.Representation.design">
+<code class="descname">design</code><em class="property"> = None</em><a class="headerlink" href="#dismalpy.ssm.representation.Representation.design" title="Permalink to this definition">¶</a></dt>
+<dd><p>(array) Design matrix: <span class="math">\(Z~(k\_endog \times k\_states \times nobs)\)</span></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="dismalpy.ssm.representation.Representation.dtype">
+<code class="descname">dtype</code><a class="headerlink" href="#dismalpy.ssm.representation.Representation.dtype" title="Permalink to this definition">¶</a></dt>
+<dd><p>(dtype) Datatype of currently active representation matrices</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="dismalpy.ssm.representation.Representation.endog">
+<code class="descname">endog</code><em class="property"> = None</em><a class="headerlink" href="#dismalpy.ssm.representation.Representation.endog" title="Permalink to this definition">¶</a></dt>
+<dd><p>(array) The observation vector, alias for <a class="reference internal" href="#dismalpy.ssm.representation.Representation.obs" title="dismalpy.ssm.representation.Representation.obs"><code class="xref py py-obj docutils literal"><span class="pre">obs</span></code></a>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dismalpy.ssm.representation.Representation.initialize_approximate_diffuse">
+<code class="descname">initialize_approximate_diffuse</code><span class="sig-paren">(</span><em>variance=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/dismalpy/ssm/representation.html#Representation.initialize_approximate_diffuse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dismalpy.ssm.representation.Representation.initialize_approximate_diffuse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize the statespace model with approximate diffuse values.</p>
+<p>Rather than following the exact diffuse treatment (which is developed
+for the case that the variance becomes infinitely large), this assigns
+an arbitrary large number for the variance.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>variance</strong> : float, optional</p>
+<blockquote class="last">
+<div><p>The variance for approximating diffuse initial conditions. Default
+is 1e6.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="dismalpy.ssm.representation.Representation.initialize_known">
+<code class="descname">initialize_known</code><span class="sig-paren">(</span><em>initial_state</em>, <em>initial_state_cov</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/dismalpy/ssm/representation.html#Representation.initialize_known"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dismalpy.ssm.representation.Representation.initialize_known" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize the statespace model with known distribution for initial
+state.</p>
+<p>These values are assumed to be known with certainty or else
+filled with parameters during, for example, maximum likelihood
+estimation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>initial_state</strong> : array_like</p>
+<blockquote>
+<div><p>Known mean of the initial state vector.</p>
+</div></blockquote>
+<p><strong>initial_state_cov</strong> : array_like</p>
+<blockquote class="last">
+<div><p>Known covariance matrix of the initial state vector.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="dismalpy.ssm.representation.Representation.initialize_stationary">
+<code class="descname">initialize_stationary</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/dismalpy/ssm/representation.html#Representation.initialize_stationary"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dismalpy.ssm.representation.Representation.initialize_stationary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize the statespace model as stationary.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="dismalpy.ssm.representation.Representation.obs">
+<code class="descname">obs</code><a class="headerlink" href="#dismalpy.ssm.representation.Representation.obs" title="Permalink to this definition">¶</a></dt>
+<dd><p>(array) Observation vector: <span class="math">\(y~(k\_endog \times nobs)\)</span></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="dismalpy.ssm.representation.Representation.obs_cov">
+<code class="descname">obs_cov</code><em class="property"> = None</em><a class="headerlink" href="#dismalpy.ssm.representation.Representation.obs_cov" title="Permalink to this definition">¶</a></dt>
+<dd><p>(array) Observation covariance matrix:
+<span class="math">\(H~(k\_endog \times k\_endog \times nobs)\)</span></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="dismalpy.ssm.representation.Representation.obs_intercept">
+<code class="descname">obs_intercept</code><em class="property"> = None</em><a class="headerlink" href="#dismalpy.ssm.representation.Representation.obs_intercept" title="Permalink to this definition">¶</a></dt>
+<dd><p>(array) Observation intercept: <span class="math">\(d~(k\_endog \times nobs)\)</span></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="dismalpy.ssm.representation.Representation.prefix">
+<code class="descname">prefix</code><a class="headerlink" href="#dismalpy.ssm.representation.Representation.prefix" title="Permalink to this definition">¶</a></dt>
+<dd><p>(str) BLAS prefix of currently active representation matrices</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="dismalpy.ssm.representation.Representation.selection">
+<code class="descname">selection</code><em class="property"> = None</em><a class="headerlink" href="#dismalpy.ssm.representation.Representation.selection" title="Permalink to this definition">¶</a></dt>
+<dd><p>(array) Selection matrix: <span class="math">\(R~(k\_states \times k\_posdef \times nobs)\)</span></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="dismalpy.ssm.representation.Representation.state_cov">
+<code class="descname">state_cov</code><em class="property"> = None</em><a class="headerlink" href="#dismalpy.ssm.representation.Representation.state_cov" title="Permalink to this definition">¶</a></dt>
+<dd><p>(array) State covariance matrix: <span class="math">\(Q~(k\_posdef \times k\_posdef \times nobs)\)</span></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="dismalpy.ssm.representation.Representation.state_intercept">
+<code class="descname">state_intercept</code><em class="property"> = None</em><a class="headerlink" href="#dismalpy.ssm.representation.Representation.state_intercept" title="Permalink to this definition">¶</a></dt>
+<dd><p>(array) State intercept: <span class="math">\(c~(k\_states \times nobs)\)</span></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="dismalpy.ssm.representation.Representation.time_invariant">
+<code class="descname">time_invariant</code><a class="headerlink" href="#dismalpy.ssm.representation.Representation.time_invariant" title="Permalink to this definition">¶</a></dt>
+<dd><p>(bool) Whether or not currently active representation matrices are
+time-invariant</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="dismalpy.ssm.representation.Representation.transition">
+<code class="descname">transition</code><em class="property"> = None</em><a class="headerlink" href="#dismalpy.ssm.representation.Representation.transition" title="Permalink to this definition">¶</a></dt>
+<dd><p>(array) Transition matrix: <span class="math">\(T~(k\_states \times k\_states \times nobs)\)</span></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="dismalpy.ssm.representation.FrozenRepresentation">
+<em class="property">class </em><code class="descclassname">dismalpy.ssm.representation.</code><code class="descname">FrozenRepresentation</code><span class="sig-paren">(</span><em>model</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/dismalpy/ssm/representation.html#FrozenRepresentation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dismalpy.ssm.representation.FrozenRepresentation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Frozen Statespace Model</p>
+<p>Takes a snapshot of a Statespace model.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>model</strong> : Representation</p>
+<blockquote class="last">
+<div><p>A Statespace representation</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Attributes</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>nobs</td>
+<td>(int) Number of observations.</td>
+</tr>
+<tr class="row-even"><td>k_endog</td>
+<td>(int) The dimension of the observation series.</td>
+</tr>
+<tr class="row-odd"><td>k_states</td>
+<td>(int) The dimension of the unobserved state process.</td>
+</tr>
+<tr class="row-even"><td>k_posdef</td>
+<td>(int) The dimension of a guaranteed positive definite covariance matrix describing the shocks in the measurement equation.</td>
+</tr>
+<tr class="row-odd"><td>dtype</td>
+<td>(dtype) Datatype of representation matrices</td>
+</tr>
+<tr class="row-even"><td>prefix</td>
+<td>(str) BLAS prefix of representation matrices</td>
+</tr>
+<tr class="row-odd"><td>shapes</td>
+<td>(dictionary of name:tuple) A dictionary recording the shapes of each of the representation matrices as tuples.</td>
+</tr>
+<tr class="row-even"><td>endog</td>
+<td>(array) The observation vector.</td>
+</tr>
+<tr class="row-odd"><td>design</td>
+<td>(array) The design matrix, <span class="math">\(Z\)</span>.</td>
+</tr>
+<tr class="row-even"><td>obs_intercept</td>
+<td>(array) The intercept for the observation equation, <span class="math">\(d\)</span>.</td>
+</tr>
+<tr class="row-odd"><td>obs_cov</td>
+<td>(array) The covariance matrix for the observation equation <span class="math">\(H\)</span>.</td>
+</tr>
+<tr class="row-even"><td>transition</td>
+<td>(array) The transition matrix, <span class="math">\(T\)</span>.</td>
+</tr>
+<tr class="row-odd"><td>state_intercept</td>
+<td>(array) The intercept for the transition equation, <span class="math">\(c\)</span>.</td>
+</tr>
+<tr class="row-even"><td>selection</td>
+<td>(array) The selection matrix, <span class="math">\(R\)</span>.</td>
+</tr>
+<tr class="row-odd"><td>state_cov</td>
+<td>(array) The covariance matrix for the state equation <span class="math">\(Q\)</span>.</td>
+</tr>
+<tr class="row-even"><td>missing</td>
+<td>(array of bool) An array of the same size as <em class="xref py py-obj">endog</em>, filled with boolean values that are True if the corresponding entry in <em class="xref py py-obj">endog</em> is NaN and False otherwise.</td>
+</tr>
+<tr class="row-odd"><td>nmissing</td>
+<td>(array of int) An array of size <em class="xref py py-obj">nobs</em>, where the ith entry is the number (between 0 and <em class="xref py py-obj">k_endog</em>) of NaNs in the ith row of the <em class="xref py py-obj">endog</em> array.</td>
+</tr>
+<tr class="row-even"><td>time_invariant</td>
+<td>(bool) Whether or not the representation matrices are time-invariant</td>
+</tr>
+<tr class="row-odd"><td>initialization</td>
+<td>(str) Kalman filter initialization method.</td>
+</tr>
+<tr class="row-even"><td>initial_state</td>
+<td>(array_like) The state vector used to initialize the Kalamn filter.</td>
+</tr>
+<tr class="row-odd"><td>initial_state_cov</td>
+<td>(array_like) The state covariance matrix used to initialize the Kalamn filter.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="kalman_filter.html" class="btn btn-neutral float-right" title="Kalman filter" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="mlemodel.html" class="btn btn-neutral" title="MLEModel" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Chad Fulton.
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'0.1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

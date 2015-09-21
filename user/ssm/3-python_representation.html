@@ -1,0 +1,893 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Representation in Python &mdash; DismalPy 0.1.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="author" title="About these documents"
+              href="../../about.html"/>
+    <link rel="top" title="DismalPy 0.1.0 documentation" href="../../index.html"/>
+        <link rel="up" title="State Space Models" href="../ssm.html"/>
+        <link rel="next" title="Maximum Likelihood Estimation" href="4-maximum_likelihood_estimation.html"/>
+        <link rel="prev" title="State space models" href="2-state_space_models.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="../../contents.html" class="icon icon-home"> DismalPy
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">DismalPy User Guide</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../ssm.html">State Space Models</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../ssm.html#topics">Topics</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="2-state_space_models.html">State space models</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="">Representation in Python</a></li>
+<li class="toctree-l4"><a class="reference internal" href="4-maximum_likelihood_estimation.html">Maximum Likelihood Estimation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="5-posterior_simulation.html">Posterior Simulation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="6-out-of-the-box_models.html">Out-of-the-box models</a></li>
+<li class="toctree-l4"><a class="reference internal" href="9-references.html">References</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ssm.html#examples">Examples</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../_notebooks/sarimax_internet.ipynb.html">Durbin and Koopman: Box-Jenkins Examples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_notebooks/sarimax_stata.ipynb.html">SARIMAX: Introduction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_notebooks/local_linear_trend.ipynb.html">State space modeling: Local Linear Trends</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_notebooks/structural_harvey_jaeger.ipynb.html">Detrending, Stylized Facts and the Business Cycle</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_notebooks/dfm_coincident.ipynb.html">Dynamic factors and coincident indices</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../_notebooks/varmax.ipynb.html">VARMAX models</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/index.html">DismalPy Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/ssm.html">State Space Models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/ssm.html#built-in-models">Built-in models</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/ssm/sarimax.html">SARIMAX</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/ssm/structural.html">Unobserved Components</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/ssm/varmax.html">VARMAX</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/ssm/dynamic_factor.html">Dynamic Factors</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/ssm.html#extension-starting-point">Extension starting point</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/ssm/mlemodel.html">MLEModel</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/ssm.html#base-classes">Base classes</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/ssm/representation.html">Representation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/ssm/kalman_filter.html">Kalman filter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/ssm/kalman_smoother.html">Kalman smoother</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/ssm/simulation_smoother.html">Simulation Smoother</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/ssm/model.html">Model</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/ssm/tools.html">Tools</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../release.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../release.html#dismalpy-0-1-0-release-notes">DismalPy 0.1.0 Release Notes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#highlights">Highlights</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#dropped-support">Dropped Support</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#future-changes">Future Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#compatibility-notes">Compatibility notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#new-features">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#improvements">Improvements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#changes">Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#deprecations">Deprecations</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">About DismalPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html#about-this-documentation">About this documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../about.html#conventions">Conventions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../bugs.html">Reporting bugs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">DismalPy License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary.html">Glossary</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../glossary.html#module-dismalpy.doc.jargon">Jargon</a></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../contents.html">DismalPy</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../contents.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../index.html">DismalPy User Guide</a> &raquo;</li>
+      
+          <li><a href="../ssm.html">State Space Models</a> &raquo;</li>
+      
+    <li>Representation in Python</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../_sources/user/ssm/3-python_representation.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="representation-in-python">
+<span id="id1"></span><h1>Representation in Python<a class="headerlink" href="#representation-in-python" title="Permalink to this headline">¶</a></h1>
+<p>The basic guiding principle for translation of state space models into Python
+is to allow users to focus on the specification aspect of their model rather
+than on the machinery of efficient and accurate filtering and smoothing
+computation. To do this, it applies the programmatic technique of object
+oriented programming (OOP). While a full description and motivation of OOP is
+beyond the scope of this paper, one of the primary benefits for our purposes
+is that it facilitates organization and prevents the writing and rewriting of
+the same or similar code. This feature is quite attractive in general, but as
+will be shown below, state space models fit particularly well into - and reap
+substantial benefits from - the object oriented paradigm. Once a state space
+model has been specified, filtering, smoothing, a large part of parameter
+estimation, and some postestimation results are standard; they depend only on
+the generic form of the model given in <a href="#equation-sspace">(?)</a> rather than the
+specializations found in, for example, <a href="#equation-arma11">(?)</a>, <a href="#equation-llevel">(?)</a>, and
+<a href="#equation-rbc">(?)</a>).</p>
+<p>The Python programming language is general-purpose, interpreted, dynamically
+typed, and high-level. Relative to other programming languages commonly used
+for statistical computation, it has both strengths and weaknesses. It lacks
+the breadth of available statistical routines present in the R programming
+language, but instead features a core stack of well-developed scientific
+libraries. Since it began life as a general purpose programming language, it
+lacks the native understanding of matrix algebra which makes MATLAB so easy to
+begin working with (these features are available, but are provided by the
+the Numeric Python (NumPy) and Scientific Python (SciPy) libraries) but has
+more built-in features for working with text, files, web sites, and more. All
+of Python, R, and MATLAB feature excellent graphing and plotting features and
+the ability to integrate compiled code for faster performance.</p>
+<p>Of course, anything that can be done in one language can in principle be done
+in many others, so familiarity, style, and tradition play a substantial role in
+determining which language is used in which discipline. There is much to
+recommend R, MATLAB, Stata, Julia, and other languages. Nonetheless, it is
+hoped that this paper will not only show how state space models can be
+specified and estimated in Python, but also introduce some of the powerful and
+elegent features of Python that make it a strong candidate for consideration in
+a wide variety of statistical computing projects.</p>
+<div class="section" id="object-oriented-programming">
+<h2>Object oriented programming<a class="headerlink" href="#object-oriented-programming" title="Permalink to this headline">¶</a></h2>
+<p>What follows is a brief description of the concepts of object oriented
+programming. The content follows <a class="reference internal" href="9-references.html#wegner-concepts-1990" id="id2">[31]</a>, which may be
+consulted for more detail. The Python Language Reference may be consulted for
+details on the implementation and syntax of object oriented programming
+specific to Python.</p>
+<p>Objects are &#8220;collections of operations that share a state&#8221;
+(<a class="reference internal" href="9-references.html#wegner-concepts-1990" id="id3">[31]</a>). Another way to put it is that objects are
+collections of data (the state) along with functions that operate on or
+otherwise make use of that data (the operations). In Python, the data held by
+an object are called its <em>attributes</em> and the operations are called its
+<em>methods</em>. An example of an object is a point in the Cartesian plane, where we
+suppose that the &#8220;state&#8221; of the point is its coordinates in the plane and there
+are two methods, one to change its <span class="math">\(x\)</span>-coordinate to <span class="math">\(x + dx\)</span>, and
+one to change the <span class="math">\(y\)</span>-coordinate to <span class="math">\(y + dy\)</span>.</p>
+<p>Classes are &#8220;templates from which objects can be created ... whereas the
+[attributes of an] object represent <em>actual</em> variables, class
+[attributes] are <em>potential</em>, being instantiated only when an object is
+created&#8221; (<em>Ibid.</em>). The point object described above could be written in Python
+code in the following way: first by defining a <code class="docutils literal"><span class="pre">Point</span></code> class:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># This is the class definition. Object oriented programming has the concept</span>
+<span class="c"># of inheritance, whereby classes may be &quot;children&quot; of other classes. The</span>
+<span class="c"># parent class is specified in the parentheses. When defining a class with</span>
+<span class="c"># no parent, the base class `object` is specified instead.</span>
+<span class="k">class</span> <span class="nc">Point</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="c"># The __init__ function is a special method that is run whenever an</span>
+    <span class="c"># object is created. In this case, the initial coordinates are set to</span>
+    <span class="c"># the origin. `self` is a variable which refers to the object instance</span>
+    <span class="c"># itself.</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">def</span> <span class="nf">change_x</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dx</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="n">dx</span>
+
+    <span class="k">def</span> <span class="nf">change_y</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dy</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="n">dy</span>
+</pre></div>
+</div>
+<p>and then by creating a <code class="docutils literal"><span class="pre">point_object</span></code> object by instantiating that class:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># An object of class Point is created</span>
+<span class="n">point_object</span> <span class="o">=</span> <span class="n">Point</span><span class="p">()</span>
+
+<span class="c"># The object exposes it&#39;s attributes</span>
+<span class="k">print</span><span class="p">(</span><span class="n">point_object</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>  <span class="c"># 0</span>
+
+<span class="c"># And we can call the object&#39;s methods</span>
+<span class="c"># Notice that although `self` is the first argument of the class method,</span>
+<span class="c"># it is automatically populated, and we need only specify the other</span>
+<span class="c"># argument, `dx`.</span>
+<span class="n">point_object</span><span class="o">.</span><span class="n">change_x</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">point_object</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>  <span class="c"># -2</span>
+</pre></div>
+</div>
+<p>Object oriented programming allows code to be organized hierarchically through
+the concept of class inheritance, whereby a class can be defined as an
+extension to an existing class. The existing class is called the <em>parent</em> and
+the new class is called the <em>child</em>. <a class="reference internal" href="9-references.html#wegner-concepts-1990" id="id4">[31]</a> writes
+&#8220;inheritance allows us to reuse the behavior of a class in the definition of
+new classes. Subclasses of a class inherit the operations of their parent class
+and may add new operations and new [attributes]&#8221;.</p>
+<p>Through the mechanism of inheritance, a parent class can be defined with a set
+of generic functionality, and then many child classes can subsequently by
+defined with specializations. Each child thus contains both the generic
+functionality of the parent class as well as its own specific functionality. Of
+course the child classes may have children of their own, and so on.</p>
+<p>As an example, consider creating a new class describing vectors in
+<span class="math">\(\mathbb{R}^2\)</span>. Since a vector can be described as an ordered pair of
+coordinates, the <code class="docutils literal"><span class="pre">Point</span></code> class defined above could also be used to describe
+vectors and allow users to modify the vector using the <code class="docutils literal"><span class="pre">change_x</span></code> and
+<code class="docutils literal"><span class="pre">change_y</span></code> methods. Suppose that we wanted to add a method to calculate the
+length of the vector. It wouldn&#8217;t make sense to add a length method to the
+<code class="docutils literal"><span class="pre">Point</span></code> class, since a point does not have a length, but we can create a new
+<code class="docutils literal"><span class="pre">Vector</span></code> class extending the <code class="docutils literal"><span class="pre">Point</span></code> class with the new method. In the code
+below, we also introduce arguments into the class constructor (the <code class="docutils literal"><span class="pre">__init__</span></code>
+method).</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># This is the new class definition. Here, the parent class, `Point`, is in</span>
+<span class="c"># the parentheses.</span>
+<span class="k">class</span> <span class="nc">Vector</span><span class="p">(</span><span class="n">Point</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="c"># Call the `Point.__init__` method to initialize the coordinates</span>
+        <span class="c"># to the origin</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Vector</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
+
+        <span class="c"># Now change to coordinates to those provided as arguments, using</span>
+        <span class="c"># the methods defined in the parent class.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">change_x</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">change_y</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">length</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c"># Notice that in Python the exponentiation operator is a double</span>
+        <span class="c"># asterisk, &quot;**&quot;</span>
+        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">**</span><span class="mf">0.5</span>
+
+<span class="c"># An object of class Vector is created</span>
+<span class="n">vector_object</span> <span class="o">=</span> <span class="n">Vector</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">vector_object</span><span class="o">.</span><span class="n">length</span><span class="p">())</span>  <span class="c"># 1.41421356237</span>
+</pre></div>
+</div>
+<p>Returning to state space models and Kalman filtering and smoothing, the object
+oriented approach allows for separation of concerns, and prevents duplication
+of effort. The base classes contain the functionality common to all state space
+models, in particular Kalman filtering and smoothing routines, and child
+classes fill in model-specific parameters into the state space representation
+matrices. In this way, users need only specify the parts that are
+absolutely necessary and yet the classes they define contain full state space
+operations. In fact, many additional features beyond filtering and smoothing
+are available through the base classes, including methods for estimation of
+unknown parameters, summary tables, prediction and forecasting, model
+diagnostics, simulation, and impulse response functions.</p>
+</div>
+<div class="section" id="basic-representation">
+<h2>Basic representation<a class="headerlink" href="#basic-representation" title="Permalink to this headline">¶</a></h2>
+<p>In this section we present the first of two classes that most applications will
+use.</p>
+<p>The class <code class="docutils literal"><span class="pre">dismalpy.ssm.Model</span></code> (referred to as simply <code class="docutils literal"><span class="pre">Model</span></code> in what
+follows) provides a direct interface to the state space functionality described
+above. Thus it requires specification of the state space matrices (i.e. the
+elements from <a class="reference internal" href="2-state_space_models.html#table-sspace"><span>Table 1</span></a>) and in return it provides a number of
+built-in functions that can be called by users. The most important of these are
+<code class="docutils literal"><span class="pre">loglike</span></code>, <code class="docutils literal"><span class="pre">filter</span></code>, <code class="docutils literal"><span class="pre">smooth</span></code>, and <code class="docutils literal"><span class="pre">simulation_smoother</span></code>.</p>
+<p>The first, <code class="docutils literal"><span class="pre">loglike</span></code>, performs the Kalman filter recursions and returns the
+joint loglikelihood of the sample. The second, <code class="docutils literal"><span class="pre">filter</span></code>, performs the Kalman
+filter recursions and returns an object holding the full output of the filter
+(see <a class="reference internal" href="2-state_space_models.html#table-kfilter"><span>Table 2</span></a>), as well as the state space representation (see
+<a class="reference internal" href="2-state_space_models.html#table-sspace"><span>Table 1</span></a>). The third, <code class="docutils literal"><span class="pre">smooth</span></code>, performs Kalman filtering
+and smoothing recursions and returns an object holding the full output of
+the smoother (see <a class="reference internal" href="2-state_space_models.html#table-smoothers"><span>Table 3</span></a>) as well as the filtering output
+and the state space representation. The last, <code class="docutils literal"><span class="pre">simulation_smoother</span></code>, creates
+a new object that can be used to create an arbitrary number of simulated state
+and disturbance series (see <a class="reference internal" href="2-state_space_models.html#table-simsmoothers"><span>Table 4</span></a>).</p>
+<p>As an example of the use of this class, consider the following code, which
+constructs a local level model for the Nile data with known parameter values
+(the next section will consider parameter estimation), and then applies the
+above methods. Recall that to fully specify a state space model, all of the
+elements from <a class="reference internal" href="2-state_space_models.html#table-sspace"><span>Table 1</span></a> must be set, and the Kalman filter must
+be initialized. In the <code class="docutils literal"><span class="pre">Model</span></code> class, all state space elements are created
+as zero matrices of the appropriate shapes, so often only the non-zero
+elements need be specified. <a class="footnote-reference" href="#id6" id="id5">[1]</a></p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># To instantiate the object, provide the observed data (here `nile`)</span>
+<span class="c"># and the dimension of the state vector</span>
+<span class="n">nile_model_1</span> <span class="o">=</span> <span class="n">dp</span><span class="o">.</span><span class="n">ssm</span><span class="o">.</span><span class="n">Model</span><span class="p">(</span><span class="n">nile</span><span class="p">,</span> <span class="n">k_states</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="c"># The state space representation matrices are initialized to zeros,</span>
+<span class="c"># and must be set to the values prescribed by the model</span>
+
+<span class="c"># The design, transition, and selection matrices are fully fixed</span>
+<span class="c"># by the local level model.</span>
+<span class="n">nile_model_1</span><span class="p">[</span><span class="s">&#39;design&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
+<span class="n">nile_model_1</span><span class="p">[</span><span class="s">&#39;transition&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
+<span class="n">nile_model_1</span><span class="p">[</span><span class="s">&#39;selection&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
+
+<span class="c"># The observation and state disturbance covariance matrices are not</span>
+<span class="c"># in general known; here we take values from Durbin and Koopman (2012)</span>
+<span class="n">nile_model_1</span><span class="p">[</span><span class="s">&#39;obs_cov&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">15099.0</span>
+<span class="n">nile_model_1</span><span class="p">[</span><span class="s">&#39;state_cov&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1469.1</span>
+
+<span class="c"># Initialize as approximate diffuse, and &quot;burn&quot; the first</span>
+<span class="c"># loglikelihood value</span>
+<span class="n">nile_model_1</span><span class="o">.</span><span class="n">initialize_approximate_diffuse</span><span class="p">()</span>
+<span class="n">nile_model_1</span><span class="o">.</span><span class="n">loglikelihood_burn</span> <span class="o">=</span> <span class="mi">1</span>
+</pre></div>
+</div>
+<p>Notice that the approach did not create a subclass. Instead, it instantiated
+the <code class="docutils literal"><span class="pre">Model</span></code> class directly as an object which was then manipulated. In this
+case, this method was more convenient, although an equivalent approach
+utilizing a subclass could have been used. For parameter estimation, below, the
+approach utilizing a subclass is almost always preferrable. The following code
+therefore specifies the same model as above, but utilizing a subclass approach.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Create a new class with parent dp.ssm.Model</span>
+<span class="k">class</span> <span class="nc">BaseLocalLevel</span><span class="p">(</span><span class="n">dp</span><span class="o">.</span><span class="n">ssm</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+
+    <span class="c"># Recall that the constructor (the __init__ method) is</span>
+    <span class="c"># always evaluated at the point of object instantiation</span>
+    <span class="c"># Here we require a single instantiation argument, the</span>
+    <span class="c"># observed dataset, called `endog` here.</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">endog</span><span class="p">):</span>
+
+        <span class="c"># This calls the constructor of the parent class. This</span>
+        <span class="c"># line is analogous to the line</span>
+        <span class="c"># `nile_model_1 = dp.ssm.Model(nile, k_states=1)` in</span>
+        <span class="c"># previous example</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">BaseLocalLevel</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">endog</span><span class="p">,</span> <span class="n">k_states</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="c"># The below code mirrors the previous example, except</span>
+        <span class="c"># that instead of the object instance `nile_model_1`, we</span>
+        <span class="c"># use the self-referential object instance `self`.</span>
+
+        <span class="c"># Here we only set the generically known elements</span>
+        <span class="bp">self</span><span class="p">[</span><span class="s">&#39;design&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
+        <span class="bp">self</span><span class="p">[</span><span class="s">&#39;transition&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
+        <span class="bp">self</span><span class="p">[</span><span class="s">&#39;selection&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">initialize_approximate_diffuse</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">loglikelihood_burn</span> <span class="o">=</span> <span class="mi">1</span>
+
+<span class="c"># Instantiate a new object</span>
+<span class="n">nile_model_2</span> <span class="o">=</span> <span class="n">BaseLocalLevel</span><span class="p">(</span><span class="n">nile</span><span class="p">)</span>
+
+<span class="c"># Now, set the covariance matrices to the values</span>
+<span class="c"># specific to the nile model</span>
+<span class="n">nile_model_2</span><span class="p">[</span><span class="s">&#39;obs_cov&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">15099.0</span>
+<span class="n">nile_model_2</span><span class="p">[</span><span class="s">&#39;state_cov&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1469.1</span>
+</pre></div>
+</div>
+<p>Either of the above approaches fully specifies the local level state space
+model. At our disposal now are the methods provided by the <code class="docutils literal"><span class="pre">Model</span></code> class.
+They can be applied as follows.</p>
+<p>First, the <code class="docutils literal"><span class="pre">loglike</span></code> method returns a single number.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Evaluate the joint loglikelihood of the data</span>
+<span class="k">print</span><span class="p">(</span><span class="n">nile_model_1</span><span class="o">.</span><span class="n">loglike</span><span class="p">())</span>  <span class="c"># -632.537695048</span>
+<span class="c"># or, we could equivalently use the second model with identical results</span>
+<span class="k">print</span><span class="p">(</span><span class="n">nile_model_2</span><span class="o">.</span><span class="n">loglike</span><span class="p">())</span>  <span class="c"># -632.537695048</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal"><span class="pre">filter</span></code> method returns an object from which filter output can be
+retrieved.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Retrieve filtering output</span>
+<span class="n">nile_filtered_1</span> <span class="o">=</span> <span class="n">nile_model_1</span><span class="o">.</span><span class="n">filter</span><span class="p">()</span>
+<span class="c"># print the filtered estimate of the unobserved level</span>
+<span class="k">print</span><span class="p">(</span><span class="n">nile_filtered_1</span><span class="o">.</span><span class="n">filtered_state</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>         <span class="c"># [1103.34  ... 798.37]</span>
+<span class="k">print</span><span class="p">(</span><span class="n">nile_filtered_1</span><span class="o">.</span><span class="n">filtered_state_cov</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>  <span class="c"># [14874.41  ... 4032.16]</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal"><span class="pre">smooth</span></code> method returns an object from which smoother output can be
+retrieved.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Retrieve smoothing output</span>
+<span class="n">nile_smoothed_1</span> <span class="o">=</span> <span class="n">nile_model_1</span><span class="o">.</span><span class="n">smooth</span><span class="p">()</span>
+<span class="c"># print the smoothed estimate of the unobserved level</span>
+<span class="k">print</span><span class="p">(</span><span class="n">nile_smoothed_1</span><span class="o">.</span><span class="n">smoothed_state</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>         <span class="c"># [1107.20 ... 798.37]</span>
+<span class="k">print</span><span class="p">(</span><span class="n">nile_smoothed_1</span><span class="o">.</span><span class="n">smoothed_state_cov</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>  <span class="c"># [4015.96  ... 4032.16]</span>
+</pre></div>
+</div>
+<p>Finally the <code class="docutils literal"><span class="pre">simulation_smoother</span></code> method returns an object that can be
+used to simulate state or disturbance vectors via the <code class="docutils literal"><span class="pre">simulate</span></code> method.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Retrieve a simulation smoothing object</span>
+<span class="n">nile_simsmoother_1</span> <span class="o">=</span> <span class="n">nile_model_1</span><span class="o">.</span><span class="n">simulation_smoother</span><span class="p">()</span>
+<span class="c"># Perform first set of simulation smoothing recursions</span>
+<span class="n">nile_simsmoother_1</span><span class="o">.</span><span class="n">simulate</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="n">nile_simsmoother_1</span><span class="o">.</span><span class="n">simulated_state</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>  <span class="c"># [1000.10 ... 882.31]</span>
+<span class="c"># Perform second set of simulation smoothing recursions</span>
+<span class="n">nile_simsmoother_1</span><span class="o">.</span><span class="n">simulate</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="n">nile_simsmoother_1</span><span class="o">.</span><span class="n">simulated_state</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>  <span class="c"># [1153.62 ... 808.44]</span>
+</pre></div>
+</div>
+<p><a class="reference internal" href="#figure-3-model-nile"><span>Fig. 4</span></a> plots the observed data, filtered series,
+smoothed series, and the simulated level from ten simulations, generated from
+the above model.</p>
+<div class="figure" id="id22">
+<span id="figure-3-model-nile"></span><img alt="../../_images/fig_3-model-nile.png" src="../../_images/fig_3-model-nile.png" />
+<p class="caption"><span class="caption-number">Fig. 4 </span><span class="caption-text">Filtered and smoothed estimates and simulatations of unobserved level for
+Nile data.</span></p>
+</div>
+<p>The <code class="docutils literal"><span class="pre">Model</span></code> class is thus sufficient for performing filtering, smoothing,
+etc. operations on a <em>known</em> model, but it is not convenient for the estimation
+of unknown parameters. A second class with estimation in mind is described in
+the following section.</p>
+<table class="docutils footnote" frame="void" id="id6" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id5">[1]</a></td><td>More specifically, potentially time-varying matrices are created as
+zero matrices of the appropriate non-time-varying shape. If a
+time-varying matrix is required, the whole matrix must be re-created in
+the appropriate time-varying shape before individual elements may be
+modified.</td></tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="representation-for-parameter-estimation">
+<h2>Representation for parameter estimation<a class="headerlink" href="#representation-for-parameter-estimation" title="Permalink to this headline">¶</a></h2>
+<p>The introduction of parameter estimation into the Python representation of a
+state space model will require practical implementation of the concepts that
+were introduced in order to consider parameter estimation in the state space
+model. These concepts are (1) the idea of a mapping from
+parameter values to system matrices, and (2) the specification of initial
+parameter values. Although there are many ways to implement these, what follows
+is the convention used throughout; for compatibility with existing classes (for
+example the maximum likelihood estimation helper class
+<code class="docutils literal"><span class="pre">dismalpy.ssm.MLEModel</span></code>) it is recommended that users do not deviate from
+them.</p>
+<p>In the above example using the subclass approach, the fixed elements of the
+state space representation were set in the class constructor (the <code class="docutils literal"><span class="pre">__init__</span></code>
+method) and the elements corresponding to parameter values were set later. This
+is the pattern that will be used; in particular we will add a new method to the
+class, an <code class="docutils literal"><span class="pre">update</span></code> method, that will accept as its argument the full vector
+of parameters <span class="math">\(\psi\)</span> and will update the system matrices as appropriate.
+With this we have implemented the mapping described above. Second, we will add
+a new attribute to the class, called <code class="docutils literal"><span class="pre">start_params</span></code>, that will hold the
+vector of initial parameter values. <a class="footnote-reference" href="#id10" id="id7">[2]</a></p>
+<p>The following code re-writes the above local level implementation to use these
+two new features.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">LocalLevel</span><span class="p">(</span><span class="n">dp</span><span class="o">.</span><span class="n">ssm</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+
+    <span class="c"># Define the initial parameter vector; see update() below for a note</span>
+    <span class="c"># on the required order of parameter values in the vector</span>
+    <span class="n">start_params</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]</span>
+
+    <span class="c"># Define the fixed state space elements in the constructor</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">endog</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">LocalLevel</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">endog</span><span class="p">,</span> <span class="n">k_states</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="p">[</span><span class="s">&#39;design&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
+        <span class="bp">self</span><span class="p">[</span><span class="s">&#39;transition&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
+        <span class="bp">self</span><span class="p">[</span><span class="s">&#39;selection&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">initialize_approximate_diffuse</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">loglikelihood_burn</span> <span class="o">=</span> <span class="mi">1</span>
+
+    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+        <span class="c"># Using the parameters in a specific order in the update method</span>
+        <span class="c"># implicitly defines the required order of parameters</span>
+        <span class="bp">self</span><span class="p">[</span><span class="s">&#39;obs_cov&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="p">[</span><span class="s">&#39;state_cov&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Notice that in the code above, only the fixed state space elements common to
+all local level models was set in the constructor.The two variance parameters
+remain to be set, using the <code class="docutils literal"><span class="pre">update</span></code> method, after the object is
+instantiated with a specific dataset:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Instantiate a new object</span>
+<span class="n">nile_model_3</span> <span class="o">=</span> <span class="n">LocalLevel</span><span class="p">(</span><span class="n">nile</span><span class="p">)</span>
+<span class="c"># Now, update the model with the values specific to the nile model</span>
+<span class="n">nile_model_3</span><span class="o">.</span><span class="n">update</span><span class="p">([</span><span class="mf">15099.0</span><span class="p">,</span> <span class="mf">1469.1</span><span class="p">])</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">nile_model_3</span><span class="o">.</span><span class="n">loglike</span><span class="p">())</span>  <span class="c"># -632.537695048</span>
+
+<span class="c"># Try updating with a different set of values, and notice that the</span>
+<span class="c"># evaluated likelihood changes.</span>
+<span class="n">nile_model_3</span><span class="o">.</span><span class="n">update</span><span class="p">([</span><span class="mf">10000.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">])</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">nile_model_3</span><span class="o">.</span><span class="n">loglike</span><span class="p">())</span>  <span class="c"># -687.5456216</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="additional-remarks">
+<h2>Additional remarks<a class="headerlink" href="#additional-remarks" title="Permalink to this headline">¶</a></h2>
+<p>Several additional remarks are merited about the implementation that is
+available when using or creating subclasses of the base classes.</p>
+<p>First, if the model is time-invariant, then a check for convergence will be
+used at each step of the Kalman filter iterations. Once convergence has been
+achieved, the converged state disturbance covariance matrix, Kalman gain, and
+forecast error covariance matrix are used at all remaining iterations,
+reducing the computational burden. The tolerance for determining convergence is
+controlled by the <code class="docutils literal"><span class="pre">tolerance</span></code> attribute, which is initially set to
+<span class="math">\(10^{-19}\)</span> but can be changed by the user. For example, to disable the
+use of converged values in the above Nile model one could use the code
+<code class="docutils literal"><span class="pre">nile_model_3.tolerance</span> <span class="pre">=</span> <span class="pre">0</span></code>.</p>
+<p>Second, two recent innovations in Kalman filtering are available to handle
+large-dimensional observations. These include the univariate filtering approach
+of <a class="reference internal" href="9-references.html#koopman-fast-2000" id="id8">[18]</a> and the collapsed approach of
+<a class="reference internal" href="9-references.html#jungbacker-likelihood-based-2014" id="id9">[14]</a>. The use of these approaches are
+controlled by the <code class="docutils literal"><span class="pre">set_filter_method</span></code> method. For example, to enable
+both of these approaches in the Nile model, one could use the code
+<code class="docutils literal"><span class="pre">nile_model_3.set_filter_method(filter_univariate=True,</span> <span class="pre">filter_collapsed=True)</span></code>
+(this is just for illustration, since of course there is only a single variable
+in that model meaning that these options would have no practical effect). The
+univariate filtering method is enabled by default, but the collapsed approach
+is not.</p>
+<p>Next, options to enable conservation of computer memory (RAM) are available,
+and are controllable via the <code class="docutils literal"><span class="pre">set_conserve_memory</span></code> method. It should be noted
+that the usefulness of these options depends on the analysis required by the
+user, because smoothing requires all filtering values and simulation smoothing
+requires all smoothing and filtering values. However, in maximum likelihood
+estimation or Metropolis-Hastings posterior simulation, all that is required is
+the joint likelihood value. One might enable memory conservation until
+optimal parameters have been found, and then disable it so as to calculate any
+filtered and smoothed values of interest. In Gibbs sampling MCMC approaches,
+memory conservation is not available because the simulation smoother is
+required.</p>
+<p>Fourth, predictions and impulse response functions are immediately
+available for any state space model through the filter results object (obtained
+as the returned value from a <code class="docutils literal"><span class="pre">filter</span></code> call), through the <code class="docutils literal"><span class="pre">predict</span></code> and
+<code class="docutils literal"><span class="pre">impulse_responses</span></code> methods.</p>
+<p>Fifth, the Kalman filter (and smoothers) are fully equipped to handle missing
+observation data; no special code is required.</p>
+<p>Finally, before moving on to specific parameter estimation methods, it is
+important to note that the simulation smoother object created via the
+<code class="docutils literal"><span class="pre">simulation_smoother</span></code> method generates simulations based on the state space
+matrices as they are defined <em>when the simulation is performed</em> and not when
+the <code class="docutils literal"><span class="pre">simulate</span></code> method is called. This will be important when considering
+Gibbs sampling MCMC parameter estimation methods, below. As an illustration,
+consider the following code:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># BEFORE: Perform some simulations with the original parameters</span>
+<span class="n">nile_model_3</span><span class="o">.</span><span class="n">update</span><span class="p">([</span><span class="mf">15099.0</span><span class="p">,</span> <span class="mf">1469.1</span><span class="p">])</span>
+<span class="n">nile_simsmoother_3</span><span class="o">.</span><span class="n">simulate</span><span class="p">()</span>
+<span class="c"># ...</span>
+
+<span class="c"># AFTER: Perform some new simulations with new parameters</span>
+<span class="n">nile_model_3</span><span class="o">.</span><span class="n">update</span><span class="p">([</span><span class="mf">10000.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">])</span>
+<span class="n">nile_simsmoother_3</span><span class="o">.</span><span class="n">simulate</span><span class="p">()</span>
+<span class="c"># ...</span>
+</pre></div>
+</div>
+<p><a class="reference internal" href="#figure-3-params-simul-nile"><span>Fig. 5</span></a> plots ten simulations generated during the
+BEFORE period, and ten simulations from the AFTER period. It is clear that they
+are simulating different series, reflecting the different parameters values in
+place at the time of simulation.</p>
+<div class="figure" id="id23">
+<span id="figure-3-params-simul-nile"></span><img alt="../../_images/fig_3-params-simul-nile.png" src="../../_images/fig_3-params-simul-nile.png" />
+<p class="caption"><span class="caption-number">Fig. 5 </span><span class="caption-text">Simulations of the unobserved level for Nile data under two different
+parameter sets.</span></p>
+</div>
+<table class="docutils footnote" frame="void" id="id10" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id7">[2]</a></td><td>It may seem restrictive to require the initial parameter value to be a
+a class attribute, which is set to a specific value. In practice, the
+attribute can be replaced with a class <em>property</em>, allowing dynamic
+creation of the attribute&#8217;s value. In this way the initial parameter
+vector for an ARMA(p,q) model could, for example, be generated using
+ordinary least squares.</td></tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="practical-considerations">
+<h2>Practical considerations<a class="headerlink" href="#practical-considerations" title="Permalink to this headline">¶</a></h2>
+<p>As described before, two practical considerations with the Kalman filter are
+numerical stability and performance. Briefly discussed were the availability of
+a square-root filter and the use of compiled computer code. In practice, the
+square-root filter is rarely required, and this Python implementation does not
+use it. One good reason for this is that &#8220;the amount of computation required is
+substantially larger&#8221; (<a class="reference internal" href="9-references.html#durbin-time-2012" id="id11">[10]</a>), and acceptable numerical
+stability for most models is usually achieved via forcing symmetry of the state
+covariance matrix (see <a class="reference internal" href="9-references.html#grewal-kalman-2014" id="id12">[11]</a>, for example).</p>
+<p>High performance is achieved primarily through the use of Cython
+(<a class="reference internal" href="9-references.html#behnel-cython-2011" id="id13">[3]</a>) which allows suitably modified Python code to be
+compiled to C, in some cases (such as the current one) dramatically improving
+performance. Also, as described in the preceding section, recent advances in
+filtering with large-dimensional observations are available. Note that the
+use of compiled code for performance-critical computation is also pursued in
+several of the other Kalman filtering implementations mentioned in the
+introduction.</p>
+<p>An additional practical consideration whenever computer code is at issue is the
+possibility of programming errors (&#8220;bugs&#8221;). <a class="reference internal" href="9-references.html#mccullough-numerical-1999" id="id14">[21]</a>
+emphasize the need for tests ensuring <em>accurate</em> results, as well as good
+documentation and the availability of source code so that checking for bugs is
+possible. The source code for this implementation is available, with reasonably
+extensive inline comments describing procedures. Furthermore, even though the
+spectre of bugs cannot be fully exorcised, several hundred &#8220;unit tests&#8221; have
+been written, and are available for users to run themselves, comparing output
+to known results from a variety of outside sources. These tests are run
+continuously with the software&#8217;s development to prevent errors from creeping
+in.</p>
+<p>At this point, we once again draw attention to the separation of
+concerns made possible by the implementation approach pursued here. Although
+writing the code for a conventional Kalman filter is relatively trivial,
+writing the code for a Kalman filter, smoother, and simulation smoother using
+the univariate and collapsed approaches, properly allowing for missing data,
+and in a compiled language to achieve acceptable performance is not. And yet,
+for models in state space from, the solution, once created, is entirely
+generic. The use of an object oriented approach here is what allows users to
+have the best of both worlds: classes can be custom designed using only Python
+and yet they contain methods (<code class="docutils literal"><span class="pre">loglike</span></code>, <code class="docutils literal"><span class="pre">filter</span></code>, etc.) which have been
+written and compiled for high performance, and tested for accuracy.</p>
+</div>
+<div class="section" id="example-models">
+<h2>Example models<a class="headerlink" href="#example-models" title="Permalink to this headline">¶</a></h2>
+<p>In this section, we provide code describing the example models in the previous
+sections. This code is provided to illustrate the above principles in specific
+models, and it is not necessarily the best way to estimate these models. For
+example, it is more efficient to develop a class to handle all ARMA(p,q) models
+rather than separate classes for different orders.</p>
+<div class="section" id="arma-1-1-model">
+<h3>ARMA(1, 1) model<a class="headerlink" href="#arma-1-1-model" title="Permalink to this headline">¶</a></h3>
+<p>The following code is a straightforward translation of <a href="#equation-arma11">(?)</a>. Notice
+that here the state dimension is 2 but the dimension of the state disturbance
+is only 1; this is represented in the code by setting <code class="docutils literal"><span class="pre">k_states=2</span></code> but
+<code class="docutils literal"><span class="pre">k_posdef=1</span></code>. <a class="footnote-reference" href="#id20" id="id15">[3]</a> Also demonstrated is the possibility of specifying the
+Kalman filter initialization in the class construction call
+(<code class="docutils literal"><span class="pre">initialization='stationary'</span></code>), since the model is assumed to be
+stationary. <a class="footnote-reference" href="#id21" id="id16">[4]</a></p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">ARMA11</span><span class="p">(</span><span class="n">dp</span><span class="o">.</span><span class="n">ssm</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+
+    <span class="n">start_params</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">endog</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">ARMA11</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span>
+            <span class="n">endog</span><span class="p">,</span> <span class="n">k_states</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">k_posdef</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">initialization</span><span class="o">=</span><span class="s">&#39;stationary&#39;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="p">[</span><span class="s">&#39;design&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.</span>
+        <span class="bp">self</span><span class="p">[</span><span class="s">&#39;transition&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.</span>
+        <span class="bp">self</span><span class="p">[</span><span class="s">&#39;selection&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.</span>
+
+    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">[</span><span class="s">&#39;design&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="bp">self</span><span class="p">[</span><span class="s">&#39;transition&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="p">[</span><span class="s">&#39;state_cov&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+
+<span class="c"># Example of instantiating a new object, updating the parameters to the</span>
+<span class="c"># starting parameters, and evaluating the loglikelihood</span>
+<span class="n">inf_model</span> <span class="o">=</span> <span class="n">ARMA11</span><span class="p">(</span><span class="n">inf</span><span class="p">)</span>
+<span class="n">inf_model</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">inf_model</span><span class="o">.</span><span class="n">start_params</span><span class="p">)</span>
+<span class="n">inf_model</span><span class="o">.</span><span class="n">loglike</span><span class="p">()</span>  <span class="c"># -1545.0987090041408</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="local-level-model">
+<h3>Local level model<a class="headerlink" href="#local-level-model" title="Permalink to this headline">¶</a></h3>
+<p>The class for the local level model was defined in the previous section.</p>
+</div>
+<div class="section" id="real-business-cycle-model">
+<h3>Real business cycle model<a class="headerlink" href="#real-business-cycle-model" title="Permalink to this headline">¶</a></h3>
+<p>The real business cycle model is specified by <a href="#equation-rbc">(?)</a>. It again has a
+state dimension of 2 and a state disturbance dimension of 1, and again the
+process is assumed to be stationary. Unlike the previous examples, here the
+parameters of the model do not map one-to-one to elements of the system
+matrices. As described in the definition of the RBC model, the thirteen
+reduced form parameters found in the state space matrices are non-linear
+functions of combinations of the six structural parameters. We want to set up
+the model in terms of the structural parameters and use the <code class="docutils literal"><span class="pre">update</span></code> method
+to perform the appropriate transformations to retrieve the reduced form
+parameters. This is important because the theory does not allow the reduced
+form parameters to vary arbitrarily; in particular, only certain combinations
+of the reduced form parameters are consistent with generation through the model
+from the underlying structural parameters.</p>
+<p>Give reduced form parameters, the specification of the state space model itself
+is trivial, but estimation of the reduced form model requires solution of the
+structural model for the reduced form parameters in terms of the structural
+parameters. This requires the solution of a linear rational expectations model,
+which is beyond the scope of this paper. This particular RBC model can be
+solved using the method of <a class="reference internal" href="9-references.html#blanchard-solution-1980" id="id17">[4]</a>; more general
+solution methods exist for more general models (see for example
+<a class="reference internal" href="9-references.html#klein-using-2000" id="id18">[16]</a> and <a class="reference internal" href="9-references.html#sims-solving-2002" id="id19">[28]</a>).</p>
+<p>Regardless of the method used, for many linear (or linearized) models, the
+solution will be in state space form and so the state space matrices can be
+updated with the reduced form parameters. The following code snippet is not
+complete, but shows the general formulation in Python.</p>
+<div class="highlight-python"><div class="highlight"><pre>class SimpleRBC(dp.ssm.Model):
+
+    start_params = [...]
+
+    def __init__(self, endog):
+        super(SimpleRBC, self).__init__(
+            endog, k_states=2, k_posdef=1, initialization=&#39;stationary&#39;)
+
+        # Initialize RBC-specific variables, parameters, etc.
+        # ...
+
+        # Setup fixed elements of the statespace matrices
+        self[&#39;selection&#39;, 1, 0] = 1
+
+    def solve(self, structural_params):
+        # Solve the RBC model
+        # ...
+
+    def update(self, params):
+        params = super(SimpleRBC, self).update(params, transformed)
+
+        # Reconstruct the full parameter vector from the
+        # estimated and calibrated parameters
+        structural_params = ...
+        measurement_variances = ...
+
+        # Solve the model
+        design, transition = self.solve(structural_params)
+
+        # Update the statespace representation
+        self[&#39;design&#39;] = design
+        self[&#39;obs_cov&#39;, 0, 0] = measurement_variances[0]
+        self[&#39;obs_cov&#39;, 1, 1] = measurement_variances[1]
+        self[&#39;obs_cov&#39;, 2, 2] = measurement_variances[2]
+        self[&#39;transition&#39;] = transition
+        self[&#39;state_cov&#39;, 0, 0] = structural_params[...]
+</pre></div>
+</div>
+<table class="docutils footnote" frame="void" id="id20" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id15">[3]</a></td><td>The dimension of the state disturbance is named <code class="docutils literal"><span class="pre">k_posdef</span></code> because the
+selected state disturbance vector is given not by <span class="math">\(\eta_t\)</span> but by
+<span class="math">\(R_t \eta_t\)</span>. The dimension of the selected state disturbance
+vector is always equal to the dimension of the state, but the selected
+state disturbance covariance matrix will be have
+<code class="docutils literal"><span class="pre">k_states</span> <span class="pre">-</span> <span class="pre">k_posdef</span></code> zero-eigenvalues. Thus the dimension of
+the state disturbance gives the dimension of the subset of the selected
+state disturbance for which a positive definite covariance matrix.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id21" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id16">[4]</a></td><td>Of course the assumption of stationarity would be violated for certain
+parameter values, for example if <span class="math">\(\phi = 1\)</span>. This has important
+implications for parameter estimation, where we typically want to only
+allow parameters inducing a stationary model, and is discussed in the
+specific sections on parameter estimation.</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="4-maximum_likelihood_estimation.html" class="btn btn-neutral float-right" title="Maximum Likelihood Estimation" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="2-state_space_models.html" class="btn btn-neutral" title="State space models" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Chad Fulton.
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'0.1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

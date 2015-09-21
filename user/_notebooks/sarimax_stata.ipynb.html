@@ -1,0 +1,947 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>SARIMAX: Introduction &mdash; DismalPy 0.1.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="author" title="About these documents"
+              href="../../about.html"/>
+    <link rel="top" title="DismalPy 0.1.0 documentation" href="../../index.html"/>
+        <link rel="up" title="State Space Models" href="../ssm.html"/>
+        <link rel="next" title="State space modeling: Local Linear Trends" href="local_linear_trend.ipynb.html"/>
+        <link rel="prev" title="Durbin and Koopman: Box-Jenkins Examples" href="sarimax_internet.ipynb.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="../../contents.html" class="icon icon-home"> DismalPy
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">DismalPy User Guide</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../ssm.html">State Space Models</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../ssm.html#topics">Topics</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ssm/2-state_space_models.html">State space models</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ssm/3-python_representation.html">Representation in Python</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ssm/4-maximum_likelihood_estimation.html">Maximum Likelihood Estimation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ssm/5-posterior_simulation.html">Posterior Simulation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ssm/6-out-of-the-box_models.html">Out-of-the-box models</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ssm/9-references.html">References</a></li>
+</ul>
+</li>
+<li class="toctree-l3 current"><a class="reference internal" href="../ssm.html#examples">Examples</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="sarimax_internet.ipynb.html">Durbin and Koopman: Box-Jenkins Examples</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="">SARIMAX: Introduction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="local_linear_trend.ipynb.html">State space modeling: Local Linear Trends</a></li>
+<li class="toctree-l4"><a class="reference internal" href="structural_harvey_jaeger.ipynb.html">Detrending, Stylized Facts and the Business Cycle</a></li>
+<li class="toctree-l4"><a class="reference internal" href="dfm_coincident.ipynb.html">Dynamic factors and coincident indices</a></li>
+<li class="toctree-l4"><a class="reference internal" href="varmax.ipynb.html">VARMAX models</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/index.html">DismalPy Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/ssm.html">State Space Models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/ssm.html#built-in-models">Built-in models</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/ssm/sarimax.html">SARIMAX</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/ssm/structural.html">Unobserved Components</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/ssm/varmax.html">VARMAX</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/ssm/dynamic_factor.html">Dynamic Factors</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/ssm.html#extension-starting-point">Extension starting point</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/ssm/mlemodel.html">MLEModel</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/ssm.html#base-classes">Base classes</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/ssm/representation.html">Representation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/ssm/kalman_filter.html">Kalman filter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/ssm/kalman_smoother.html">Kalman smoother</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/ssm/simulation_smoother.html">Simulation Smoother</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/ssm/model.html">Model</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/ssm/tools.html">Tools</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../release.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../release.html#dismalpy-0-1-0-release-notes">DismalPy 0.1.0 Release Notes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#highlights">Highlights</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#dropped-support">Dropped Support</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#future-changes">Future Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#compatibility-notes">Compatibility notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#new-features">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#improvements">Improvements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#changes">Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#deprecations">Deprecations</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">About DismalPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html#about-this-documentation">About this documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../about.html#conventions">Conventions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../bugs.html">Reporting bugs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">DismalPy License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary.html">Glossary</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../glossary.html#module-dismalpy.doc.jargon">Jargon</a></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../contents.html">DismalPy</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../contents.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../index.html">DismalPy User Guide</a> &raquo;</li>
+      
+          <li><a href="../ssm.html">State Space Models</a> &raquo;</li>
+      
+    <li>SARIMAX: Introduction</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../_sources/user/_notebooks/sarimax_stata.ipynb.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="sarimax-introduction">
+<h1>SARIMAX: Introduction<a class="headerlink" href="#sarimax-introduction" title="Permalink to this headline">¶</a></h1>
+<p>This notebook replicates examples from the Stata ARIMA time series
+estimation and postestimation documentation.</p>
+<p>First, we replicate the four estimation examples
+<a class="reference external" href="http://www.stata.com/manuals13/tsarima.pdf">http://www.stata.com/manuals13/tsarima.pdf</a>:</p>
+<ol class="arabic simple">
+<li>ARIMA(1,1,1) model on the U.S. Wholesale Price Index (WPI) dataset.</li>
+<li>Variation of example 1 which adds an MA(4) term to the ARIMA(1,1,1)
+specification to allow for an additive seasonal effect.</li>
+<li>ARIMA(2,1,0) x (1,1,0,12) model of monthly airline data. This example
+allows a multiplicative seasonal effect.</li>
+<li>ARMA(1,1) model with exogenous regressors; describes consumption as
+an autoregressive process on which also the money supply is assumed
+to be an explanatory variable.</li>
+</ol>
+<p>Second, we demonstrate postestimation capabilitites to replicate
+<a class="reference external" href="http://www.stata.com/manuals13/tsarimapostestimation.pdf">http://www.stata.com/manuals13/tsarimapostestimation.pdf</a>. The model from
+example 4 is used to demonstrate:</p>
+<ol class="arabic simple">
+<li>One-step-ahead in-sample prediction</li>
+<li>n-step-ahead out-of-sample forecasting</li>
+<li>n-step-ahead in-sample dynamic prediction</li>
+</ol>
+<div class="code python highlight-python"><div class="highlight"><pre>%matplotlib inline
+</pre></div>
+</div>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">dismalpy</span> <span class="kn">import</span> <span class="n">ssm</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+</pre></div>
+</div>
+<div class="section" id="arima-example-1-arima">
+<h2>ARIMA Example 1: Arima<a class="headerlink" href="#arima-example-1-arima" title="Permalink to this headline">¶</a></h2>
+<p>As can be seen in the graphs from Example 2, the Wholesale price index
+(WPI) is growing over time (i.e. is not stationary). Therefore an ARMA
+model is not a good specification. In this first example, we consider a
+model where the original time series is assumed to be integrated of
+order 1, so that the difference is assumed to be stationary, and fit a
+model with one autoregressive lag and one moving average lag, as well as
+an intercept term.</p>
+<p>The postulated data process is then:</p>
+<div class="math">
+\[\Delta y_t = c + \phi_1 \Delta y_{t-1} + \theta_1 \epsilon_{t-1} + \epsilon_{t}\]</div>
+<p>where <span class="math">\(c\)</span> is the intercept of the ARMA model, <span class="math">\(\Delta\)</span> is
+the first-difference operator, and we assume
+<span class="math">\(\epsilon_{t} \sim N(0, \sigma^2)\)</span>. This can be rewritten to
+emphasize lag polynomials as (this will be useful in example 2, below):</p>
+<div class="math">
+\[(1 - \phi_1 L ) \Delta y_t = c + (1 + \theta_1 L) \epsilon_{t}\]</div>
+<p>where <span class="math">\(L\)</span> is the lag operator.</p>
+<p>Notice that one difference between the Stata output and the output below
+is that Stata estimates the following model:</p>
+<div class="math">
+\[(\Delta y_t - \beta_0) = \phi_1 ( \Delta y_{t-1} - \beta_0) + \theta_1 \epsilon_{t-1} + \epsilon_{t}\]</div>
+<p>where <span class="math">\(\beta_0\)</span> is the mean of the process <span class="math">\(y_t\)</span>. This model
+is equivalent to the one estimated in the SARIMAX class, but the
+interpretation is different. To see the equivalence, note that:</p>
+<div class="math">
+\[\begin{split}(\Delta y_t - \beta_0) = \phi_1 ( \Delta y_{t-1} - \beta_0) + \theta_1 \epsilon_{t-1} + \epsilon_{t} \\
+\Delta y_t = (1 - \phi_1) \beta_0 + \phi_1 \Delta y_{t-1} + \theta_1 \epsilon_{t-1} + \epsilon_{t}\end{split}\]</div>
+<p>so that <span class="math">\(c = (1 - \phi_1) \beta_0\)</span>.</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="c"># Dataset</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_stata</span><span class="p">(</span><span class="s">&#39;data/wpi1.dta&#39;</span><span class="p">)</span>
+<span class="n">data</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">t</span>
+
+<span class="c"># Fit the model</span>
+<span class="n">mod</span> <span class="o">=</span> <span class="n">ssm</span><span class="o">.</span><span class="n">SARIMAX</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s">&#39;wpi&#39;</span><span class="p">],</span> <span class="n">trend</span><span class="o">=</span><span class="s">&#39;c&#39;</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+<span class="n">res</span> <span class="o">=</span> <span class="n">mod</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">summary</span><span class="p">())</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre>                           Statespace Model Results
+==============================================================================
+Dep. Variable:                    wpi   No. Observations:                  124
+Model:               SARIMAX(1, 1, 1)   Log Likelihood                -134.983
+Date:                Mon, 21 Sep 2015   AIC                            277.965
+Time:                        14:49:48   BIC                            289.246
+Sample:                    01-01-1960   HQIC                           282.548
+                         - 10-01-1990
+Covariance Type:                  opg
+==============================================================================
+                 coef    std err          z      P&gt;|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+intercept      0.1050      0.068      1.541      0.123      -0.029       0.239
+ar.L1          0.8740      0.054     16.124      0.000       0.768       0.980
+ma.L1         -0.4206      0.100     -4.204      0.000      -0.617      -0.225
+sigma2         0.5226      0.053      9.921      0.000       0.419       0.626
+===================================================================================
+Ljung-Box (Q):                       36.96   Jarque-Bera (JB):                10.15
+Prob(Q):                              0.61   Prob(JB):                         0.01
+Heteroskedasticity (H):              17.00   Skew:                             0.27
+Prob(H) (two-sided):                  0.00   Kurtosis:                         4.30
+===================================================================================
+
+Warnings:
+[1] Covariance matrix calculated using the outer product of gradients.
+</pre></div>
+</div>
+<p>Thus the maximum likelihood estimates imply that for the process above,
+we have:</p>
+<div class="math">
+\[\Delta y_t = 0.1050 + 0.8740 \Delta y_{t-1} - 0.4206 \epsilon_{t-1} + \epsilon_{t}\]</div>
+<p>where <span class="math">\(\epsilon_{t} \sim N(0, 0.5226)\)</span>. Finally, recall that
+<span class="math">\(c = (1 - \phi_1) \beta_0\)</span>, and here <span class="math">\(c = 0.1050\)</span> and
+<span class="math">\(\phi_1 = 0.8740\)</span>. To compare with the output from Stata, we could
+calculate the mean:</p>
+<div class="math">
+\[\beta_0 = \frac{c}{1 - \phi_1} = \frac{0.1050}{1 - 0.8740} = 0.83\]</div>
+<p><strong>Note</strong>: these values are slightly different from the values in the
+Stata documentation because the optimizer here has found parameters here
+that yield a higher likelihood. Nonetheless, they are very close.</p>
+</div>
+<div class="section" id="arima-example-2-arima-with-additive-seasonal-effects">
+<h2>ARIMA Example 2: Arima with additive seasonal effects<a class="headerlink" href="#arima-example-2-arima-with-additive-seasonal-effects" title="Permalink to this headline">¶</a></h2>
+<p>This model is an extension of that from example 1. Here the data is
+assumed to follow the process:</p>
+<div class="math">
+\[\Delta y_t = c + \phi_1 \Delta y_{t-1} + \theta_1 \epsilon_{t-1} + \theta_4 \epsilon_{t-4} + \epsilon_{t}\]</div>
+<p>The new part of this model is that there is allowed to be a annual
+seasonal effect (it is annual even though the periodicity is 4 because
+the dataset is quarterly). The second difference is that this model uses
+the log of the data rather than the level.</p>
+<p>Before estimating the dataset, graphs showing:</p>
+<ol class="arabic simple">
+<li>The time series (in logs)</li>
+<li>The first difference of the time series (in logs)</li>
+<li>The autocorrelation function</li>
+<li>The partial autocorrelation function.</li>
+</ol>
+<p>From the first two graphs, we note that the original time series does
+not appear to be stationary, whereas the first-difference does. This
+supports either estimating an ARMA model on the first-difference of the
+data, or estimating an ARIMA model with 1 order of integration (recall
+that we are taking the latter approach). The last two graphs support the
+use of an ARMA(1,1,1) model.</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="c"># Dataset</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_stata</span><span class="p">(</span><span class="s">&#39;data/wpi1.dta&#39;</span><span class="p">)</span>
+<span class="n">data</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">t</span>
+<span class="n">data</span><span class="p">[</span><span class="s">&#39;ln_wpi&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s">&#39;wpi&#39;</span><span class="p">])</span>
+<span class="n">data</span><span class="p">[</span><span class="s">&#39;D.ln_wpi&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s">&#39;ln_wpi&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="c"># Graph data</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+
+<span class="c"># Levels</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">_mpl_repr</span><span class="p">(),</span> <span class="n">data</span><span class="p">[</span><span class="s">&#39;wpi&#39;</span><span class="p">],</span> <span class="s">&#39;-&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s">&#39;US Wholesale Price Index&#39;</span><span class="p">)</span>
+
+<span class="c"># Log difference</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">_mpl_repr</span><span class="p">(),</span> <span class="n">data</span><span class="p">[</span><span class="s">&#39;D.ln_wpi&#39;</span><span class="p">],</span> <span class="s">&#39;-&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">hlines</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">data</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="s">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s">&#39;US Wholesale Price Index - difference of logs&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<img alt="../../_images/sarimax_stata.ipynb_9_0.png" src="../../_images/sarimax_stata.ipynb_9_0.png" />
+<div class="code python highlight-python"><div class="highlight"><pre><span class="c"># Graph data</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">graphics</span><span class="o">.</span><span class="n">tsa</span><span class="o">.</span><span class="n">plot_acf</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">ix</span><span class="p">[</span><span class="mi">1</span><span class="p">:,</span> <span class="s">&#39;D.ln_wpi&#39;</span><span class="p">],</span> <span class="n">lags</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">graphics</span><span class="o">.</span><span class="n">tsa</span><span class="o">.</span><span class="n">plot_pacf</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">ix</span><span class="p">[</span><span class="mi">1</span><span class="p">:,</span> <span class="s">&#39;D.ln_wpi&#39;</span><span class="p">],</span> <span class="n">lags</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre>---------------------------------------------------------------------------
+
+NameError                                 Traceback (most recent call last)
+
+&lt;ipython-input-6-7935fe6395f0&gt; in &lt;module&gt;()
+      2 fig, axes = plt.subplots(1, 2, figsize=(15,4))
+      3
+----&gt; 4 fig = sm.graphics.tsa.plot_acf(data.ix[1:, &#39;D.ln_wpi&#39;], lags=40, ax=axes[0])
+      5 fig = sm.graphics.tsa.plot_pacf(data.ix[1:, &#39;D.ln_wpi&#39;], lags=40, ax=axes[1])
+
+
+NameError: name &#39;sm&#39; is not defined
+</pre></div>
+</div>
+<img alt="../../_images/sarimax_stata.ipynb_10_1.png" src="../../_images/sarimax_stata.ipynb_10_1.png" />
+<p>To understand how to specify this model here, first recall that from
+example 1 we used the following code to specify the ARIMA(1,1,1) model:</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="n">mod</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">tsa</span><span class="o">.</span><span class="n">statespace</span><span class="o">.</span><span class="n">SARIMAX</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s">&#39;wpi&#39;</span><span class="p">],</span> <span class="n">trend</span><span class="o">=</span><span class="s">&#39;c&#39;</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal"><span class="pre">order</span></code> argument is a tuple of the form
+<code class="docutils literal"><span class="pre">(AR</span> <span class="pre">specification,</span> <span class="pre">Integration</span> <span class="pre">order,</span> <span class="pre">MA</span> <span class="pre">specification)</span></code>. The
+integration order must be an integer (for example, here we assumed one
+order of integration, so it was specified as 1. In a pure ARMA model
+where the underlying data is already stationary, it would be 0).</p>
+<p>For the AR specification and MA specification components, there are two
+possiblities. The first is to specify the <strong>maximum degree</strong> of the
+corresponding lag polynomial, in which case the component is an integer.
+For example, if we wanted to specify an ARIMA(1,1,4) process, we would
+use:</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="n">mod</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">tsa</span><span class="o">.</span><span class="n">statespace</span><span class="o">.</span><span class="n">SARIMAX</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s">&#39;wpi&#39;</span><span class="p">],</span> <span class="n">trend</span><span class="o">=</span><span class="s">&#39;c&#39;</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>and the corresponding data process would be:</p>
+<div class="math">
+\[y_t = c + \phi_1 y_{t-1} + \theta_1 \epsilon_{t-1} + \theta_2 \epsilon_{t-2} + \theta_3 \epsilon_{t-3} + \theta_4 \epsilon_{t-4} + \epsilon_{t}\]</div>
+<p>or</p>
+<div class="math">
+\[(1 - \phi_1 L)\Delta y_t = c + (1 + \theta_1 L + \theta_2 L^2 + \theta_3 L^3 + \theta_4 L^4) \epsilon_{t}\]</div>
+<p>When the specification parameter is given as a maximum degree of the lag
+polynomial, it implies that all polynomial terms up to that degree are
+included. Notice that this is <em>not</em> the model we want to use, because it
+would include terms for <span class="math">\(\epsilon_{t-2}\)</span> and
+<span class="math">\(\epsilon_{t-3}\)</span>, which we don&#8217;t want here.</p>
+<p>What we want is a polynomial that has terms for the 1st and 4th degrees,
+but leaves out the 2nd and 3rd terms. To do that, we need to provide a
+tuple for the specifiation parameter, where the tuple describes <strong>the
+lag polynomial itself</strong>. In particular, here we would want to use:</p>
+<div class="code python highlight-python"><div class="highlight"><pre>ar = 1          # this is the maximum degree specification
+ma = (1,0,0,1)  # this is the lag polynomial specification
+mod = sm.tsa.statespace.SARIMAX(data[&#39;wpi&#39;], trend=&#39;c&#39;, order=(ar,1,ma)))
+</pre></div>
+</div>
+<p>This gives the following form for the process of the data:</p>
+<div class="math">
+\[\begin{split}\Delta y_t = c + \phi_1 \Delta y_{t-1} + \theta_1 \epsilon_{t-1} + \theta_4 \epsilon_{t-4} + \epsilon_{t} \\
+(1 - \phi_1 L)\Delta y_t = c + (1 + \theta_1 L + \theta_4 L^4) \epsilon_{t}\end{split}\]</div>
+<p>which is what we want.</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="c"># Fit the model</span>
+<span class="n">mod</span> <span class="o">=</span> <span class="n">ssm</span><span class="o">.</span><span class="n">SARIMAX</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s">&#39;ln_wpi&#39;</span><span class="p">],</span> <span class="n">trend</span><span class="o">=</span><span class="s">&#39;c&#39;</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)))</span>
+<span class="n">res</span> <span class="o">=</span> <span class="n">mod</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s">&#39;powell&#39;</span><span class="p">,</span> <span class="n">disp</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">summary</span><span class="p">())</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre>                             Statespace Model Results
+=================================================================================
+Dep. Variable:                    ln_wpi   No. Observations:                  124
+Model:             SARIMAX(1, 1, (1, 4))   Log Likelihood                 386.129
+Date:                   Mon, 21 Sep 2015   AIC                           -762.258
+Time:                           14:49:49   BIC                           -748.157
+Sample:                       01-01-1960   HQIC                          -756.530
+                            - 10-01-1990
+Covariance Type:                     opg
+==============================================================================
+                 coef    std err          z      P&gt;|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+intercept      0.0027      0.002      1.670      0.095      -0.000       0.006
+ar.L1          0.7717      0.095      8.147      0.000       0.586       0.957
+ma.L1         -0.4021      0.126     -3.194      0.001      -0.649      -0.155
+ma.L4          0.3158      0.119      2.647      0.008       0.082       0.550
+sigma2         0.0001   9.74e-06     11.175      0.000    8.97e-05       0.000
+===================================================================================
+Ljung-Box (Q):                       29.37   Jarque-Bera (JB):                44.36
+Prob(Q):                              0.89   Prob(JB):                         0.00
+Heteroskedasticity (H):               2.56   Skew:                             0.29
+Prob(H) (two-sided):                  0.00   Kurtosis:                         5.88
+===================================================================================
+
+Warnings:
+[1] Covariance matrix calculated using the outer product of gradients.
+</pre></div>
+</div>
+</div>
+<div class="section" id="arima-example-3-airline-model">
+<h2>ARIMA Example 3: Airline Model<a class="headerlink" href="#arima-example-3-airline-model" title="Permalink to this headline">¶</a></h2>
+<p>In the previous example, we included a seasonal effect in an <em>additive</em>
+way, meaning that we added a term allowing the process to depend on the
+4th MA lag. It may be instead that we want to model a seasonal effect in
+a multiplicative way. We often write the model then as an ARIMA
+<span class="math">\((p,d,q) \times (P,D,Q)_s\)</span>, where the lowercast letters indicate
+the specification for the non-seasonal component, and the uppercase
+letters indicate the specification for the seasonal component; <span class="math">\(s\)</span>
+is the periodicity of the seasons (e.g. it is often 4 for quarterly data
+or 12 for monthly data). The data process can be written generically as:</p>
+<div class="math">
+\[\phi_p (L) \tilde \phi_P (L^s) \Delta^d \Delta_s^D y_t = A(t) + \theta_q (L) \tilde \theta_Q (L^s) \epsilon_t\]</div>
+<p>where:</p>
+<ul class="simple">
+<li><span class="math">\(\phi_p (L)\)</span> is the non-seasonal autoregressive lag polynomial</li>
+<li><span class="math">\(\tilde \phi_P (L^s)\)</span> is the seasonal autoregressive lag
+polynomial</li>
+<li><span class="math">\(\Delta^d \Delta_s^D y_t\)</span> is the time series, differenced
+<span class="math">\(d\)</span> times, and seasonally differenced <span class="math">\(D\)</span> times.</li>
+<li><span class="math">\(A(t)\)</span> is the trend polynomial (including the intercept)</li>
+<li><span class="math">\(\theta_q (L)\)</span> is the non-seasonal moving average lag
+polynomial</li>
+<li><span class="math">\(\tilde \theta_Q (L^s)\)</span> is the seasonal moving average lag
+polynomial</li>
+</ul>
+<p>sometimes we rewrite this as:</p>
+<div class="math">
+\[\phi_p (L) \tilde \phi_P (L^s) y_t^* = A(t) + \theta_q (L) \tilde \theta_Q (L^s) \epsilon_t\]</div>
+<p>where <span class="math">\(y_t^* = \Delta^d \Delta_s^D y_t\)</span>. This emphasizes that just
+as in the simple case, after we take differences (here both non-seasonal
+and seasonal) to make the data stationary, the resulting model is just
+an ARMA model.</p>
+<p>As an example, consider the airline model ARIMA
+<span class="math">\((2,1,0) \times (1,1,0)_{12}\)</span>, with an intercept. The data process
+can be written in the form above as:</p>
+<div class="math">
+\[(1 - \phi_1 L - \phi_2 L^2) (1 - \tilde \phi_1 L^{12}) \Delta \Delta_{12} y_t = c + \epsilon_t\]</div>
+<p>Here, we have:</p>
+<ul class="simple">
+<li><span class="math">\(\phi_p (L) = (1 - \phi_1 L - \phi_2 L^2)\)</span></li>
+<li><span class="math">\(\tilde \phi_P (L^s) = (1 - \phi_1 L^12)\)</span></li>
+<li><span class="math">\(d = 1, D = 1, s=12\)</span> indicating that <span class="math">\(y_t^*\)</span> is derived
+from <span class="math">\(y_t\)</span> by taking first-differences and then taking 12-th
+differences.</li>
+<li><span class="math">\(A(t) = c\)</span> is the <em>constant</em> trend polynomial (i.e. just an
+intercept)</li>
+<li><span class="math">\(\theta_q (L) = \tilde \theta_Q (L^s) = 1\)</span> (i.e. there is no
+moving average effect)</li>
+</ul>
+<p>It may still be confusing to see the two lag polynomials in front of the
+time-series variable, but notice that we can multiply the lag
+polynomials together to get the following model:</p>
+<div class="math">
+\[(1 - \phi_1 L - \phi_2 L^2 - \tilde \phi_1 L^{12} + \phi_1 \tilde \phi_1 L^{13} + \phi_2 \tilde \phi_1 L^{14} ) y_t^* = c + \epsilon_t\]</div>
+<p>which can be rewritten as:</p>
+<div class="math">
+\[y_t^* = c + \phi_1 y_{t-1}^* + \phi_2 y_{t-2}^* + \tilde \phi_1 y_{t-12}^* - \phi_1 \tilde \phi_1 y_{t-13}^* - \phi_2 \tilde \phi_1 y_{t-14}^* + \epsilon_t\]</div>
+<p>This is similar to the additively seasonal model from example 2, but the
+coefficients in front of the autoregressive lags are actually
+combinations of the underlying seasonal and non-seasonal parameters.</p>
+<p>Specifying the model here is done simply by adding the
+<code class="docutils literal"><span class="pre">seasonal_order</span></code> argument, which accepts a tuple of the form
+<code class="docutils literal"><span class="pre">(Seasonal</span> <span class="pre">AR</span> <span class="pre">specification,</span> <span class="pre">Seasonal</span> <span class="pre">Integration</span> <span class="pre">order,</span> <span class="pre">Seasonal</span> <span class="pre">MA,</span> <span class="pre">Seasonal</span> <span class="pre">periodicity)</span></code>.
+The seasonal AR and MA specifications, as before, can be expressed as a
+maximum polynomial degree or as the lag polynomial itself. Seasonal
+periodicity is an integer.</p>
+<p>For the airline model ARIMA <span class="math">\((2,1,0) \times (1,1,0)_{12}\)</span> with an
+intercept, the command is:</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="n">mod</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">tsa</span><span class="o">.</span><span class="n">statespace</span><span class="o">.</span><span class="n">SARIMAX</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s">&#39;lnair&#39;</span><span class="p">],</span> <span class="n">order</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="n">seasonal_order</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">12</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="c"># Dataset</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_stata</span><span class="p">(</span><span class="s">&#39;data/air2.dta&#39;</span><span class="p">)</span>
+<span class="n">data</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="n">datetime</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">periods</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="n">freq</span><span class="o">=</span><span class="s">&#39;MS&#39;</span><span class="p">)</span>
+<span class="n">data</span><span class="p">[</span><span class="s">&#39;lnair&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s">&#39;air&#39;</span><span class="p">])</span>
+
+<span class="c"># Fit the model</span>
+<span class="n">mod</span> <span class="o">=</span> <span class="n">ssm</span><span class="o">.</span><span class="n">SARIMAX</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s">&#39;lnair&#39;</span><span class="p">],</span> <span class="n">order</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="n">seasonal_order</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">12</span><span class="p">),</span> <span class="n">simple_differencing</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">res</span> <span class="o">=</span> <span class="n">mod</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">summary</span><span class="p">())</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre>                                 Statespace Model Results
+==========================================================================================
+Dep. Variable:                       D.DS12.lnair   No. Observations:                  131
+Model:             SARIMAX(2, 0, 0)x(1, 0, 0, 12)   Log Likelihood                 240.821
+Date:                            Mon, 21 Sep 2015   AIC                           -473.643
+Time:                                    14:49:49   BIC                           -462.142
+Sample:                                01-01-1949   HQIC                          -468.970
+                                     - 12-01-1960
+Covariance Type:                              opg
+==============================================================================
+                 coef    std err          z      P&gt;|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+ar.L1         -0.4057      0.066     -6.141      0.000      -0.535      -0.276
+ar.L2         -0.0799      0.023     -3.468      0.001      -0.125      -0.035
+ar.S.L12      -0.4723      0.064     -7.369      0.000      -0.598      -0.347
+sigma2         0.0014      0.000      8.535      0.000       0.001       0.002
+===================================================================================
+Ljung-Box (Q):                       49.89   Jarque-Bera (JB):                 0.72
+Prob(Q):                              0.14   Prob(JB):                         0.70
+Heteroskedasticity (H):               0.54   Skew:                             0.14
+Prob(H) (two-sided):                  0.04   Kurtosis:                         3.23
+===================================================================================
+
+Warnings:
+[1] Covariance matrix calculated using the outer product of gradients.
+</pre></div>
+</div>
+<p>Notice that here we used an additional argument
+<code class="docutils literal"><span class="pre">simple_differencing=True</span></code>. This controls how the order of integration
+is handled in ARIMA models. If <code class="docutils literal"><span class="pre">simple_differencing=True</span></code>, then the
+time series provided as <code class="docutils literal"><span class="pre">endog</span></code> is literatlly differenced and an ARMA
+model is fit to the resulting new time series. This implies that a
+number of initial periods are lost to the differencing process, however
+it may be necessary either to compare results to other packages (e.g.
+Stata&#8217;s <code class="docutils literal"><span class="pre">arima</span></code> always uses simple differencing) or if the seasonal
+periodicity is large.</p>
+<p>The default is <code class="docutils literal"><span class="pre">simple_differencing=False</span></code>, in which case the
+integration component is implemented as part of the state space
+formulation, and all of the original data can be used in estimation.</p>
+</div>
+<div class="section" id="arima-example-4-armax-friedman">
+<h2>ARIMA Example 4: ARMAX (Friedman)<a class="headerlink" href="#arima-example-4-armax-friedman" title="Permalink to this headline">¶</a></h2>
+<p>This model demonstrates the use of explanatory variables (the X part of
+ARMAX). When exogenous regressors are included, the SARIMAX module uses
+the concept of &#8220;regression with SARIMA errors&#8221; (see
+<a class="reference external" href="http://robjhyndman.com/hyndsight/arimax/">http://robjhyndman.com/hyndsight/arimax/</a> for details of regression with
+ARIMA errors versus alternative specifications), so that the model is
+specified as:</p>
+<div class="math">
+\[\begin{split}y_t = \beta_t x_t + u_t \\
+        \phi_p (L) \tilde \phi_P (L^s) \Delta^d \Delta_s^D u_t = A(t) +
+            \theta_q (L) \tilde \theta_Q (L^s) \epsilon_t\end{split}\]</div>
+<p>Notice that the first equation is just a linear regression, and the
+second equation just describes the process followed by the error
+component as SARIMA (as was described in example 3). One reason for this
+specification is that the estimated parameters have their natural
+interpretations.</p>
+<p>This specification nests many simpler specifications. For example,
+regression with AR(2) errors is:</p>
+<div class="math">
+\[\begin{split}y_t = \beta_t x_t + u_t \\
+(1 - \phi_1 L - \phi_2 L^2) u_t = A(t) + \epsilon_t\end{split}\]</div>
+<p>The model considered in this example is regression with ARMA(1,1)
+errors. The process is then written:</p>
+<div class="math">
+\[\begin{split}\text{consump}_t = \beta_0 + \beta_1 \text{m2}_t + u_t \\
+(1 - \phi_1 L) u_t = (1 - \theta_1 L) \epsilon_t\end{split}\]</div>
+<p>Notice that <span class="math">\(\beta_0\)</span> is, as described in example 1 above, <em>not</em>
+the same thing as an intercept specified by <code class="docutils literal"><span class="pre">trend='c'</span></code>. Whereas in
+the examples above we estimated the intercept of the model via the trend
+polynomial, here, we demonstrate how to estimate <span class="math">\(\beta_0\)</span> itself
+by adding a constant to the exogenous dataset. In the output, the
+<span class="math">\(beta_0\)</span> is called <code class="docutils literal"><span class="pre">const</span></code>, whereas above the intercept
+<span class="math">\(c\)</span> was called <code class="docutils literal"><span class="pre">intercept</span></code> in the output.</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="c"># Dataset</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_stata</span><span class="p">(</span><span class="s">&#39;data/friedman2.dta&#39;</span><span class="p">)</span>
+<span class="n">data</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">time</span>
+
+<span class="c"># Variables</span>
+<span class="n">endog</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">ix</span><span class="p">[</span><span class="s">&#39;1959&#39;</span><span class="p">:</span><span class="s">&#39;1981&#39;</span><span class="p">,</span> <span class="s">&#39;consump&#39;</span><span class="p">]</span>
+<span class="n">exog</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">ix</span><span class="p">[</span><span class="s">&#39;1959&#39;</span><span class="p">:</span><span class="s">&#39;1981&#39;</span><span class="p">,</span> <span class="s">&#39;m2&#39;</span><span class="p">])</span>
+
+<span class="c"># Fit the model</span>
+<span class="n">mod</span> <span class="o">=</span> <span class="n">ssm</span><span class="o">.</span><span class="n">SARIMAX</span><span class="p">(</span><span class="n">endog</span><span class="p">,</span> <span class="n">exog</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+<span class="n">res</span> <span class="o">=</span> <span class="n">mod</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">summary</span><span class="p">())</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre>---------------------------------------------------------------------------
+
+NameError                                 Traceback (most recent call last)
+
+&lt;ipython-input-9-ee4d9b9ad44e&gt; in &lt;module&gt;()
+      5 # Variables
+      6 endog = data.ix[&#39;1959&#39;:&#39;1981&#39;, &#39;consump&#39;]
+----&gt; 7 exog = sm.add_constant(data.ix[&#39;1959&#39;:&#39;1981&#39;, &#39;m2&#39;])
+      8
+      9 # Fit the model
+
+
+NameError: name &#39;sm&#39; is not defined
+</pre></div>
+</div>
+</div>
+<div class="section" id="arima-postestimation-example-1-dynamic-forecasting">
+<h2>ARIMA Postestimation: Example 1 - Dynamic Forecasting<a class="headerlink" href="#arima-postestimation-example-1-dynamic-forecasting" title="Permalink to this headline">¶</a></h2>
+<p>Here we describe some of the post-estimation capabilities of SARIMAX.</p>
+<p>First, using the model from example, we estimate the parameters using
+data that <em>excludes the last few observations</em> (this is a little
+artificial as an example, but it allows considering performance of
+out-of-sample forecasting and facilitates comparison to Stata&#8217;s
+documentation).</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="c"># Dataset</span>
+<span class="n">raw</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_stata</span><span class="p">(</span><span class="s">&#39;data/friedman2.dta&#39;</span><span class="p">)</span>
+<span class="n">raw</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">raw</span><span class="o">.</span><span class="n">time</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">raw</span><span class="o">.</span><span class="n">ix</span><span class="p">[:</span><span class="s">&#39;1981&#39;</span><span class="p">]</span>
+
+<span class="c"># Variables</span>
+<span class="n">endog</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">ix</span><span class="p">[</span><span class="s">&#39;1959&#39;</span><span class="p">:,</span> <span class="s">&#39;consump&#39;</span><span class="p">]</span>
+<span class="n">exog</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">ix</span><span class="p">[</span><span class="s">&#39;1959&#39;</span><span class="p">:,</span> <span class="s">&#39;m2&#39;</span><span class="p">])</span>
+<span class="n">nobs</span> <span class="o">=</span> <span class="n">endog</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="c"># Fit the model</span>
+<span class="n">mod</span> <span class="o">=</span> <span class="n">ssm</span><span class="o">.</span><span class="n">SARIMAX</span><span class="p">(</span><span class="n">endog</span><span class="o">.</span><span class="n">ix</span><span class="p">[:</span><span class="s">&#39;1978-01-01&#39;</span><span class="p">],</span> <span class="n">exog</span><span class="o">=</span><span class="n">exog</span><span class="o">.</span><span class="n">ix</span><span class="p">[:</span><span class="s">&#39;1978-01-01&#39;</span><span class="p">],</span> <span class="n">order</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+<span class="n">fit_res</span> <span class="o">=</span> <span class="n">mod</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="n">fit_res</span><span class="o">.</span><span class="n">summary</span><span class="p">())</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre>---------------------------------------------------------------------------
+
+NameError                                 Traceback (most recent call last)
+
+&lt;ipython-input-10-ed021f3dfdac&gt; in &lt;module&gt;()
+      6 # Variables
+      7 endog = data.ix[&#39;1959&#39;:, &#39;consump&#39;]
+----&gt; 8 exog = sm.add_constant(data.ix[&#39;1959&#39;:, &#39;m2&#39;])
+      9 nobs = endog.shape[0]
+     10
+
+
+NameError: name &#39;sm&#39; is not defined
+</pre></div>
+</div>
+<p>Next, we want to get results for the full dataset but using the
+estimated parameters (on a subset of the data).</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="n">mod</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">tsa</span><span class="o">.</span><span class="n">statespace</span><span class="o">.</span><span class="n">SARIMAX</span><span class="p">(</span><span class="n">endog</span><span class="p">,</span> <span class="n">exog</span><span class="o">=</span><span class="n">exog</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+<span class="n">res</span> <span class="o">=</span> <span class="n">mod</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">fit_res</span><span class="o">.</span><span class="n">params</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre>---------------------------------------------------------------------------
+
+NameError                                 Traceback (most recent call last)
+
+&lt;ipython-input-11-404177711e7b&gt; in &lt;module&gt;()
+----&gt; 1 mod = sm.tsa.statespace.SARIMAX(endog, exog=exog, order=(1,0,1))
+      2 res = mod.filter(fit_res.params)
+
+
+NameError: name &#39;sm&#39; is not defined
+</pre></div>
+</div>
+<p>The <code class="docutils literal"><span class="pre">predict</span></code> command is first applied here to get in-sample
+predictions. We use the <code class="docutils literal"><span class="pre">full_results=True</span></code> argument to allow us to
+calculate confidence intervals (the default output of <code class="docutils literal"><span class="pre">predict</span></code> is
+just the predicted values).</p>
+<p>With no other arguments, <code class="docutils literal"><span class="pre">predict</span></code> returns the one-step-ahead
+in-sample predictions for the entire sample.</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="c"># In-sample one-step-ahead predictions</span>
+<span class="n">predict</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">get_prediction</span><span class="p">()</span>
+<span class="n">predict_ci</span> <span class="o">=</span> <span class="n">predict</span><span class="o">.</span><span class="n">conf_int</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>We can also get <em>dynamic predictions</em>. One-step-ahead prediction uses
+the true values of the endogenous values at each step to predict the
+next in-sample value. Dynamic predictions use one-step-ahead prediction
+up to some point in the dataset (specified by the <code class="docutils literal"><span class="pre">dynamic</span></code> argument);
+after that, the previous <em>predicted</em> endogenous values are used in place
+of the true endogenous values for each new predicted element.</p>
+<p>The <code class="docutils literal"><span class="pre">dynamic</span></code> argument is specified to be an <em>offset</em> relative to the
+<code class="docutils literal"><span class="pre">start</span></code> argument. If <code class="docutils literal"><span class="pre">start</span></code> is not specified, it is assumed to be
+<code class="docutils literal"><span class="pre">0</span></code>.</p>
+<p>Here we perform dynamic prediction starting in the first quarter of
+1978.</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="c"># Dynamic predictions</span>
+<span class="n">predict_dy</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">get_prediction</span><span class="p">(</span><span class="n">dynamic</span><span class="o">=</span><span class="s">&#39;1978-01-01&#39;</span><span class="p">)</span>
+<span class="n">predict_dy_ci</span> <span class="o">=</span> <span class="n">predict_dy</span><span class="o">.</span><span class="n">conf_int</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre>---------------------------------------------------------------------------
+
+ValueError                                Traceback (most recent call last)
+
+&lt;ipython-input-13-1bf0a0656a56&gt; in &lt;module&gt;()
+      1 # Dynamic predictions
+----&gt; 2 predict_dy = res.get_prediction(dynamic=&#39;1978-01-01&#39;)
+      3 predict_dy_ci = predict_dy.conf_int()
+
+
+/Users/fulton/projects/statsmodels/statsmodels/tsa/statespace/mlemodel.pyc in get_prediction(self, start, end, dynamic, **kwargs)
+   1795             except KeyError:
+   1796                 raise ValueError(&quot;Dynamic must be in dates. Got %s | %s&quot; %
+-&gt; 1797                                  (str(dynamic), str(dtdynamic)))
+   1798
+   1799         # Perform the prediction
+
+
+ValueError: Dynamic must be in dates. Got 1978-01-01 | 1978-01-01 00:00:00
+</pre></div>
+</div>
+<p>We can graph the one-step-ahead and dynamic predictions (and the
+corresponding confidence intervals) to see their relative performance.
+Notice that up to the point where dynamic prediction begins (1978:Q1),
+the two are the same.</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="c"># Graph</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+<span class="n">npre</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s">&#39;Personal consumption&#39;</span><span class="p">,</span> <span class="n">xlabel</span><span class="o">=</span><span class="s">&#39;Date&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s">&#39;Billions of dollars&#39;</span><span class="p">)</span>
+
+<span class="c"># Plot data points</span>
+<span class="n">data</span><span class="o">.</span><span class="n">ix</span><span class="p">[</span><span class="s">&#39;1977-07-01&#39;</span><span class="p">:,</span> <span class="s">&#39;consump&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s">&#39;o&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">&#39;Observed&#39;</span><span class="p">)</span>
+
+<span class="c"># Plot predictions</span>
+<span class="n">predict</span><span class="o">.</span><span class="n">predicted_mean</span><span class="o">.</span><span class="n">ix</span><span class="p">[</span><span class="s">&#39;1977-07-01&#39;</span><span class="p">:]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s">&#39;r--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">&#39;One-step-ahead forecast&#39;</span><span class="p">)</span>
+<span class="n">ci</span> <span class="o">=</span> <span class="n">predict_ci</span><span class="o">.</span><span class="n">ix</span><span class="p">[</span><span class="s">&#39;1977-07-01&#39;</span><span class="p">:]</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">ci</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">ci</span><span class="o">.</span><span class="n">ix</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">ci</span><span class="o">.</span><span class="n">ix</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s">&#39;r&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="n">predict_dy</span><span class="o">.</span><span class="n">predicted_mean</span><span class="o">.</span><span class="n">ix</span><span class="p">[</span><span class="s">&#39;1977-07-01&#39;</span><span class="p">:]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s">&#39;g&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">&#39;Dynamic forecast (1978)&#39;</span><span class="p">)</span>
+<span class="n">ci</span> <span class="o">=</span> <span class="n">predict_dy_ci</span><span class="o">.</span><span class="n">ix</span><span class="p">[</span><span class="s">&#39;1977-07-01&#39;</span><span class="p">:]</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">ci</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">ci</span><span class="o">.</span><span class="n">ix</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">ci</span><span class="o">.</span><span class="n">ix</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s">&#39;g&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+
+<span class="n">legend</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s">&#39;lower right&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre>---------------------------------------------------------------------------
+
+TypeError                                 Traceback (most recent call last)
+
+&lt;ipython-input-14-95a397aa477f&gt; in &lt;module&gt;()
+      8
+      9 # Plot predictions
+---&gt; 10 predict.predicted_mean.ix[&#39;1977-07-01&#39;:].plot(ax=ax, style=&#39;r--&#39;, label=&#39;One-step-ahead forecast&#39;)
+     11 ci = predict_ci.ix[&#39;1977-07-01&#39;:]
+     12 ax.fill_between(ci.index, ci.ix[:,0], ci.ix[:,1], color=&#39;r&#39;, alpha=0.1)
+
+
+/Users/fulton/.virtualenvs/default/lib/python2.7/site-packages/pandas-0.16.2-py2.7-macosx-10.9-x86_64.egg/pandas/tools/plotting.pyc in plot_series(data, kind, ax, figsize, use_index, title, grid, legend, style, logx, logy, loglog, xticks, yticks, xlim, ylim, rot, fontsize, colormap, table, yerr, xerr, label, secondary_y, **kwds)
+   2517                  yerr=yerr, xerr=xerr,
+   2518                  label=label, secondary_y=secondary_y,
+-&gt; 2519                  **kwds)
+   2520
+   2521
+
+
+/Users/fulton/.virtualenvs/default/lib/python2.7/site-packages/pandas-0.16.2-py2.7-macosx-10.9-x86_64.egg/pandas/tools/plotting.pyc in _plot(data, x, y, subplots, ax, kind, **kwds)
+   2322         plot_obj = klass(data, subplots=subplots, ax=ax, kind=kind, **kwds)
+   2323
+-&gt; 2324     plot_obj.generate()
+   2325     plot_obj.draw()
+   2326     return plot_obj.result
+
+
+/Users/fulton/.virtualenvs/default/lib/python2.7/site-packages/pandas-0.16.2-py2.7-macosx-10.9-x86_64.egg/pandas/tools/plotting.pyc in generate(self)
+    910     def generate(self):
+    911         self._args_adjust()
+--&gt; 912         self._compute_plot_data()
+    913         self._setup_subplots()
+    914         self._make_plot()
+
+
+/Users/fulton/.virtualenvs/default/lib/python2.7/site-packages/pandas-0.16.2-py2.7-macosx-10.9-x86_64.egg/pandas/tools/plotting.pyc in _compute_plot_data(self)
+   1015         if is_empty:
+   1016             raise TypeError(&#39;Empty {0!r}: no numeric data to &#39;
+-&gt; 1017                             &#39;plot&#39;.format(numeric_data.__class__.__name__))
+   1018
+   1019         self.data = numeric_data
+
+
+TypeError: Empty &#39;DataFrame&#39;: no numeric data to plot
+</pre></div>
+</div>
+<img alt="../../_images/sarimax_stata.ipynb_27_1.png" src="../../_images/sarimax_stata.ipynb_27_1.png" />
+<p>Finally, graph the prediction <em>error</em>. It is obvious that, as one would
+suspect, one-step-ahead prediction is considerably better.</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="c"># Prediction error</span>
+
+<span class="c"># Graph</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+<span class="n">npre</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s">&#39;Forecast error&#39;</span><span class="p">,</span> <span class="n">xlabel</span><span class="o">=</span><span class="s">&#39;Date&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s">&#39;Forecast - Actual&#39;</span><span class="p">)</span>
+
+<span class="c"># In-sample one-step-ahead predictions and 95% confidence intervals</span>
+<span class="n">predict_error</span> <span class="o">=</span> <span class="n">predict</span><span class="o">.</span><span class="n">predicted_mean</span> <span class="o">-</span> <span class="n">endog</span>
+<span class="n">predict_error</span><span class="o">.</span><span class="n">ix</span><span class="p">[</span><span class="s">&#39;1977-10-01&#39;</span><span class="p">:]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">&#39;One-step-ahead forecast&#39;</span><span class="p">)</span>
+<span class="n">ci</span> <span class="o">=</span> <span class="n">predict_ci</span><span class="o">.</span><span class="n">ix</span><span class="p">[</span><span class="s">&#39;1977-10-01&#39;</span><span class="p">:]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">ci</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span> <span class="o">-=</span> <span class="n">endog</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s">&#39;1977-10-01&#39;</span><span class="p">:]</span>
+<span class="n">ci</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span> <span class="o">-=</span> <span class="n">endog</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s">&#39;1977-10-01&#39;</span><span class="p">:]</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">ci</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">ci</span><span class="o">.</span><span class="n">ix</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">ci</span><span class="o">.</span><span class="n">ix</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+
+<span class="c"># Dynamic predictions and 95% confidence intervals</span>
+<span class="n">predict_dy_error</span> <span class="o">=</span> <span class="n">predict_dy</span><span class="o">.</span><span class="n">predicted_mean</span> <span class="o">-</span> <span class="n">endog</span>
+<span class="n">predict_dy_error</span><span class="o">.</span><span class="n">ix</span><span class="p">[</span><span class="s">&#39;1977-10-01&#39;</span><span class="p">:]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s">&#39;r&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">&#39;Dynamic forecast (1978)&#39;</span><span class="p">)</span>
+<span class="n">ci</span> <span class="o">=</span> <span class="n">predict_dy_ci</span><span class="o">.</span><span class="n">ix</span><span class="p">[</span><span class="s">&#39;1977-10-01&#39;</span><span class="p">:]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">ci</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span> <span class="o">-=</span> <span class="n">endog</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s">&#39;1977-10-01&#39;</span><span class="p">:]</span>
+<span class="n">ci</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span> <span class="o">-=</span> <span class="n">endog</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s">&#39;1977-10-01&#39;</span><span class="p">:]</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">ci</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">ci</span><span class="o">.</span><span class="n">ix</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">ci</span><span class="o">.</span><span class="n">ix</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s">&#39;r&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+
+<span class="n">legend</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s">&#39;lower left&#39;</span><span class="p">);</span>
+<span class="n">legend</span><span class="o">.</span><span class="n">get_frame</span><span class="p">()</span><span class="o">.</span><span class="n">set_facecolor</span><span class="p">(</span><span class="s">&#39;w&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre>---------------------------------------------------------------------------
+
+TypeError                                 Traceback (most recent call last)
+
+&lt;ipython-input-15-bb71ad6772cd&gt; in &lt;module&gt;()
+     12 ci.iloc[:,0] -= endog.loc[&#39;1977-10-01&#39;:]
+     13 ci.iloc[:,1] -= endog.loc[&#39;1977-10-01&#39;:]
+---&gt; 14 ax.fill_between(ci.index, ci.ix[:,0], ci.ix[:,1], alpha=0.1)
+     15
+     16 # Dynamic predictions and 95% confidence intervals
+
+
+/Users/fulton/.virtualenvs/default/lib/python2.7/site-packages/matplotlib/axes/_axes.pyc in fill_between(self, x, y1, y2, where, interpolate, **kwargs)
+   4329
+   4330         # Convert the arrays so we can work with them
+-&gt; 4331         x = ma.masked_invalid(self.convert_xunits(x))
+   4332         y1 = ma.masked_invalid(self.convert_yunits(y1))
+   4333         y2 = ma.masked_invalid(self.convert_yunits(y2))
+
+
+/Users/fulton/.virtualenvs/default/lib/python2.7/site-packages/numpy/ma/core.pyc in masked_invalid(a, copy)
+   2242         cls = type(a)
+   2243     else:
+-&gt; 2244         condition = ~(np.isfinite(a))
+   2245         cls = MaskedArray
+   2246     result = a.view(cls)
+
+
+TypeError: ufunc &#39;isfinite&#39; not supported for the input types, and the inputs could not be safely coerced to any supported types according to the casting rule &#39;&#39;safe&#39;&#39;
+</pre></div>
+</div>
+<img alt="../../_images/sarimax_stata.ipynb_29_1.png" src="../../_images/sarimax_stata.ipynb_29_1.png" />
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="local_linear_trend.ipynb.html" class="btn btn-neutral float-right" title="State space modeling: Local Linear Trends" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="sarimax_internet.ipynb.html" class="btn btn-neutral" title="Durbin and Koopman: Box-Jenkins Examples" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Chad Fulton.
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'0.1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -1,0 +1,760 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Detrending, Stylized Facts and the Business Cycle &mdash; DismalPy 0.1.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="author" title="About these documents"
+              href="../../about.html"/>
+    <link rel="top" title="DismalPy 0.1.0 documentation" href="../../index.html"/>
+        <link rel="up" title="State Space Models" href="../ssm.html"/>
+        <link rel="next" title="Dynamic factors and coincident indices" href="dfm_coincident.ipynb.html"/>
+        <link rel="prev" title="State space modeling: Local Linear Trends" href="local_linear_trend.ipynb.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="../../contents.html" class="icon icon-home"> DismalPy
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">DismalPy User Guide</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../ssm.html">State Space Models</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../ssm.html#topics">Topics</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ssm/2-state_space_models.html">State space models</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ssm/3-python_representation.html">Representation in Python</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ssm/4-maximum_likelihood_estimation.html">Maximum Likelihood Estimation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ssm/5-posterior_simulation.html">Posterior Simulation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ssm/6-out-of-the-box_models.html">Out-of-the-box models</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ssm/9-references.html">References</a></li>
+</ul>
+</li>
+<li class="toctree-l3 current"><a class="reference internal" href="../ssm.html#examples">Examples</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="sarimax_internet.ipynb.html">Durbin and Koopman: Box-Jenkins Examples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sarimax_stata.ipynb.html">SARIMAX: Introduction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="local_linear_trend.ipynb.html">State space modeling: Local Linear Trends</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="">Detrending, Stylized Facts and the Business Cycle</a></li>
+<li class="toctree-l4"><a class="reference internal" href="dfm_coincident.ipynb.html">Dynamic factors and coincident indices</a></li>
+<li class="toctree-l4"><a class="reference internal" href="varmax.ipynb.html">VARMAX models</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/index.html">DismalPy Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/ssm.html">State Space Models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/ssm.html#built-in-models">Built-in models</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/ssm/sarimax.html">SARIMAX</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/ssm/structural.html">Unobserved Components</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/ssm/varmax.html">VARMAX</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/ssm/dynamic_factor.html">Dynamic Factors</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/ssm.html#extension-starting-point">Extension starting point</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/ssm/mlemodel.html">MLEModel</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/ssm.html#base-classes">Base classes</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/ssm/representation.html">Representation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/ssm/kalman_filter.html">Kalman filter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/ssm/kalman_smoother.html">Kalman smoother</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/ssm/simulation_smoother.html">Simulation Smoother</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/ssm/model.html">Model</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/ssm/tools.html">Tools</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../release.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../release.html#dismalpy-0-1-0-release-notes">DismalPy 0.1.0 Release Notes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#highlights">Highlights</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#dropped-support">Dropped Support</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#future-changes">Future Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#compatibility-notes">Compatibility notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#new-features">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#improvements">Improvements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#changes">Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#deprecations">Deprecations</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">About DismalPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html#about-this-documentation">About this documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../about.html#conventions">Conventions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../bugs.html">Reporting bugs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">DismalPy License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary.html">Glossary</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../glossary.html#module-dismalpy.doc.jargon">Jargon</a></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../contents.html">DismalPy</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../contents.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../index.html">DismalPy User Guide</a> &raquo;</li>
+      
+          <li><a href="../ssm.html">State Space Models</a> &raquo;</li>
+      
+    <li>Detrending, Stylized Facts and the Business Cycle</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../_sources/user/_notebooks/structural_harvey_jaeger.ipynb.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="detrending-stylized-facts-and-the-business-cycle">
+<h1>Detrending, Stylized Facts and the Business Cycle<a class="headerlink" href="#detrending-stylized-facts-and-the-business-cycle" title="Permalink to this headline">¶</a></h1>
+<p>In an influential article, Harvey and Jaeger (1993) described the use of
+unobserved components models (also known as &#8220;structural time series
+models&#8221;) to derive stylized facts of the business cycle.</p>
+<p>Their paper begins:</p>
+<div class="highlight-python"><div class="highlight"><pre>&quot;Establishing the &#39;stylized facts&#39; associated with a set of time series is widely considered a crucial step
+in macroeconomic research ... For such facts to be useful they should (1) be consistent with the stochastic
+properties of the data and (2) present meaningful information.&quot;
+</pre></div>
+</div>
+<p>In particular, they make the argument that these goals are often better
+met using the unobserved components approach rather than the popular
+Hodrick-Prescott filter or Box-Jenkins ARIMA modeling techniques.</p>
+<p>DismalPy has the ability to perform all three types of analysis, and
+below we follow the steps of their paper, using a slightly updated
+dataset.</p>
+<div class="code python highlight-python"><div class="highlight"><pre>%matplotlib inline
+
+import numpy as np
+import pandas as pd
+import statsmodels.api as sm
+import dismalpy as dp
+import matplotlib.pyplot as plt
+
+from IPython.display import display, Latex
+</pre></div>
+</div>
+<div class="section" id="unobserved-components">
+<h2>Unobserved Components<a class="headerlink" href="#unobserved-components" title="Permalink to this headline">¶</a></h2>
+<p>The unobserved components model available here can be written as:</p>
+<div class="math">
+\[y_t = \underbrace{\mu_{t}}_{\text{trend}} + \underbrace{\gamma_{t}}_{\text{seasonal}} + \underbrace{c_{t}}_{\text{cycle}} + \sum_{j=1}^k \underbrace{\beta_j x_{jt}}_{\text{explanatory}} + \underbrace{\varepsilon_t}_{\text{irregular}}\]</div>
+<p>see Durbin and Koopman 2012, Chapter 3 for notation and additional
+details. Notice that different specifications for the different
+individual components can support a wide range of models. The specific
+models considered in the paper and below are specializations of this
+general equation.</p>
+<div class="section" id="trend">
+<h3>Trend<a class="headerlink" href="#trend" title="Permalink to this headline">¶</a></h3>
+<p>The trend component is a dynamic extension of a regression model that
+includes an intercept and linear time-trend.</p>
+<div class="math">
+\[\begin{split}\begin{align}
+\underbrace{\mu_{t+1}}_{\text{level}} &amp; = \mu_t + \nu_t + \eta_{t+1} \qquad &amp; \eta_{t+1} \sim N(0, \sigma_\eta^2) \\\\
+\underbrace{\nu_{t+1}}_{\text{trend}} &amp; = \nu_t + \zeta_{t+1} &amp; \zeta_{t+1} \sim N(0, \sigma_\zeta^2) \\
+\end{align}\end{split}\]</div>
+<p>where the level is a generalization of the intercept term that can
+dynamically vary across time, and the trend is a generalization of the
+time-trend such that the slope can dynamically vary across time.</p>
+<p>For both elements (level and trend), we can consider models in which:</p>
+<ul class="simple">
+<li>The element is included vs excluded (if the trend is included, there
+must also be a level included).</li>
+<li>The element is deterministic vs stochastic (i.e. whether or not the
+variance on the error term is confined to be zero or not)</li>
+</ul>
+<p>The only additional parameters to be estimated via MLE are the variances
+of any included stochastic components.</p>
+<p>This leads to the following specifications:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="53%" />
+<col width="7%" />
+<col width="7%" />
+<col width="16%" />
+<col width="16%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">&nbsp;</th>
+<th class="head">Level</th>
+<th class="head">Trend</th>
+<th class="head">Stochastic Level</th>
+<th class="head">Stochastic Trend</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Constant</td>
+<td>✓</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>Local Level (random walk)</td>
+<td>✓</td>
+<td>&nbsp;</td>
+<td>✓</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>Deterministic trend</td>
+<td>✓</td>
+<td>✓</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>Local level with deterministic trend (random walk with drift)</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>Local linear trend</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+</tr>
+<tr class="row-odd"><td>Smooth trend (integrated random walk)</td>
+<td>✓</td>
+<td>✓</td>
+<td>&nbsp;</td>
+<td>✓</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="seasonal">
+<h3>Seasonal<a class="headerlink" href="#seasonal" title="Permalink to this headline">¶</a></h3>
+<p>The seasonal component is written as:</p>
+<div class="math">
+\[\gamma_t = - \sum_{j=1}^{s-1} \gamma_{t+1-j} + \omega_t \qquad \omega_t \sim N(0, \sigma_\omega^2)\]</div>
+<p>The periodicity (number of seasons) is <code class="docutils literal"><span class="pre">s</span></code>, and the defining character
+is that (without the error term), the seasonal components sum to zero
+across one complete cycle. The inclusion of an error term allows the
+seasonal effects to vary over time.</p>
+<p>The variants of this model are:</p>
+<ul class="simple">
+<li>The periodicity <code class="docutils literal"><span class="pre">s</span></code></li>
+<li>Whether or not to make the seasonal effects stochastic.</li>
+</ul>
+<p>If the seasonal effect is stochastic, then there is one additional
+parameter to estimate via MLE (the variance of the error term).</p>
+</div>
+<div class="section" id="cycle">
+<h3>Cycle<a class="headerlink" href="#cycle" title="Permalink to this headline">¶</a></h3>
+<p>The cyclical component is intended to capture cyclical effects at time
+frames much longer than captured by the seasonal component. For example,
+in economics the cyclical term is often intended to capture the business
+cycle, and is then expected to have a period between &#8220;1.5 and 12 years&#8221;
+(see Durbin and Koopman).</p>
+<p>The cycle is written as:</p>
+<div class="math">
+\[\begin{split}\begin{align}
+c_{t+1} &amp; = c_t \cos \lambda_c + c_t^* \sin \lambda_c + \tilde \omega_t \qquad &amp; \tilde \omega_t \sim N(0, \sigma_{\tilde \omega}^2) \\\\
+c_{t+1}^* &amp; = -c_t \sin \lambda_c + c_t^* \cos \lambda_c + \tilde \omega_t^* &amp; \tilde \omega_t^* \sim N(0, \sigma_{\tilde \omega}^2)
+\end{align}\end{split}\]</div>
+<p>The parameter <span class="math">\(\lambda_c\)</span> (the frequency of the cycle) is an
+additional parameter to be estimated by MLE. If the seasonal effect is
+stochastic, then there is one another parameter to estimate (the
+variance of the error term - note that both of the error terms here
+share the same variance, but are assumed to have independent draws).</p>
+</div>
+<div class="section" id="irregular">
+<h3>Irregular<a class="headerlink" href="#irregular" title="Permalink to this headline">¶</a></h3>
+<p>The irregular component is assumed to be a white noise error term. Its
+variance is a parameter to be estimated by MLE; i.e.</p>
+<div class="math">
+\[\varepsilon_t \sim N(0, \sigma_\varepsilon^2)\]</div>
+<p>In some cases, we may want to generalize the irregular component to
+allow for autoregressive effects:</p>
+<div class="math">
+\[\varepsilon_t = \rho(L) \varepsilon_{t-1} + \epsilon_t, \qquad \epsilon_t \sim N(0, \sigma_\epsilon^2)\]</div>
+<p>In this case, the autoregressive parameters would also be estimated via
+MLE.</p>
+</div>
+<div class="section" id="regression-effects">
+<h3>Regression effects<a class="headerlink" href="#regression-effects" title="Permalink to this headline">¶</a></h3>
+<p>We may want to allow for explanatory variables by including additional
+terms</p>
+<div class="math">
+\[\sum_{j=1}^k \beta_j x_{jt}\]</div>
+<p>or for intervention effects by including</p>
+<div class="math">
+\[\begin{split}\begin{align}
+\delta w_t \qquad \text{where} \qquad w_t &amp; = 0, \qquad t &lt; \tau, \\\\
+&amp; = 1, \qquad t \ge \tau
+\end{align}\end{split}\]</div>
+<p>These additional parameters could be estimated via MLE or by including
+them as components of the state space formulation.</p>
+</div>
+</div>
+<div class="section" id="data">
+<h2>Data<a class="headerlink" href="#data" title="Permalink to this headline">¶</a></h2>
+<p>Following Harvey and Jaeger, we will consider the following time series:</p>
+<ul class="simple">
+<li>US real GNP, &#8220;output&#8221;,
+(<a class="reference external" href="https://research.stlouisfed.org/fred2/series/GNPC96">GNPC96</a>)</li>
+<li>US GNP implicit price deflator, &#8220;prices&#8221;,
+(<a class="reference external" href="https://research.stlouisfed.org/fred2/series/GNPDEF">GNPDEF</a>)</li>
+<li>US monetary base, &#8220;money&#8221;,
+(<a class="reference external" href="https://research.stlouisfed.org/fred2/series/AMBSL">AMBSL</a>)</li>
+</ul>
+<p>The time frame in the original paper varied across series, but was
+broadly 1954-1989. Below we use data from the period 1948-2008 for all
+series. Although the unobserved components approach allows isolating a
+seasonal component within the model, the series considered in the paper,
+and here, are already seasonally adjusted.</p>
+<p>All data series considered here are taken from <a class="reference external" href="https://research.stlouisfed.org/fred2/">Federal Reserve Economic
+Data (FRED)</a>. Conveniently,
+the Python library <a class="reference external" href="http://pandas.pydata.org/">Pandas</a> has the
+ability to download data from FRED directly.</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="c"># Datasets</span>
+<span class="kn">from</span> <span class="nn">pandas.io.data</span> <span class="kn">import</span> <span class="n">DataReader</span>
+
+<span class="c"># Get the raw data</span>
+<span class="n">start</span> <span class="o">=</span> <span class="s">&#39;1948-01&#39;</span>
+<span class="n">end</span> <span class="o">=</span> <span class="s">&#39;2008-01&#39;</span>
+<span class="n">us_gnp</span> <span class="o">=</span> <span class="n">DataReader</span><span class="p">(</span><span class="s">&#39;GNPC96&#39;</span><span class="p">,</span> <span class="s">&#39;fred&#39;</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="n">end</span><span class="p">)</span>
+<span class="n">us_gnp_deflator</span> <span class="o">=</span> <span class="n">DataReader</span><span class="p">(</span><span class="s">&#39;GNPDEF&#39;</span><span class="p">,</span> <span class="s">&#39;fred&#39;</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="n">end</span><span class="p">)</span>
+<span class="n">us_monetary_base</span> <span class="o">=</span> <span class="n">DataReader</span><span class="p">(</span><span class="s">&#39;AMBSL&#39;</span><span class="p">,</span> <span class="s">&#39;fred&#39;</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="n">end</span><span class="p">)</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s">&#39;QS&#39;</span><span class="p">)</span>
+<span class="n">recessions</span> <span class="o">=</span> <span class="n">DataReader</span><span class="p">(</span><span class="s">&#39;USRECQ&#39;</span><span class="p">,</span> <span class="s">&#39;fred&#39;</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="n">end</span><span class="p">)</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s">&#39;QS&#39;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s">&#39;last&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="c"># Construct the dataframe</span>
+<span class="n">dta</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">,</span> <span class="p">(</span><span class="n">us_gnp</span><span class="p">,</span> <span class="n">us_gnp_deflator</span><span class="p">,</span> <span class="n">us_monetary_base</span><span class="p">)),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">dta</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;US GNP&#39;</span><span class="p">,</span><span class="s">&#39;US Prices&#39;</span><span class="p">,</span><span class="s">&#39;US monetary base&#39;</span><span class="p">]</span>
+<span class="n">dates</span> <span class="o">=</span> <span class="n">dta</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">_mpl_repr</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>To get a sense of these three variables over the timeframe, we can plot
+them:</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="c"># Plot the data</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">dta</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">13</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+<span class="n">ylim</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_ylim</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">dates</span><span class="p">,</span> <span class="n">ylim</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="mf">1e-5</span><span class="p">,</span> <span class="n">ylim</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="mf">1e-5</span><span class="p">,</span> <span class="n">recessions</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s">&#39;k&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">);</span>
+</pre></div>
+</div>
+<img alt="../../_images/structural_harvey_jaeger.ipynb_6_0.png" src="../../_images/structural_harvey_jaeger.ipynb_6_0.png" />
+</div>
+<div class="section" id="model">
+<h2>Model<a class="headerlink" href="#model" title="Permalink to this headline">¶</a></h2>
+<p>Since the data is already seasonally adjusted and there are no obvious
+explanatory variables, the generic model considered is:</p>
+<div class="math">
+\[y_t = \underbrace{\mu_{t}}_{\text{trend}} + \underbrace{c_{t}}_{\text{cycle}} + \underbrace{\varepsilon_t}_{\text{irregular}}\]</div>
+<p>The irregular will be assumed to be white noise, and the cycle will be
+stochastic and damped. The final modeling choice is the specification to
+use for the trend component. Harvey and Jaeger consider two models:</p>
+<ol class="arabic simple">
+<li>Local linear trend (the &#8220;unrestricted&#8221; model)</li>
+<li>Smooth trend (the &#8220;restricted&#8221; model, since we are forcing
+<span class="math">\(\sigma_\eta = 0\)</span>)</li>
+</ol>
+<p>Below, we construct <code class="docutils literal"><span class="pre">kwargs</span></code> dictionaries for each of these model
+types. Notice that rather that there are two ways to specify the models.
+One way is to specify components directly, as in the table above. The
+other way is to use string names which map to various specifications.</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="c"># Model specifications</span>
+
+<span class="c"># Unrestricted model, using string specification</span>
+<span class="n">unrestricted_model</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">&#39;level&#39;</span><span class="p">:</span> <span class="s">&#39;local linear trend&#39;</span><span class="p">,</span> <span class="s">&#39;cycle&#39;</span><span class="p">:</span> <span class="bp">True</span><span class="p">,</span> <span class="s">&#39;damped_cycle&#39;</span><span class="p">:</span> <span class="bp">True</span><span class="p">,</span> <span class="s">&#39;stochastic_cycle&#39;</span><span class="p">:</span> <span class="bp">True</span>
+<span class="p">}</span>
+
+<span class="c"># Unrestricted model, setting components directly</span>
+<span class="c"># This is an equivalent, but less convenient, way to specify a</span>
+<span class="c"># local linear trend model with a stochastic damped cycle:</span>
+<span class="c"># unrestricted_model = {</span>
+<span class="c">#     &#39;irregular&#39;: True, &#39;level&#39;: True, &#39;stochastic_level&#39;: True, &#39;trend&#39;: True, &#39;stochastic_trend&#39;: True,</span>
+<span class="c">#     &#39;cycle&#39;: True, &#39;damped_cycle&#39;: True, &#39;stochastic_cycle&#39;: True</span>
+<span class="c"># }</span>
+
+<span class="c"># The restricted model forces a smooth trend</span>
+<span class="n">restricted_model</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">&#39;level&#39;</span><span class="p">:</span> <span class="s">&#39;smooth trend&#39;</span><span class="p">,</span> <span class="s">&#39;cycle&#39;</span><span class="p">:</span> <span class="bp">True</span><span class="p">,</span> <span class="s">&#39;damped_cycle&#39;</span><span class="p">:</span> <span class="bp">True</span><span class="p">,</span> <span class="s">&#39;stochastic_cycle&#39;</span><span class="p">:</span> <span class="bp">True</span>
+<span class="p">}</span>
+
+<span class="c"># Restricted model, setting components directly</span>
+<span class="c"># This is an equivalent, but less convenient, way to specify a</span>
+<span class="c"># smooth trend model with a stochastic damped cycle. Notice</span>
+<span class="c"># that the difference from the local linear trend model is that</span>
+<span class="c"># `stochastic_level=False` here.</span>
+<span class="c"># unrestricted_model = {</span>
+<span class="c">#     &#39;irregular&#39;: True, &#39;level&#39;: True, &#39;stochastic_level&#39;: False, &#39;trend&#39;: True, &#39;stochastic_trend&#39;: True,</span>
+<span class="c">#     &#39;cycle&#39;: True, &#39;damped_cycle&#39;: True, &#39;stochastic_cycle&#39;: True</span>
+<span class="c"># }</span>
+</pre></div>
+</div>
+<p>We now fit the following models:</p>
+<ol class="arabic simple">
+<li>Output, unrestricted model</li>
+<li>Prices, unrestricted model</li>
+<li>Prices, restricted model</li>
+<li>Money, unrestricted model</li>
+<li>Money, restricted model</li>
+</ol>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="c"># Output</span>
+<span class="n">output_mod</span> <span class="o">=</span> <span class="n">dp</span><span class="o">.</span><span class="n">ssm</span><span class="o">.</span><span class="n">UnobservedComponents</span><span class="p">(</span><span class="n">dta</span><span class="p">[</span><span class="s">&#39;US GNP&#39;</span><span class="p">],</span> <span class="o">**</span><span class="n">unrestricted_model</span><span class="p">)</span>
+<span class="n">output_res</span> <span class="o">=</span> <span class="n">output_mod</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s">&#39;powell&#39;</span><span class="p">,</span> <span class="n">disp</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+
+<span class="c"># Prices</span>
+<span class="n">prices_mod</span> <span class="o">=</span> <span class="n">dp</span><span class="o">.</span><span class="n">ssm</span><span class="o">.</span><span class="n">UnobservedComponents</span><span class="p">(</span><span class="n">dta</span><span class="p">[</span><span class="s">&#39;US Prices&#39;</span><span class="p">],</span> <span class="o">**</span><span class="n">unrestricted_model</span><span class="p">)</span>
+<span class="n">prices_res</span> <span class="o">=</span> <span class="n">prices_mod</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s">&#39;powell&#39;</span><span class="p">,</span> <span class="n">disp</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+
+<span class="n">prices_restricted_mod</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">tsa</span><span class="o">.</span><span class="n">UnobservedComponents</span><span class="p">(</span><span class="n">dta</span><span class="p">[</span><span class="s">&#39;US Prices&#39;</span><span class="p">],</span> <span class="o">**</span><span class="n">restricted_model</span><span class="p">)</span>
+<span class="n">prices_restricted_res</span> <span class="o">=</span> <span class="n">prices_restricted_mod</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s">&#39;powell&#39;</span><span class="p">,</span> <span class="n">disp</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+
+<span class="c"># Money</span>
+<span class="n">money_mod</span> <span class="o">=</span> <span class="n">dp</span><span class="o">.</span><span class="n">ssm</span><span class="o">.</span><span class="n">UnobservedComponents</span><span class="p">(</span><span class="n">dta</span><span class="p">[</span><span class="s">&#39;US monetary base&#39;</span><span class="p">],</span> <span class="o">**</span><span class="n">unrestricted_model</span><span class="p">)</span>
+<span class="n">money_res</span> <span class="o">=</span> <span class="n">money_mod</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s">&#39;powell&#39;</span><span class="p">,</span> <span class="n">disp</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+
+<span class="n">money_restricted_mod</span> <span class="o">=</span> <span class="n">dp</span><span class="o">.</span><span class="n">ssm</span><span class="o">.</span><span class="n">UnobservedComponents</span><span class="p">(</span><span class="n">dta</span><span class="p">[</span><span class="s">&#39;US monetary base&#39;</span><span class="p">],</span> <span class="o">**</span><span class="n">restricted_model</span><span class="p">)</span>
+<span class="n">money_restricted_res</span> <span class="o">=</span> <span class="n">money_restricted_mod</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s">&#39;powell&#39;</span><span class="p">,</span> <span class="n">disp</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Once we have fit these models, there are a variety of ways to display
+the information. Looking at the model of US GNP, we can summarize the
+fit of the model using the <code class="docutils literal"><span class="pre">summary</span></code> method on the fit object.</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="k">print</span><span class="p">(</span><span class="n">output_res</span><span class="o">.</span><span class="n">summary</span><span class="p">())</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre>                            Unobserved Components Results
+=====================================================================================
+Dep. Variable:                        US GNP   No. Observations:                  241
+Model:                    local linear trend   Log Likelihood                 770.165
+                   + damped stochastic cycle   AIC                          -1528.329
+Date:                       Mon, 21 Sep 2015   BIC                          -1507.420
+Time:                               14:49:58   HQIC                         -1519.905
+Sample:                           01-01-1948
+                                - 01-01-2008
+Covariance Type:                         opg
+====================================================================================
+                       coef    std err          z      P&gt;|z|      [0.025      0.975]
+------------------------------------------------------------------------------------
+sigma2.irregular  4.726e-08   7.25e-06      0.007      0.995   -1.42e-05    1.43e-05
+sigma2.level      7.366e-06   4.93e-05      0.149      0.881   -8.93e-05       0.000
+sigma2.trend      3.004e-06   1.43e-06      2.102      0.036    2.03e-07     5.8e-06
+sigma2.cycle      3.834e-05   2.55e-05      1.504      0.133   -1.16e-05    8.83e-05
+frequency.cycle      0.4545      0.049      9.288      0.000       0.359       0.550
+damping.cycle        0.8639      0.043     20.238      0.000       0.780       0.948
+===================================================================================
+Ljung-Box (Q):                       40.32   Jarque-Bera (JB):                 9.87
+Prob(Q):                              0.46   Prob(JB):                         0.01
+Heteroskedasticity (H):               0.27   Skew:                            -0.04
+Prob(H) (two-sided):                  0.00   Kurtosis:                         4.00
+===================================================================================
+
+Warnings:
+[1] Covariance matrix calculated using the outer product of gradients.
+</pre></div>
+</div>
+<p>For unobserved components models, and in particular when exploring
+stylized facts in line with point (2) from the introduction, it is often
+more instructive to plot the estimated unobserved components (e.g. the
+level, trend, and cycle) themselves to see if they provide a meaningful
+description of the data.</p>
+<p>The <code class="docutils literal"><span class="pre">plot_components</span></code> method of the fit object can be used to show
+plots and confidence intervals of each of the estimated states, as well
+as a plot of the observed data versus the one-step-ahead predictions of
+the model to assess fit.</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="n">fig</span> <span class="o">=</span> <span class="n">output_res</span><span class="o">.</span><span class="n">plot_components</span><span class="p">(</span><span class="n">legend_loc</span><span class="o">=</span><span class="s">&#39;lower right&#39;</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">9</span><span class="p">));</span>
+</pre></div>
+</div>
+<img alt="../../_images/structural_harvey_jaeger.ipynb_14_0.png" src="../../_images/structural_harvey_jaeger.ipynb_14_0.png" />
+<p>Harvey and Jaeger summarize the models in another way to highlight the
+relative importances of the trend and cyclical components; below we
+replicate their Table I. The values we find are broadly consistent with,
+but different in the particulars from, the values from their table.</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="c"># Create Table I</span>
+<span class="n">table_i</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+
+<span class="n">start</span> <span class="o">=</span> <span class="n">dta</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">end</span> <span class="o">=</span> <span class="n">dta</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">time_range</span> <span class="o">=</span> <span class="s">&#39;</span><span class="si">%d</span><span class="s">:</span><span class="si">%d</span><span class="s">-</span><span class="si">%d</span><span class="s">:</span><span class="si">%d</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">start</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="n">start</span><span class="o">.</span><span class="n">quarter</span><span class="p">,</span> <span class="n">end</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="n">end</span><span class="o">.</span><span class="n">quarter</span><span class="p">)</span>
+<span class="n">models</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s">&#39;US GNP&#39;</span><span class="p">,</span> <span class="n">time_range</span><span class="p">,</span> <span class="s">&#39;None&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&#39;US Prices&#39;</span><span class="p">,</span> <span class="n">time_range</span><span class="p">,</span> <span class="s">&#39;None&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&#39;US Prices&#39;</span><span class="p">,</span> <span class="n">time_range</span><span class="p">,</span> <span class="s">r&#39;$\sigma_\eta^2 = 0$&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&#39;US monetary base&#39;</span><span class="p">,</span> <span class="n">time_range</span><span class="p">,</span> <span class="s">&#39;None&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&#39;US monetary base&#39;</span><span class="p">,</span> <span class="n">time_range</span><span class="p">,</span> <span class="s">r&#39;$\sigma_\eta^2 = 0$&#39;</span><span class="p">),</span>
+<span class="p">]</span>
+<span class="n">index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">MultiIndex</span><span class="o">.</span><span class="n">from_tuples</span><span class="p">(</span><span class="n">models</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;Series&#39;</span><span class="p">,</span> <span class="s">&#39;Time range&#39;</span><span class="p">,</span> <span class="s">&#39;Restrictions&#39;</span><span class="p">])</span>
+<span class="n">parameter_symbols</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s">r&#39;$\sigma_\zeta^2$&#39;</span><span class="p">,</span> <span class="s">r&#39;$\sigma_\eta^2$&#39;</span><span class="p">,</span> <span class="s">r&#39;$\sigma_\kappa^2$&#39;</span><span class="p">,</span> <span class="s">r&#39;$\rho$&#39;</span><span class="p">,</span>
+    <span class="s">r&#39;$2 \pi / \lambda_c$&#39;</span><span class="p">,</span> <span class="s">r&#39;$\sigma_\varepsilon^2$&#39;</span><span class="p">,</span>
+<span class="p">]</span>
+
+<span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">res</span> <span class="ow">in</span> <span class="p">(</span><span class="n">output_res</span><span class="p">,</span> <span class="n">prices_res</span><span class="p">,</span> <span class="n">prices_restricted_res</span><span class="p">,</span> <span class="n">money_res</span><span class="p">,</span> <span class="n">money_restricted_res</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">res</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">stochastic_level</span><span class="p">:</span>
+        <span class="p">(</span><span class="n">sigma_irregular</span><span class="p">,</span> <span class="n">sigma_level</span><span class="p">,</span> <span class="n">sigma_trend</span><span class="p">,</span>
+         <span class="n">sigma_cycle</span><span class="p">,</span> <span class="n">frequency_cycle</span><span class="p">,</span> <span class="n">damping_cycle</span><span class="p">)</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">params</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="p">(</span><span class="n">sigma_irregular</span><span class="p">,</span> <span class="n">sigma_level</span><span class="p">,</span>
+         <span class="n">sigma_cycle</span><span class="p">,</span> <span class="n">frequency_cycle</span><span class="p">,</span> <span class="n">damping_cycle</span><span class="p">)</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">params</span>
+        <span class="n">sigma_trend</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+    <span class="n">period_cycle</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="n">frequency_cycle</span>
+
+    <span class="n">table_i</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">sigma_level</span><span class="o">*</span><span class="mf">1e7</span><span class="p">,</span> <span class="n">sigma_trend</span><span class="o">*</span><span class="mf">1e7</span><span class="p">,</span>
+        <span class="n">sigma_cycle</span><span class="o">*</span><span class="mf">1e7</span><span class="p">,</span> <span class="n">damping_cycle</span><span class="p">,</span> <span class="n">period_cycle</span><span class="p">,</span>
+        <span class="n">sigma_irregular</span><span class="o">*</span><span class="mf">1e7</span>
+    <span class="p">]</span>
+    <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+
+<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s">&#39;float_format&#39;</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="s">&#39;</span><span class="si">%.4g</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">else</span> <span class="s">&#39;-&#39;</span><span class="p">)</span>
+<span class="n">table_i</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">table_i</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">index</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">parameter_symbols</span><span class="p">)</span>
+<span class="n">table_i</span>
+</pre></div>
+</div>
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th></th>
+      <th>$\sigma_\zeta^2$</th>
+      <th>$\sigma_\eta^2$</th>
+      <th>$\sigma_\kappa^2$</th>
+      <th>$\rho$</th>
+      <th>$2 \pi / \lambda_c$</th>
+      <th>$\sigma_\varepsilon^2$</th>
+    </tr>
+    <tr>
+      <th>Series</th>
+      <th>Time range</th>
+      <th>Restrictions</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>US GNP</th>
+      <th>1948:1-2008:1</th>
+      <th>None</th>
+      <td>73.66</td>
+      <td>30.04</td>
+      <td>383.4</td>
+      <td>0.86</td>
+      <td>13.82</td>
+      <td>0.47</td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">US Prices</th>
+      <th rowspan="2" valign="top">1948:1-2008:1</th>
+      <th>None</th>
+      <td>40.65</td>
+      <td>31.62</td>
+      <td>0.09</td>
+      <td>0.93</td>
+      <td>10.05</td>
+      <td>10.74</td>
+    </tr>
+    <tr>
+      <th>$\sigma_\eta^2 = 0$</th>
+      <td>54.41</td>
+      <td>-</td>
+      <td>0.05</td>
+      <td>0.92</td>
+      <td>9.86</td>
+      <td>19.86</td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">US monetary base</th>
+      <th rowspan="2" valign="top">1948:1-2008:1</th>
+      <th>None</th>
+      <td>61.68</td>
+      <td>18.94</td>
+      <td>198.1</td>
+      <td>0.89</td>
+      <td>23.26</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>$\sigma_\eta^2 = 0$</th>
+      <td>19.48</td>
+      <td>-</td>
+      <td>245</td>
+      <td>0.88</td>
+      <td>23.5</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+</div><p>Finally, Harvey and Jaeger compare the smoothed cyclical component to
+the output of the HP-filter. In contrast to their results (see for
+example figures 4(a) and 4(b)), we find that the cyclical component from
+the unobserved components model is quite similar to the output from the
+HP filter.</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="n">cycle</span><span class="p">,</span> <span class="n">trend</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">tsa</span><span class="o">.</span><span class="n">filters</span><span class="o">.</span><span class="n">hpfilter</span><span class="p">(</span><span class="n">dta</span><span class="p">[</span><span class="s">&#39;US monetary base&#39;</span><span class="p">])</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">13</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">dta</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">money_restricted_res</span><span class="o">.</span><span class="n">cycle</span><span class="o">.</span><span class="n">smoothed</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">&#39;Cycle (smoothed)&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s">&#39;upper left&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">cycle</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">cycle</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">&#39;Cycle (HP filter)&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s">&#39;upper left&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<img alt="../../_images/structural_harvey_jaeger.ipynb_18_0.png" src="../../_images/structural_harvey_jaeger.ipynb_18_0.png" />
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="dfm_coincident.ipynb.html" class="btn btn-neutral float-right" title="Dynamic factors and coincident indices" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="local_linear_trend.ipynb.html" class="btn btn-neutral" title="State space modeling: Local Linear Trends" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Chad Fulton.
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'0.1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

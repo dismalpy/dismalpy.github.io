@@ -1,0 +1,710 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>dismalpy.ssm.simulation_smoother &mdash; DismalPy 0.1.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="author" title="About these documents"
+              href="../../../about.html"/>
+    <link rel="top" title="DismalPy 0.1.0 documentation" href="../../../index.html"/>
+        <link rel="up" title="Module code" href="../../index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="../../../contents.html" class="icon icon-home"> DismalPy
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../user/index.html">DismalPy User Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/ssm.html">State Space Models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/ssm.html#topics">Topics</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/ssm/2-state_space_models.html">State space models</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/ssm/3-python_representation.html">Representation in Python</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/ssm/4-maximum_likelihood_estimation.html">Maximum Likelihood Estimation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/ssm/5-posterior_simulation.html">Posterior Simulation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/ssm/6-out-of-the-box_models.html">Out-of-the-box models</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/ssm/9-references.html">References</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/ssm.html#examples">Examples</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/_notebooks/sarimax_internet.ipynb.html">Durbin and Koopman: Box-Jenkins Examples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/_notebooks/sarimax_stata.ipynb.html">SARIMAX: Introduction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/_notebooks/local_linear_trend.ipynb.html">State space modeling: Local Linear Trends</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/_notebooks/structural_harvey_jaeger.ipynb.html">Detrending, Stylized Facts and the Business Cycle</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/_notebooks/dfm_coincident.ipynb.html">Dynamic factors and coincident indices</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/_notebooks/varmax.ipynb.html">VARMAX models</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../reference/index.html">DismalPy Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/ssm.html">State Space Models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/ssm.html#built-in-models">Built-in models</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../reference/ssm/sarimax.html">SARIMAX</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../reference/ssm/structural.html">Unobserved Components</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../reference/ssm/varmax.html">VARMAX</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../reference/ssm/dynamic_factor.html">Dynamic Factors</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/ssm.html#extension-starting-point">Extension starting point</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../reference/ssm/mlemodel.html">MLEModel</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/ssm.html#base-classes">Base classes</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../reference/ssm/representation.html">Representation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../reference/ssm/kalman_filter.html">Kalman filter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../reference/ssm/kalman_smoother.html">Kalman smoother</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../reference/ssm/simulation_smoother.html">Simulation Smoother</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../reference/ssm/model.html">Model</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../reference/ssm/tools.html">Tools</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../release.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#dismalpy-0-2-0-release-notes">DismalPy 0.2.0 Release Notes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#highlights">Highlights</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#dismalpy-0-1-0-release-notes">DismalPy 0.1.0 Release Notes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id1">Highlights</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#dropped-support">Dropped Support</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#future-changes">Future Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#compatibility-notes">Compatibility notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#new-features">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#improvements">Improvements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#changes">Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#deprecations">Deprecations</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../about.html">About DismalPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../about.html#about-this-documentation">About this documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../about.html#conventions">Conventions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../bugs.html">Reporting bugs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../license.html">DismalPy License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../glossary.html">Glossary</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../glossary.html#module-dismalpy.doc.jargon">Jargon</a></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../contents.html">DismalPy</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../contents.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      
+    <li>dismalpy.ssm.simulation_smoother</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <h1>Source code for dismalpy.ssm.simulation_smoother</h1><div class="highlight"><pre>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">State Space Representation, Kalman Filter, Smoother, and Simulation Smoother</span>
+
+<span class="sd">Author: Chad Fulton</span>
+<span class="sd">License: Simplified-BSD</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">division</span><span class="p">,</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">print_function</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">.kalman_smoother</span> <span class="kn">import</span> <span class="n">KalmanSmoother</span>
+<span class="kn">from</span> <span class="nn">.tools</span> <span class="kn">import</span> <span class="n">prefix_simulation_smoother_map</span>
+
+<span class="n">SIMULATION_STATE</span> <span class="o">=</span> <span class="mh">0x01</span>
+<span class="n">SIMULATION_DISTURBANCE</span> <span class="o">=</span> <span class="mh">0x04</span>
+<span class="n">SIMULATION_ALL</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">SIMULATION_STATE</span> <span class="o">|</span> <span class="n">SIMULATION_DISTURBANCE</span>
+<span class="p">)</span>
+
+<div class="viewcode-block" id="SimulationSmoother"><a class="viewcode-back" href="../../../reference/ssm/simulation_smoother.html#dismalpy.ssm.simulation_smoother.SimulationSmoother">[docs]</a><span class="k">class</span> <span class="nc">SimulationSmoother</span><span class="p">(</span><span class="n">KalmanSmoother</span><span class="p">):</span>
+    <span class="sd">r&quot;&quot;&quot;</span>
+<span class="sd">    State space representation of a time series process, with Kalman filter</span>
+<span class="sd">    and smoother, and with simulation smoother.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    k_endog : array_like or integer</span>
+<span class="sd">        The observed time-series process :math:`y` if array like or the</span>
+<span class="sd">        number of variables in the process if an integer.</span>
+<span class="sd">    k_states : int</span>
+<span class="sd">        The dimension of the unobserved state process.</span>
+<span class="sd">    k_posdef : int, optional</span>
+<span class="sd">        The dimension of a guaranteed positive definite covariance matrix</span>
+<span class="sd">        describing the shocks in the measurement equation. Must be less than</span>
+<span class="sd">        or equal to `k_states`. Default is `k_states`.</span>
+<span class="sd">    simulation_smooth_results_class : class, optional</span>
+<span class="sd">        Default results class to use to save output of simulation smoothing.</span>
+<span class="sd">        Default is `SimulationSmoothResults`. If specified, class must extend</span>
+<span class="sd">        from `SimulationSmoothResults`.</span>
+<span class="sd">    **kwargs</span>
+<span class="sd">        Keyword arguments may be used to provide default values for state space</span>
+<span class="sd">        matrices, for Kalman filtering options, for Kalman smoothing</span>
+<span class="sd">        options, or for Simulation smoothing options.</span>
+<span class="sd">        See `Representation`, `KalmanFilter`, and `KalmanSmoother` for more</span>
+<span class="sd">        details.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">simulation_outputs</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s">&#39;simulate_state&#39;</span><span class="p">,</span> <span class="s">&#39;simulate_disturbance&#39;</span><span class="p">,</span> <span class="s">&#39;simulate_all&#39;</span>
+    <span class="p">]</span>
+    
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k_endog</span><span class="p">,</span> <span class="n">k_states</span><span class="p">,</span> <span class="n">k_posdef</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                 <span class="n">simulation_smooth_results_class</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">SimulationSmoother</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span>
+            <span class="n">k_endog</span><span class="p">,</span> <span class="n">k_states</span><span class="p">,</span> <span class="n">k_posdef</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+        <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">simulation_smooth_results_class</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">simulation_smooth_results_class</span> <span class="o">=</span> <span class="n">SimulationSmoothResults</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">simulation_smooth_results_class</span> <span class="o">=</span> <span class="n">simulation_smooth_results_class</span>
+
+        <span class="c"># Holder for an model-level simulation smoother objects, to use in</span>
+        <span class="c"># simulating new time series.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_simulators</span> <span class="o">=</span> <span class="p">{}</span>
+
+<div class="viewcode-block" id="SimulationSmoother.get_simulation_output"><a class="viewcode-back" href="../../../reference/ssm/simulation_smoother.html#dismalpy.ssm.simulation_smoother.SimulationSmoother.get_simulation_output">[docs]</a>    <span class="k">def</span> <span class="nf">get_simulation_output</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">simulation_output</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                              <span class="n">simulate_state</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">simulate_disturbance</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                              <span class="n">simulate_all</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">r&quot;&quot;&quot;</span>
+<span class="sd">        Get simulation output bitmask</span>
+
+<span class="sd">        Helper method to get final simulation output bitmask from a set of</span>
+<span class="sd">        optional arguments including the bitmask itself and possibly boolean</span>
+<span class="sd">        flags.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        simulation_output : integer, optional</span>
+<span class="sd">            Simulation output bitmask. If this is specified, it is simply</span>
+<span class="sd">            returned and the other arguments are ignored.</span>
+<span class="sd">        simulate_state : boolean, optional</span>
+<span class="sd">            Whether or not to include the state in the simulation output.</span>
+<span class="sd">        simulate_disturbance : boolean, optional</span>
+<span class="sd">            Whether or not to include the state and observation disturbances</span>
+<span class="sd">            in the simulation output.</span>
+<span class="sd">        simulate_all : boolean, optional</span>
+<span class="sd">            Whether or not to include all simulation output.</span>
+<span class="sd">        \*\*kwargs</span>
+<span class="sd">            Additional keyword arguments. Present so that calls to this method</span>
+<span class="sd">            can use \*\*kwargs without clearing out additional arguments.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c"># If we don&#39;t explicitly have simulation_output, try to get it from</span>
+        <span class="c"># kwargs</span>
+        <span class="k">if</span> <span class="n">simulation_output</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">simulation_output</span> <span class="o">=</span> <span class="mi">0</span>
+
+            <span class="k">if</span> <span class="n">simulate_state</span> <span class="o">==</span> <span class="bp">True</span><span class="p">:</span>
+                <span class="n">simulation_output</span> <span class="o">|=</span> <span class="n">SIMULATION_STATE</span>
+            <span class="k">if</span> <span class="n">simulate_disturbance</span> <span class="o">==</span> <span class="bp">True</span><span class="p">:</span>
+                <span class="n">simulation_output</span> <span class="o">|=</span> <span class="n">SIMULATION_DISTURBANCE</span>
+            <span class="k">if</span> <span class="n">simulate_all</span> <span class="o">==</span> <span class="bp">True</span><span class="p">:</span>
+                <span class="n">simulation_output</span> <span class="o">|=</span> <span class="n">SIMULATION_ALL</span>
+
+            <span class="c"># Handle case of no information in kwargs</span>
+            <span class="k">if</span> <span class="n">simulation_output</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+
+                <span class="c"># If some arguments were passed, but we still don&#39;t have any</span>
+                <span class="c"># simulation output, raise an exception</span>
+                <span class="n">argument_set</span> <span class="o">=</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">([</span>
+                    <span class="n">simulate_state</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">,</span> <span class="n">simulate_disturbance</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">,</span>
+                    <span class="n">simulate_all</span> <span class="ow">is</span> <span class="bp">None</span>
+                <span class="p">])</span>
+                <span class="k">if</span> <span class="n">argument_set</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Invalid simulation output options:&quot;</span>
+                                     <span class="s">&quot; given options would result in no&quot;</span>
+                                     <span class="s">&quot; output.&quot;</span><span class="p">)</span>
+
+                <span class="c"># Otherwise set simulation output to be the same as smoother</span>
+                <span class="c"># output</span>
+                <span class="n">simulation_output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">smoother_output</span>
+
+        <span class="k">return</span> <span class="n">simulation_output</span>
+</div>
+    <span class="k">def</span> <span class="nf">_simulate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nsimulations</span><span class="p">,</span> <span class="n">measurement_shocks</span><span class="p">,</span> <span class="n">state_shocks</span><span class="p">,</span>
+                  <span class="n">initial_state</span><span class="p">):</span>
+        
+        <span class="n">prefix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">prefix</span>
+
+        <span class="c"># Create the simulator if necessary</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">prefix</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_simulators</span> <span class="ow">or</span>
+                <span class="n">nsimulations</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_simulators</span><span class="p">[</span><span class="n">prefix</span><span class="p">]</span><span class="o">.</span><span class="n">nobs</span><span class="p">):</span>
+
+            <span class="c"># Make sure we have the required Statespace representation</span>
+            <span class="n">prefix</span><span class="p">,</span> <span class="n">dtype</span><span class="p">,</span> <span class="n">create_statespace</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_initialize_representation</span><span class="p">()</span>
+
+            <span class="c"># Initialize the state</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_initialize_state</span><span class="p">(</span><span class="n">prefix</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">prefix</span><span class="p">)</span>
+
+            <span class="n">simulation_output</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="c"># Kalman smoother parameters</span>
+            <span class="n">smoother_output</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+            <span class="c"># Kalman filter parameters</span>
+            <span class="n">filter_method</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">filter_method</span>
+            <span class="n">inversion_method</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">inversion_method</span>
+            <span class="n">stability_method</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">stability_method</span>
+            <span class="n">conserve_memory</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conserve_memory</span>
+            <span class="n">loglikelihood_burn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">loglikelihood_burn</span>
+            <span class="n">tolerance</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tolerance</span>
+
+            <span class="c"># Create a new simulation smoother object</span>
+            <span class="n">cls</span> <span class="o">=</span> <span class="n">prefix_simulation_smoother_map</span><span class="p">[</span><span class="n">prefix</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_simulators</span><span class="p">[</span><span class="n">prefix</span><span class="p">]</span> <span class="o">=</span> <span class="n">cls</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_statespaces</span><span class="p">[</span><span class="n">prefix</span><span class="p">],</span>
+                <span class="n">filter_method</span><span class="p">,</span> <span class="n">inversion_method</span><span class="p">,</span> <span class="n">stability_method</span><span class="p">,</span> <span class="n">conserve_memory</span><span class="p">,</span>
+                <span class="n">tolerance</span><span class="p">,</span> <span class="n">loglikelihood_burn</span><span class="p">,</span> <span class="n">smoother_output</span><span class="p">,</span> <span class="n">simulation_output</span><span class="p">,</span>
+                <span class="n">nsimulations</span><span class="p">,</span> <span class="bp">True</span>
+            <span class="p">)</span>
+        <span class="n">simulator</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_simulators</span><span class="p">[</span><span class="n">prefix</span><span class="p">]</span>
+
+        <span class="c"># Set the disturbance variates</span>
+        <span class="n">disturbance_variates</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="n">measurement_shocks</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">state_shocks</span><span class="o">.</span><span class="n">ravel</span><span class="p">()],</span>
+            <span class="n">dtype</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dtype</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span>
+        <span class="n">simulator</span><span class="o">.</span><span class="n">set_disturbance_variates</span><span class="p">(</span><span class="n">disturbance_variates</span><span class="p">)</span>
+
+        <span class="c"># Set the intial state vector</span>
+        <span class="n">initial_state_variates</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+            <span class="n">initial_state</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dtype</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span>
+        <span class="n">simulator</span><span class="o">.</span><span class="n">set_initial_state_variates</span><span class="p">(</span><span class="n">initial_state_variates</span><span class="p">)</span>
+
+        <span class="c"># Perform simulation smoothing</span>
+        <span class="c"># Note: simulation_output=-1 corresponds to whatever was setup when</span>
+        <span class="c"># the simulation smoother was constructed</span>
+        <span class="n">simulator</span><span class="o">.</span><span class="n">simulate</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="n">simulated_obs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">simulator</span><span class="o">.</span><span class="n">generated_obs</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+        <span class="n">simulated_state</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">simulator</span><span class="o">.</span><span class="n">generated_state</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="n">simulated_obs</span><span class="p">[:,</span> <span class="p">:</span><span class="n">nsimulations</span><span class="p">],</span>
+            <span class="n">simulated_state</span><span class="p">[:,</span> <span class="p">:</span><span class="n">nsimulations</span><span class="p">]</span>
+        <span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">generated_state</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_generated_state</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_generated_state</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_simulation_smoother</span><span class="o">.</span><span class="n">generated_state</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="bp">True</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_generated_state</span>
+
+        <span class="k">return</span> <span class="n">simulator</span><span class="o">.</span><span class="n">generated_obs</span><span class="p">,</span> <span class="n">simulator</span><span class="o">.</span><span class="n">generated_state</span><span class="p">[:,</span> <span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+<div class="viewcode-block" id="SimulationSmoother.simulation_smoother"><a class="viewcode-back" href="../../../reference/ssm/simulation_smoother.html#dismalpy.ssm.simulation_smoother.SimulationSmoother.simulation_smoother">[docs]</a>    <span class="k">def</span> <span class="nf">simulation_smoother</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">simulation_output</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                            <span class="n">results_class</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">r&quot;&quot;&quot;</span>
+<span class="sd">        Retrieve a simulation smoother for the statespace model.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        simulation_output : int, optional</span>
+<span class="sd">            Determines which simulation smoother output is calculated.</span>
+<span class="sd">            Default is all (including state and disturbances).</span>
+<span class="sd">        simulation_smooth_results_class : class, optional</span>
+<span class="sd">            Default results class to use to save output of simulation</span>
+<span class="sd">            smoothing. Default is `SimulationSmoothResults`. If specified,</span>
+<span class="sd">            class must extend from `SimulationSmoothResults`.</span>
+<span class="sd">        prefix : string</span>
+<span class="sd">            The prefix of the datatype. Usually only used internally.</span>
+<span class="sd">        **kwargs</span>
+<span class="sd">            Additional keyword arguments, used to set the simulation output.</span>
+<span class="sd">            See `set_simulation_output` for more details.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        SimulationSmoothResults</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c"># Set the class to be the default results class, if None provided</span>
+        <span class="k">if</span> <span class="n">results_class</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">results_class</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">simulation_smooth_results_class</span>
+
+        <span class="c"># Instantiate a new results object</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">results_class</span><span class="p">,</span> <span class="n">SimulationSmoothResults</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&#39;Invalid results class provided.&#39;</span><span class="p">)</span>
+
+        <span class="c"># Make sure we have the required Statespace representation</span>
+        <span class="k">if</span> <span class="n">prefix</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">prefix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">prefix</span>
+        <span class="n">prefix</span><span class="p">,</span> <span class="n">dtype</span><span class="p">,</span> <span class="n">create_statespace</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_initialize_representation</span><span class="p">(</span><span class="n">prefix</span><span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="c"># Simulation smoother parameters</span>
+        <span class="n">simulation_output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_simulation_output</span><span class="p">(</span><span class="n">simulation_output</span><span class="p">,</span>
+                                                       <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="c"># Kalman smoother parameters</span>
+        <span class="n">smoother_output</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;smoother_output&#39;</span><span class="p">,</span> <span class="n">simulation_output</span><span class="p">)</span>
+
+        <span class="c"># Kalman filter parameters</span>
+        <span class="n">filter_method</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;filter_method&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">filter_method</span><span class="p">)</span>
+        <span class="n">inversion_method</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;inversion_method&#39;</span><span class="p">,</span>
+                                      <span class="bp">self</span><span class="o">.</span><span class="n">inversion_method</span><span class="p">)</span>
+        <span class="n">stability_method</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;stability_method&#39;</span><span class="p">,</span>
+                                      <span class="bp">self</span><span class="o">.</span><span class="n">stability_method</span><span class="p">)</span>
+        <span class="n">conserve_memory</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;conserve_memory&#39;</span><span class="p">,</span>
+                                     <span class="bp">self</span><span class="o">.</span><span class="n">conserve_memory</span><span class="p">)</span>
+        <span class="n">loglikelihood_burn</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;loglikelihood_burn&#39;</span><span class="p">,</span>
+                                        <span class="bp">self</span><span class="o">.</span><span class="n">loglikelihood_burn</span><span class="p">)</span>
+        <span class="n">tolerance</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;tolerance&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tolerance</span><span class="p">)</span>
+
+        <span class="c"># Create a new simulation smoother object</span>
+        <span class="n">cls</span> <span class="o">=</span> <span class="n">prefix_simulation_smoother_map</span><span class="p">[</span><span class="n">prefix</span><span class="p">]</span>
+        <span class="n">simulation_smoother</span> <span class="o">=</span> <span class="n">cls</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_statespaces</span><span class="p">[</span><span class="n">prefix</span><span class="p">],</span>
+            <span class="n">filter_method</span><span class="p">,</span> <span class="n">inversion_method</span><span class="p">,</span> <span class="n">stability_method</span><span class="p">,</span> <span class="n">conserve_memory</span><span class="p">,</span>
+            <span class="n">tolerance</span><span class="p">,</span> <span class="n">loglikelihood_burn</span><span class="p">,</span> <span class="n">smoother_output</span><span class="p">,</span> <span class="n">simulation_output</span>
+        <span class="p">)</span>
+
+        <span class="c"># Create results object</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="n">results_class</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">simulation_smoother</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">results</span>
+
+</div></div>
+<div class="viewcode-block" id="SimulationSmoothResults"><a class="viewcode-back" href="../../../reference/ssm/simulation_smoother.html#dismalpy.ssm.simulation_smoother.SimulationSmoothResults">[docs]</a><span class="k">class</span> <span class="nc">SimulationSmoothResults</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">r&quot;&quot;&quot;</span>
+<span class="sd">    Results from applying the Kalman smoother and/or filter to a state space</span>
+<span class="sd">    model.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    model : Representation</span>
+<span class="sd">        A Statespace representation</span>
+<span class="sd">    simulation_smoother : {{prefix}}SimulationSmoother object</span>
+<span class="sd">        The Cython simulation smoother object with which to simulation smooth.</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    model : Representation</span>
+<span class="sd">        A Statespace representation</span>
+<span class="sd">    dtype : dtype</span>
+<span class="sd">        Datatype of representation matrices</span>
+<span class="sd">    prefix : str</span>
+<span class="sd">        BLAS prefix of representation matrices</span>
+<span class="sd">    simulation_output : integer</span>
+<span class="sd">        Bitmask controlling simulation output.</span>
+<span class="sd">    simulate_state : boolean</span>
+<span class="sd">        Flag for if the state is included in simulation output.</span>
+<span class="sd">    simulate_disturbance : boolean</span>
+<span class="sd">        Flag for if the state and observation disturbances are included in</span>
+<span class="sd">        simulation output.</span>
+<span class="sd">    simulate_all : boolean</span>
+<span class="sd">        Flag for if simulation output should include everything.</span>
+<span class="sd">    generated_obs : array</span>
+<span class="sd">        Generated observation vector produced as a byproduct of simulation</span>
+<span class="sd">        smoothing.</span>
+<span class="sd">    generated_state : array</span>
+<span class="sd">        Generated state vector produced as a byproduct of simulation smoothing.</span>
+<span class="sd">    simulated_state : array</span>
+<span class="sd">        Simulated state.</span>
+<span class="sd">    simulated_measurement_disturbance : array</span>
+<span class="sd">        Simulated measurement disturbance.</span>
+<span class="sd">    simulated_state_disturbance : array</span>
+<span class="sd">        Simulated state disturbance.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">simulation_smoother</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">model</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">prefix</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">prefix</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dtype</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">dtype</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_simulation_smoother</span> <span class="o">=</span> <span class="n">simulation_smoother</span>
+
+        <span class="c"># Output</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_generated_obs</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_generated_state</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_simulated_state</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_simulated_measurement_disturbance</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_simulated_state_disturbance</span> <span class="o">=</span> <span class="bp">None</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">simulation_output</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_simulation_smoother</span><span class="o">.</span><span class="n">simulation_output</span>
+    <span class="nd">@simulation_output.setter</span>
+    <span class="k">def</span> <span class="nf">simulation_output</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_simulation_smoother</span><span class="o">.</span><span class="n">simulation_output</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">simulate_state</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">simulation_output</span> <span class="o">&amp;</span> <span class="n">SIMULATION_STATE</span><span class="p">)</span>
+    <span class="nd">@simulate_state.setter</span>
+    <span class="k">def</span> <span class="nf">simulate_state</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">bool</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">simulation_output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">simulation_output</span> <span class="o">|</span> <span class="n">SIMULATION_STATE</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">simulation_output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">simulation_output</span> <span class="o">&amp;</span> <span class="o">~</span><span class="n">SIMULATION_STATE</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">simulate_disturbance</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">simulation_output</span> <span class="o">&amp;</span> <span class="n">SIMULATION_DISTURBANCE</span><span class="p">)</span>
+    <span class="nd">@simulate_disturbance.setter</span>
+    <span class="k">def</span> <span class="nf">simulate_disturbance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">bool</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">simulation_output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">simulation_output</span> <span class="o">|</span> <span class="n">SIMULATION_DISTURBANCE</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">simulation_output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">simulation_output</span> <span class="o">&amp;</span> <span class="o">~</span><span class="n">SIMULATION_DISTURBANCE</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">simulate_all</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">simulation_output</span> <span class="o">&amp;</span> <span class="n">SIMULATION_ALL</span><span class="p">)</span>
+    <span class="nd">@simulate_all.setter</span>
+    <span class="k">def</span> <span class="nf">simulate_all</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">bool</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">simulation_output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">simulation_output</span> <span class="o">|</span> <span class="n">SIMULATION_ALL</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">simulation_output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">simulation_output</span> <span class="o">&amp;</span> <span class="o">~</span><span class="n">SIMULATION_ALL</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">generated_obs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_generated_obs</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_generated_obs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_simulation_smoother</span><span class="o">.</span><span class="n">generated_obs</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="bp">True</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_generated_obs</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">generated_state</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_generated_state</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_generated_state</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_simulation_smoother</span><span class="o">.</span><span class="n">generated_state</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="bp">True</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_generated_state</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">simulated_state</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_simulated_state</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_simulated_state</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_simulation_smoother</span><span class="o">.</span><span class="n">simulated_state</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="bp">True</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_simulated_state</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">simulated_measurement_disturbance</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_simulated_measurement_disturbance</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_simulated_measurement_disturbance</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_simulation_smoother</span><span class="o">.</span><span class="n">simulated_measurement_disturbance</span><span class="p">,</span>
+                <span class="n">copy</span><span class="o">=</span><span class="bp">True</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_simulated_measurement_disturbance</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">simulated_state_disturbance</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_simulated_state_disturbance</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_simulated_state_disturbance</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_simulation_smoother</span><span class="o">.</span><span class="n">simulated_state_disturbance</span><span class="p">,</span>
+                <span class="n">copy</span><span class="o">=</span><span class="bp">True</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_simulated_state_disturbance</span>
+
+<div class="viewcode-block" id="SimulationSmoothResults.simulate"><a class="viewcode-back" href="../../../reference/ssm/simulation_smoother.html#dismalpy.ssm.simulation_smoother.SimulationSmoothResults.simulate">[docs]</a>    <span class="k">def</span> <span class="nf">simulate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">simulation_output</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">disturbance_variates</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                 <span class="n">initial_state_variates</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="sd">r&quot;&quot;&quot;</span>
+<span class="sd">        Perform simulation smoothing</span>
+
+<span class="sd">        Does not return anything, but populates the object&#39;s `simulated_*`</span>
+<span class="sd">        attributes, as specified by simulation output.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        simulation_output : integer, optional</span>
+<span class="sd">            Bitmask controlling simulation output. Default is to use the</span>
+<span class="sd">            simulation output defined in object initialization.</span>
+<span class="sd">        disturbance_variates : array_likes, optional</span>
+<span class="sd">            Random values to use as disturbance variates. Usually only</span>
+<span class="sd">            specified if results are to be replicated (e.g. to enforce a seed)</span>
+<span class="sd">            or for testing. If not specified, random variates are drawn.</span>
+<span class="sd">        initial_state_variates : array_likes, optional</span>
+<span class="sd">            Random values to use as initial state variates. Usually only</span>
+<span class="sd">            specified if results are to be replicated (e.g. to enforce a seed)</span>
+<span class="sd">            or for testing. If not specified, random variates are drawn.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c"># Clear any previous output</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_generated_obs</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_generated_state</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_simulated_state</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_simulated_measurement_disturbance</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_simulated_state_disturbance</span> <span class="o">=</span> <span class="bp">None</span>
+
+        <span class="c"># Re-initialize the _statespace representation</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">_initialize_representation</span><span class="p">(</span><span class="n">prefix</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">prefix</span><span class="p">)</span>
+
+        <span class="c"># Initialize the state</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">_initialize_state</span><span class="p">(</span><span class="n">prefix</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">prefix</span><span class="p">)</span>
+
+        <span class="c"># Draw the (independent) random variates for disturbances in the</span>
+        <span class="c"># simulation</span>
+        <span class="k">if</span> <span class="n">disturbance_variates</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_simulation_smoother</span><span class="o">.</span><span class="n">set_disturbance_variates</span><span class="p">(</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">disturbance_variates</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_simulation_smoother</span><span class="o">.</span><span class="n">draw_disturbance_variates</span><span class="p">()</span>
+
+        <span class="c"># Draw the (independent) random variates for the initial states in the</span>
+        <span class="c"># simulation</span>
+        <span class="k">if</span> <span class="n">initial_state_variates</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_simulation_smoother</span><span class="o">.</span><span class="n">set_initial_state_variates</span><span class="p">(</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">initial_state_variates</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_simulation_smoother</span><span class="o">.</span><span class="n">draw_initial_state_variates</span><span class="p">()</span>
+
+        <span class="c"># Perform simulation smoothing</span>
+        <span class="c"># Note: simulation_output=-1 corresponds to whatever was setup when</span>
+        <span class="c"># the simulation smoother was constructed</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_simulation_smoother</span><span class="o">.</span><span class="n">simulate</span><span class="p">(</span><span class="n">simulation_output</span><span class="p">)</span></div></div>
+</pre></div>
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Chad Fulton.
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'0.1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

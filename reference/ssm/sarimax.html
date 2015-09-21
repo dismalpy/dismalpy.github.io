@@ -1,0 +1,636 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>SARIMAX &mdash; DismalPy 0.1.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="author" title="About these documents"
+              href="../../about.html"/>
+    <link rel="top" title="DismalPy 0.1.0 documentation" href="../../index.html"/>
+        <link rel="up" title="State Space Models" href="../ssm.html"/>
+        <link rel="next" title="Unobserved Components" href="structural.html"/>
+        <link rel="prev" title="State Space Models" href="../ssm.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="../../contents.html" class="icon icon-home"> DismalPy
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../user/index.html">DismalPy User Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../user/ssm.html">State Space Models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../user/ssm.html#topics">Topics</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../user/ssm/2-state_space_models.html">State space models</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/ssm/3-python_representation.html">Representation in Python</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/ssm/4-maximum_likelihood_estimation.html">Maximum Likelihood Estimation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/ssm/5-posterior_simulation.html">Posterior Simulation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/ssm/6-out-of-the-box_models.html">Out-of-the-box models</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/ssm/9-references.html">References</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/ssm.html#examples">Examples</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../user/_notebooks/sarimax_internet.ipynb.html">Durbin and Koopman: Box-Jenkins Examples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/_notebooks/sarimax_stata.ipynb.html">SARIMAX: Introduction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/_notebooks/local_linear_trend.ipynb.html">State space modeling: Local Linear Trends</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/_notebooks/structural_harvey_jaeger.ipynb.html">Detrending, Stylized Facts and the Business Cycle</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/_notebooks/dfm_coincident.ipynb.html">Dynamic factors and coincident indices</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/_notebooks/varmax.ipynb.html">VARMAX models</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">DismalPy Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../ssm.html">State Space Models</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../ssm.html#built-in-models">Built-in models</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="">SARIMAX</a></li>
+<li class="toctree-l4"><a class="reference internal" href="structural.html">Unobserved Components</a></li>
+<li class="toctree-l4"><a class="reference internal" href="varmax.html">VARMAX</a></li>
+<li class="toctree-l4"><a class="reference internal" href="dynamic_factor.html">Dynamic Factors</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ssm.html#extension-starting-point">Extension starting point</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mlemodel.html">MLEModel</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ssm.html#base-classes">Base classes</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="representation.html">Representation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kalman_filter.html">Kalman filter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kalman_smoother.html">Kalman smoother</a></li>
+<li class="toctree-l4"><a class="reference internal" href="simulation_smoother.html">Simulation Smoother</a></li>
+<li class="toctree-l4"><a class="reference internal" href="model.html">Model</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tools.html">Tools</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../release.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../release.html#dismalpy-0-1-0-release-notes">DismalPy 0.1.0 Release Notes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#highlights">Highlights</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#dropped-support">Dropped Support</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#future-changes">Future Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#compatibility-notes">Compatibility notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#new-features">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#improvements">Improvements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#changes">Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#deprecations">Deprecations</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">About DismalPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html#about-this-documentation">About this documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../about.html#conventions">Conventions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../bugs.html">Reporting bugs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">DismalPy License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary.html">Glossary</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../glossary.html#module-dismalpy.doc.jargon">Jargon</a></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../contents.html">DismalPy</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../contents.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../index.html">DismalPy Reference</a> &raquo;</li>
+      
+          <li><a href="../ssm.html">State Space Models</a> &raquo;</li>
+      
+    <li>SARIMAX</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../_sources/reference/ssm/sarimax.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="sarimax">
+<h1>SARIMAX<a class="headerlink" href="#sarimax" title="Permalink to this headline">¶</a></h1>
+<p>Note that this class inherits from <a class="reference internal" href="mlemodel.html#ref-mlemodel"><span>MLEModel</span></a>; its
+documentation should be consulted for additional methods available in
+<code class="docutils literal"><span class="pre">SARIMAX</span></code> and <code class="docutils literal"><span class="pre">SARIMAXResults</span></code> objects.</p>
+<dl class="class">
+<dt id="dismalpy.ssm.sarimax.SARIMAX">
+<em class="property">class </em><code class="descclassname">dismalpy.ssm.sarimax.</code><code class="descname">SARIMAX</code><span class="sig-paren">(</span><em>endog</em>, <em>exog=None</em>, <em>order=(1</em>, <em>0</em>, <em>0)</em>, <em>seasonal_order=(0</em>, <em>0</em>, <em>0</em>, <em>0)</em>, <em>trend=None</em>, <em>measurement_error=False</em>, <em>time_varying_regression=False</em>, <em>mle_regression=True</em>, <em>simple_differencing=False</em>, <em>enforce_stationarity=True</em>, <em>enforce_invertibility=True</em>, <em>hamilton_representation=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/dismalpy/ssm/sarimax.html#SARIMAX"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dismalpy.ssm.sarimax.SARIMAX" title="Permalink to this definition">¶</a></dt>
+<dd><p>Seasonal AutoRegressive Integrated Moving Average with eXogenous regressors
+model</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>endog</strong> : array_like</p>
+<blockquote>
+<div><p>The observed time-series process <span class="math">\(y\)</span></p>
+</div></blockquote>
+<p><strong>exog</strong> : array_like, optional</p>
+<blockquote>
+<div><p>Array of exogenous regressors, shaped nobs x k.</p>
+</div></blockquote>
+<p><strong>order</strong> : iterable or iterable of iterables, optional</p>
+<blockquote>
+<div><p>The (p,d,q) order of the model for the number of AR parameters,
+differences, and MA parameters. <em class="xref py py-obj">d</em> must be an integer
+indicating the integration order of the process, while
+<em class="xref py py-obj">p</em> and <em class="xref py py-obj">q</em> may either be an integers indicating the AR and MA
+orders (so that all lags up to those orders are included) or else
+iterables giving specific AR and / or MA lags to include. Default is
+an AR(1) model: (1,0,0).</p>
+</div></blockquote>
+<p><strong>seasonal_order</strong> : iterable, optional</p>
+<blockquote>
+<div><p>The (P,D,Q,s) order of the seasonal component of the model for the
+AR parameters, differences, MA parameters, and periodicity.
+<em class="xref py py-obj">d</em> must be an integer indicating the integration order of the process,
+while <em class="xref py py-obj">p</em> and <em class="xref py py-obj">q</em> may either be an integers indicating the AR and MA
+orders (so that all lags up to those orders are included) or else
+iterables giving specific AR and / or MA lags to include. <em class="xref py py-obj">s</em> is an
+integer giving the periodicity (number of periods in season), often it
+is 4 for quarterly data or 12 for monthly data. Default is no seasonal
+effect.</p>
+</div></blockquote>
+<p><strong>trend</strong> : str{&#8216;n&#8217;,&#8217;c&#8217;,&#8217;t&#8217;,&#8217;ct&#8217;} or iterable, optional</p>
+<blockquote>
+<div><p>Parameter controlling the deterministic trend polynomial <span class="math">\(A(t)\)</span>.
+Can be specified as a string where &#8216;c&#8217; indicates a constant (i.e. a
+degree zero component of the trend polynomial), &#8216;t&#8217; indicates a
+linear trend with time, and &#8216;ct&#8217; is both. Can also be specified as an
+iterable defining the polynomial as in <code class="xref py py-obj docutils literal"><span class="pre">numpy.poly1d</span></code>, where
+<em class="xref py py-obj">[1,1,0,1]</em> would denote <span class="math">\(a + bt + ct^3\)</span>. Default is to not
+include a trend component.</p>
+</div></blockquote>
+<p><strong>measurement_error</strong> : boolean, optional</p>
+<blockquote>
+<div><p>Whether or not to assume the endogenous observations <em class="xref py py-obj">endog</em> were
+measured with error. Default is False.</p>
+</div></blockquote>
+<p><strong>time_varying_regression</strong> : boolean, optional</p>
+<blockquote>
+<div><p>Used when an explanatory variables, <em class="xref py py-obj">exog</em>, are provided provided
+to select whether or not coefficients on the exogenous regressors are
+allowed to vary over time. Default is False.</p>
+</div></blockquote>
+<p><strong>mle_regression</strong> : boolean, optional</p>
+<blockquote>
+<div><p>Whether or not to use estimate the regression coefficients for the
+exogenous variables as part of maximum likelihood estimation or through
+the Kalman filter (i.e. recursive least squares). If
+<em class="xref py py-obj">time_varying_regression</em> is True, this must be set to False. Default
+is True.</p>
+</div></blockquote>
+<p><strong>simple_differencing</strong> : boolean, optional</p>
+<blockquote>
+<div><p>Whether or not to use partially conditional maximum likelihood
+estimation. If True, differencing is performed prior to estimation,
+which discards the first <span class="math">\(s D + d\)</span> initial rows but reuslts in a
+smaller state-space formulation. If False, the full SARIMAX model is
+put in state-space form so that all datapoints can be used in
+estimation. Default is False.</p>
+</div></blockquote>
+<p><strong>enforce_stationarity</strong> : boolean, optional</p>
+<blockquote>
+<div><p>Whether or not to transform the AR parameters to enforce stationarity
+in the autoregressive component of the model. Default is True.</p>
+</div></blockquote>
+<p><strong>enforce_invertibility</strong> : boolean, optional</p>
+<blockquote>
+<div><p>Whether or not to transform the MA parameters to enforce invertibility
+in the moving average component of the model. Default is True.</p>
+</div></blockquote>
+<p><strong>hamilton_representation</strong> : boolean, optional</p>
+<blockquote>
+<div><p>Whether or not to use the Hamilton representation of an ARMA process
+(if True) or the Harvey representation (if False). Default is False.</p>
+</div></blockquote>
+<p><strong>**kwargs</strong></p>
+<blockquote class="last">
+<div><p>Keyword arguments may be used to provide default values for state space
+matrices or for Kalman filtering options. See <em class="xref py py-obj">Representation</em>, and
+<em class="xref py py-obj">KalmanFilter</em> for more details.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="mlemodel.html#dismalpy.ssm.mlemodel.MLEModel" title="dismalpy.ssm.mlemodel.MLEModel"><code class="xref py py-obj docutils literal"><span class="pre">dismalpy.ssm.mlemodel.MLEModel</span></code></a>, <a class="reference internal" href="kalman_smoother.html#dismalpy.ssm.kalman_smoother.KalmanSmoother" title="dismalpy.ssm.kalman_smoother.KalmanSmoother"><code class="xref py py-obj docutils literal"><span class="pre">dismalpy.ssm.kalman_smoother.KalmanSmoother</span></code></a>, <a class="reference internal" href="kalman_filter.html#dismalpy.ssm.kalman_filter.KalmanFilter" title="dismalpy.ssm.kalman_filter.KalmanFilter"><code class="xref py py-obj docutils literal"><span class="pre">dismalpy.ssm.kalman_filter.KalmanFilter</span></code></a>, <a class="reference internal" href="representation.html#dismalpy.ssm.representation.Representation" title="dismalpy.ssm.representation.Representation"><code class="xref py py-obj docutils literal"><span class="pre">dismalpy.ssm.representation.Representation</span></code></a></p>
+</div>
+<p class="rubric">Notes</p>
+<p>The SARIMA model is specified <span class="math">\((p, d, q) \times (P, D, Q)_s\)</span>.</p>
+<div class="math">
+\[\phi_p (L) \tilde \phi_P (L^s) \Delta^d \Delta_s^D y_t = A(t) +
+    \theta_q (L) \tilde \theta_Q (L^s) \zeta_t\]</div>
+<p>In terms of a univariate structural model, this can be represented as</p>
+<div class="math">
+\[\begin{split}y_t &amp; = u_t + \eta_t \\
+\phi_p (L) \tilde \phi_P (L^s) \Delta^d \Delta_s^D u_t &amp; = A(t) +
+    \theta_q (L) \tilde \theta_Q (L^s) \zeta_t\end{split}\]</div>
+<p>where <span class="math">\(\eta_t\)</span> is only applicable in the case of measurement error
+(although it is also used in the case of a pure regression model, i.e. if
+p=q=0).</p>
+<p>In terms of this model, regression with SARIMA errors can be represented
+easily as</p>
+<div class="math">
+\[\begin{split}y_t &amp; = \beta_t x_t + u_t \\
+\phi_p (L) \tilde \phi_P (L^s) \Delta^d \Delta_s^D u_t &amp; = A(t) +
+    \theta_q (L) \tilde \theta_Q (L^s) \zeta_t\end{split}\]</div>
+<p>this model is the one used when exogenous regressors are provided.</p>
+<p>Note that the reduced form lag polynomials will be written as:</p>
+<div class="math">
+\[\begin{split}\Phi (L) \equiv \phi_p (L) \tilde \phi_P (L^s) \\
+\Theta (L) \equiv \theta_q (L) \tilde \theta_Q (L^s)\end{split}\]</div>
+<p>If <em class="xref py py-obj">mle_regression</em> is True, regression coefficients are treated as
+additional parameters to be estimated via maximum likelihood. Otherwise
+they are included as part of the state with a diffuse initialization.
+In this case, however, with approximate diffuse initialization, results
+can be sensitive to the initial variance.</p>
+<p>This class allows two different underlying representations of ARMA models
+as state space models: that of Hamilton and that of Harvey. Both are
+equivalent in the sense that they are analytical representations of the
+ARMA model, but the state vectors of each have different meanings. For
+this reason, maximum likelihood does not result in identical parameter
+estimates and even the same set of parameters will result in different
+loglikelihoods.</p>
+<p>The Harvey representation is convenient because it allows integrating
+differencing into the state vector to allow using all observations for
+estimation.</p>
+<p>In this implementation of differenced models, the Hamilton representation
+is not able to accomodate differencing in the state vector, so
+<em class="xref py py-obj">simple_differencing</em> (which performs differencing prior to estimation so
+that the first d + sD observations are lost) must be used.</p>
+<p>Many other packages use the Hamilton representation, so that tests against
+Stata and R require using it along with simple differencing (as Stata
+does).</p>
+<p>Detailed information about state space models can be found in <a class="reference internal" href="#r6" id="id1">[R6]</a>. Some
+specific references are:</p>
+<ul class="simple">
+<li>Chapter 3.4 describes ARMA and ARIMA models in state space form (using
+the Harvey representation), and gives references for basic seasonal
+models and models with a multiplicative form (for example the airline
+model). It also shows a state space model for a full ARIMA process (this
+is what is done here if <em class="xref py py-obj">simple_differencing=False</em>).</li>
+<li>Chapter 3.6 describes estimating regression effects via the Kalman filter
+(this is performed if <em class="xref py py-obj">mle_regression</em> is False), regression with
+time-varying coefficients, and regression with ARMA errors (recall from
+above that if regression effects are present, the model estimated by this
+class is regression with SARIMA errors).</li>
+<li>Chapter 8.4 describes the application of an ARMA model to an example
+dataset. A replication of this section is available in an example
+IPython notebook in the documentation.</li>
+</ul>
+<p class="rubric">References</p>
+<table class="docutils citation" frame="void" id="r6" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[R6]</td><td><em>(<a class="fn-backref" href="#id1">1</a>, <a class="fn-backref" href="#id2">2</a>)</em> Durbin, James, and Siem Jan Koopman. 2012.
+Time Series Analysis by State Space Methods: Second Edition.
+Oxford University Press.</td></tr>
+</tbody>
+</table>
+<p class="rubric">Attributes</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>measurement_error</td>
+<td>(boolean) Whether or not to assume the endogenous observations <em class="xref py py-obj">endog</em> were measured with error.</td>
+</tr>
+<tr class="row-even"><td>state_error</td>
+<td>(boolean) Whether or not the transition equation has an error component.</td>
+</tr>
+<tr class="row-odd"><td>mle_regression</td>
+<td>(boolean) Whether or not the regression coefficients for the exogenous variables were estimated via maximum likelihood estimation.</td>
+</tr>
+<tr class="row-even"><td>state_regression</td>
+<td>(boolean) Whether or not the regression coefficients for the exogenous variables are included as elements of the state space and estimated via the Kalman filter.</td>
+</tr>
+<tr class="row-odd"><td>time_varying_regression</td>
+<td>(boolean) Whether or not coefficients on the exogenous regressors are allowed to vary over time.</td>
+</tr>
+<tr class="row-even"><td>simple_differencing</td>
+<td>(boolean) Whether or not to use partially conditional maximum likelihood estimation.</td>
+</tr>
+<tr class="row-odd"><td>enforce_stationarity</td>
+<td>(boolean) Whether or not to transform the AR parameters to enforce stationarity in the autoregressive component of the model.</td>
+</tr>
+<tr class="row-even"><td>enforce_invertibility</td>
+<td>(boolean) Whether or not to transform the MA parameters to enforce invertibility in the moving average component of the model.</td>
+</tr>
+<tr class="row-odd"><td>hamilton_representation</td>
+<td>(boolean) Whether or not to use the Hamilton representation of an ARMA process.</td>
+</tr>
+<tr class="row-even"><td>trend</td>
+<td>(str{&#8216;n&#8217;,&#8217;c&#8217;,&#8217;t&#8217;,&#8217;ct&#8217;} or iterable) Parameter controlling the deterministic trend polynomial <span class="math">\(A(t)\)</span>. See the class parameter documentation for more information.</td>
+</tr>
+<tr class="row-odd"><td>polynomial_ar</td>
+<td>(array) Array containing autoregressive lag polynomial coefficients, ordered from lowest degree to highest. Initialized with ones, unless a coefficient is constrained to be zero (in which case it is zero).</td>
+</tr>
+<tr class="row-even"><td>polynomial_ma</td>
+<td>(array) Array containing moving average lag polynomial coefficients, ordered from lowest degree to highest. Initialized with ones, unless a coefficient is constrained to be zero (in which case it is zero).</td>
+</tr>
+<tr class="row-odd"><td>polynomial_seasonal_ar</td>
+<td>(array) Array containing seasonal moving average lag polynomial coefficients, ordered from lowest degree to highest. Initialized with ones, unless a coefficient is constrained to be zero (in which case it is zero).</td>
+</tr>
+<tr class="row-even"><td>polynomial_seasonal_ma</td>
+<td>(array) Array containing seasonal moving average lag polynomial coefficients, ordered from lowest degree to highest. Initialized with ones, unless a coefficient is constrained to be zero (in which case it is zero).</td>
+</tr>
+<tr class="row-odd"><td>polynomial_trend</td>
+<td>(array) Array containing trend polynomial coefficients, ordered from lowest degree to highest. Initialized with ones, unless a coefficient is constrained to be zero (in which case it is zero).</td>
+</tr>
+<tr class="row-even"><td>k_ar</td>
+<td>(int) Highest autoregressive order in the model, zero-indexed.</td>
+</tr>
+<tr class="row-odd"><td>k_ar_params</td>
+<td>(int) Number of autoregressive parameters to be estimated.</td>
+</tr>
+<tr class="row-even"><td>k_diff</td>
+<td>(int) Order of intergration.</td>
+</tr>
+<tr class="row-odd"><td>k_ma</td>
+<td>(int) Highest moving average order in the model, zero-indexed.</td>
+</tr>
+<tr class="row-even"><td>k_ma_params</td>
+<td>(int) Number of moving average parameters to be estimated.</td>
+</tr>
+<tr class="row-odd"><td>k_seasons</td>
+<td>(int) Number of periods in a season.</td>
+</tr>
+<tr class="row-even"><td>k_seasonal_ar</td>
+<td>(int) Highest seasonal autoregressive order in the model, zero-indexed.</td>
+</tr>
+<tr class="row-odd"><td>k_seasonal_ar_params</td>
+<td>(int) Number of seasonal autoregressive parameters to be estimated.</td>
+</tr>
+<tr class="row-even"><td>k_seasonal_diff</td>
+<td>(int) Order of seasonal intergration.</td>
+</tr>
+<tr class="row-odd"><td>k_seasonal_ma</td>
+<td>(int) Highest seasonal moving average order in the model, zero-indexed.</td>
+</tr>
+<tr class="row-even"><td>k_seasonal_ma_params</td>
+<td>(int) Number of seasonal moving average parameters to be estimated.</td>
+</tr>
+<tr class="row-odd"><td>k_trend</td>
+<td>(int) Order of the trend polynomial plus one (i.e. the constant polynomial would have <em class="xref py py-obj">k_trend=1</em>).</td>
+</tr>
+<tr class="row-even"><td>k_exog</td>
+<td>(int) Number of exogenous regressors.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="class">
+<dt id="dismalpy.ssm.sarimax.SARIMAXResults">
+<em class="property">class </em><code class="descclassname">dismalpy.ssm.sarimax.</code><code class="descname">SARIMAXResults</code><span class="sig-paren">(</span><em>model</em>, <em>params</em>, <em>smoother_results</em>, <em>cov_type='opg'</em>, <em>cov_kwds=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/dismalpy/ssm/sarimax.html#SARIMAXResults"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dismalpy.ssm.sarimax.SARIMAXResults" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class to hold results from fitting an SARIMAX model.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>model</strong> : SARIMAX instance</p>
+<blockquote class="last">
+<div><p>The fitted model instance</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="mlemodel.html#dismalpy.ssm.mlemodel.MLEResults" title="dismalpy.ssm.mlemodel.MLEResults"><code class="xref py py-obj docutils literal"><span class="pre">dismalpy.ssm.mlemodel.MLEResults</span></code></a>, <a class="reference internal" href="kalman_smoother.html#dismalpy.ssm.kalman_smoother.SmootherResults" title="dismalpy.ssm.kalman_smoother.SmootherResults"><code class="xref py py-obj docutils literal"><span class="pre">dismalpy.ssm.kalman_smoother.SmootherResults</span></code></a>, <a class="reference internal" href="kalman_filter.html#dismalpy.ssm.kalman_filter.FilterResults" title="dismalpy.ssm.kalman_filter.FilterResults"><code class="xref py py-obj docutils literal"><span class="pre">dismalpy.ssm.kalman_filter.FilterResults</span></code></a>, <a class="reference internal" href="representation.html#dismalpy.ssm.representation.FrozenRepresentation" title="dismalpy.ssm.representation.FrozenRepresentation"><code class="xref py py-obj docutils literal"><span class="pre">dismalpy.ssm.representation.FrozenRepresentation</span></code></a></p>
+</div>
+<p class="rubric">Attributes</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="9%" />
+<col width="91%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>specification</td>
+<td>(dictionary) Dictionary including all attributes from the SARIMAX model instance.</td>
+</tr>
+<tr class="row-even"><td>polynomial_ar</td>
+<td>(array) Array containing autoregressive lag polynomial coefficients, ordered from lowest degree to highest. Initialized with ones, unless a coefficient is constrained to be zero (in which case it is zero).</td>
+</tr>
+<tr class="row-odd"><td>polynomial_ma</td>
+<td>(array) Array containing moving average lag polynomial coefficients, ordered from lowest degree to highest. Initialized with ones, unless a coefficient is constrained to be zero (in which case it is zero).</td>
+</tr>
+<tr class="row-even"><td>polynomial_seasonal_ar</td>
+<td>(array) Array containing seasonal autoregressive lag polynomial coefficients, ordered from lowest degree to highest. Initialized with ones, unless a coefficient is constrained to be zero (in which case it is zero).</td>
+</tr>
+<tr class="row-odd"><td>polynomial_seasonal_ma</td>
+<td>(array) Array containing seasonal moving average lag polynomial coefficients, ordered from lowest degree to highest. Initialized with ones, unless a coefficient is constrained to be zero (in which case it is zero).</td>
+</tr>
+<tr class="row-even"><td>polynomial_trend</td>
+<td>(array) Array containing trend polynomial coefficients, ordered from lowest degree to highest. Initialized with ones, unless a coefficient is constrained to be zero (in which case it is zero).</td>
+</tr>
+<tr class="row-odd"><td>model_orders</td>
+<td>(list of int) The orders of each of the polynomials in the model.</td>
+</tr>
+<tr class="row-even"><td>param_terms</td>
+<td>(list of str) List of parameters actually included in the model, in sorted order.</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="dismalpy.ssm.sarimax.SARIMAXResults.arfreq">
+<code class="descname">arfreq</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/statsmodels/tsa/statespace/sarimax.html#SARIMAXResults.arfreq"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dismalpy.ssm.sarimax.SARIMAXResults.arfreq" title="Permalink to this definition">¶</a></dt>
+<dd><p>(array) Frequency of the roots of the reduced form autoregressive
+lag polynomial</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dismalpy.ssm.sarimax.SARIMAXResults.arparams">
+<code class="descname">arparams</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/statsmodels/tsa/statespace/sarimax.html#SARIMAXResults.arparams"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dismalpy.ssm.sarimax.SARIMAXResults.arparams" title="Permalink to this definition">¶</a></dt>
+<dd><p>(array) Autoregressive parameters actually estimated in the model.
+Does not include parameters whose values are constrained to be zero.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dismalpy.ssm.sarimax.SARIMAXResults.arroots">
+<code class="descname">arroots</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/statsmodels/tsa/statespace/sarimax.html#SARIMAXResults.arroots"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dismalpy.ssm.sarimax.SARIMAXResults.arroots" title="Permalink to this definition">¶</a></dt>
+<dd><p>(array) Roots of the reduced form autoregressive lag polynomial</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dismalpy.ssm.sarimax.SARIMAXResults.mafreq">
+<code class="descname">mafreq</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/statsmodels/tsa/statespace/sarimax.html#SARIMAXResults.mafreq"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dismalpy.ssm.sarimax.SARIMAXResults.mafreq" title="Permalink to this definition">¶</a></dt>
+<dd><p>(array) Frequency of the roots of the reduced form moving average
+lag polynomial</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dismalpy.ssm.sarimax.SARIMAXResults.maparams">
+<code class="descname">maparams</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/statsmodels/tsa/statespace/sarimax.html#SARIMAXResults.maparams"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dismalpy.ssm.sarimax.SARIMAXResults.maparams" title="Permalink to this definition">¶</a></dt>
+<dd><p>(array) Moving average parameters actually estimated in the model.
+Does not include parameters whose values are constrained to be zero.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dismalpy.ssm.sarimax.SARIMAXResults.maroots">
+<code class="descname">maroots</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/statsmodels/tsa/statespace/sarimax.html#SARIMAXResults.maroots"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dismalpy.ssm.sarimax.SARIMAXResults.maroots" title="Permalink to this definition">¶</a></dt>
+<dd><p>(array) Roots of the reduced form moving average lag polynomial</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="structural.html" class="btn btn-neutral float-right" title="Unobserved Components" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../ssm.html" class="btn btn-neutral" title="State Space Models" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Chad Fulton.
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'0.1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

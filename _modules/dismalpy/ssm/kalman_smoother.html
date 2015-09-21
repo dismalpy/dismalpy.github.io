@@ -1,0 +1,847 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>dismalpy.ssm.kalman_smoother &mdash; DismalPy 0.1.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="author" title="About these documents"
+              href="../../../about.html"/>
+    <link rel="top" title="DismalPy 0.1.0 documentation" href="../../../index.html"/>
+        <link rel="up" title="Module code" href="../../index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="../../../contents.html" class="icon icon-home"> DismalPy
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../user/index.html">DismalPy User Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/ssm.html">State Space Models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/ssm.html#topics">Topics</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/ssm/2-state_space_models.html">State space models</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/ssm/3-python_representation.html">Representation in Python</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/ssm/4-maximum_likelihood_estimation.html">Maximum Likelihood Estimation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/ssm/5-posterior_simulation.html">Posterior Simulation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/ssm/6-out-of-the-box_models.html">Out-of-the-box models</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/ssm/9-references.html">References</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/ssm.html#examples">Examples</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/_notebooks/sarimax_internet.ipynb.html">Durbin and Koopman: Box-Jenkins Examples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/_notebooks/sarimax_stata.ipynb.html">SARIMAX: Introduction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/_notebooks/local_linear_trend.ipynb.html">State space modeling: Local Linear Trends</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/_notebooks/structural_harvey_jaeger.ipynb.html">Detrending, Stylized Facts and the Business Cycle</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/_notebooks/dfm_coincident.ipynb.html">Dynamic factors and coincident indices</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/_notebooks/varmax.ipynb.html">VARMAX models</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../reference/index.html">DismalPy Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/ssm.html">State Space Models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/ssm.html#built-in-models">Built-in models</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../reference/ssm/sarimax.html">SARIMAX</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../reference/ssm/structural.html">Unobserved Components</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../reference/ssm/varmax.html">VARMAX</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../reference/ssm/dynamic_factor.html">Dynamic Factors</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/ssm.html#extension-starting-point">Extension starting point</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../reference/ssm/mlemodel.html">MLEModel</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/ssm.html#base-classes">Base classes</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../reference/ssm/representation.html">Representation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../reference/ssm/kalman_filter.html">Kalman filter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../reference/ssm/kalman_smoother.html">Kalman smoother</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../reference/ssm/simulation_smoother.html">Simulation Smoother</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../reference/ssm/model.html">Model</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../reference/ssm/tools.html">Tools</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../release.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#dismalpy-0-2-0-release-notes">DismalPy 0.2.0 Release Notes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#highlights">Highlights</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#dismalpy-0-1-0-release-notes">DismalPy 0.1.0 Release Notes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id1">Highlights</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#dropped-support">Dropped Support</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#future-changes">Future Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#compatibility-notes">Compatibility notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#new-features">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#improvements">Improvements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#changes">Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#deprecations">Deprecations</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../about.html">About DismalPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../about.html#about-this-documentation">About this documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../about.html#conventions">Conventions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../bugs.html">Reporting bugs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../license.html">DismalPy License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../glossary.html">Glossary</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../glossary.html#module-dismalpy.doc.jargon">Jargon</a></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../contents.html">DismalPy</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../contents.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      
+    <li>dismalpy.ssm.kalman_smoother</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <h1>Source code for dismalpy.ssm.kalman_smoother</h1><div class="highlight"><pre>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">State Space Representation and Kalman Filter, Smoother</span>
+
+<span class="sd">Author: Chad Fulton</span>
+<span class="sd">License: Simplified-BSD</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">division</span><span class="p">,</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">print_function</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">.representation</span> <span class="kn">import</span> <span class="n">OptionWrapper</span>
+<span class="kn">from</span> <span class="nn">.kalman_filter</span> <span class="kn">import</span> <span class="n">KalmanFilter</span><span class="p">,</span> <span class="n">FilterResults</span>
+<span class="kn">from</span> <span class="nn">.tools</span> <span class="kn">import</span> <span class="n">prefix_kalman_smoother_map</span>
+
+<span class="n">SMOOTHER_STATE</span> <span class="o">=</span> <span class="mh">0x01</span>          <span class="c"># Durbin and Koopman (2012), Chapter 4.4.2</span>
+<span class="n">SMOOTHER_STATE_COV</span> <span class="o">=</span> <span class="mh">0x02</span>      <span class="c"># ibid., Chapter 4.4.3</span>
+<span class="n">SMOOTHER_DISTURBANCE</span> <span class="o">=</span> <span class="mh">0x04</span>    <span class="c"># ibid., Chapter 4.5</span>
+<span class="n">SMOOTHER_DISTURBANCE_COV</span> <span class="o">=</span> <span class="mh">0x08</span>    <span class="c"># ibid., Chapter 4.5</span>
+<span class="n">SMOOTHER_ALL</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">SMOOTHER_STATE</span> <span class="o">|</span> <span class="n">SMOOTHER_STATE_COV</span> <span class="o">|</span> <span class="n">SMOOTHER_DISTURBANCE</span> <span class="o">|</span>
+    <span class="n">SMOOTHER_DISTURBANCE_COV</span>
+<span class="p">)</span>
+
+<div class="viewcode-block" id="KalmanSmoother"><a class="viewcode-back" href="../../../reference/ssm/kalman_smoother.html#dismalpy.ssm.kalman_smoother.KalmanSmoother">[docs]</a><span class="k">class</span> <span class="nc">KalmanSmoother</span><span class="p">(</span><span class="n">KalmanFilter</span><span class="p">):</span>
+    <span class="sd">r&quot;&quot;&quot;</span>
+<span class="sd">    State space representation of a time series process, with Kalman filter</span>
+<span class="sd">    and smoother.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    k_endog : array_like or integer</span>
+<span class="sd">        The observed time-series process :math:`y` if array like or the</span>
+<span class="sd">        number of variables in the process if an integer.</span>
+<span class="sd">    k_states : int</span>
+<span class="sd">        The dimension of the unobserved state process.</span>
+<span class="sd">    k_posdef : int, optional</span>
+<span class="sd">        The dimension of a guaranteed positive definite covariance matrix</span>
+<span class="sd">        describing the shocks in the measurement equation. Must be less than</span>
+<span class="sd">        or equal to `k_states`. Default is `k_states`.</span>
+<span class="sd">    results_class : class, optional</span>
+<span class="sd">        Default results class to use to save filtering output. Default is</span>
+<span class="sd">        `SmootherResults`. If specified, class must extend from</span>
+<span class="sd">        `SmootherResults`.</span>
+<span class="sd">    **kwargs</span>
+<span class="sd">        Keyword arguments may be used to provide default values for state space</span>
+<span class="sd">        matrices, for Kalman filtering options, or for Kalman smoothing</span>
+<span class="sd">        options. See `Representation` for more details.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">smoother_outputs</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s">&#39;smoother_state&#39;</span><span class="p">,</span> <span class="s">&#39;smoother_state_cov&#39;</span><span class="p">,</span> <span class="s">&#39;smoother_disturbance&#39;</span><span class="p">,</span>
+        <span class="s">&#39;smoother_disturbance_cov&#39;</span><span class="p">,</span> <span class="s">&#39;smoother_all&#39;</span><span class="p">,</span>
+    <span class="p">]</span>
+
+    <span class="n">smoother_state</span> <span class="o">=</span> <span class="n">OptionWrapper</span><span class="p">(</span><span class="s">&#39;smoother_output&#39;</span><span class="p">,</span> <span class="n">SMOOTHER_STATE</span><span class="p">)</span>
+    <span class="n">smoother_state_cov</span> <span class="o">=</span> <span class="n">OptionWrapper</span><span class="p">(</span><span class="s">&#39;smoother_output&#39;</span><span class="p">,</span> <span class="n">SMOOTHER_STATE_COV</span><span class="p">)</span>
+    <span class="n">smoother_disturbance</span> <span class="o">=</span> <span class="n">OptionWrapper</span><span class="p">(</span><span class="s">&#39;smoother_output&#39;</span><span class="p">,</span> <span class="n">SMOOTHER_DISTURBANCE</span><span class="p">)</span>
+    <span class="n">smoother_disturbance_cov</span> <span class="o">=</span> <span class="n">OptionWrapper</span><span class="p">(</span><span class="s">&#39;smoother_output&#39;</span><span class="p">,</span> <span class="n">SMOOTHER_DISTURBANCE_COV</span><span class="p">)</span>
+    <span class="n">smoother_all</span> <span class="o">=</span> <span class="n">OptionWrapper</span><span class="p">(</span><span class="s">&#39;smoother_output&#39;</span><span class="p">,</span> <span class="n">SMOOTHER_ALL</span><span class="p">)</span>
+
+    <span class="c"># Default smoother options</span>
+    <span class="n">smoother_output</span> <span class="o">=</span> <span class="n">SMOOTHER_ALL</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k_endog</span><span class="p">,</span> <span class="n">k_states</span><span class="p">,</span> <span class="n">k_posdef</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">results_class</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                 <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="c"># Set the default results class</span>
+        <span class="k">if</span> <span class="n">results_class</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">results_class</span> <span class="o">=</span> <span class="n">SmootherResults</span>
+
+        <span class="nb">super</span><span class="p">(</span><span class="n">KalmanSmoother</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span>
+            <span class="n">k_endog</span><span class="p">,</span> <span class="n">k_states</span><span class="p">,</span> <span class="n">k_posdef</span><span class="p">,</span> <span class="n">results_class</span><span class="o">=</span><span class="n">results_class</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+        <span class="p">)</span>
+
+        <span class="c"># Setup the underlying Kalman smoother storage</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_kalman_smoothers</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="c"># Set the smoother output</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_smoother_output</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">_kalman_smoother</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">prefix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">prefix</span>
+        <span class="k">if</span> <span class="n">prefix</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_kalman_smoothers</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_kalman_smoothers</span><span class="p">[</span><span class="n">prefix</span><span class="p">]</span>
+        <span class="k">return</span> <span class="bp">None</span>
+
+    <span class="k">def</span> <span class="nf">_initialize_smoother</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">smoother_output</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">smoother_output</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">smoother_output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">smoother_output</span>
+
+        <span class="c"># Make sure we have the required Kalman filter</span>
+        <span class="n">prefix</span><span class="p">,</span> <span class="n">dtype</span><span class="p">,</span> <span class="n">create_filter</span><span class="p">,</span> <span class="n">create_statespace</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_initialize_filter</span><span class="p">(</span><span class="n">prefix</span><span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="c"># Determine if we need to (re-)create the smoother</span>
+        <span class="c"># (definitely need to recreate if we recreated the filter)</span>
+        <span class="n">create_smoother</span> <span class="o">=</span> <span class="n">create_filter</span> <span class="ow">or</span> <span class="n">prefix</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_kalman_smoothers</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">create_smoother</span><span class="p">:</span>
+            <span class="n">kalman_smoother</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_kalman_smoothers</span><span class="p">[</span><span class="n">prefix</span><span class="p">]</span>
+
+            <span class="n">create_smoother</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="ow">not</span> <span class="n">kalman_smoother</span><span class="o">.</span><span class="n">kfilter</span> <span class="ow">is</span> <span class="bp">self</span><span class="o">.</span><span class="n">_kalman_filters</span><span class="p">[</span><span class="n">prefix</span><span class="p">]</span>
+            <span class="p">)</span>
+
+        <span class="c"># If the dtype-specific _kalman_smoother does not exist (or if we need</span>
+        <span class="c"># to re-create it), create it</span>
+        <span class="k">if</span> <span class="n">create_smoother</span><span class="p">:</span>
+            <span class="c"># Setup the smoother</span>
+            <span class="n">cls</span> <span class="o">=</span> <span class="n">prefix_kalman_smoother_map</span><span class="p">[</span><span class="n">prefix</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_kalman_smoothers</span><span class="p">[</span><span class="n">prefix</span><span class="p">]</span> <span class="o">=</span> <span class="n">cls</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_statespaces</span><span class="p">[</span><span class="n">prefix</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">_kalman_filters</span><span class="p">[</span><span class="n">prefix</span><span class="p">],</span>
+                <span class="n">smoother_output</span>
+            <span class="p">)</span>
+        <span class="c"># Otherwise, update the smoother parameters</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_kalman_smoothers</span><span class="p">[</span><span class="n">prefix</span><span class="p">]</span><span class="o">.</span><span class="n">set_smoother_output</span><span class="p">(</span><span class="n">smoother_output</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">prefix</span><span class="p">,</span> <span class="n">dtype</span><span class="p">,</span> <span class="n">create_smoother</span><span class="p">,</span> <span class="n">create_filter</span><span class="p">,</span> <span class="n">create_statespace</span>
+
+<div class="viewcode-block" id="KalmanSmoother.set_smoother_output"><a class="viewcode-back" href="../../../reference/ssm/kalman_smoother.html#dismalpy.ssm.kalman_smoother.KalmanSmoother.set_smoother_output">[docs]</a>    <span class="k">def</span> <span class="nf">set_smoother_output</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">smoother_output</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">r&quot;&quot;&quot;</span>
+<span class="sd">        Set the smoother output</span>
+
+<span class="sd">        The smoother can produce several types of results. The smoother output</span>
+<span class="sd">        variable controls which are calculated and returned.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        smoother_output : integer, optional</span>
+<span class="sd">            Bitmask value to set the smoother output to. See notes for details.</span>
+<span class="sd">        **kwargs</span>
+<span class="sd">            Keyword arguments may be used to influence the smoother output by</span>
+<span class="sd">            setting individual boolean flags. See notes for details.</span>
+
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        The smoother output is defined by a collection of boolean flags, and</span>
+<span class="sd">        is internally stored as a bitmask. The methods available are:</span>
+
+<span class="sd">        SMOOTHER_STATE = 0x01</span>
+<span class="sd">            Calculate and return the smoothed states.</span>
+<span class="sd">        SMOOTHER_STATE_COV = 0x02</span>
+<span class="sd">            Calculate and return the smoothed state covariance matrices.</span>
+<span class="sd">        SMOOTHER_DISTURBANCE = 0x04</span>
+<span class="sd">            Calculate and return the smoothed state and observation</span>
+<span class="sd">            disturbances.</span>
+<span class="sd">        SMOOTHER_DISTURBANCE_COV = 0x08</span>
+<span class="sd">            Calculate and return the covariance matrices for the smoothed state</span>
+<span class="sd">            and observation disturbances.</span>
+<span class="sd">        SMOOTHER_ALL</span>
+<span class="sd">            Calculate and return all results.</span>
+
+<span class="sd">        If the bitmask is set directly via the `smoother_output` argument, then</span>
+<span class="sd">        the full method must be provided.</span>
+
+<span class="sd">        If keyword arguments are used to set individual boolean flags, then</span>
+<span class="sd">        the lowercase of the method must be used as an argument name, and the</span>
+<span class="sd">        value is the desired value of the boolean flag (True or False).</span>
+
+<span class="sd">        Note that the smoother output may also be specified by directly</span>
+<span class="sd">        modifying the class attributes which are defined similarly to the</span>
+<span class="sd">        keyword arguments.</span>
+
+<span class="sd">        The default smoother output is SMOOTHER_ALL.</span>
+
+<span class="sd">        If performance is a concern, only those results which are needed should</span>
+<span class="sd">        be specified as any results that are not specified will not be</span>
+<span class="sd">        calculated. For example, if the smoother output is set to only include</span>
+<span class="sd">        SMOOTHER_STATE, the smoother operates much more quickly than if all</span>
+<span class="sd">        output is required.</span>
+
+<span class="sd">        Examples</span>
+<span class="sd">        --------</span>
+<span class="sd">        &gt;&gt;&gt; mod = dp.ssm.KalmanFilter(1,1)</span>
+<span class="sd">        &gt;&gt;&gt; mod.smoother_output</span>
+<span class="sd">        15</span>
+<span class="sd">        &gt;&gt;&gt; mod.set_smoother_output(smoother_output=0)</span>
+<span class="sd">        &gt;&gt;&gt; mod.smoother_state = True</span>
+<span class="sd">        &gt;&gt;&gt; mod.smoother_output</span>
+<span class="sd">        1</span>
+<span class="sd">        &gt;&gt;&gt; mod.smoother_state</span>
+<span class="sd">        True</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">smoother_output</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">smoother_output</span> <span class="o">=</span> <span class="n">smoother_output</span>
+        <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">KalmanSmoother</span><span class="o">.</span><span class="n">smoother_outputs</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+                <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">[</span><span class="n">name</span><span class="p">])</span>
+</div>
+<div class="viewcode-block" id="KalmanSmoother.smooth"><a class="viewcode-back" href="../../../reference/ssm/kalman_smoother.html#dismalpy.ssm.kalman_smoother.KalmanSmoother.smooth">[docs]</a>    <span class="k">def</span> <span class="nf">smooth</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">smoother_output</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">results</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Apply the Kalman smoother to the statespace model.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        smoother_output : int, optional</span>
+<span class="sd">            Determines which Kalman smoother output calculate. Default is all</span>
+<span class="sd">            (including state, disturbances, and all covariances).</span>
+<span class="sd">        results : class or object, optional</span>
+<span class="sd">            If a class, then that class is instantiated and returned with the</span>
+<span class="sd">            result of both filtering and smoothing.</span>
+<span class="sd">            If an object, then that object is updated with the smoothing data.</span>
+<span class="sd">            If None, then a FilterResults object is returned with both</span>
+<span class="sd">            filtering and smoothing results.</span>
+<span class="sd">        prefix : string</span>
+<span class="sd">            The prefix of the datatype. Usually only used internally.</span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        FilterResults object</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">new_results</span> <span class="o">=</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="n">SmootherResults</span><span class="p">)</span>
+
+        <span class="c"># Set the class to be the default results class, if None provided</span>
+        <span class="k">if</span> <span class="n">results</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">results_class</span>
+
+        <span class="c"># Initialize the smoother</span>
+        <span class="n">prefix</span><span class="p">,</span> <span class="n">dtype</span><span class="p">,</span> <span class="n">create_smoother</span><span class="p">,</span> <span class="n">create_filter</span><span class="p">,</span> <span class="n">create_statespace</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_initialize_smoother</span><span class="p">(</span>
+            <span class="n">smoother_output</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="n">prefix</span>
+        <span class="p">))</span>
+
+        <span class="c"># Instantiate a new results object, if required</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="nb">type</span><span class="p">):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="n">SmootherResults</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&#39;Invalid results class provided.&#39;</span><span class="p">)</span>
+            <span class="n">results</span> <span class="o">=</span> <span class="n">results</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+        <span class="c"># Run the filter if necessary</span>
+        <span class="n">kfilter</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_kalman_filters</span><span class="p">[</span><span class="n">prefix</span><span class="p">]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">kfilter</span><span class="o">.</span><span class="n">t</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">nobs</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_initialize_state</span><span class="p">()</span>
+            <span class="n">kfilter</span><span class="p">()</span>
+
+        <span class="c"># Run the smoother</span>
+        <span class="n">smoother</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_kalman_smoothers</span><span class="p">[</span><span class="n">prefix</span><span class="p">]</span>
+        <span class="n">smoother</span><span class="p">()</span>
+
+        <span class="c"># Update the results object</span>
+        <span class="c"># Update the model features; unless we had to recreate the</span>
+        <span class="c"># statespace, only update the filter options</span>
+        <span class="n">results</span><span class="o">.</span><span class="n">update_representation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">only_options</span><span class="o">=</span><span class="ow">not</span> <span class="n">create_statespace</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">new_results</span> <span class="ow">or</span> <span class="n">create_filter</span><span class="p">:</span>
+            <span class="n">results</span><span class="o">.</span><span class="n">update_filter</span><span class="p">(</span><span class="n">kfilter</span><span class="p">)</span>
+        <span class="n">results</span><span class="o">.</span><span class="n">update_smoother</span><span class="p">(</span><span class="n">smoother</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">results</span>
+
+</div></div>
+<div class="viewcode-block" id="SmootherResults"><a class="viewcode-back" href="../../../reference/ssm/kalman_smoother.html#dismalpy.ssm.kalman_smoother.SmootherResults">[docs]</a><span class="k">class</span> <span class="nc">SmootherResults</span><span class="p">(</span><span class="n">FilterResults</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Results from applying the Kalman smoother and/or filter to a state space</span>
+<span class="sd">    model.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    model : Representation</span>
+<span class="sd">        A Statespace representation</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    nobs : int</span>
+<span class="sd">        Number of observations.</span>
+<span class="sd">    k_endog : int</span>
+<span class="sd">        The dimension of the observation series.</span>
+<span class="sd">    k_states : int</span>
+<span class="sd">        The dimension of the unobserved state process.</span>
+<span class="sd">    k_posdef : int</span>
+<span class="sd">        The dimension of a guaranteed positive definite covariance matrix</span>
+<span class="sd">        describing the shocks in the measurement equation.</span>
+<span class="sd">    dtype : dtype</span>
+<span class="sd">        Datatype of representation matrices</span>
+<span class="sd">    prefix : str</span>
+<span class="sd">        BLAS prefix of representation matrices</span>
+<span class="sd">    shapes : dictionary of name:tuple</span>
+<span class="sd">        A dictionary recording the shapes of each of the representation</span>
+<span class="sd">        matrices as tuples.</span>
+<span class="sd">    endog : array</span>
+<span class="sd">        The observation vector.</span>
+<span class="sd">    design : array</span>
+<span class="sd">        The design matrix, :math:`Z`.</span>
+<span class="sd">    obs_intercept : array</span>
+<span class="sd">        The intercept for the observation equation, :math:`d`.</span>
+<span class="sd">    obs_cov : array</span>
+<span class="sd">        The covariance matrix for the observation equation :math:`H`.</span>
+<span class="sd">    transition : array</span>
+<span class="sd">        The transition matrix, :math:`T`.</span>
+<span class="sd">    state_intercept : array</span>
+<span class="sd">        The intercept for the transition equation, :math:`c`.</span>
+<span class="sd">    selection : array</span>
+<span class="sd">        The selection matrix, :math:`R`.</span>
+<span class="sd">    state_cov : array</span>
+<span class="sd">        The covariance matrix for the state equation :math:`Q`.</span>
+<span class="sd">    missing : array of bool</span>
+<span class="sd">        An array of the same size as `endog`, filled with boolean values that</span>
+<span class="sd">        are True if the corresponding entry in `endog` is NaN and False</span>
+<span class="sd">        otherwise.</span>
+<span class="sd">    nmissing : array of int</span>
+<span class="sd">        An array of size `nobs`, where the ith entry is the number (between 0</span>
+<span class="sd">        and k_endog) of NaNs in the ith row of the `endog` array.</span>
+<span class="sd">    time_invariant : bool</span>
+<span class="sd">        Whether or not the representation matrices are time-invariant</span>
+<span class="sd">    initialization : str</span>
+<span class="sd">        Kalman filter initialization method.</span>
+<span class="sd">    initial_state : array_like</span>
+<span class="sd">        The state vector used to initialize the Kalamn filter.</span>
+<span class="sd">    initial_state_cov : array_like</span>
+<span class="sd">        The state covariance matrix used to initialize the Kalamn filter.</span>
+<span class="sd">    filter_method : int</span>
+<span class="sd">        Bitmask representing the Kalman filtering method</span>
+<span class="sd">    inversion_method : int</span>
+<span class="sd">        Bitmask representing the method used to invert the forecast error</span>
+<span class="sd">        covariance matrix.</span>
+<span class="sd">    stability_method : int</span>
+<span class="sd">        Bitmask representing the methods used to promote numerical stability in</span>
+<span class="sd">        the Kalman filter recursions.</span>
+<span class="sd">    conserve_memory : int</span>
+<span class="sd">        Bitmask representing the selected memory conservation method.</span>
+<span class="sd">    tolerance : float</span>
+<span class="sd">        The tolerance at which the Kalman filter determines convergence to</span>
+<span class="sd">        steady-state.</span>
+<span class="sd">    loglikelihood_burn : int</span>
+<span class="sd">        The number of initial periods during which the loglikelihood is not</span>
+<span class="sd">        recorded.</span>
+<span class="sd">    converged : bool</span>
+<span class="sd">        Whether or not the Kalman filter converged.</span>
+<span class="sd">    period_converged : int</span>
+<span class="sd">        The time period in which the Kalman filter converged.</span>
+<span class="sd">    filtered_state : array</span>
+<span class="sd">        The filtered state vector at each time period.</span>
+<span class="sd">    filtered_state_cov : array</span>
+<span class="sd">        The filtered state covariance matrix at each time period.</span>
+<span class="sd">    predicted_state : array</span>
+<span class="sd">        The predicted state vector at each time period.</span>
+<span class="sd">    predicted_state_cov : array</span>
+<span class="sd">        The predicted state covariance matrix at each time period.</span>
+<span class="sd">    kalman_gain : array</span>
+<span class="sd">        The Kalman gain at each time period.</span>
+<span class="sd">    forecasts : array</span>
+<span class="sd">        The one-step-ahead forecasts of observations at each time period.</span>
+<span class="sd">    forecasts_error : array</span>
+<span class="sd">        The forecast errors at each time period.</span>
+<span class="sd">    forecasts_error_cov : array</span>
+<span class="sd">        The forecast error covariance matrices at each time period.</span>
+<span class="sd">    loglikelihood : array</span>
+<span class="sd">        The loglikelihood values at each time period.</span>
+<span class="sd">    collapsed_forecasts : array</span>
+<span class="sd">        If filtering using collapsed observations, stores the one-step-ahead</span>
+<span class="sd">        forecasts of collapsed observations at each time period.</span>
+<span class="sd">    collapsed_forecasts_error : array</span>
+<span class="sd">        If filtering using collapsed observations, stores the one-step-ahead</span>
+<span class="sd">        forecast errors of collapsed observations at each time period.</span>
+<span class="sd">    collapsed_forecasts_error_cov : array</span>
+<span class="sd">        If filtering using collapsed observations, stores the one-step-ahead</span>
+<span class="sd">        forecast error covariance matrices of collapsed observations at each</span>
+<span class="sd">        time period.</span>
+<span class="sd">    standardized_forecast_error : array</span>
+<span class="sd">        The standardized forecast errors</span>
+<span class="sd">    smoother_output : int</span>
+<span class="sd">        Bitmask representing the generated Kalman smoothing output</span>
+<span class="sd">    scaled_smoothed_estimator : array</span>
+<span class="sd">        The scaled smoothed estimator at each time period.</span>
+<span class="sd">    scaled_smoothed_estimator_cov : array</span>
+<span class="sd">        The scaled smoothed estimator covariance matrices at each time period.</span>
+<span class="sd">    smoothing_error : array</span>
+<span class="sd">        The smoothing error covariance matrices at each time period.</span>
+<span class="sd">    smoothed_state : array</span>
+<span class="sd">        The smoothed state at each time period.</span>
+<span class="sd">    smoothed_state_cov : array</span>
+<span class="sd">        The smoothed state covariance matrices at each time period.</span>
+<span class="sd">    smoothed_measurement_disturbance : array</span>
+<span class="sd">        The smoothed measurement at each time period.</span>
+<span class="sd">    smoothed_state_disturbance : array</span>
+<span class="sd">        The smoothed state at each time period.</span>
+<span class="sd">    smoothed_measurement_disturbance_cov : array</span>
+<span class="sd">        The smoothed measurement disturbance covariance matrices at each time</span>
+<span class="sd">        period.</span>
+<span class="sd">    smoothed_state_disturbance_cov : array</span>
+<span class="sd">        The smoothed state disturbance covariance matrices at each time period.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">_smoother_attributes</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s">&#39;smoother_output&#39;</span><span class="p">,</span> <span class="s">&#39;scaled_smoothed_estimator&#39;</span><span class="p">,</span>
+        <span class="s">&#39;scaled_smoothed_estimator_cov&#39;</span><span class="p">,</span> <span class="s">&#39;smoothing_error&#39;</span><span class="p">,</span>
+        <span class="s">&#39;smoothed_state&#39;</span><span class="p">,</span> <span class="s">&#39;smoothed_state_cov&#39;</span><span class="p">,</span>
+        <span class="s">&#39;smoothed_measurement_disturbance&#39;</span><span class="p">,</span> <span class="s">&#39;smoothed_state_disturbance&#39;</span><span class="p">,</span>
+        <span class="s">&#39;smoothed_measurement_disturbance_cov&#39;</span><span class="p">,</span>
+        <span class="s">&#39;smoothed_state_disturbance_cov&#39;</span>
+    <span class="p">]</span>
+
+    <span class="n">_smoother_options</span> <span class="o">=</span> <span class="n">KalmanSmoother</span><span class="o">.</span><span class="n">smoother_outputs</span>
+
+    <span class="n">_attributes</span> <span class="o">=</span> <span class="n">FilterResults</span><span class="o">.</span><span class="n">_model_attributes</span> <span class="o">+</span> <span class="n">_smoother_attributes</span>
+
+<div class="viewcode-block" id="SmootherResults.update_representation"><a class="viewcode-back" href="../../../reference/ssm/kalman_smoother.html#dismalpy.ssm.kalman_smoother.SmootherResults.update_representation">[docs]</a>    <span class="k">def</span> <span class="nf">update_representation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">only_options</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Update the results to match a given model</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        model : Representation</span>
+<span class="sd">            The model object from which to take the updated values.</span>
+<span class="sd">        only_options : boolean, optional</span>
+<span class="sd">            If set to true, only the smoother and filter options are updated,</span>
+<span class="sd">            and the state space representation is not updated. Default is</span>
+<span class="sd">            False.</span>
+
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        This method is rarely required except for internal usage.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">SmootherResults</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">update_representation</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">only_options</span><span class="p">)</span>
+
+        <span class="c"># Save the options as boolean variables</span>
+        <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_smoother_options</span><span class="p">:</span>
+            <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="bp">None</span><span class="p">))</span>
+
+        <span class="c"># Initialize holders for smoothed forecasts</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_smoothed_forecasts</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_smoothed_forecasts_error</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_smoothed_forecasts_error_cov</span> <span class="o">=</span> <span class="bp">None</span>
+</div>
+<div class="viewcode-block" id="SmootherResults.update_smoother"><a class="viewcode-back" href="../../../reference/ssm/kalman_smoother.html#dismalpy.ssm.kalman_smoother.SmootherResults.update_smoother">[docs]</a>    <span class="k">def</span> <span class="nf">update_smoother</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">smoother</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Update the smoother results</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        smoother : KalmanSmoother</span>
+<span class="sd">            The model object from which to take the updated values.</span>
+
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        This method is rarely required except for internal usage.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c"># Copy the appropriate output</span>
+        <span class="n">attributes</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="c"># Since update_representation will already have been called, we can</span>
+        <span class="c"># use the boolean options smoother_* and know they match the smoother</span>
+        <span class="c"># itself</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">smoother_state</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">smoother_disturbance</span><span class="p">:</span>
+            <span class="n">attributes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&#39;scaled_smoothed_estimator&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">smoother_state_cov</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">smoother_disturbance_cov</span><span class="p">:</span>
+            <span class="n">attributes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&#39;scaled_smoothed_estimator_cov&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">smoother_state</span><span class="p">:</span>
+            <span class="n">attributes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&#39;smoothed_state&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">smoother_state_cov</span><span class="p">:</span>
+            <span class="n">attributes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&#39;smoothed_state_cov&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">smoother_disturbance</span><span class="p">:</span>
+            <span class="n">attributes</span> <span class="o">+=</span> <span class="p">[</span>
+                <span class="s">&#39;smoothing_error&#39;</span><span class="p">,</span>
+                <span class="s">&#39;smoothed_measurement_disturbance&#39;</span><span class="p">,</span>
+                <span class="s">&#39;smoothed_state_disturbance&#39;</span>
+            <span class="p">]</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">smoother_disturbance_cov</span><span class="p">:</span>
+            <span class="n">attributes</span> <span class="o">+=</span> <span class="p">[</span>
+                <span class="s">&#39;smoothed_measurement_disturbance_cov&#39;</span><span class="p">,</span>
+                <span class="s">&#39;smoothed_state_disturbance_cov&#39;</span>
+            <span class="p">]</span>
+
+        <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_smoother_attributes</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s">&#39;smoother_output&#39;</span><span class="p">:</span>
+                <span class="k">pass</span>
+            <span class="k">elif</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">attributes</span><span class="p">:</span>
+                <span class="nb">setattr</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span>
+                    <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">smoother</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="bp">None</span><span class="p">),</span> <span class="n">copy</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+                <span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+
+        <span class="c"># Adjustments</span>
+
+        <span class="c"># For r_t (and similarly for N_t), what was calculated was</span>
+        <span class="c"># r_T, ..., r_{-1}, and stored such that</span>
+        <span class="c"># scaled_smoothed_estimator[0] == r_{-1}. We only want r_0, ..., r_T</span>
+        <span class="c"># so exclude the zeroth element so that the time index is consistent</span>
+        <span class="c"># with the other returned output</span>
+        <span class="k">if</span> <span class="s">&#39;scaled_smoothed_estimator&#39;</span> <span class="ow">in</span> <span class="n">attributes</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">scaled_smoothed_estimator</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scaled_smoothed_estimator</span><span class="p">[:,</span><span class="mi">1</span><span class="p">:]</span>
+        <span class="k">if</span> <span class="s">&#39;scaled_smoothed_estimator_cov&#39;</span> <span class="ow">in</span> <span class="n">attributes</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">scaled_smoothed_estimator_cov</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scaled_smoothed_estimator_cov</span><span class="p">[:,</span><span class="mi">1</span><span class="p">:]</span>
+
+        <span class="c"># Clear the smoothed forecasts</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_smoothed_forecasts</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_smoothed_forecasts_error</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_smoothed_forecasts_error_cov</span> <span class="o">=</span> <span class="bp">None</span>
+</div>
+    <span class="k">def</span> <span class="nf">_get_smoothed_forecasts</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_smoothed_forecasts</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="c"># Initialize empty arrays</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_smoothed_forecasts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">forecasts</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_smoothed_forecasts_error</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">forecasts_error</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_smoothed_forecasts_error_cov</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">forecasts_error_cov</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+            <span class="p">)</span>
+
+            <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nobs</span><span class="p">):</span>
+                <span class="n">design_t</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">design</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="n">t</span>
+                <span class="n">obs_cov_t</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">obs_cov</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="n">t</span>
+                <span class="n">obs_intercept_t</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">obs_intercept</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="n">t</span>
+
+                <span class="c"># For completely missing observations</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">nmissing</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">k_endog</span><span class="p">:</span>
+                    <span class="c"># We can recover forecasts</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_smoothed_forecasts</span><span class="p">[:,</span> <span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">design</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">design_t</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">smoothed_state</span><span class="p">[:,</span> <span class="n">t</span><span class="p">]</span>
+                    <span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">obs_intercept</span><span class="p">[:,</span> <span class="n">obs_intercept_t</span><span class="p">]</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_smoothed_forecasts_error</span><span class="p">[:,</span> <span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_smoothed_forecasts_error_cov</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span>
+                        <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">design</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">design_t</span><span class="p">],</span>
+                               <span class="bp">self</span><span class="o">.</span><span class="n">smoothed_state_cov</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">t</span><span class="p">]),</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">design</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">design_t</span><span class="p">]</span><span class="o">.</span><span class="n">T</span>
+                    <span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">obs_cov</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">obs_cov_t</span><span class="p">]</span>
+                <span class="c"># For partially missing observations</span>
+                <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">nmissing</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_smoothed_forecasts</span><span class="p">[:,</span> <span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_smoothed_forecasts_error</span><span class="p">[:,</span> <span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_smoothed_forecasts_error_cov</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_smoothed_forecasts</span><span class="p">[:,</span> <span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">design</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">design_t</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">smoothed_state</span><span class="p">[:,</span> <span class="n">t</span><span class="p">]</span>
+                    <span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">obs_intercept</span><span class="p">[:,</span> <span class="n">obs_intercept_t</span><span class="p">]</span>
+
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_smoothed_forecasts_error</span><span class="p">[:,</span> <span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">endog</span><span class="p">[:,</span> <span class="n">t</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_smoothed_forecasts</span><span class="p">[:,</span> <span class="n">t</span><span class="p">]</span>
+                    <span class="p">)</span>
+
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_smoothed_forecasts_error_cov</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span>
+                        <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">design</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">design_t</span><span class="p">],</span>
+                               <span class="bp">self</span><span class="o">.</span><span class="n">smoothed_state_cov</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">t</span><span class="p">]),</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">design</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">design_t</span><span class="p">]</span><span class="o">.</span><span class="n">T</span>
+                    <span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">obs_cov</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">obs_cov_t</span><span class="p">]</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_smoothed_forecasts</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_smoothed_forecasts_error</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_smoothed_forecasts_error_cov</span>
+        <span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">smoothed_forecasts</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_smoothed_forecasts</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">smoothed_forecasts_error</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_smoothed_forecasts</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">smoothed_forecasts_error_cov</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_smoothed_forecasts</span><span class="p">()[</span><span class="mi">2</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">_predict_broken</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nstatic</span><span class="p">,</span> <span class="n">ndynamic</span><span class="p">,</span> <span class="n">nforecast</span><span class="p">,</span> <span class="n">model</span><span class="p">):</span>
+        <span class="c"># Replace the KalmanFilter model with KalmanSmoother</span>
+        <span class="n">model_kwargs</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s">&#39;filter_method&#39;</span><span class="p">:</span> <span class="n">model</span><span class="o">.</span><span class="n">filter_method</span><span class="p">,</span>
+            <span class="s">&#39;inversion_method&#39;</span><span class="p">:</span> <span class="n">model</span><span class="o">.</span><span class="n">inversion_method</span><span class="p">,</span>
+            <span class="s">&#39;stability_method&#39;</span><span class="p">:</span> <span class="n">model</span><span class="o">.</span><span class="n">stability_method</span><span class="p">,</span>
+            <span class="s">&#39;conserve_memory&#39;</span><span class="p">:</span> <span class="n">model</span><span class="o">.</span><span class="n">conserve_memory</span><span class="p">,</span>
+            <span class="s">&#39;tolerance&#39;</span><span class="p">:</span> <span class="n">model</span><span class="o">.</span><span class="n">tolerance</span><span class="p">,</span>
+            <span class="s">&#39;loglikelihood_burn&#39;</span><span class="p">:</span> <span class="n">model</span><span class="o">.</span><span class="n">loglikelihood_burn</span><span class="p">,</span>
+            <span class="s">&#39;smoother_output&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">smoother_output</span>
+        <span class="p">}</span>
+
+        <span class="n">representation</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">shape</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">shapes</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s">&#39;obs&#39;</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">representation</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+        <span class="n">model_kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">representation</span><span class="p">)</span>
+
+        <span class="n">model</span> <span class="o">=</span> <span class="n">KalmanSmoother</span><span class="p">(</span>
+            <span class="n">model</span><span class="o">.</span><span class="n">endog</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">k_states</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">k_posdef</span><span class="p">,</span> <span class="o">**</span><span class="n">model_kwargs</span>
+        <span class="p">)</span>
+        
+        <span class="n">model</span><span class="o">.</span><span class="n">initialize_known</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">initial_state</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">initial_state_cov</span>
+        <span class="p">)</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">_initialize_filter</span><span class="p">()</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">_initialize_smoother</span><span class="p">()</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">_initialize_state</span><span class="p">()</span>
+
+        <span class="c"># </span>
+        <span class="n">results</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">SmootherResults</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">_predict</span><span class="p">(</span><span class="n">nstatic</span><span class="p">,</span> <span class="n">ndynamic</span><span class="p">,</span>
+                                                        <span class="n">nforecast</span><span class="p">,</span> <span class="n">model</span><span class="p">)</span>
+
+        <span class="c"># Replace with SmootherResults</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="n">SmootherResults</span><span class="p">(</span><span class="n">results</span><span class="o">.</span><span class="n">model</span><span class="p">)</span>
+        <span class="n">results</span><span class="o">.</span><span class="n">update_filter</span><span class="p">(</span><span class="n">results</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">_kalman_filter</span><span class="p">)</span>
+        <span class="n">results</span><span class="o">.</span><span class="n">update_smoother</span><span class="p">(</span><span class="n">results</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">_kalman_smoother</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">results</span></div>
+</pre></div>
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Chad Fulton.
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'0.1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

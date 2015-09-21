@@ -1,0 +1,453 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>dismalpy.ssm.varmax &mdash; DismalPy 0.1.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="author" title="About these documents"
+              href="../../../about.html"/>
+    <link rel="top" title="DismalPy 0.1.0 documentation" href="../../../index.html"/>
+        <link rel="up" title="Module code" href="../../index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="../../../contents.html" class="icon icon-home"> DismalPy
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../user/index.html">DismalPy User Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../user/ssm.html">State Space Models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/ssm.html#topics">Topics</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/ssm/2-state_space_models.html">State space models</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/ssm/3-python_representation.html">Representation in Python</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/ssm/4-maximum_likelihood_estimation.html">Maximum Likelihood Estimation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/ssm/5-posterior_simulation.html">Posterior Simulation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/ssm/6-out-of-the-box_models.html">Out-of-the-box models</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/ssm/9-references.html">References</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../user/ssm.html#examples">Examples</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/_notebooks/sarimax_internet.ipynb.html">Durbin and Koopman: Box-Jenkins Examples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/_notebooks/sarimax_stata.ipynb.html">SARIMAX: Introduction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/_notebooks/local_linear_trend.ipynb.html">State space modeling: Local Linear Trends</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/_notebooks/structural_harvey_jaeger.ipynb.html">Detrending, Stylized Facts and the Business Cycle</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/_notebooks/dfm_coincident.ipynb.html">Dynamic factors and coincident indices</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../user/_notebooks/varmax.ipynb.html">VARMAX models</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../reference/index.html">DismalPy Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/ssm.html">State Space Models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/ssm.html#built-in-models">Built-in models</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../reference/ssm/sarimax.html">SARIMAX</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../reference/ssm/structural.html">Unobserved Components</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../reference/ssm/varmax.html">VARMAX</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../reference/ssm/dynamic_factor.html">Dynamic Factors</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/ssm.html#extension-starting-point">Extension starting point</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../reference/ssm/mlemodel.html">MLEModel</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/ssm.html#base-classes">Base classes</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../reference/ssm/representation.html">Representation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../reference/ssm/kalman_filter.html">Kalman filter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../reference/ssm/kalman_smoother.html">Kalman smoother</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../reference/ssm/simulation_smoother.html">Simulation Smoother</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../reference/ssm/model.html">Model</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../reference/ssm/tools.html">Tools</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../release.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#dismalpy-0-2-0-release-notes">DismalPy 0.2.0 Release Notes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#highlights">Highlights</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#dismalpy-0-1-0-release-notes">DismalPy 0.1.0 Release Notes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id1">Highlights</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#dropped-support">Dropped Support</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#future-changes">Future Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#compatibility-notes">Compatibility notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#new-features">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#improvements">Improvements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#changes">Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#deprecations">Deprecations</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../about.html">About DismalPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../about.html#about-this-documentation">About this documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../about.html#conventions">Conventions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../bugs.html">Reporting bugs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../license.html">DismalPy License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../glossary.html">Glossary</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../glossary.html#module-dismalpy.doc.jargon">Jargon</a></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../contents.html">DismalPy</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../contents.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      
+    <li>dismalpy.ssm.varmax</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <h1>Source code for dismalpy.ssm.varmax</h1><div class="highlight"><pre>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">VARMAX Model</span>
+
+<span class="sd">Author: Chad Fulton</span>
+<span class="sd">License: Simplified-BSD</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">division</span><span class="p">,</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">print_function</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">.mlemodel</span> <span class="kn">import</span> <span class="n">MLEMixin</span><span class="p">,</span> <span class="n">MLEResultsMixin</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">statsmodels.tsa.statespace</span> <span class="kn">import</span> <span class="n">varmax</span>
+    <span class="kn">from</span> <span class="nn">statsmodels.tsa.statespace</span> <span class="kn">import</span> <span class="n">mlemodel</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">.compat</span> <span class="kn">import</span> <span class="n">mlemodel</span><span class="p">,</span> <span class="n">varmax</span>
+<span class="kn">import</span> <span class="nn">statsmodels.base.wrapper</span> <span class="kn">as</span> <span class="nn">wrap</span>
+
+<div class="viewcode-block" id="VARMAX"><a class="viewcode-back" href="../../../reference/ssm/varmax.html#dismalpy.ssm.varmax.VARMAX">[docs]</a><span class="k">class</span> <span class="nc">VARMAX</span><span class="p">(</span><span class="n">MLEMixin</span><span class="p">,</span> <span class="n">varmax</span><span class="o">.</span><span class="n">VARMAX</span><span class="p">):</span>
+    <span class="sd">r&quot;&quot;&quot;</span>
+<span class="sd">    Vector Autoregressive Moving Average with eXogenous regressors model</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    endog : array_like</span>
+<span class="sd">        The observed time-series process :math:`y`, , shaped nobs x k_endog.</span>
+<span class="sd">    exog : array_like, optional</span>
+<span class="sd">        Array of exogenous regressors, shaped nobs x k.</span>
+<span class="sd">    order : iterable</span>
+<span class="sd">        The (p,q) order of the model for the number of AR and MA parameters to</span>
+<span class="sd">        use.</span>
+<span class="sd">    trend : {&#39;nc&#39;, &#39;c&#39;}, optional</span>
+<span class="sd">        Parameter controlling the deterministic trend polynomial.</span>
+<span class="sd">        Can be specified as a string where &#39;c&#39; indicates a constant intercept</span>
+<span class="sd">        and &#39;nc&#39; indicates no intercept term.</span>
+<span class="sd">    error_cov_type : {&#39;diagonal&#39;, &#39;unstructured&#39;}, optional</span>
+<span class="sd">        The structure of the covariance matrix of the error term, where</span>
+<span class="sd">        &quot;unstructured&quot; puts no restrictions on the matrix and &quot;diagonal&quot;</span>
+<span class="sd">        requires it to be a diagonal matrix (uncorrelated errors). Default is</span>
+<span class="sd">        &quot;unstructured&quot;.</span>
+<span class="sd">    measurement_error : boolean, optional</span>
+<span class="sd">        Whether or not to assume the endogenous observations `endog` were</span>
+<span class="sd">        measured with error. Default is False.</span>
+<span class="sd">    enforce_stationarity : boolean, optional</span>
+<span class="sd">        Whether or not to transform the AR parameters to enforce stationarity</span>
+<span class="sd">        in the autoregressive component of the model. Default is True.</span>
+<span class="sd">    enforce_invertibility : boolean, optional</span>
+<span class="sd">        Whether or not to transform the MA parameters to enforce invertibility</span>
+<span class="sd">        in the moving average component of the model. Default is True.</span>
+<span class="sd">    **kwargs</span>
+<span class="sd">        Keyword arguments may be used to provide default values for state space</span>
+<span class="sd">        matrices or for Kalman filtering options. See `Representation`, and</span>
+<span class="sd">        `KalmanFilter` for more details.</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    order : iterable</span>
+<span class="sd">        The (p,q) order of the model for the number of AR and MA parameters to</span>
+<span class="sd">        use.</span>
+<span class="sd">    trend : {&#39;nc&#39;, &#39;c&#39;}, optional</span>
+<span class="sd">        Parameter controlling the deterministic trend polynomial.</span>
+<span class="sd">        Can be specified as a string where &#39;c&#39; indicates a constant intercept</span>
+<span class="sd">        and &#39;nc&#39; indicates no intercept term.</span>
+<span class="sd">    error_cov_type : {&#39;diagonal&#39;, &#39;unstructured&#39;}, optional</span>
+<span class="sd">        The structure of the covariance matrix of the error term, where</span>
+<span class="sd">        &quot;unstructured&quot; puts no restrictions on the matrix and &quot;diagonal&quot;</span>
+<span class="sd">        requires it to be a diagonal matrix (uncorrelated errors). Default is</span>
+<span class="sd">        &quot;unstructured&quot;.</span>
+<span class="sd">    measurement_error : boolean, optional</span>
+<span class="sd">        Whether or not to assume the endogenous observations `endog` were</span>
+<span class="sd">        measured with error. Default is False.</span>
+<span class="sd">    enforce_stationarity : boolean, optional</span>
+<span class="sd">        Whether or not to transform the AR parameters to enforce stationarity</span>
+<span class="sd">        in the autoregressive component of the model. Default is True.</span>
+<span class="sd">    enforce_invertibility : boolean, optional</span>
+<span class="sd">        Whether or not to transform the MA parameters to enforce invertibility</span>
+<span class="sd">        in the moving average component of the model. Default is True.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    Generically, the VARMAX model is specified (see for example chapter 18 of</span>
+<span class="sd">    [1]_):</span>
+
+<span class="sd">    .. math::</span>
+
+<span class="sd">        y_t = \nu + A_1 y_{t-1} + \dots + A_p y_{t-p} + B x_t + \epsilon_t +</span>
+<span class="sd">        M_1 \epsilon_{t-1} + \dots M_q \epsilon_{t-q}</span>
+
+<span class="sd">    where :math:`\epsilon_t \sim N(0, \Omega)`, and where :math:`y_t` is a</span>
+<span class="sd">    `k_endog x 1` vector. Additionally, this model allows considering the case</span>
+<span class="sd">    where the variables are measured with error.</span>
+
+<span class="sd">    Note that in the full VARMA(p,q) case there is a fundamental identification</span>
+<span class="sd">    problem in that the coefficient matrices :math:`\{A_i, M_j\}` are not</span>
+<span class="sd">    generally unique, meaning that for a given time series process there may</span>
+<span class="sd">    be multiple sets of matrices that equivalently represent it. See Chapter 12</span>
+<span class="sd">    of [1]_ for more informationl. Although this class can be used to estimate</span>
+<span class="sd">    VARMA(p,q) models, a warning is issued to remind users that no steps have</span>
+<span class="sd">    been taken to ensure identification in this case.</span>
+
+<span class="sd">    See Also</span>
+<span class="sd">    --------</span>
+<span class="sd">    dismalpy.ssm.mlemodel.MLEModel</span>
+<span class="sd">    dismalpy.ssm.kalman_smoother.KalmanSmoother</span>
+<span class="sd">    dismalpy.ssm.kalman_filter.KalmanFilter</span>
+<span class="sd">    dismalpy.ssm.representation.Representation</span>
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    .. [1] Lutkepohl, Helmut. 2007.</span>
+<span class="sd">       New Introduction to Multiple Time Series Analysis.</span>
+<span class="sd">       Berlin: Springer.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">filter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">transformed</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">cov_type</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">return_ssm</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+               <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">ndmin</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="c"># Transform parameters if necessary</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">transformed</span><span class="p">:</span>
+            <span class="n">params</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">transform_params</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+            <span class="n">transformed</span> <span class="o">=</span> <span class="bp">True</span>
+
+        <span class="c"># Get the state space output</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">VARMAX</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">transformed</span><span class="p">,</span> <span class="n">cov_type</span><span class="p">,</span>
+                                             <span class="n">return_ssm</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="c"># Wrap in a results object</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">return_ssm</span><span class="p">:</span>
+            <span class="n">result_kwargs</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="k">if</span> <span class="n">cov_type</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="n">result_kwargs</span><span class="p">[</span><span class="s">&#39;cov_type&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cov_type</span>
+            <span class="n">results</span> <span class="o">=</span> <span class="n">VARMAXResultsWrapper</span><span class="p">(</span>
+                <span class="n">VARMAXResults</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">results</span><span class="p">,</span> <span class="o">**</span><span class="n">result_kwargs</span><span class="p">)</span>
+            <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">results</span>
+    <span class="nb">filter</span><span class="o">.</span><span class="n">__doc__</span> <span class="o">=</span> <span class="n">MLEMixin</span><span class="o">.</span><span class="n">filter</span><span class="o">.</span><span class="n">__doc__</span>
+
+    <span class="k">def</span> <span class="nf">smooth</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">transformed</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">cov_type</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">return_ssm</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+               <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">ndmin</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">transformed</span><span class="p">:</span>
+            <span class="n">params</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">transform_params</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+            <span class="n">transformed</span> <span class="o">=</span> <span class="bp">True</span>
+
+        <span class="c"># Get the state space output</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">VARMAX</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">smooth</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">transformed</span><span class="p">,</span> <span class="n">cov_type</span><span class="p">,</span>
+                                             <span class="n">return_ssm</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="c"># Wrap in a results object</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">return_ssm</span><span class="p">:</span>
+            <span class="n">result_kwargs</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="k">if</span> <span class="n">cov_type</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="n">result_kwargs</span><span class="p">[</span><span class="s">&#39;cov_type&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cov_type</span>
+            <span class="n">results</span> <span class="o">=</span> <span class="n">VARMAXResultsWrapper</span><span class="p">(</span>
+                <span class="n">VARMAXResults</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">results</span><span class="p">,</span> <span class="o">**</span><span class="n">result_kwargs</span><span class="p">)</span>
+            <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">results</span>
+    <span class="n">smooth</span><span class="o">.</span><span class="n">__doc__</span> <span class="o">=</span> <span class="n">MLEMixin</span><span class="o">.</span><span class="n">smooth</span><span class="o">.</span><span class="n">__doc__</span>
+
+</div>
+<div class="viewcode-block" id="VARMAXResults"><a class="viewcode-back" href="../../../reference/ssm/varmax.html#dismalpy.ssm.varmax.VARMAXResults">[docs]</a><span class="k">class</span> <span class="nc">VARMAXResults</span><span class="p">(</span><span class="n">MLEResultsMixin</span><span class="p">,</span> <span class="n">varmax</span><span class="o">.</span><span class="n">VARMAXResults</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Class to hold results from fitting an VARMAX model.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    model : VARMAX instance</span>
+<span class="sd">        The fitted model instance</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    specification : dictionary</span>
+<span class="sd">        Dictionary including all attributes from the VARMAX model instance.</span>
+<span class="sd">    coefficient_matrices_var : array</span>
+<span class="sd">        Array containing autoregressive lag polynomial coefficient matrices,</span>
+<span class="sd">        ordered from lowest degree to highest.</span>
+<span class="sd">    coefficient_matrices_vma : array</span>
+<span class="sd">        Array containing moving average lag polynomial coefficients,</span>
+<span class="sd">        ordered from lowest degree to highest.</span>
+
+<span class="sd">    See Also</span>
+<span class="sd">    --------</span>
+<span class="sd">    dismalpy.ssm.mlemodel.MLEResults</span>
+<span class="sd">    dismalpy.ssm.kalman_smoother.SmootherResults</span>
+<span class="sd">    dismalpy.ssm.kalman_filter.FilterResults</span>
+<span class="sd">    dismalpy.ssm.representation.FrozenRepresentation</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span>
+
+</div>
+<span class="k">class</span> <span class="nc">VARMAXResultsWrapper</span><span class="p">(</span><span class="n">mlemodel</span><span class="o">.</span><span class="n">MLEResultsWrapper</span><span class="p">):</span>
+    <span class="n">_attrs</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">_wrap_attrs</span> <span class="o">=</span> <span class="n">wrap</span><span class="o">.</span><span class="n">union_dicts</span><span class="p">(</span>
+        <span class="n">mlemodel</span><span class="o">.</span><span class="n">MLEResultsWrapper</span><span class="o">.</span><span class="n">_wrap_attrs</span><span class="p">,</span> <span class="n">_attrs</span><span class="p">)</span>
+    <span class="n">_methods</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">_wrap_methods</span> <span class="o">=</span> <span class="n">wrap</span><span class="o">.</span><span class="n">union_dicts</span><span class="p">(</span>
+        <span class="n">mlemodel</span><span class="o">.</span><span class="n">MLEResultsWrapper</span><span class="o">.</span><span class="n">_wrap_methods</span><span class="p">,</span> <span class="n">_methods</span><span class="p">)</span>
+<span class="n">wrap</span><span class="o">.</span><span class="n">populate_wrapper</span><span class="p">(</span><span class="n">VARMAXResultsWrapper</span><span class="p">,</span> <span class="n">VARMAXResults</span><span class="p">)</span>
+</pre></div>
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Chad Fulton.
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'0.1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

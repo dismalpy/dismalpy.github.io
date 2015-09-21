@@ -1,0 +1,499 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>State space modeling: Local Linear Trends &mdash; DismalPy 0.1.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="author" title="About these documents"
+              href="../../about.html"/>
+    <link rel="top" title="DismalPy 0.1.0 documentation" href="../../index.html"/>
+        <link rel="up" title="State Space Models" href="../ssm.html"/>
+        <link rel="next" title="Detrending, Stylized Facts and the Business Cycle" href="structural_harvey_jaeger.ipynb.html"/>
+        <link rel="prev" title="SARIMAX: Introduction" href="sarimax_stata.ipynb.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="../../contents.html" class="icon icon-home"> DismalPy
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">DismalPy User Guide</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../ssm.html">State Space Models</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../ssm.html#topics">Topics</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ssm/2-state_space_models.html">State space models</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ssm/3-python_representation.html">Representation in Python</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ssm/4-maximum_likelihood_estimation.html">Maximum Likelihood Estimation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ssm/5-posterior_simulation.html">Posterior Simulation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ssm/6-out-of-the-box_models.html">Out-of-the-box models</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ssm/9-references.html">References</a></li>
+</ul>
+</li>
+<li class="toctree-l3 current"><a class="reference internal" href="../ssm.html#examples">Examples</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="sarimax_internet.ipynb.html">Durbin and Koopman: Box-Jenkins Examples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sarimax_stata.ipynb.html">SARIMAX: Introduction</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="">State space modeling: Local Linear Trends</a></li>
+<li class="toctree-l4"><a class="reference internal" href="structural_harvey_jaeger.ipynb.html">Detrending, Stylized Facts and the Business Cycle</a></li>
+<li class="toctree-l4"><a class="reference internal" href="dfm_coincident.ipynb.html">Dynamic factors and coincident indices</a></li>
+<li class="toctree-l4"><a class="reference internal" href="varmax.ipynb.html">VARMAX models</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/index.html">DismalPy Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/ssm.html">State Space Models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/ssm.html#built-in-models">Built-in models</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/ssm/sarimax.html">SARIMAX</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/ssm/structural.html">Unobserved Components</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/ssm/varmax.html">VARMAX</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/ssm/dynamic_factor.html">Dynamic Factors</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/ssm.html#extension-starting-point">Extension starting point</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/ssm/mlemodel.html">MLEModel</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/ssm.html#base-classes">Base classes</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/ssm/representation.html">Representation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/ssm/kalman_filter.html">Kalman filter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/ssm/kalman_smoother.html">Kalman smoother</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/ssm/simulation_smoother.html">Simulation Smoother</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/ssm/model.html">Model</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/ssm/tools.html">Tools</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../release.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../release.html#dismalpy-0-1-0-release-notes">DismalPy 0.1.0 Release Notes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#highlights">Highlights</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#dropped-support">Dropped Support</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#future-changes">Future Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#compatibility-notes">Compatibility notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#new-features">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#improvements">Improvements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#changes">Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../release.html#deprecations">Deprecations</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">About DismalPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html#about-this-documentation">About this documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../about.html#conventions">Conventions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../bugs.html">Reporting bugs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">DismalPy License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary.html">Glossary</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../glossary.html#module-dismalpy.doc.jargon">Jargon</a></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../contents.html">DismalPy</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../contents.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../index.html">DismalPy User Guide</a> &raquo;</li>
+      
+          <li><a href="../ssm.html">State Space Models</a> &raquo;</li>
+      
+    <li>State space modeling: Local Linear Trends</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../_sources/user/_notebooks/local_linear_trend.ipynb.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="state-space-modeling-local-linear-trends">
+<h1>State space modeling: Local Linear Trends<a class="headerlink" href="#state-space-modeling-local-linear-trends" title="Permalink to this headline">¶</a></h1>
+<p>This notebook describes how to extend the state space classes to create
+and estimate a custom model. Here we develop a local linear trend model.</p>
+<p>The Local Linear Trend model has the form (see Durbin and Koopman 2012,
+Chapter 3.2 for all notation and details):</p>
+<div class="math">
+\[\begin{split}\begin{align}
+y_t &amp; = \mu_t + \varepsilon_t \qquad &amp; \varepsilon_t \sim
+    N(0, \sigma_\varepsilon^2) \\
+\mu_{t+1} &amp; = \mu_t + \nu_t + \xi_t &amp; \xi_t \sim N(0, \sigma_\xi^2) \\
+\nu_{t+1} &amp; = \nu_t + \zeta_t &amp; \zeta_t \sim N(0, \sigma_\zeta^2)
+\end{align}\end{split}\]</div>
+<p>It is easy to see that this can be cast into state space form as:</p>
+<div class="math">
+\[\begin{split}\begin{align}
+y_t &amp; = \begin{pmatrix} 1 &amp; 0 \end{pmatrix} \begin{pmatrix} \mu_t \\ \nu_t \end{pmatrix} + \varepsilon_t \\
+\begin{pmatrix} \mu_{t+1} \\ \nu_{t+1} \end{pmatrix} &amp; = \begin{bmatrix} 1 &amp; 1 \\ 0 &amp; 1 \end{bmatrix} \begin{pmatrix} \mu_t \\ \nu_t \end{pmatrix} + \begin{pmatrix} \xi_t \\ \zeta_t \end{pmatrix}
+\end{align}\end{split}\]</div>
+<p>Notice that much of the state space representation is composed of known
+values; in fact the only parts in which parameters to be estimated
+appear are in the variance / covariance matrices:</p>
+<div class="math">
+\[\begin{split}\begin{align}
+H_t &amp; = \begin{bmatrix} \sigma_\varepsilon^2 \end{bmatrix} \\
+Q_t &amp; = \begin{bmatrix} \sigma_\xi^2 &amp; 0 \\ 0 &amp; \sigma_\zeta^2 \end{bmatrix}
+\end{align}\end{split}\]</div>
+<div class="code python highlight-python"><div class="highlight"><pre>%matplotlib inline
+
+import numpy as np
+import pandas as pd
+from scipy.stats import norm
+import dismalpy as dp
+import matplotlib.pyplot as plt
+</pre></div>
+</div>
+<p>To take advantage of the existing infrastructure, including Kalman
+filtering and maximum likelihood estimation, we create a new class which
+extends from <code class="docutils literal"><span class="pre">dismalpy.ssm.MLEModel</span></code>. There are a number of things
+that must be specified:</p>
+<ol class="arabic simple">
+<li><strong>k_states</strong>, <strong>k_posdef</strong>: These two parameters must be provided
+to the base classes in initialization. The inform the statespace
+model about the size of, respectively, the state vector, above
+<span class="math">\(\begin{pmatrix} \mu_t &amp; \nu_t \end{pmatrix}'\)</span>, and the state
+error vector, above
+<span class="math">\(\begin{pmatrix} \xi_t &amp; \zeta_t \end{pmatrix}'\)</span>. Note that the
+dimension of the endogenous vector does not have to be specified,
+since it can be inferred from the <code class="docutils literal"><span class="pre">endog</span></code> array.</li>
+<li><strong>update</strong>: The method <code class="docutils literal"><span class="pre">update</span></code>, with argument <code class="docutils literal"><span class="pre">params</span></code>, must be
+specified (it is used when <code class="docutils literal"><span class="pre">fit()</span></code> is called to calculate the MLE).
+It takes the parameters and fills them into the appropriate state
+space matrices. For example, below, the <code class="docutils literal"><span class="pre">params</span></code> vector contains
+variance parameters
+<span class="math">\(\begin{pmatrix} \sigma_\varepsilon^2 &amp; \sigma_\xi^2 &amp; \sigma_\zeta^2\end{pmatrix}\)</span>,
+and the <code class="docutils literal"><span class="pre">update</span></code> method must place them in the observation and
+state covariance matrices. More generally, the parameter vector might
+be mapped into many different places in all of the statespace
+matrices.</li>
+<li><strong>statespace matrices</strong>: by default, all state space matrices
+(<code class="docutils literal"><span class="pre">obs_intercept,</span> <span class="pre">design,</span> <span class="pre">obs_cov,</span> <span class="pre">state_intercept,</span> <span class="pre">transition,</span> <span class="pre">selection,</span> <span class="pre">state_cov</span></code>)
+are set to zeros. Values that are fixed (like the ones in the design
+and transition matrices here) can be set in initialization, whereas
+values that vary with the parameters should be set in the <code class="docutils literal"><span class="pre">update</span></code>
+method. Note that it is easy to forget to set the selection matrix,
+which is often just the identity matrix (as it is here), but not
+setting it will lead to a very different model (one where there is
+not a stochastic component to the transition equation).</li>
+<li><strong>start params</strong>: start parameters must be set, even if it is just a
+vector of zeros, although often good start parameters can be found
+from the data. Maximum likelihood estimation by gradient methods (as
+employed here) can be sensitive to the starting parameters, so it is
+important to select good ones if possible. Here it does not matter
+too much (although as variances, they should&#8217;t be set zero).</li>
+<li><strong>initialization</strong>: in addition to defined state space matrices, all
+state space models must be initialized with the mean and variance for
+the initial distribution of the state vector. If the distribution is
+known, <code class="docutils literal"><span class="pre">initialize_known(initial_state,</span> <span class="pre">initial_state_cov)</span></code> can be
+called, or if the model is stationary (e.g. an ARMA model),
+<code class="docutils literal"><span class="pre">initialize_stationary</span></code> can be used. Otherwise,
+<code class="docutils literal"><span class="pre">initialize_approximate_diffuse</span></code> is a reasonable generic
+initialization (exact diffuse initialization is not yet available).
+Since the local linear trend model is not stationary (it is composed
+of random walks) and since the distribution is not generally known,
+we use <code class="docutils literal"><span class="pre">initialize_approximate_diffuse</span></code> below.</li>
+</ol>
+<p>The above are the minimum necessary for a successful model. There are
+also a number of things that do not have to be set, but which may be
+helpful or important for some applications:</p>
+<ol class="arabic simple">
+<li><strong>transform / untransform</strong>: when <code class="docutils literal"><span class="pre">fit</span></code> is called, the optimizer in
+the background will use gradient methods to select the parameters
+that maximize the likelihood function. By default it uses unbounded
+optimization, which means that it may select any parameter value. In
+many cases, that is not the desired behavior; variances, for example,
+cannot be negative. To get around this, the <code class="docutils literal"><span class="pre">transform</span></code> method
+takes the unconstrained vector of parameters provided by the
+optimizer and returns a constrained vector of parameters used in
+likelihood evaluation. <code class="docutils literal"><span class="pre">untransform</span></code> provides the reverse
+operation.</li>
+<li><strong>param_names</strong>: this internal method can be used to set names for
+the estimated parameters so that e.g. the summary provides meaningful
+names. If not present, parameters are named <code class="docutils literal"><span class="pre">param0</span></code>, <code class="docutils literal"><span class="pre">param1</span></code>,
+etc.</li>
+</ol>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Univariate Local Linear Trend Model</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="k">class</span> <span class="nc">LocalLinearTrend</span><span class="p">(</span><span class="n">dp</span><span class="o">.</span><span class="n">ssm</span><span class="o">.</span><span class="n">MLEModel</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">endog</span><span class="p">):</span>
+        <span class="c"># Model order</span>
+        <span class="n">k_states</span> <span class="o">=</span> <span class="n">k_posdef</span> <span class="o">=</span> <span class="mi">2</span>
+
+        <span class="c"># Initialize the statespace</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">LocalLinearTrend</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span>
+            <span class="n">endog</span><span class="p">,</span> <span class="n">k_states</span><span class="o">=</span><span class="n">k_states</span><span class="p">,</span> <span class="n">k_posdef</span><span class="o">=</span><span class="n">k_posdef</span><span class="p">,</span>
+            <span class="n">initialization</span><span class="o">=</span><span class="s">&#39;approximate_diffuse&#39;</span><span class="p">,</span>
+            <span class="n">loglikelihood_burn</span><span class="o">=</span><span class="n">k_states</span>
+        <span class="p">)</span>
+
+        <span class="c"># Initialize the matrices</span>
+        <span class="bp">self</span><span class="p">[</span><span class="s">&#39;design&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+        <span class="bp">self</span><span class="p">[</span><span class="s">&#39;transition&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+                                       <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
+        <span class="bp">self</span><span class="p">[</span><span class="s">&#39;selection&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">k_states</span><span class="p">)</span>
+
+        <span class="c"># Cache some indices</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_state_cov_idx</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;state_cov&#39;</span><span class="p">,)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">diag_indices</span><span class="p">(</span><span class="n">k_posdef</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">param_names</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span><span class="s">&#39;sigma2.measurement&#39;</span><span class="p">,</span> <span class="s">&#39;sigma2.level&#39;</span><span class="p">,</span> <span class="s">&#39;sigma2.trend&#39;</span><span class="p">]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">start_params</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">endog</span><span class="p">)]</span><span class="o">*</span><span class="mi">3</span>
+
+    <span class="k">def</span> <span class="nf">transform_params</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">unconstrained</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">unconstrained</span><span class="o">**</span><span class="mi">2</span>
+
+    <span class="k">def</span> <span class="nf">untransform_params</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">constrained</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">constrained</span><span class="o">**</span><span class="mf">0.5</span>
+
+    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">transformed</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">LocalLinearTrend</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">transformed</span><span class="p">)</span>
+
+        <span class="c"># Observation covariance</span>
+        <span class="bp">self</span><span class="p">[</span><span class="s">&#39;obs_cov&#39;</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="c"># State covariance</span>
+        <span class="bp">self</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_state_cov_idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+</pre></div>
+</div>
+<p>Using this simple model, we can estimate the parameters from a local
+linear trend model. The following example is from Commandeur and Koopman
+(2007), section 3.4., modeling motor vehicle fatalities in Finland.</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="c"># Load Dataset</span>
+<span class="c"># Note: dataset from http://www.ssfpack.com/CKbook.html</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_table</span><span class="p">(</span><span class="s">&#39;data/NorwayFinland.txt&#39;</span><span class="p">,</span> <span class="n">skiprows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;date&#39;</span><span class="p">,</span> <span class="s">&#39;nf&#39;</span><span class="p">,</span> <span class="s">&#39;ff&#39;</span><span class="p">]</span>
+<span class="n">df</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="s">&#39;</span><span class="si">%d</span><span class="s">-01-01&#39;</span> <span class="o">%</span> <span class="n">df</span><span class="o">.</span><span class="n">date</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">end</span><span class="o">=</span><span class="s">&#39;</span><span class="si">%d</span><span class="s">-01-01&#39;</span> <span class="o">%</span> <span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">freq</span><span class="o">=</span><span class="s">&#39;AS&#39;</span><span class="p">)</span>
+
+<span class="c"># Log transform</span>
+<span class="n">df</span><span class="p">[</span><span class="s">&#39;lff&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s">&#39;ff&#39;</span><span class="p">])</span>
+
+<span class="c"># Setup the model</span>
+<span class="n">mod</span> <span class="o">=</span> <span class="n">LocalLinearTrend</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s">&#39;lff&#39;</span><span class="p">])</span>
+
+<span class="c"># Fit it using MLE (recall that we are fitting the three variance parameters)</span>
+<span class="n">res</span> <span class="o">=</span> <span class="n">mod</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">summary</span><span class="p">())</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre>                           Statespace Model Results
+==============================================================================
+Dep. Variable:                    lff   No. Observations:                   34
+Model:               LocalLinearTrend   Log Likelihood                  27.510
+Date:                Mon, 21 Sep 2015   AIC                            -49.020
+Time:                        14:49:40   BIC                            -44.441
+Sample:                    01-01-1970   HQIC                           -47.458
+                         - 01-01-2003
+Covariance Type:                  opg
+======================================================================================
+                         coef    std err          z      P&gt;|z|      [0.025      0.975]
+--------------------------------------------------------------------------------------
+sigma2.measurement     0.0010      0.003      0.346      0.730      -0.005       0.007
+sigma2.level           0.0074      0.005      1.564      0.118      -0.002       0.017
+sigma2.trend        2.436e-11      0.000   1.62e-07      1.000      -0.000       0.000
+===================================================================================
+Ljung-Box (Q):                       24.37   Jarque-Bera (JB):                 0.68
+Prob(Q):                              0.80   Prob(JB):                         0.71
+Heteroskedasticity (H):               0.75   Skew:                            -0.02
+Prob(H) (two-sided):                  0.64   Kurtosis:                         2.29
+===================================================================================
+
+Warnings:
+[1] Covariance matrix calculated using the outer product of gradients.
+</pre></div>
+</div>
+<p>Finally, we can do post-estimation prediction and forecasting. Notice
+that the end period can be specified as a date.</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="c"># Perform prediction and forecasting</span>
+<span class="n">predict</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">get_prediction</span><span class="p">()</span>
+<span class="n">forecast</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">get_forecast</span><span class="p">(</span><span class="s">&#39;2014&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+
+<span class="c"># Plot the results</span>
+<span class="n">df</span><span class="p">[</span><span class="s">&#39;lff&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s">&#39;k.&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">&#39;Observations&#39;</span><span class="p">)</span>
+<span class="n">predict</span><span class="o">.</span><span class="n">predicted_mean</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">&#39;One-step-ahead Prediction&#39;</span><span class="p">)</span>
+<span class="n">predict_ci</span> <span class="o">=</span> <span class="n">predict</span><span class="o">.</span><span class="n">conf_int</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">predict_ci</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">2</span><span class="p">:],</span> <span class="n">predict_ci</span><span class="o">.</span><span class="n">ix</span><span class="p">[</span><span class="mi">2</span><span class="p">:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">predict_ci</span><span class="o">.</span><span class="n">ix</span><span class="p">[</span><span class="mi">2</span><span class="p">:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+
+<span class="n">forecast</span><span class="o">.</span><span class="n">predicted_mean</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s">&#39;r&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">&#39;Forecast&#39;</span><span class="p">)</span>
+<span class="n">forecast_ci</span> <span class="o">=</span> <span class="n">forecast</span><span class="o">.</span><span class="n">conf_int</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">forecast_ci</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">forecast_ci</span><span class="o">.</span><span class="n">ix</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">forecast_ci</span><span class="o">.</span><span class="n">ix</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+
+<span class="c"># Cleanup the image</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">((</span><span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">));</span>
+<span class="n">legend</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s">&#39;lower left&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<img alt="../../_images/local_linear_trend.ipynb_9_0.png" src="../../_images/local_linear_trend.ipynb_9_0.png" />
+<div class="section" id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python"><div class="highlight"><pre>Commandeur, Jacques J. F., and Siem Jan Koopman. 2007.
+An Introduction to State Space Time Series Analysis.
+Oxford ; New York: Oxford University Press.
+
+Durbin, James, and Siem Jan Koopman. 2012.
+Time Series Analysis by State Space Methods: Second Edition.
+Oxford University Press.
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="structural_harvey_jaeger.ipynb.html" class="btn btn-neutral float-right" title="Detrending, Stylized Facts and the Business Cycle" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="sarimax_stata.ipynb.html" class="btn btn-neutral" title="SARIMAX: Introduction" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Chad Fulton.
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'0.1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
