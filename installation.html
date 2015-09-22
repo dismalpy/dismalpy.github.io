@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>DismalPy &mdash; DismalPy 0.2.1 documentation</title>
+  <title>Installation &mdash; DismalPy 0.2.1 documentation</title>
   
 
   
@@ -32,7 +32,9 @@
   
         <link rel="author" title="About these documents"
               href="about.html"/>
-    <link rel="top" title="DismalPy 0.2.1 documentation" href="#"/> 
+    <link rel="top" title="DismalPy 0.2.1 documentation" href="index.html"/>
+        <link rel="next" title="Release Notes" href="release.html"/>
+        <link rel="prev" title="Tools" href="reference/ssm/tools.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -71,7 +73,7 @@
         
           
           
-              <ul>
+              <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="user/index.html">DismalPy User Guide</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="user/ssm.html">State Space Models</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="user/ssm.html#topics">Topics</a><ul>
@@ -122,10 +124,10 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="installation.html#dependencies">Dependencies</a></li>
-<li class="toctree-l2"><a class="reference internal" href="installation.html#procedure">Procedure</a></li>
-<li class="toctree-l2"><a class="reference internal" href="installation.html#installing-from-source">Installing from source</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#dependencies">Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#procedure">Procedure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#installing-from-source">Installing from source</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="release.html">Release Notes</a><ul>
@@ -181,11 +183,11 @@
   <ul class="wy-breadcrumbs">
     <li><a href="contents.html">Docs</a> &raquo;</li>
       
-    <li>DismalPy</li>
+    <li>Installation</li>
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="_sources/index.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/installation.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -194,54 +196,69 @@
 </div>
           <div role="main" class="document">
             
-  <div class="section" id="dismalpy">
-<h1>DismalPy<a class="headerlink" href="#dismalpy" title="Permalink to this headline">¶</a></h1>
-<p>Welcome to the DismalPy documentation. DismalPy is a collection of resources
-for quantitative economics in Python.</p>
-<div class="section" id="user-guide">
-<h2>User guide<a class="headerlink" href="#user-guide" title="Permalink to this headline">¶</a></h2>
-<p>The user guide is an introduction to the package in narrative form. It is a
-good place to start.</p>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="user/index.html">DismalPy User Guide</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="user/ssm.html">State Space Models</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="user/ssm.html#topics">Topics</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="user/ssm/2-state_space_models.html">State space models</a></li>
-<li class="toctree-l4"><a class="reference internal" href="user/ssm/3-python_representation.html">Representation in Python</a></li>
-<li class="toctree-l4"><a class="reference internal" href="user/ssm/4-maximum_likelihood_estimation.html">Maximum Likelihood Estimation</a></li>
-<li class="toctree-l4"><a class="reference internal" href="user/ssm/5-posterior_simulation.html">Posterior Simulation</a></li>
-<li class="toctree-l4"><a class="reference internal" href="user/ssm/6-out-of-the-box_models.html">Out-of-the-box models</a></li>
-<li class="toctree-l4"><a class="reference internal" href="user/ssm/9-references.html">References</a></li>
+  <div class="section" id="installation">
+<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="dependencies">
+<h2>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>NumPy</li>
+<li>SciPy &gt;= 0.14.0</li>
+<li>Pandas &gt;= 0.16.0</li>
+<li>Cython &gt;= 0.20.0</li>
+<li>Statsmodels &gt;= 0.8.0; note that this has not yet been released, so for the
+time being the development version must be installed prior to installing
+DismalPy.</li>
+<li>Git (this is required to install the development version of Statsmodels)</li>
 </ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="user/ssm.html#examples">Examples</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="user/_notebooks/sarimax_internet.ipynb.html">Durbin and Koopman: Box-Jenkins Examples</a></li>
-<li class="toctree-l4"><a class="reference internal" href="user/_notebooks/sarimax_stata.ipynb.html">SARIMAX: Introduction</a></li>
-<li class="toctree-l4"><a class="reference internal" href="user/_notebooks/local_linear_trend.ipynb.html">State space modeling: Local Linear Trends</a></li>
-<li class="toctree-l4"><a class="reference internal" href="user/_notebooks/structural_harvey_jaeger.ipynb.html">Detrending, Stylized Facts and the Business Cycle</a></li>
-<li class="toctree-l4"><a class="reference internal" href="user/_notebooks/dfm_coincident.ipynb.html">Dynamic factors and coincident indices</a></li>
-<li class="toctree-l4"><a class="reference internal" href="user/_notebooks/varmax.ipynb.html">VARMAX models</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
+<p>There are a few optional dependencies:</p>
+<ul class="simple">
+<li>Matplotlib; this is required for plotting functionality</li>
+<li>Nose; this is required for running the test suite</li>
+<li>IPython; this is required for running the examples or building the
+documentation</li>
 </ul>
 </div>
-</div>
-<div class="section" id="reference-manual">
-<h2>Reference manual<a class="headerlink" href="#reference-manual" title="Permalink to this headline">¶</a></h2>
-<p>The reference manual contains detailed information about the underlying classes
-and functions. It is a good place to check for specific questings.</p>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="reference/index.html">DismalPy Reference</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="reference/ssm.html">State Space Models</a></li>
-</ul>
+<div class="section" id="procedure">
+<h2>Procedure<a class="headerlink" href="#procedure" title="Permalink to this headline">¶</a></h2>
+<p>The most straightforward way to install DismalPy is using pip. The following
+steps should be followed.</p>
+<ol class="arabic">
+<li><p class="first">Install git. Instructions are available many places, for example at
+<a class="reference external" href="https://git-scm.com/book/en/v2/Getting-Started-Installing-Git">https://git-scm.com/book/en/v2/Getting-Started-Installing-Git</a></p>
 </li>
-</ul>
+<li><p class="first">Install the development version of Statsmodels using the following command:</p>
+<div class="highlight-python"><div class="highlight"><pre>pip install git+git://github.com/statsmodels/statsmodels.git
+</pre></div>
+</div>
+</li>
+<li><p class="first">Install DismalPy</p>
+<div class="highlight-python"><div class="highlight"><pre>pip install dismalpy
+</pre></div>
+</div>
+</li>
+</ol>
+<p>At this point, the package should installed. If you have the Nose package
+installed, you can test for a successful installation by running the following
+command (this may take a few minutes):</p>
+<div class="highlight-python"><div class="highlight"><pre>python -c &quot;import dismalpy as dp; dp.test();&quot;
+</pre></div>
+</div>
+<p>There should be no failures (although a number of Warnings are to be expected).</p>
+</div>
+<div class="section" id="installing-from-source">
+<h2>Installing from source<a class="headerlink" href="#installing-from-source" title="Permalink to this headline">¶</a></h2>
+<p>Here we assume that the dependencies have already been installed (see above).</p>
+<p>The source code can be obtained from the
+<a class="reference external" href="http://github.com/dismalpy/dismalpy">Github repository</a>. If you have git
+installed (see above), you can use the following command:</p>
+<div class="highlight-python"><div class="highlight"><pre>git clone git://github.com/statsmodels/statsmodels.git
+</pre></div>
+</div>
+<p>Then assuming you have the appropriate compiler support (for example XCode on
+Mac OS X and mingw32 or the Microsoft SDK on Windows), you can build the source
+using the following command, from inside the base dismalpy directory:</p>
+<div class="highlight-python"><div class="highlight"><pre>python setup.py install
+</pre></div>
 </div>
 </div>
 </div>
@@ -249,6 +266,15 @@ and functions. It is a good place to check for specific questings.</p>
 
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="release.html" class="btn btn-neutral float-right" title="Release Notes" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="reference/ssm/tools.html" class="btn btn-neutral" title="Tools" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>
