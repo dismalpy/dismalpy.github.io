@@ -1,0 +1,15 @@
+********
+Examples
+********
+
+The following are examples of state space model functionality:
+
+.. toctree::
+   :maxdepth: 2
+
+   user/_notebooks/sarimax_internet.ipynb
+   user/_notebooks/sarimax_stata.ipynb
+   user/_notebooks/local_linear_trend.ipynb
+   user/_notebooks/structural_harvey_jaeger.ipynb
+   user/_notebooks/dfm_coincident.ipynb
+   user/_notebooks/varmax.ipynb
